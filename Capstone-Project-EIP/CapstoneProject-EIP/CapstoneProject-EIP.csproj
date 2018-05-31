@@ -46,16 +46,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.2.1\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="ElFinder.Net">
+      <HintPath>DLL\ElFinder.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SkyWeb.DatVM.Data">
+      <HintPath>DLL\SkyWeb.DatVM.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="SkyWeb.DatVM.Mvc">
+      <HintPath>DLL\SkyWeb.DatVM.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -210,6 +219,207 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Template\eventalk\404.html" />
+    <Content Include="Content\Template\eventalk\about.html" />
+    <Content Include="Content\Template\eventalk\blog-masonry.html" />
+    <Content Include="Content\Template\eventalk\blog-standard.html" />
+    <Content Include="Content\Template\eventalk\comingsoon-event.html" />
+    <Content Include="Content\Template\eventalk\contact.html" />
+    <Content Include="Content\Template\eventalk\css\animate.min.css" />
+    <Content Include="Content\Template\eventalk\css\bootstrap.min.css" />
+    <Content Include="Content\Template\eventalk\css\font-awesome.min.css" />
+    <Content Include="Content\Template\eventalk\css\font\flaticon.css" />
+    <Content Include="Content\Template\eventalk\css\font\Flaticon.svg" />
+    <Content Include="Content\Template\eventalk\css\magnific-popup.css" />
+    <Content Include="Content\Template\eventalk\css\main.css" />
+    <Content Include="Content\Template\eventalk\css\meanmenu.min.css" />
+    <Content Include="Content\Template\eventalk\css\normalize.css" />
+    <Content Include="Content\Template\eventalk\fonts\cubano-regular-webfont.html" />
+    <Content Include="Content\Template\eventalk\fonts\fontawesome-webfont3295.html" />
+    <Content Include="Content\Template\eventalk\fonts\fontawesome-webfont3295.svg" />
+    <Content Include="Content\Template\eventalk\img\404.png" />
+    <Content Include="Content\Template\eventalk\img\about\about-logo.png" />
+    <Content Include="Content\Template\eventalk\img\about\about1.jpg" />
+    <Content Include="Content\Template\eventalk\img\about\about2.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog1.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog11.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog12.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog13.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog14.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog15.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog17.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog18.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog19.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog2.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog20.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog21.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog3.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog4.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog5.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog6.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog7.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\blog8.jpg" />
+    <Content Include="Content\Template\eventalk\img\blog\comment1.png" />
+    <Content Include="Content\Template\eventalk\img\blog\comment2.png" />
+    <Content Include="Content\Template\eventalk\img\blog\comment3.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand1.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand2.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand3.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand4.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand5.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand6.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand7.png" />
+    <Content Include="Content\Template\eventalk\img\brand\brand8.png" />
+    <Content Include="Content\Template\eventalk\img\favicon.png" />
+    <Content Include="Content\Template\eventalk\img\figure\audio.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\countdown1.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\figure-icon1.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure-icon2.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure-icon3.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure-icon4.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure-icon5.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure1.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\figure1.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure2.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\figure2.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure3.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\figure3.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure4.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure5.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure6.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure8.png" />
+    <Content Include="Content\Template\eventalk\img\figure\figure9.png" />
+    <Content Include="Content\Template\eventalk\img\figure\inner-page-figure.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\play.png" />
+    <Content Include="Content\Template\eventalk\img\figure\play2.png" />
+    <Content Include="Content\Template\eventalk\img\figure\single-event1.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\single-event2.jpg" />
+    <Content Include="Content\Template\eventalk\img\figure\single-event3.jpg" />
+    <Content Include="Content\Template\eventalk\img\logo-dark.png" />
+    <Content Include="Content\Template\eventalk\img\logo-dark2.png" />
+    <Content Include="Content\Template\eventalk\img\logo.png" />
+    <Content Include="Content\Template\eventalk\img\schedule\schedule-back1.jpg" />
+    <Content Include="Content\Template\eventalk\img\schedule\schedule-back2.jpg" />
+    <Content Include="Content\Template\eventalk\img\schedule\schedule-back3.jpg" />
+    <Content Include="Content\Template\eventalk\img\schedule\schedule-back4.jpg" />
+    <Content Include="Content\Template\eventalk\img\schedule\schedule-back5.jpg" />
+    <Content Include="Content\Template\eventalk\img\schedule\schedule-back6.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\product1.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\product2.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\product3.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\product4.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\product5.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\product6.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\product7.jpg" />
+    <Content Include="Content\Template\eventalk\img\shop\single-product.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide1-1.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide1-2.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide1-3.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide3-1.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide3-2.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide3-3.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide4-1.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide4-2.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slide4-3.jpg" />
+    <Content Include="Content\Template\eventalk\img\slider\slider-curve-overlay.png" />
+    <Content Include="Content\Template\eventalk\img\slider\slider-gradient-overlay.png" />
+    <Content Include="Content\Template\eventalk\img\slider\slider-icon-overlay.png" />
+    <Content Include="Content\Template\eventalk\img\slider\slider-icon-overlay2.png" />
+    <Content Include="Content\Template\eventalk\img\slider\slider-text-img.png" />
+    <Content Include="Content\Template\eventalk\img\song.mp3" />
+    <Content Include="Content\Template\eventalk\img\speaker\singer.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\single-speaker.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker1.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker1.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker10.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker10.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker11.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker11.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker12.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker12.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker13.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker14.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker15.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker16.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker17.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker18.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker19.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker2.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker2.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker20.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker21.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker22.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker23.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker24.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker3.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker3.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker4.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker4.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker5.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker5.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker6.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker6.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker7.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker7.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker8.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker8.png" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker9.jpg" />
+    <Content Include="Content\Template\eventalk\img\speaker\speaker9.png" />
+    <Content Include="Content\Template\eventalk\index.html" />
+    <Content Include="Content\Template\eventalk\index2.html" />
+    <Content Include="Content\Template\eventalk\index3.html" />
+    <Content Include="Content\Template\eventalk\index4.html" />
+    <Content Include="Content\Template\eventalk\js\bootstrap.min.js" />
+    <Content Include="Content\Template\eventalk\js\imagesloaded.pkgd.min.js" />
+    <Content Include="Content\Template\eventalk\js\isotope.pkgd.min.js" />
+    <Content Include="Content\Template\eventalk\js\jquery-2.2.4.min.js" />
+    <Content Include="Content\Template\eventalk\js\jquery.countdown.min.js" />
+    <Content Include="Content\Template\eventalk\js\jquery.counterup.min.js" />
+    <Content Include="Content\Template\eventalk\js\jquery.magnific-popup.min.js" />
+    <Content Include="Content\Template\eventalk\js\jquery.meanmenu.min.js" />
+    <Content Include="Content\Template\eventalk\js\jquery.nav.js" />
+    <Content Include="Content\Template\eventalk\js\jquery.scrollUp.min.js" />
+    <Content Include="Content\Template\eventalk\js\jquery.zoom.min.js" />
+    <Content Include="Content\Template\eventalk\js\main-one-page.js" />
+    <Content Include="Content\Template\eventalk\js\main.js" />
+    <Content Include="Content\Template\eventalk\js\modernizr-2.8.3.min.js" />
+    <Content Include="Content\Template\eventalk\js\plugins.js" />
+    <Content Include="Content\Template\eventalk\js\popper.js" />
+    <Content Include="Content\Template\eventalk\js\validator.min.js" />
+    <Content Include="Content\Template\eventalk\js\waypoints.min.js" />
+    <Content Include="Content\Template\eventalk\js\wNumb.js" />
+    <Content Include="Content\Template\eventalk\one-page-index.html" />
+    <Content Include="Content\Template\eventalk\one-page-index2.html" />
+    <Content Include="Content\Template\eventalk\one-page-index3.html" />
+    <Content Include="Content\Template\eventalk\one-page-index4.html" />
+    <Content Include="Content\Template\eventalk\pricing-table1.html" />
+    <Content Include="Content\Template\eventalk\pricing-table2.html" />
+    <Content Include="Content\Template\eventalk\pricing-table3.html" />
+    <Content Include="Content\Template\eventalk\schedule1.html" />
+    <Content Include="Content\Template\eventalk\schedule2.html" />
+    <Content Include="Content\Template\eventalk\schedule3.html" />
+    <Content Include="Content\Template\eventalk\schedule4.html" />
+    <Content Include="Content\Template\eventalk\shop.html" />
+    <Content Include="Content\Template\eventalk\single-blog.html" />
+    <Content Include="Content\Template\eventalk\single-event.html" />
+    <Content Include="Content\Template\eventalk\single-shop.html" />
+    <Content Include="Content\Template\eventalk\single-speaker.html" />
+    <Content Include="Content\Template\eventalk\single-speakers.html" />
+    <Content Include="Content\Template\eventalk\speakers1.html" />
+    <Content Include="Content\Template\eventalk\speakers2.html" />
+    <Content Include="Content\Template\eventalk\speakers3.html" />
+    <Content Include="Content\Template\eventalk\sponsors.html" />
+    <Content Include="Content\Template\eventalk\style.css" />
+    <Content Include="Content\Template\eventalk\vendor\noUiSlider\nouislider.min.css" />
+    <Content Include="Content\Template\eventalk\vendor\noUiSlider\nouislider.min.js" />
+    <Content Include="Content\Template\eventalk\vendor\OwlCarousel\owl.carousel.min.css" />
+    <Content Include="Content\Template\eventalk\vendor\OwlCarousel\owl.carousel.min.js" />
+    <Content Include="Content\Template\eventalk\vendor\OwlCarousel\owl.theme.default.min.css" />
+    <Content Include="Content\Template\eventalk\vendor\OwlCarousel\owl.video.play.png" />
+    <Content Include="Content\Template\eventalk\vendor\slider\css\nivo-slider.css" />
+    <Content Include="Content\Template\eventalk\vendor\slider\css\preview.css" />
+    <Content Include="Content\Template\eventalk\vendor\slider\home.js" />
+    <Content Include="Content\Template\eventalk\vendor\slider\js\jquery.nivo.slider.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -219,6 +429,16 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Template\eventalk\css\font\Flaticon.eot" />
+    <Content Include="Content\Template\eventalk\css\font\Flaticon.ttf" />
+    <Content Include="Content\Template\eventalk\css\font\Flaticon.woff" />
+    <Content Include="Content\Template\eventalk\css\font\Flaticond41d.eot" />
+    <Content Include="Content\Template\eventalk\fonts\cubano-regular-webfont.woff" />
+    <Content Include="Content\Template\eventalk\fonts\fontawesome-webfont3295.eot" />
+    <Content Include="Content\Template\eventalk\fonts\fontawesome-webfont3295.ttf" />
+    <Content Include="Content\Template\eventalk\fonts\fontawesome-webfont3295.woff" />
+    <Content Include="Content\Template\eventalk\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\Template\eventalk\img\song.ogg" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -280,6 +500,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\HmsService\HmsService\HmsService\HmsService.csproj">
+      <Project>{de87dec4-2e74-4c39-b8b3-58b32997fe7e}</Project>
+      <Name>HmsService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

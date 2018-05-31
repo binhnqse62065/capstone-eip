@@ -38,10 +38,6 @@ D:\Work\Pavillon\HmsService\obj\Debug\HmsService.csprojResolveAssemblyReference.
 D:\Work\Pavillon\HmsService\obj\Debug\HmsService.csproj.CoreCompileInputs.cache
 D:\Work\Pavillon\HmsService\obj\Debug\HmsService.dll
 D:\Work\Pavillon\HmsService\obj\Debug\HmsService.pdb
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojResolveAssemblyReference.cache
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csproj.CoreCompileInputs.cache
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.pdb
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\HmsService.dll.config
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\HmsService.dll
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\HmsService.pdb
@@ -78,3 +74,47 @@ C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\H
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.Data.xml
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.WebData.xml
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csproj.CoreCompileInputs.cache
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.dll
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.pdb
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojResolveAssemblyReference.cache
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\HmsService.dll.config
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\HmsService.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\HmsService.pdb
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Autofac.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Autofac.Integration.Mvc.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\AutoMapper.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\EntityFramework.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\EntityFramework.SqlServer.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Web.Helpers.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Microsoft.WindowsAzure.Storage.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\SkyWeb.DatVM.Data.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\SkyWeb.DatVM.Mvc.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.Helpers.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.Mvc.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.Razor.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.Data.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.WebData.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Autofac.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Autofac.Integration.Mvc.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\AutoMapper.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\EntityFramework.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\EntityFramework.SqlServer.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Microsoft.WindowsAzure.Storage.pdb
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\Microsoft.WindowsAzure.Storage.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.Helpers.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.Mvc.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.Razor.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.Data.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.WebData.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojResolveAssemblyReference.cache
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csproj.CoreCompileInputs.cache
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.pdb

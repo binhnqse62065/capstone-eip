@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using HmsService.ViewModels;
+using HmsService.Models.Entities;
+using AutoMapper;
 
 namespace CapstoneProject_EIP
 {
@@ -16,6 +19,13 @@ namespace CapstoneProject_EIP
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            HmsService.ApiEndpoint.Entry(this.AdditionalMapperConfig);
+        }
+
+        public void AdditionalMapperConfig(IMapperConfiguration config)
+        {
+
+
         }
     }
 }

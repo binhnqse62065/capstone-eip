@@ -15,10 +15,10 @@ namespace HmsService.Models.Entities
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Entities : DbContext
+    public partial class HmsEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public HmsEntities()
+            : base("name=HmsEntities")
         {
         }
     

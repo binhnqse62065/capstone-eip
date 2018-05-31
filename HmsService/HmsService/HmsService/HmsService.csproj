@@ -167,6 +167,30 @@
     <Compile Include="Models\Entities\ActivityRefined.cs">
       <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\AspNetRole.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\AspNetRoleRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\AspNetUser.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\AspNetUserClaim.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\AspNetUserClaimRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\AspNetUserLogin.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\AspNetUserLoginRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\AspNetUserRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\CollectionItem.cs">
       <DependentUpon>HmsEntities.tt</DependentUpon>
     </Compile>
@@ -177,6 +201,12 @@
       <DependentUpon>HmsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\CollectionTypeRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\C__MigrationHistory.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\C__MigrationHistoryRefined.cs">
       <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\EntityRefinery.cs">
@@ -214,10 +244,25 @@
     <Compile Include="Models\Entities\Repositories\ActivityRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Repositories\AspNetRoleRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\AspNetUserClaimRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\AspNetUserLoginRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\AspNetUserRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Repositories\CollectionItemRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Repositories\CollectionTypeRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\C__MigrationHistoryRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Repositories\EventCollectionRepositoryGen.cs">
@@ -237,15 +282,31 @@
     <Compile Include="Models\Entities\Services\ActivityServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\AspNetRoleServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Services\AspNetUserClaimServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Services\AspNetUserLoginServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Services\AspNetUserServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Services\CollectionItemServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Services\CollectionTypeServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\C__MigrationHistoryServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Services\EventCollectionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\EventService.cs" />
     <Compile Include="Models\Entities\Services\EventServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -283,11 +344,26 @@
     <Compile Include="Sdk\ActivityApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\AspNetRoleApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\AspNetUserApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\AspNetUserClaimApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\AspNetUserLoginApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sdk\BaseSdkApi.cs" />
     <Compile Include="Sdk\CollectionItemApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
     <Compile Include="Sdk\CollectionTypeApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\C__MigrationHistoryApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
     <Compile Include="Sdk\EventApiGen.cs">
@@ -307,10 +383,25 @@
     <Compile Include="ViewModels\ActivityViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AspNetRoleViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserClaimViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserLoginViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CollectionItemViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CollectionTypeViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\C__MigrationHistoryViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\EventCollectionViewModelGen.cs">
