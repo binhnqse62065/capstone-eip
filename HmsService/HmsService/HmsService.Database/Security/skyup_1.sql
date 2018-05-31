@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [skyup]
+    WITH PASSWORD = N'{zmxjhrfk2n{QwkkhJsttxPzmsFT7_&#$!~<gx{YiVugjk0%', SID = 0xF6F40A83A27F004AB58C2F56C89C7AB0, DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

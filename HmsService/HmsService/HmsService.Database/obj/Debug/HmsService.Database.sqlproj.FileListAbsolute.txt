@@ -1,0 +1,14 @@
+F:\Wisky_2\HMSService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.dacpac
+F:\Wisky_2\HMSService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.dll
+F:\Wisky_2\HMSService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.pdb
+F:\Wisky_2\HMSService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.dll
+F:\Wisky_2\HMSService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.pdb
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.dacpac
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.dll
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.pdb
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\Model.xml
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\refactor.xml
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\postdeploy.sql
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\predeploy.sql
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.dll
+C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.pdb

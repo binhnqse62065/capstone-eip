@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="046713dc98d74e2c87334e332696233b" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="HmsEntities.GroupMembershipCard" Width="1.5" PointX="3" PointY="108.375" />
+        <AssociationConnector Association="HmsEntities.FK_GroupMembershipCard_Brand" />
+        <AssociationConnector Association="HmsEntities.FK_MembershipCard_GroupMembershipCard" />
+        <EntityTypeShape EntityType="HmsEntities.CollectionItem" Width="1.5" PointX="5.25" PointY="1.875" />
+        <EntityTypeShape EntityType="HmsEntities.CollectionType" Width="1.5" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="HmsEntities.Event" Width="1.5" PointX="0.75" PointY="2.625" />
+        <EntityTypeShape EntityType="HmsEntities.EventCollection" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="HmsEntities.Session" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="HmsEntities.Activity" Width="1.5" PointX="5.25" PointY="5.875" />
+        <AssociationConnector Association="HmsEntities.FK_CollectionItem_EventCollection" />
+        <AssociationConnector Association="HmsEntities.FK_EventCollection_CollectionType" />
+        <AssociationConnector Association="HmsEntities.FK_EventCollection_Event" />
+        <AssociationConnector Association="HmsEntities.FK_Session_Event" />
+        <AssociationConnector Association="HmsEntities.FK_Activity_Session" />
+        <EntityTypeShape EntityType="HmsEntities.C__MigrationHistory" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetRole" Width="1.5" PointX="7.375" PointY="2.5" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUserClaim" Width="1.5" PointX="11.875" PointY="1" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUserLogin" Width="1.5" PointX="11.875" PointY="3.75" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUser" Width="1.5" PointX="9.625" PointY="1.375" />
+        <AssociationConnector Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="HmsEntities.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="HmsEntities.AspNetUserRoles" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

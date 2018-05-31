@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HmsEntitiesStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="CollectionItems">
+      <EntityTypeMapping TypeName="HmsEntities.CollectionItem">
+        <MappingFragment StoreEntitySet="CollectionItem">
+          <ScalarProperty Name="EventCollectionId" ColumnName="EventCollectionId" />
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CollectionItemID" ColumnName="CollectionItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CollectionTypes">
+      <EntityTypeMapping TypeName="HmsEntities.CollectionType">
+        <MappingFragment StoreEntitySet="CollectionType">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CollectionTypeID" ColumnName="CollectionTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="HmsEntities.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventCollections">
+      <EntityTypeMapping TypeName="HmsEntities.EventCollection">
+        <MappingFragment StoreEntitySet="EventCollection">
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EventCollectionID" ColumnName="EventCollectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sessions">
+      <EntityTypeMapping TypeName="HmsEntities.Session">
+        <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="HmsEntities.Activity">
+        <MappingFragment StoreEntitySet="Activity">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[Account] (
+    [AccountID]           INT            IDENTITY (1, 1) NOT NULL,
+    [AccountCode]         NVARCHAR (50)  NOT NULL,
+    [AccountName]         NVARCHAR (100) NOT NULL,
+    [AccountNameEnglish]  NVARCHAR (100) NULL,
+    [CategoryID]          SMALLINT       NOT NULL,
+    [Level_]              SMALLINT       NOT NULL,
+    [ParentID]            INT            NULL,
+    [IsDetailAccount]     BIT            CONSTRAINT [DF__ACCOUNT__IsDetai__208CD6FA] DEFAULT ((0)) NOT NULL,
+    [CurrencyID]          INT            NOT NULL,
+    [StartDate]           DATETIME       NULL,
+    [FinishDate]          DATETIME       NULL,
+    [IsCredit]            BIT            NOT NULL,
+    [IsAsset]             BIT            NOT NULL,
+    [Inactive]            BIT            CONSTRAINT [DF__ACCOUNT__Inactiv__2645B050] DEFAULT ((0)) NOT NULL,
+    [Balance]             INT            NULL,
+    [LatestUpdateBalance] DATETIME       NULL,
+    [BankName]            NVARCHAR (500) NULL,
+    [BankAccountNo]       NVARCHAR (50)  NULL,
+    [OwnerName]           NVARCHAR (255) NULL,
+    [CustomerID]          INT            NULL,
+    CONSTRAINT [aaaaaACCOUNT_PK] PRIMARY KEY NONCLUSTERED ([AccountID] ASC),
+    CONSTRAINT [FK_Account_Customer] FOREIGN KEY ([CustomerID]) REFERENCES [dbo].[Customer] ([CustomerID]),
+    CONSTRAINT [IX_AccountCode] UNIQUE NONCLUSTERED ([AccountCode] ASC)
+);
+

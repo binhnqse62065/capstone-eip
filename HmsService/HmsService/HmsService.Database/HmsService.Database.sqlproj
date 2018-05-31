@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>HmsService.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{5382cf0e-14c2-4a88-9d84-51f182925165}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>HmsService.Database</RootNamespace>
+    <AssemblyName>HmsService.Database</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Functions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Account.sql" />
+    <Build Include="dbo\Tables\InventoryChecking.sql" />
+    <Build Include="dbo\Tables\SessionDivision.sql" />
+    <Build Include="dbo\Tables\Menu.sql" />
+    <Build Include="dbo\Tables\SessionProduct.sql" />
+    <Build Include="dbo\Tables\Applications.sql" />
+    <Build Include="dbo\Tables\CustomerType.sql" />
+    <Build Include="dbo\Tables\SessionProductItem.sql" />
+    <Build Include="dbo\Tables\MenuRole.sql" />
+    <Build Include="dbo\Tables\Store.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\CustomerStore.sql" />
+    <Build Include="dbo\Tables\StoreUser.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\CustomerProduct.sql" />
+    <Build Include="dbo\Tables\SubRentGroup.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\InventoryCheckingItem.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\Task.sql" />
+    <Build Include="dbo\Tables\BookingSource.sql" />
+    <Build Include="dbo\Tables\TotalBooking.sql" />
+    <Build Include="dbo\Tables\CategoryPriceGroup.sql" />
+    <Build Include="dbo\Tables\Transaction.sql" />
+    <Build Include="dbo\Tables\ComboDetail.sql" />
+    <Build Include="dbo\Tables\ReportTracking.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\Cost.sql" />
+    <Build Include="dbo\Tables\Provider.sql" />
+    <Build Include="dbo\Tables\CostCategory.sql" />
+    <Build Include="dbo\Tables\UsersInRoles.sql" />
+    <Build Include="dbo\Tables\Currency.sql" />
+    <Build Include="dbo\Tables\Customer.sql" />
+    <Build Include="dbo\Tables\VoucherCampaign.sql" />
+    <Build Include="dbo\Tables\WebMenu.sql" />
+    <Build Include="dbo\Tables\DateProductItem.sql" />
+    <Build Include="dbo\Tables\VoucherProvider.sql" />
+    <Build Include="dbo\Tables\Group.sql" />
+    <Build Include="dbo\Tables\Guest.sql" />
+    <Build Include="dbo\Tables\WebMenuCategory.sql" />
+    <Build Include="dbo\Tables\GuestRent.sql" />
+    <Build Include="dbo\Tables\HotelInfo.sql" />
+    <Build Include="dbo\Tables\Article.sql" />
+    <Build Include="dbo\Tables\DateReport.sql" />
+    <Build Include="dbo\Tables\DateProduct.sql" />
+    <Build Include="dbo\Tables\InventoryDateReport.sql" />
+    <Build Include="dbo\Tables\BlogPost.sql" />
+    <Build Include="dbo\Tables\ItemCategory.sql" />
+    <Build Include="dbo\Tables\Composition.sql" />
+    <Build Include="dbo\Tables\OrderDetail.sql" />
+    <Build Include="dbo\Tables\Rent.sql" />
+    <Build Include="dbo\Tables\OrderFeeItem.sql" />
+    <Build Include="dbo\Tables\Payment.sql" />
+    <Build Include="dbo\Tables\BlogCategory.sql" />
+    <Build Include="dbo\Tables\PriceAddition.sql" />
+    <Build Include="dbo\Tables\Product.sql" />
+    <Build Include="dbo\Tables\InventoryReceipt.sql" />
+    <Build Include="dbo\Tables\ProductCategory.sql" />
+    <Build Include="dbo\Tables\InventoryDateReportItem.sql" />
+    <Build Include="dbo\Tables\ProductDetail.sql" />
+    <Build Include="dbo\Tables\ProductExtra.sql" />
+    <Build Include="dbo\Tables\TokenUser.sql" />
+    <Build Include="dbo\Tables\ProductItem.sql" />
+    <Build Include="dbo\Tables\Profiles.sql" />
+    <Build Include="dbo\Tables\Voucher.sql" />
+    <Build Include="dbo\Tables\Quota.sql" />
+    <Build Include="dbo\Tables\PriceGroup.sql" />
+    <Build Include="dbo\Tables\InventoryReceiptItem.sql" />
+    <Build Include="dbo\Tables\RentGroup.sql" />
+    <Build Include="dbo\Tables\Room.sql" />
+    <Build Include="dbo\Tables\Roles.sql" />
+    <Build Include="dbo\Tables\DateHotelReport.sql" />
+    <Build Include="dbo\Tables\RoomFloor.sql" />
+    <Build Include="dbo\Tables\RoomCategory.sql" />
+    <Build Include="dbo\Tables\WebPage.sql" />
+    <Build Include="dbo\Tables\PriceNight.sql" />
+    <Build Include="dbo\Tables\Session.sql" />
+    <Build Include="dbo\Tables\StoreDomain.sql" />
+    <Build Include="dbo\Tables\__MigrationHistory.sql" />
+    <Build Include="Security\devSkyplus.sql" />
+    <Build Include="Security\devSkyplus_1.sql" />
+    <Build Include="Security\skyup.sql" />
+    <Build Include="Security\skyup_1.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="dbo\Functions\CalculateDiscountOrder.sql" />
+    <Build Include="dbo\Functions\CalculateTotalAmount.sql" />
+    <Build Include="dbo\Functions\CalculateRentTotalQuantity.sql" />
+    <Build Include="dbo\Functions\CurrentOrderDetailStore.sql" />
+  </ItemGroup>
+</Project>
