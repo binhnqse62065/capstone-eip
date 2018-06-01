@@ -219,6 +219,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\Template\eventalk\404.html" />
     <Content Include="Content\Template\eventalk\about.html" />
     <Content Include="Content\Template\eventalk\blog-masonry.html" />
