@@ -17,7 +17,8 @@ namespace CapstoneProject_EIP
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Scripts/modernizr-*",
+                        "~/Content/Template/eventalk/js/modernizr-2.8.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
@@ -25,7 +26,19 @@ namespace CapstoneProject_EIP
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/style.css",
+                      "~/Content/Template/eventalk/style.css",
+                      "~/Content/Template/eventalk/css/normalize.css",
+                      "~/Content/Template/eventalk/css/bootstrap.min.css",
+                      "~/Content/Template/eventalk/css/main.css",
+                      "~/Content/Template/eventalk/css/animate.min.css",
+                      "~/Content/Template/eventalk/css/font-awesome.min.css",
+                      "~/Content/Template/eventalk/css/font/flaticon.css",
+                      "~/Content/Template/eventalk/css/meanmenu.min.css",
+                      "~/Content/Template/eventalk/css/magnific-popup.css",
+                      "~/Content/Template/eventalk/vendor/slider/css/nivo-slider.css",
+                      "~/Content/Template/eventalk/vendor/slider/css/preview.css"));
         }
     }
 }
