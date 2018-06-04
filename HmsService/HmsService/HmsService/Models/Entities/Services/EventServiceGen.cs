@@ -22,5 +22,6 @@ namespace HmsService.Models.Entities.Services
         public EventService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IEventRepository repository) : base(unitOfWork, repository)
         {
         }
+
     }
 }
