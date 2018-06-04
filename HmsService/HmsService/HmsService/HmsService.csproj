@@ -366,6 +366,7 @@
     <Compile Include="Sdk\C__MigrationHistoryApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\EventApi.cs" />
     <Compile Include="Sdk\EventApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>

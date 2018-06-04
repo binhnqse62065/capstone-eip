@@ -12,8 +12,8 @@ namespace CapstoneProject_EIP.Controllers
         public ActionResult Index()
         {
             EventApi eventApi = new EventApi();
-            var list = eventApi.BaseService.GetAllEvent().ToList();
-            return View(list);
+            var currEvent = eventApi.BaseService.GetEventById(1);
+            return View(currEvent);
         }
 
         public ActionResult About()
