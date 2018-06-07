@@ -145,4 +145,3 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\b
 D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csproj.CoreCompileInputs.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.pdb
-D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojResolveAssemblyReference.cache
