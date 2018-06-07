@@ -6,7 +6,7 @@
     <members>
         <member name="T:Microsoft.ApplicationInsights.Web.Implementation.HttpRequestExtensions">
             <summary>
-            HttpRequest Extensions.
+            HttpRequest extension methods.
             </summary>
             <summary>
             HttpRequest Extensions.
