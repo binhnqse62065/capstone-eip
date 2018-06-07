@@ -13,7 +13,15 @@ namespace CapstoneProject_EIP.Controllers
         {
             EventApi eventApi = new EventApi();
             var currEvent = eventApi.BaseService.GetEventById(1);
-            return View(currEvent);
+            if(currEvent.TemplateId == 1)
+            {
+                return View("Index", currEvent);
+            }
+            else
+            {
+                return View("Index_2", currEvent);
+            }
+            
         }
 
         public ActionResult About()

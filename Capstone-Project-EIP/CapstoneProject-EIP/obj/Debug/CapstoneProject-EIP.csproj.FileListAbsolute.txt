@@ -145,13 +145,10 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.VisualBasic.Core.targets
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Win32.Primitives.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.AppContext.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Console.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.Process.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.StackTrace.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Compression.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Pipes.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.AccessControl.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Claims.dll
@@ -160,7 +157,6 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Principal.Windows.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Text.Encoding.CodePages.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Threading.Thread.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.ValueTuple.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.ReaderWriter.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.XmlDocument.dll
@@ -220,7 +216,6 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Razor.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\WebGrease.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.dll.config
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.xml
@@ -258,3 +253,7 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CoreCompileInputs.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.pdb
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.xml
