@@ -1,134 +1,7 @@
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\ApplicationInsights.config
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.exe
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.exe.config
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.rsp
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csi.exe
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csi.exe.config
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csi.rsp
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Win32.Primitives.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.AppContext.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Console.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.Process.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Compression.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Pipes.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.AccessControl.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Claims.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Encoding.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Primitives.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Principal.Windows.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Text.Encoding.CodePages.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Threading.Thread.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.ValueTuple.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.ReaderWriter.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.XmlDocument.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.XPath.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.XPath.XDocument.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\vbc.exe
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\vbc.exe.config
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\vbc.rsp
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\VBCSCompiler.exe
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll.config
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.pdb
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Antlr3.Runtime.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.SqlServer.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.Agent.Intercept.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.DependencyCollector.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.PerfCounterCollector.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.ServerTelemetryChannel.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.Web.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.WindowsServer.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.ApplicationInsights.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Core.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Owin.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Host.SystemWeb.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Cookies.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Facebook.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Google.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.OAuth.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Twitter.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Newtonsoft.Json.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Owin.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Helpers.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Mvc.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Optimization.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Razor.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Deployment.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Razor.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\WebGrease.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Helpers.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Mvc.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Optimization.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Razor.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Deployment.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Razor.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Antlr3.Runtime.pdb
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Newtonsoft.Json.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.SqlServer.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Core.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Owin.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Host.SystemWeb.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Facebook.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Cookies.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.OAuth.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Google.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Twitter.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.ApplicationInsights.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.DependencyCollector.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.ServerTelemetryChannel.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.WindowsServer.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.Web.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csprojResolveAssemblyReference.cache
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CoreCompileInputs.cache
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.pdb
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\AutoMapper.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\AutoMapper.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.xml
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\ElFinder.Net.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\SkyWeb.DatVM.Data.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\SkyWeb.DatVM.Mvc.dll
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.pdb
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.dll.config
-C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\ApplicationInsights.config
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll.config
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.exe
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.exe.config
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.rsp
@@ -144,16 +17,24 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CSharp.Core.targets
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Managed.Core.targets
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.VisualBasic.Core.targets
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.AppContext.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Collections.Immutable.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Console.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.StackTrace.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Compression.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Pipes.AccessControl.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Pipes.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Reflection.Metadata.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.AccessControl.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Claims.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Primitives.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Principal.Windows.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Text.Encoding.CodePages.dll
@@ -167,17 +48,9 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\vbc.rsp
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\VBCSCompiler.exe
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\VBCSCompiler.exe.config
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Collections.Immutable.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.Primitives.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Reflection.Metadata.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Primitives.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll.config
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Antlr3.Runtime.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\AutoMapper.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\ElFinder.Net.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.dll
@@ -219,15 +92,16 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.dll.config
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\AutoMapper.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Helpers.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Mvc.xml
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Optimization.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Razor.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Deployment.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Razor.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Optimization.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Antlr3.Runtime.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Newtonsoft.Json.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.xml
@@ -253,141 +127,3 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CoreCompileInputs.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.pdb
-<<<<<<< HEAD
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Managed.Core.targets
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Pipes.AccessControl.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.xml
-=======
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\ApplicationInsights.config
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.exe
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.exe.config
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csc.rsp
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csi.exe
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csi.exe.config
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\csi.rsp
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.CSharp.Core.targets
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.VisualBasic.Core.targets
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\Microsoft.Win32.Primitives.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.AppContext.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Collections.Immutable.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Console.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.Process.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Diagnostics.StackTrace.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Compression.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.FileSystem.Primitives.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.IO.Pipes.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Reflection.Metadata.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.AccessControl.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Claims.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Algorithms.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Encoding.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.Primitives.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Security.Principal.Windows.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Text.Encoding.CodePages.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Threading.Thread.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.ValueTuple.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.ReaderWriter.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.XmlDocument.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.XPath.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\System.Xml.XPath.XDocument.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\vbc.exe
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\vbc.exe.config
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\vbc.rsp
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\VBCSCompiler.exe
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\roslyn\VBCSCompiler.exe.config
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll.config
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\CapstoneProject-EIP.pdb
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Antlr3.Runtime.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\AutoMapper.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\ElFinder.Net.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.SqlServer.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.Agent.Intercept.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.DependencyCollector.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.PerfCounterCollector.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.ServerTelemetryChannel.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.Web.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.WindowsServer.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.ApplicationInsights.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Core.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.EntityFramework.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Owin.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Host.SystemWeb.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Cookies.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Facebook.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Google.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.OAuth.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Twitter.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Web.Infrastructure.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Newtonsoft.Json.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Owin.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\SkyWeb.DatVM.Data.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\SkyWeb.DatVM.Mvc.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Helpers.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Mvc.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Optimization.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Razor.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Deployment.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Razor.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\WebGrease.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.Integration.Mvc.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.pdb
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\HmsService.dll.config
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Autofac.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\AutoMapper.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Helpers.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Mvc.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Optimization.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Razor.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Deployment.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.WebPages.Razor.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Antlr3.Runtime.pdb
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Newtonsoft.Json.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\EntityFramework.SqlServer.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Core.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.Owin.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Host.SystemWeb.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Facebook.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Cookies.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.OAuth.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Google.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.Twitter.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.ApplicationInsights.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.DependencyCollector.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.ServerTelemetryChannel.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.WindowsServer.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.Web.xml
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csprojAssemblyReference.cache
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CoreCompileInputs.cache
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CopyComplete
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.pdb
->>>>>>> origin/anhth
