@@ -31,12 +31,25 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="C__MigrationHistory" EntityType="HmsEntities.C__MigrationHistory" />
+    <EntitySet Name="AspNetRoles" EntityType="HmsEntities.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="HmsEntities.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="HmsEntities.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="HmsEntities.AspNetUser" />
     <EntitySet Name="CollectionItems" EntityType="HmsEntities.CollectionItem" />
     <EntitySet Name="CollectionTypes" EntityType="HmsEntities.CollectionType" />
     <EntitySet Name="Events" EntityType="HmsEntities.Event" />
     <EntitySet Name="EventCollections" EntityType="HmsEntities.EventCollection" />
     <EntitySet Name="Sessions" EntityType="HmsEntities.Session" />
     <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
     <AssociationSet Name="FK_CollectionItem_EventCollection" Association="HmsEntities.FK_CollectionItem_EventCollection">
       <End Role="EventCollection" EntitySet="EventCollections" />
       <End Role="CollectionItem" EntitySet="CollectionItems" />
@@ -57,19 +70,6 @@
       <End Role="Session" EntitySet="Sessions" />
       <End Role="Activity" EntitySet="Activities" />
     </AssociationSet>
-    <EntitySet Name="C__MigrationHistory" EntityType="HmsEntities.C__MigrationHistory" />
-    <EntitySet Name="AspNetRoles" EntityType="HmsEntities.AspNetRole" />
-    <EntitySet Name="AspNetUserClaims" EntityType="HmsEntities.AspNetUserClaim" />
-    <EntitySet Name="AspNetUserLogins" EntityType="HmsEntities.AspNetUserLogin" />
-    <EntitySet Name="AspNetUsers" EntityType="HmsEntities.AspNetUser" />
-    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
-    </AssociationSet>
-    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-      <End Role="AspNetUser" EntitySet="AspNetUsers" />
-      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
-    </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="HmsEntities.AspNetUserRoles">
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -86,138 +86,6 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
-  <EntityType Name="CollectionItem">
-    <Key>
-      <PropertyRef Name="CollectionItemID" />
-    </Key>
-    <Property Name="CollectionItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Desciption" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
-  </EntityType>
-  <EntityType Name="CollectionType">
-    <Key>
-      <PropertyRef Name="CollectionTypeID" />
-    </Key>
-    <Property Name="CollectionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="CollectionType" ToRole="EventCollection" />
-  </EntityType>
-  <EntityType Name="Event">
-    <Key>
-      <PropertyRef Name="EventID" />
-    </Key>
-    <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="StartTime" Type="DateTime" Precision="3" />
-    <Property Name="EndTime" Type="DateTime" Precision="3" />
-    <Property Name="CreateTime" Type="DateTime" Precision="3" />
-    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="Event" ToRole="EventCollection" />
-    <NavigationProperty Name="Sessions" Relationship="HmsEntities.FK_Session_Event" FromRole="Event" ToRole="Session" />
-  </EntityType>
-  <EntityType Name="EventCollection">
-    <Key>
-      <PropertyRef Name="EventCollectionID" />
-    </Key>
-    <Property Name="EventCollectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="EventId" Type="Int32" Nullable="false" />
-    <Property Name="TypeId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
-    <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="EventCollection" ToRole="CollectionType" />
-    <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="EventCollection" ToRole="Event" />
-  </EntityType>
-  <EntityType Name="Session">
-    <Key>
-      <PropertyRef Name="SessionID" />
-    </Key>
-    <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="StartTime" Type="DateTime" Precision="3" />
-    <Property Name="EndTime" Type="DateTime" Precision="3" />
-    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="EventId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
-    <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
-  </EntityType>
-  <EntityType Name="Activity">
-    <Key>
-      <PropertyRef Name="ActivityID" />
-      <PropertyRef Name="SessionId" />
-    </Key>
-    <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SessionId" Type="Int32" Nullable="false" />
-    <Property Name="StartTime" Type="DateTime" Precision="3" />
-    <Property Name="EndTime" Type="DateTime" Precision="3" />
-    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
-  </EntityType>
-  <Association Name="FK_CollectionItem_EventCollection">
-    <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="1" />
-    <End Type="HmsEntities.CollectionItem" Role="CollectionItem" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="EventCollection">
-        <PropertyRef Name="EventCollectionID" />
-      </Principal>
-      <Dependent Role="CollectionItem">
-        <PropertyRef Name="EventCollectionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_EventCollection_CollectionType">
-    <End Type="HmsEntities.CollectionType" Role="CollectionType" Multiplicity="1" />
-    <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CollectionType">
-        <PropertyRef Name="CollectionTypeID" />
-      </Principal>
-      <Dependent Role="EventCollection">
-        <PropertyRef Name="TypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_EventCollection_Event">
-    <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
-    <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Event">
-        <PropertyRef Name="EventID" />
-      </Principal>
-      <Dependent Role="EventCollection">
-        <PropertyRef Name="EventId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Session_Event">
-    <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
-    <End Type="HmsEntities.Session" Role="Session" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Event">
-        <PropertyRef Name="EventID" />
-      </Principal>
-      <Dependent Role="Session">
-        <PropertyRef Name="EventId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Activity_Session">
-    <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
-    <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Session">
-        <PropertyRef Name="SessionID" />
-      </Principal>
-      <Dependent Role="Activity">
-        <PropertyRef Name="SessionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="C__MigrationHistory">
     <Key>
       <PropertyRef Name="MigrationId" />
@@ -277,6 +145,79 @@
     <NavigationProperty Name="AspNetUserLogins" Relationship="HmsEntities.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetRoles" Relationship="HmsEntities.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
   </EntityType>
+  <EntityType Name="CollectionItem">
+    <Key>
+      <PropertyRef Name="CollectionItemID" />
+    </Key>
+    <Property Name="CollectionItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Desciption" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
+  </EntityType>
+  <EntityType Name="CollectionType">
+    <Key>
+      <PropertyRef Name="CollectionTypeID" />
+    </Key>
+    <Property Name="CollectionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="CollectionType" ToRole="EventCollection" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TemplateId" Type="Int32" />
+    <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="Event" ToRole="EventCollection" />
+    <NavigationProperty Name="Sessions" Relationship="HmsEntities.FK_Session_Event" FromRole="Event" ToRole="Session" />
+  </EntityType>
+  <EntityType Name="EventCollection">
+    <Key>
+      <PropertyRef Name="EventCollectionID" />
+    </Key>
+    <Property Name="EventCollectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
+    <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="EventCollection" ToRole="CollectionType" />
+    <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="EventCollection" ToRole="Event" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="SessionID" />
+    </Key>
+    <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
+    <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
+  </EntityType>
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+      <PropertyRef Name="SessionId" />
+    </Key>
+    <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SessionId" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
+  </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Type="HmsEntities.AspNetUser" Role="AspNetUser" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -302,6 +243,66 @@
       </Principal>
       <Dependent Role="AspNetUserLogin">
         <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CollectionItem_EventCollection">
+    <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="1" />
+    <End Type="HmsEntities.CollectionItem" Role="CollectionItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EventCollection">
+        <PropertyRef Name="EventCollectionID" />
+      </Principal>
+      <Dependent Role="CollectionItem">
+        <PropertyRef Name="EventCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventCollection_CollectionType">
+    <End Type="HmsEntities.CollectionType" Role="CollectionType" Multiplicity="1" />
+    <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollectionType">
+        <PropertyRef Name="CollectionTypeID" />
+      </Principal>
+      <Dependent Role="EventCollection">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EventCollection_Event">
+    <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
+    <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="EventCollection">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Session_Event">
+    <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
+    <End Type="HmsEntities.Session" Role="Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Activity_Session">
+    <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
+    <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="SessionID" />
+      </Principal>
+      <Dependent Role="Activity">
+        <PropertyRef Name="SessionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
