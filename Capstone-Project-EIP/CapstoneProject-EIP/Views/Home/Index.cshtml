@@ -71,7 +71,7 @@
                         <ul class="upcoming-event-info">
                             <li>@(time)</li>
                             @*<li>Tobacco Dock, London</li>*@
-                            <li>@Html.Raw(Model.Address)</li>
+                            <li>@Html.Raw(Model.Address )</li>
                         </ul>
                         <img src="~/Content/Template/eventalk/img/slider/slider-text-img.png" alt="slider" class="img-responsive">
                         <div class="countdown-layout3">
@@ -194,26 +194,6 @@
                                 </a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a href="#schedule4" data-toggle="tab" aria-expanded="false">
-                                <div class="day-number">@Html.Raw(Model.Sessions.ElementAt(1).Name)</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#schedule5" data-toggle="tab" aria-expanded="false" class="">
-                                <div class="day-number">@Html.Raw(Model.Sessions.ElementAt(1).Name)</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#schedule5" data-toggle="tab" aria-expanded="false" class="">
-                                <div class="day-number">@Html.Raw(Model.Sessions.ElementAt(1).Name)</div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#schedule5" data-toggle="tab" aria-expanded="false" class="">
-                                <div class="day-number">@Html.Raw(Model.Sessions.ElementAt(1).Name)</div>
-                            </a>
-                        </li>
                     </ul>
                     <div class="schedule-content">
                         <div class="tab-content">

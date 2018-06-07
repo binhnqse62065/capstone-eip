@@ -12,3 +12,8 @@ C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\H
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\predeploy.sql
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.dll
 C:\Users\Nguyen Quang Binh\Desktop\Capstone\Final-Project\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.pdb
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.dacpac
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\bin\Debug\HmsService.Database.pdb
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService.Database\obj\Debug\HmsService.Database.pdb

@@ -1,0 +1,391 @@
+﻿@using HmsService.Models.Entities;
+@using System.Globalization;
+@model Event
+@{
+    var listBannerImage = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 1).CollectionItems;
+    var listSpeaker = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
+    var listSponsor = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 3).CollectionItems;
+
+    var startTime = Model.StartTime;
+    var endTime = Model.EndTime;
+    string startMonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(startTime.Value.Month);
+    string endMonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(endTime.Value.Month);
+    var time = startTime.Value.Day + " " + startMonthName + " - " + endTime.Value.Day + " " + endMonthName;
+    if (startTime.Value.Month == endTime.Value.Month)
+    {
+        time = startTime.Value.Day + " - " + endTime.Value.Day + " " + endMonthName;
+    }
+    ViewBag.Title = "Index_2";
+}
+
+<div id="preloader" class="preloader">
+    <div class="items">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+</div>
+
+<div id="wrapper" class="wrapper box-layout">
+    <!-- Slider Area Start Here -->
+    <div class="slider-area slider-layout4 slider-direction-layout2" id="fixed-type-slider">
+        <div class="bend niceties preview-1">
+            <div id="ensign-nivoslider-3" class="slides">
+                @for (int i = 0; i < listBannerImage.Count(); i++)
+                {
+                    <img src="@(listBannerImage.ElementAt(i).ImageUrl)" alt="slider" title="#slider-direction-@(i)" />
+                }
+            </div>
+            @for (int i = 0; i < listBannerImage.Count(); i++)
+            {
+                <div id="slider-direction-@(i)" class="t-cn slider-direction">
+                    <div class="slider-content s-tb slide-1">
+                        <div class="title-container s-tb-c title-light">
+                            <div class="container text-left">
+                                <div class="slider-big-text second-line">
+                                    <p>@(Model.Name)</p>
+                                </div>
+                                <div class="slider-btn-area forth-line margin-t-30">
+                                    <a href="#" class="btn-ghost color-yellow">Buy Tickets Now!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- Slider Area End Here -->
+    <!-- Countdown Area Start Here -->
+    <section>
+        <div class="container-fluid">
+            <div class="row no-gutters full-width">
+                <div class="col-lg-4">
+                    <div class="height-100 d-flex align-items-center bg-primary">
+                        <div class="upcoming-event-layout2 zindex-up">
+                            <h2>East Tobaco</h2>
+                            <div class="event-location">@(Model.Address)</div>
+                            <div class="event-date">@(time)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="countdown-layout1">
+                        <div id="countdown"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Countdown Area End Here -->
+    <!-- About Area Start Here -->
+    <section class="section-space-custom-less30 bg-common bg-accent" style="background-image: url(img/figure/figure3.png);">
+        <div class="container-fluid">
+            <div class="about-layout3">
+                <img src="~/Content/Template/eventalk/img/about/about-logo.png" alt="logo" class="img-fluid">
+                <p>
+                    @(Model.EventDescription)
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- About Page Area End Here -->
+    <!-- Speaker Area Start Here -->
+    <section class="section-space-default-less54 overlay-icon-layout3 bg-common bg-primary">
+        <div class="container zindex-up">
+            <div class="section-heading title-black color-light text-center">
+                <h2>Event Speakers</h2>
+                <p>Dorem ipsum dolor sit. Incidunt laborum beatae earum nihil onsequuntur officia</p>
+            </div>
+            <div class="row">
+                @foreach (var item in listSpeaker)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-6 col-mb-12">
+                        <div class="speaker-layout1">
+                            <div class="item-img">
+                                <img src="@(item.ImageUrl)" alt="speaker" class="img-fluid rounded-circle">
+                                <div class="item-social">
+                                    <ul>
+                                        <li>
+                                            <a href="#" title="facebook">
+                                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="twitter">
+                                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="linkedin">
+                                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="pinterest">
+                                                <i class="fa fa-pinterest" aria-hidden="true"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="item-title">
+                                <h3 class="title-medium size-lg color-light hover-yellow">
+                                    <a href="single-speaker.html">@(item.Name)</a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="col-lg-3 col-md-6 col-sm-6 col-6 col-mb-12">
+                    <div class="speaker-layout1">
+                        <div class="item-img">
+                            <img src="~/Content/Template/eventalk/img/speaker/speaker1.png" alt="speaker" class="img-fluid rounded-circle">
+                            <div class="item-social">
+                                <ul>
+                                    <li>
+                                        <a href="#" title="facebook">
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="twitter">
+                                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="linkedin">
+                                            <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="pinterest">
+                                            <i class="fa fa-pinterest" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="item-title">
+                            <h3 class="title-medium size-lg color-light hover-yellow">
+                                <a href="single-speaker.html">Daizy Chirs</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Speaker Area End Here -->
+    <!-- Pricing Table Area Start Here -->
+    <section class="section-space-default-less30 bg-accent overlay-icon-layout2">
+        <div class="container zindex-up">
+            <div class="section-heading title-black color-dark text-center">
+                <h2>Pricing</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="price-table-layout2">
+                        <div class="tpt-header">
+                            <div class="tpt-header-bottom">
+                                <span class="currency">$</span>
+                                <span class="amount">29</span>
+                            </div>
+                            <div class="tpt-header-top">
+                                <h3 class="tpt-title">Starter</h3>
+                            </div>
+                        </div>
+                        <div class="tpt-body">
+                            <ul class="tpt-body-items">
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">25 Free Images, All Image Optimize,</div>
+                                </li>
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">Transparent Images, Everything,</div>
+                                </li>
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">24/7 Customer support.</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tpt-footer">
+                            <a href="#" class="tpt-footer-btn">Buy Ticket</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="price-table-layout2">
+                        <div class="tpt-header">
+                            <div class="tpt-header-bottom">
+                                <span class="currency">$</span>
+                                <span class="amount">49</span>
+                            </div>
+                            <div class="tpt-header-top">
+                                <h3 class="tpt-title">Business</h3>
+                            </div>
+                        </div>
+                        <div class="tpt-body">
+                            <ul class="tpt-body-items">
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">25 Free Images, All Image Optimize,</div>
+                                </li>
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">Transparent Images, Everything,</div>
+                                </li>
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">24/7 Customer support.</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tpt-footer">
+                            <a href="#" class="tpt-footer-btn">Buy Ticket</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="price-table-layout2">
+                        <div class="tpt-header">
+                            <div class="tpt-header-bottom">
+                                <span class="currency">$</span>
+                                <span class="amount">99</span>
+                            </div>
+                            <div class="tpt-header-top">
+                                <h3 class="tpt-title">Platinum</h3>
+                            </div>
+                        </div>
+                        <div class="tpt-body">
+                            <ul class="tpt-body-items">
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">25 Free Images, All Image Optimize,</div>
+                                </li>
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">Transparent Images, Everything,</div>
+                                </li>
+                                <li class="tpt-body-item">
+                                    <span class="tpt-body-item-icon"></span>
+                                    <div class="tpt-body-item-content">24/7 Customer support.</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tpt-footer">
+                            <a href="#" class="tpt-footer-btn">Buy Ticket</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Pricing Table Area End Here -->
+    <!-- Schedule Area Start Here -->
+    <section class="section-space-default bg-light">
+        <div class="container zoom-gallery menu-list-wrapper">
+            <div class="section-heading title-black color-dark text-center">
+                <h2>Schedule</h2>
+               
+            </div>
+            <div class="schedule-layout3">
+                <ul class="schedule-nav nav nav-tabs">
+                    @for (int i = 0; i < Model.Sessions.Count(); i++)
+                    {
+                        <li class="nav-item">
+                            <a href="#schedule@(i)" data-toggle="tab" aria-expanded="false" class="@(i == 0 ? "active" : "")">
+                                <div class="day-number">@(Model.Sessions.ElementAt(i).Name)</div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+
+            <div class="schedule-content">
+                <div class="tab-content">
+                    @for (int i = 0; i < Model.Sessions.Count; i++)
+                    {
+                        var activityItem = Model.Sessions.ElementAt(i).Activities;
+                        <div role="tabpanel" class="tab-pane fade @(i == 0 ? "active show" : "")" id="schedule@(i)">
+                            <div class="table-responsive">
+                                <table class="table table-striped schedule-layout1">
+                                    <tbody class="menu-list">
+                                        @for (int j = 0; j < activityItem.Count(); j++)
+                                        {
+                                            <tr class="menu-item @(j > 0 ? "hidden" : "")">
+                                                <th>
+                                                    <div class="day-number">Day - 01</div>
+                                                    <div class="schedule-date">@(activityItem.ElementAt(j).StartTime.Value.ToShortDateString())</div>
+                                                </th>
+                                                <td>
+                                                    <div class="schedule-title">
+                                                        <a>@(activityItem.ElementAt(j).Name)</a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="schedule-time">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>@(activityItem.ElementAt(j).StartTime.Value.ToShortTimeString())
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a href="#" title="More Schedule" class="loadmore-one-item btn-fill size-lg border-radius-5 color-yellow margin-t-50">More Schedule</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Schedule Area End Here -->
+    <!-- Sponsonrs Area Start Here -->
+    <section class="section-space-default bg-light">
+        <div class="container">
+            <div class="section-heading title-black color-dark text-center">
+                <h2>Offcial Sponsonrs &amp; Partner</h2>
+                <p>Check Who Makes This Event Possible!</p>
+            </div>
+            <div class="sponsonrs-layout1">
+                <div class="row">
+                    @foreach (var item in listSponsor)
+                    {
+                        <div class="col-md-3 col-sm-6 col-12">
+                            <div class="sponsonrs-box">
+                                <a href="#">
+                                    <img src="@(item.ImageUrl)" alt="brand" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- Sponsonrs Area End Here -->
+</div>
