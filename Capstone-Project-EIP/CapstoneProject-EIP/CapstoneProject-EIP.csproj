@@ -422,6 +422,9 @@
     <Content Include="Content\Template\eventalk\vendor\slider\css\preview.css" />
     <Content Include="Content\Template\eventalk\vendor\slider\home.js" />
     <Content Include="Content\Template\eventalk\vendor\slider\js\jquery.nivo.slider.js" />
+    <Content Include="DLL\ElFinder.Net.dll" />
+    <Content Include="DLL\SkyWeb.DatVM.Data.dll" />
+    <Content Include="DLL\SkyWeb.DatVM.Mvc.dll" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

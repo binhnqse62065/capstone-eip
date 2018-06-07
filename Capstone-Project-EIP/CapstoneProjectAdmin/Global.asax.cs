@@ -16,6 +16,12 @@ namespace CapstoneProjectAdmin
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            HmsService.ApiEndpoint.Entry(this.AdditionalMappingConfig);
+
+        }
+
+        private void AdditionalMappingConfig(global::AutoMapper.IMapperConfiguration obj)
+        {
         }
     }
 }
