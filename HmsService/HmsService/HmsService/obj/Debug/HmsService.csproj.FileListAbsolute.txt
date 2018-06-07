@@ -214,3 +214,4 @@ E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\roslyn\VBCSCompiler
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\roslyn\VBCSCompiler.exe.config
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojResolveAssemblyReference.cache
