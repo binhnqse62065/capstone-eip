@@ -157,7 +157,6 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Microsoft.AI.WindowsServer.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Microsoft.AI.Web.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Autofac.Integration.Mvc.xml
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.csprojResolveAssemblyReference.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.csproj.CoreCompileInputs.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.pdb
@@ -209,3 +208,5 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\roslyn\vbc.rsp
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\roslyn\VBCSCompiler.exe
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\roslyn\VBCSCompiler.exe.config
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.csprojAssemblyReference.cache
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.csproj.CopyComplete
