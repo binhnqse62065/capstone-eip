@@ -1,0 +1,46 @@
+﻿@using HmsService.Models.Entities;
+@model Event
+@{
+                /**/
+
+                ViewBag.Title = "Edit";
+}
+@using (Html.BeginForm("Update", "Home"))
+{
+
+    <img src="~/Content/img/background-wifi-2.png" class="img-responsive">
+    <div class="clearfix"></div>
+    
+    <div class="col-sm-8">
+
+
+
+        <div class="form-group">
+            <div class="col-sm-4 evtinfo">@Html.LabelFor(e => e.Name)</div>
+            <div class="col-sm-8 evtinfo">@Html.TextBoxFor(e => e.Name, new { @class = "form-control" })</div>
+        </div>
+
+        <div class="form-group evtinfo">
+            <div class="col-sm-4">@Html.LabelFor(e => e.StartTime)</div>
+            <div class="col-sm-8">@Html.TextBoxFor(e => e.StartTime, new { @class = "form-control" })</div>
+        </div>
+
+        <div class="form-group evtinfo">
+            <div class="col-sm-4">@Html.LabelFor(e => e.Address)</div>
+            <div class="col-sm-8">@Html.TextBoxFor(e => e.Address, new { @class = "form-control" })</div>
+        </div>
+
+        <div class="form-group evtinfo">
+            <div class="col-sm-4">@Html.LabelFor(e => e.EventDescription)</div>
+            <div class="col-sm-8">@Html.TextBoxFor(e => e.EventDescription, new { @class = "form-control" })</div>
+        </div>
+        @Html.HiddenFor(e => e.EventID)
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+
+    <div class="col-sm-4">......</div>
+
+
+}
+
+

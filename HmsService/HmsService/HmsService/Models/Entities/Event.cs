@@ -11,7 +11,8 @@ namespace HmsService.Models.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Event
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,11 +23,17 @@ namespace HmsService.Models.Entities
         }
     
         public int EventID { get; set; }
+
+        [Display(Name = "Event Name")]
         public string Name { get; set; }
+
+        [Display(Name = "Discription")]
         public string EventDescription { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
         public Nullable<System.DateTime> EndTime { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
+
+        
         public string Address { get; set; }
         public Nullable<int> TemplateId { get; set; }
     
