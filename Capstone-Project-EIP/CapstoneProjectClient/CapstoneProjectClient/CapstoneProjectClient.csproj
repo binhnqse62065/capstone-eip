@@ -368,6 +368,7 @@
     <Content Include="Content\bootstrap\Dashboard\index.html" />
     <Content Include="Content\bootstrap\Dashboard\use.fontawesome.com\99347ac47f.js" />
     <Content Include="Content\bootstrap\Dashboard\www.google-analytics.com\analytics.js" />
+    <Content Include="Content\CustomCss\main.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
