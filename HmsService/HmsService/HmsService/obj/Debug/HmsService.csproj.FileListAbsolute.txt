@@ -114,7 +114,6 @@ E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\System.Web.WebPages.Razor.xml
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.Data.xml
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\WebMatrix.WebData.xml
-E:\Study\GitClone\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojAssemblyReference.cache
 E:\Study\GitClone\HmsService\HmsService\HmsService\obj\Debug\HmsService.csproj.CoreCompileInputs.cache
 E:\Study\GitClone\HmsService\HmsService\HmsService\obj\Debug\HmsService.csproj.CopyComplete
 E:\Study\GitClone\HmsService\HmsService\HmsService\obj\Debug\HmsService.dll
@@ -216,3 +215,14 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\o
 D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csproj.CopyComplete
 D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.pdb
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.AspNet.SignalR.SystemWeb.dll
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.dll
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.Security.dll
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Owin.dll
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.AspNet.SignalR.SystemWeb.xml
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.xml
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.Security.xml

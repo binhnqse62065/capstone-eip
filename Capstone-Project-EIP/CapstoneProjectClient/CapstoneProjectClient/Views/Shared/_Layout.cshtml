@@ -42,14 +42,14 @@
             </div>
             <div class="main-menu">
                 <ul id="side-main-menu" class="side-menu list-unstyled">
-                    <li class="active"><a href="index-2.html"> <i class="icon-home"></i><span>Home</span></a></li>
-                    <li> <a href="forms.html"><i class="icon-form"></i><span>Timeline</span></a></li>
-                    <li> <a href="charts.html"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
-                    <li> <a href="tables.html"> <i class="fa fa-check-circle-o"> </i><span>Voting</span></a></li>
-                    <li> <a href="login.html"> <i class="fa fa-video-camera"></i><span>Livestream</span></a></li>
-                    <li> <a href="login.html"> <i class="fa fa-users"></i><span>Speaker</span></a></li>
-                    <li> <a href="login.html"> <i class="fa fa-users"></i><span>Sponsor</span></a></li>
-                    <li> <a href="login.html"> <i class="fa fa-sign-out"></i><span>Logout</span></a></li>
+                    <li class="active"><a href="@Url.Action("Index", "Home")"> <i class="icon-home"></i><span>Home</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Timeline")"><i class="icon-form"></i><span>Timeline</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Question")"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Voting")"> <i class="fa fa-check-circle-o"> </i><span>Voting</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Livestream")"> <i class="fa fa-video-camera"></i><span>Livestream</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Speaker")"> <i class="fa fa-users"></i><span>Speaker</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Sponsor")"> <i class="fa fa-users"></i><span>Sponsor</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Logout")"> <i class="fa fa-sign-out"></i><span>Logout</span></a></li>
                     @*<li>
                             <a href="#">
                                 <i class="icon-mail"></i><span>Demo</span>
@@ -94,8 +94,7 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <div class="navbar-header">
                             <a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index-2.html" class="navbar-brand">
-                                <div class="brand-text hidden-sm-down"><span>Bootstrap </span><strong class="text-primary">Dashboard</strong></div>
-                            </a>
+                           </a>
                         </div>
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                             @*<li class="nav-item dropdown">
