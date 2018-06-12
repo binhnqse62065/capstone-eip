@@ -63,6 +63,8 @@ namespace CapstoneProjectClient
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            app.MapSignalR();
         }
     }
 }
