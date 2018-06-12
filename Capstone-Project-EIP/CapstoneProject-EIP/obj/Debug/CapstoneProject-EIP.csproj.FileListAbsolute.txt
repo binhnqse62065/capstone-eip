@@ -249,7 +249,6 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.WindowsServer.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\bin\Microsoft.AI.Web.xml
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csprojResolveAssemblyReference.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CoreCompileInputs.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.pdb
@@ -387,3 +386,5 @@ E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstonePro
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CopyComplete
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.pdb
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csprojAssemblyReference.cache
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CopyComplete
