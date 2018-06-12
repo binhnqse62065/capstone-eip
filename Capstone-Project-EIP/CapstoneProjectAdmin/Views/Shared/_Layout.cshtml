@@ -8,6 +8,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/jquery-ui/themes/base/jquery-ui.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -34,10 +35,11 @@
     <link rel="stylesheet" href="~/Content/CustomCss/admin.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
 
 
     <!-- jQuery 3 -->
-    <script src="~/Content/AdminLTE-master/bower_components/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/Content/AdminLTE-master/bower_components/jquery/dist/jquery.min.js"></script>*@
     <!-- jQuery UI 1.11.4 -->
     <script src="~/Content/AdminLTE-master/bower_components/jquery-ui/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -47,8 +49,19 @@
     <!-- Bootstrap 3.3.7 -->
     <script src="~/Content/AdminLTE-master/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Morris.js charts -->
-    <script src="~/Content/AdminLTE-master/bower_components/raphael/raphael.min.js"></script>
-    <script src="~/Content/AdminLTE-master/bower_components/morris.js/morris.min.js"></script>
+    @*<script src="~/Content/AdminLTE-master/bower_components/raphael/raphael.min.js"></script>
+    <script src="~/Content/AdminLTE-master/bower_components/morris.js/morris.min.js"></script>*@
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/Content/AdminLTE-master/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Content/AdminLTE-master/dist/js/demo.js"></script>
+    <!--Ck Editor-->
+    <script src="~/Content/AdminLTE-master/bower_components/ckeditor/ckeditor.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/Content/AdminLTE-master/bower_components/moment/moment.js"></script>
+    <script src="~/Content/AdminLTE-master/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap datepicker -->
+    <script src="~/Content/AdminLTE-master/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <!-- Sparkline -->
     <script src="~/Content/AdminLTE-master/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
     <!-- jvectormap -->
@@ -69,10 +82,8 @@
     <script src="~/Content/AdminLTE-master/bower_components/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
     <script src="~/Content/AdminLTE-master/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="~/Content/AdminLTE-master/dist/js/pages/dashboard.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/Content/AdminLTE-master/dist/js/demo.js"></script>
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -558,13 +569,28 @@
             reserved.
         </footer>
     </div>
-   
+
+
+
 
 
     
-
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('editor1');
+
+            //Date range picker
+            $('#reservation').daterangepicker();
+
+            $('#reservation').on("focus", function () {
+                console.log("AAA");
+            });
+
+        });
+    </script>
 </body>
 </html>

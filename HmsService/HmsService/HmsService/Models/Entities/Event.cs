@@ -30,7 +30,7 @@ namespace HmsService.Models.Entities
         [Display(Name = "Discription")]
         public string EventDescription { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
+        public Nullable<System.DateTime> EndTime { get; set; } 
         public Nullable<System.DateTime> CreateTime { get; set; }
 
         

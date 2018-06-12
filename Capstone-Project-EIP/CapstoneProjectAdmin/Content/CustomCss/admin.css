@@ -13,3 +13,11 @@
 .evtinfo{
     margin-top:10px;
 }
+
+.leftside{
+    margin-left:250px;
+}
+
+.input-group-addon:first-child {
+    width:40px;
+}
