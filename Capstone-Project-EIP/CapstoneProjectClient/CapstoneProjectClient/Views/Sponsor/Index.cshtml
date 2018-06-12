@@ -1,7 +1,26 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Sponsor";
 }
 
-<h2>Sponsor</h2>
+@using HmsService.Models.Entities;
+@model Event
+
+@{
+    var listSponsor = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 3).CollectionItems;
+}
+<div class="row">
+    @{
+        foreach (var item in listSponsor)
+        {
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="sponsonrs-box">
+                    <a href="#">
+                        <img src="@(item.ImageUrl)" alt="brand" class="img-fluid">
+                    </a>
+                </div>
+            </div>
+        }
+    }
+
+</div>
 

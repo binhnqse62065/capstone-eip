@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using HmsService.Sdk;
+
 
 namespace CapstoneProjectClient.Controllers
 {
@@ -11,7 +13,9 @@ namespace CapstoneProjectClient.Controllers
         // GET: Sponsor
         public ActionResult Index()
         {
-            return View();
+            EventApi eventApi = new EventApi();
+            var eventCurr = eventApi.BaseService.GetEventById(1);
+            return View(eventCurr);
         }
     }
 }

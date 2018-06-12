@@ -226,3 +226,4 @@ E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.AspNet.Si
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.xml
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
 E:\Study\GitClone\HmsService\HmsService\HmsService\bin\Debug\Microsoft.Owin.Security.xml
+E:\Study\GitClone\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojAssemblyReference.cache
