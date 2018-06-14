@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Speaker";
+}
+
+
+@using HmsService.Models.Entities;
+@model Event
+
+@{
+    var listSpeaker = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
+}
+<div class="row">
+    @{
+        foreach (var item in listSpeaker)
+        {
+            <div class="col-md-4 col-sm-8 col-12">
+                <div class="sponsonrs-box">
+                    <div>
+                        <img class="img-fluid" src="@(item.ImageUrl)" alt="brand">
+                    </div>
+                    <div class="item-title">
+                        <h3 class="title title-medium" style="text-align:center">
+                            <a>@(item.Name)</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
