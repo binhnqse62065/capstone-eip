@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using HmsService.Sdk;
 using HmsService.Models.Entities.Services;
+using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json.Linq;
 
 namespace CapstoneProjectClient.Controllers
 {
@@ -12,9 +14,12 @@ namespace CapstoneProjectClient.Controllers
     {
         public ActionResult Index()
         {
+
             EventApi eventApi = new EventApi();
             var eventCurr = eventApi.BaseService.GetEventById(1);
             return View();
+            
+
         }
 
         public ActionResult About()

@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using CapstoneProjectClient.Models;
-
+[assembly: OwinStartup(typeof(CapstoneProjectClient.Startup))]
 namespace CapstoneProjectClient
 {
     public partial class Startup

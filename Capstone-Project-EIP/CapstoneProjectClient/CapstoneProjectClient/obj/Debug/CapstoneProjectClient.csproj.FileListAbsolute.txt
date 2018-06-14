@@ -91,3 +91,9 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Microsoft.AI.Web.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Autofac.Integration.Mvc.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\obj\Debug\CapstoneProjectClient.csprojAssemblyReference.cache
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Microsoft.AspNet.SignalR.Client.dll
+D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Microsoft.AspNet.SignalR.Client.xml

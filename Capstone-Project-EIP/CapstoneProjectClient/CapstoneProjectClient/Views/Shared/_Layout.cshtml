@@ -206,27 +206,28 @@
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/jquery.nicescroll.min.js"></script>
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/jquery.validate.min.js"></script>
-    <script src="~/Content/bootstrap/Dashboard/cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    @*<script src="~/Content/bootstrap/Dashboard/cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>*@
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/charts-home.js"></script>
     <script src="~/Content/bootstrap/Dashboard/www.google-analytics.com/analytics.js"></script>
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/front.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
     <!--Signal R-->
-    <script src="~/signalr/hubs"></script>
+
     <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="http://localhost:59917/signalr/hubs"></script>
 
 
     @RenderSection("scripts", required: false)
     <!---->
     <script>
-                                                        //    (function (b, o, i, l, e, r) {
-                                                        //        b.GoogleAnalyticsObject = l; b[l] || (b[l] =
-                                                        //            function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
-                                                        //        e = o.createElement(i); r = o.getElementsByTagName(i)[0];
-                                                        //        e.src = '~/Content/bootstrap/Dashboard/www.google-analytics.com/analytics.js';
-                                                        //        r.parentNode.insertBefore(e, r)
-                                                        //    }(window, document, 'script', 'ga'));
-                                                        //ga('create', 'UA-XXXXX-X'); ga('send', 'pageview');
+                                                                //    (function (b, o, i, l, e, r) {
+                                                                //        b.GoogleAnalyticsObject = l; b[l] || (b[l] =
+                                                                //            function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
+                                                                //        e = o.createElement(i); r = o.getElementsByTagName(i)[0];
+                                                                //        e.src = '~/Content/bootstrap/Dashboard/www.google-analytics.com/analytics.js';
+                                                                //        r.parentNode.insertBefore(e, r)
+                                                                //    }(window, document, 'script', 'ga'));
+                                                                //ga('create', 'UA-XXXXX-X'); ga('send', 'pageview');
 
     </script>
 
