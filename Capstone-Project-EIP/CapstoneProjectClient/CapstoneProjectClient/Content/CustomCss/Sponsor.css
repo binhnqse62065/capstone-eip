@@ -1,8 +1,18 @@
-﻿.boxShadow {
+﻿.box-sponsor-shadow {
     box-shadow: 5px 10px 20px 7px #888888;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
 }
 
 .image-sponsor-custom {
     width: 269px;
     height: 202px;
+}
+
+@media screen and (max-width: 600px) {
+    .image-sponsor-custom {
+        width: 100%;
+        height: auto;
+    }
 }

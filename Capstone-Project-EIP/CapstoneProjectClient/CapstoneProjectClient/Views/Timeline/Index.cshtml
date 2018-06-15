@@ -2,6 +2,59 @@
 @{
     ViewBag.Title = "Timeline";
 }
+@using HmsService.Models.Entities;
 
-<h2>Timeline</h2>
+@model Event
+    @{ 
+        var listTimeline = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Timelines.OrderByDescending(e => e.StartTime);
+    }
+
+<div class="container">
+    <div class="page-header">
+        <h1 id="timeline">Timeline</h1>
+    </div>
+
+    <ul class="timeline">
+        @{
+            int i = 1;
+            foreach (var item in listTimeline)
+            {
+                if (i % 2 == 1)
+                {
+                    <li>
+                        <div class="timeline-badge"><i id="icon-custom" class="fa fa-check-square-o"></i></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">@(item.TimelineTitle)</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>
+                                    @(item.TimelineDetail)
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    i++;
+                }
+                else
+                {
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge warning"><i id="icon-custom" class="fa fa-check-square-o"></i></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">@(item.TimelineTitle)</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>
+                                    @(item.TimelineDetail)
+                                </p>
+                            </div>
+                        </div>
+                    </li> 
+                    i++;
+                }
+            }
+        }
+    </ul>
+</div>
 

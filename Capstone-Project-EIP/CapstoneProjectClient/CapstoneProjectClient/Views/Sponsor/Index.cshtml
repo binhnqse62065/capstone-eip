@@ -14,8 +14,8 @@
         int i = 0;
         foreach (var item in listSponsor)
         {
-            <div class="col-md-3 col-sm-6 col-12">
-                <div class="boxShadow">
+            <div class="col-md-3 col-sm-4 col-12">
+                <div class="box-sponsor-shadow">
                     <a href="" data-toggle="modal" data-target="#sponsorModal@(i)"><img src="@(item.ImageUrl)" alt="brand" class="img-fluid image-sponsor-custom"></a>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <p>@(item.Desciption)</p>
+                            <p>@(item.Description)</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

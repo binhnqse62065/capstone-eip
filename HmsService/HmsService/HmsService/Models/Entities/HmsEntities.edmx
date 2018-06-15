@@ -15,12 +15,9 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="SessionId" />
           </Key>
           <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
@@ -86,7 +83,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="CollectionItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Desciption" Type="varchar" MaxLength="250" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
           <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
           <Property Name="EventCollectionId" Type="int" Nullable="false" />
         </EntityType>
@@ -130,6 +127,16 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <Property Name="EndTime" Type="datetime" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="EventId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Timeline">
+          <Key>
+            <PropertyRef Name="TimelineId" />
+          </Key>
+          <Property Name="TimelineId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionId" Type="int" />
+          <Property Name="TimelineTitle" Type="varchar" MaxLength="50" />
+          <Property Name="TimelineDetail" Type="nvarchar" MaxLength="250" />
+          <Property Name="StartTime" Type="datetime" />
         </EntityType>
         <Association Name="FK_Activity_Session">
           <End Role="Session" Type="Self.Session" Multiplicity="1" />
@@ -247,8 +254,21 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Timeline_Session">
+          <End Role="Session" Type="Self.Session" Multiplicity="0..1" />
+          <End Role="Timeline" Type="Self.Timeline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Session">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="Timeline">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HmsEntitiesStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -259,16 +279,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventCollection" EntityType="Self.EventCollection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Activity" EntityType="Self.Activity" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Activity].[ActivityID] AS [ActivityID], 
-    [Activity].[Name] AS [Name], 
-    [Activity].[SessionId] AS [SessionId], 
-    [Activity].[StartTime] AS [StartTime], 
-    [Activity].[EndTime] AS [EndTime], 
-    [Activity].[Description] AS [Description]
-    FROM [dbo].[Activity] AS [Activity]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Timeline" EntityType="Self.Timeline" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Activity_Session" Association="Self.FK_Activity_Session">
             <End Role="Session" EntitySet="Session" />
             <End Role="Activity" EntitySet="Activity" />
@@ -304,6 +315,10 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <AssociationSet Name="FK_Session_Event" Association="Self.FK_Session_Event">
             <End Role="Event" EntitySet="Event" />
             <End Role="Session" EntitySet="Session" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Timeline_Session" Association="Self.FK_Timeline_Session">
+            <End Role="Session" EntitySet="Session" />
+            <End Role="Timeline" EntitySet="Timeline" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -342,6 +357,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="C__MigrationHistory" EntityType="HmsEntities.C__MigrationHistory" />
+          <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
           <EntitySet Name="AspNetRoles" EntityType="HmsEntities.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="HmsEntities.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="HmsEntities.AspNetUserLogin" />
@@ -351,7 +367,11 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <EntitySet Name="Events" EntityType="HmsEntities.Event" />
           <EntitySet Name="EventCollections" EntityType="HmsEntities.EventCollection" />
           <EntitySet Name="Sessions" EntityType="HmsEntities.Session" />
-          <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
+          <EntitySet Name="Timelines" EntityType="HmsEntities.Timeline" />
+          <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
+            <End Role="Session" EntitySet="Sessions" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -376,9 +396,9 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             <End Role="Event" EntitySet="Events" />
             <End Role="Session" EntitySet="Sessions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
+          <AssociationSet Name="FK_Timeline_Session" Association="HmsEntities.FK_Timeline_Session">
             <End Role="Session" EntitySet="Sessions" />
-            <End Role="Activity" EntitySet="Activities" />
+            <End Role="Timeline" EntitySet="Timelines" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="HmsEntities.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -405,6 +425,18 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SessionId" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -461,7 +493,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="CollectionItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Desciption" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
@@ -512,22 +544,33 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <Property Name="EndTime" Type="DateTime" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
           <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
+          <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
+          <NavigationProperty Name="Timelines" Relationship="HmsEntities.FK_Timeline_Session" FromRole="Session" ToRole="Timeline" />
         </EntityType>
-        <EntityType Name="Activity">
+        <EntityType Name="Timeline">
           <Key>
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="SessionId" />
+            <PropertyRef Name="TimelineId" />
           </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SessionId" Type="Int32" Nullable="false" />
+          <Property Name="TimelineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="Int32" />
+          <Property Name="TimelineTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimelineDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="StartTime" Type="DateTime" Precision="3" />
-          <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
+          <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Timeline_Session" FromRole="Timeline" ToRole="Session" />
         </EntityType>
+        <Association Name="FK_Activity_Session">
+          <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
+          <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Session">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="HmsEntities.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -604,14 +647,14 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Activity_Session">
-          <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
-          <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
+        <Association Name="FK_Timeline_Session">
+          <End Type="HmsEntities.Session" Role="Session" Multiplicity="0..1" />
+          <End Type="HmsEntities.Timeline" Role="Timeline" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Session">
               <PropertyRef Name="SessionID" />
             </Principal>
-            <Dependent Role="Activity">
+            <Dependent Role="Timeline">
               <PropertyRef Name="SessionId" />
             </Dependent>
           </ReferentialConstraint>
@@ -633,6 +676,18 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="HmsEntities.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -686,7 +741,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
               <MappingFragment StoreEntitySet="CollectionItem">
                 <ScalarProperty Name="EventCollectionId" ColumnName="EventCollectionId" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CollectionItemID" ColumnName="CollectionItemID" />
               </MappingFragment>
@@ -737,15 +792,14 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="HmsEntities.Activity">
-              <MappingFragment StoreEntitySet="Activity">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <EntitySetMapping Name="Timelines">
+            <EntityTypeMapping TypeName="HmsEntities.Timeline">
+              <MappingFragment StoreEntitySet="Timeline">
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="TimelineDetail" ColumnName="TimelineDetail" />
+                <ScalarProperty Name="TimelineTitle" ColumnName="TimelineTitle" />
                 <ScalarProperty Name="SessionId" ColumnName="SessionId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="TimelineId" ColumnName="TimelineId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

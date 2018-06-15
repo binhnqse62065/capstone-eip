@@ -57,9 +57,6 @@
     <Reference Include="AutoMapper, Version=4.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.4.2.0\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="HmsService">
-      <HintPath>..\..\..\HmsService\HmsService\HmsService\bin\Debug\HmsService.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -388,6 +385,7 @@
     <Content Include="Content\CustomCss\main.css" />
     <Content Include="Content\CustomCss\speaker.css" />
     <Content Include="Content\CustomCss\sponsor.css" />
+    <Content Include="Content\CustomCss\timeline.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -485,6 +483,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\HmsService\HmsService\HmsService\HmsService.csproj">
+      <Project>{de87dec4-2e74-4c39-b8b3-58b32997fe7e}</Project>
+      <Name>HmsService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

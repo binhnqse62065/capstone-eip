@@ -293,6 +293,9 @@
     <Compile Include="Models\Entities\Repositories\SessionRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Repositories\TimelineRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Services\ActivityServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -332,6 +335,9 @@
     <Compile Include="Models\Entities\Services\SessionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\TimelineServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Session.cs">
       <DependentUpon>HmsEntities.tt</DependentUpon>
     </Compile>
@@ -343,6 +349,12 @@
     </Compile>
     <Compile Include="Models\Entities\sp_helpdiagrams_Result.cs">
       <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Timeline.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\TimelineRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityExtensions.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -395,6 +407,9 @@
     <Compile Include="Sdk\SessionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\TimelineApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ActivityViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
@@ -426,6 +441,9 @@
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\SessionViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimelineViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModel.cs">
@@ -516,6 +534,9 @@
     <None Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Models\Entities\HmsEntities.edmx.diagram.orig">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-3.1.0.min.map" />
     <None Include="Scripts\jquery-3.1.0.slim.min.map" />
   </ItemGroup>
