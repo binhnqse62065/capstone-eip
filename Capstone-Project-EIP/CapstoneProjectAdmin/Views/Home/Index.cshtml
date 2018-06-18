@@ -1,6 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
-    var listBannerImage = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 1).CollectionItems;
+                /**/
+
+                ViewBag.Title = "Home Page";
+                var listBannerImage = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 1).CollectionItems;
 }
 @using HmsService.Models.Entities;
 @model Event
@@ -20,9 +22,9 @@
                     <span>View</span>
                 </a>
             </div>
-            
+
         </div>
-        
+
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -50,8 +52,7 @@
 
 
         <div class="col-sm-6">
-        <img src="~/Content/img/background-wifi-2.png" class="img-responsive">
+            <img src="~/Content/img/background-wifi-2.png" class="img-responsive">
         </div>
     </div>
 </div>
-

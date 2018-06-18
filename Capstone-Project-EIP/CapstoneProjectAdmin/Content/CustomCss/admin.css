@@ -21,3 +21,7 @@
 .input-group-addon:first-child {
     width:40px;
 }
+
+.modal-dialog{
+    left:unset !important;
+}
