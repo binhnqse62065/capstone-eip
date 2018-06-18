@@ -1,14 +1,109 @@
-﻿
+﻿@using HmsService.Models.Entities;
+@model QA
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Q&A";
 }
 
-<h2>Chat</h2>
-<div class="container">
+@*<div class="container">
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="hidden" id="displayname" />
     <ul id="discussion"></ul>
+</div>*@
+
+<div class="container">
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Post Question</button>
+
+
+    <div class="col-md-12 col-xs-12">
+        <div class="row">
+            <button type="button" class="btn btn-default btn-sm btn-lastest-question">Lastest Question</button> &nbsp;
+            <button type="button" class="btn btn-default btn-sm">Hotest Question</button>
+        </div>
+    </div>
+    
+    <div class="col-md-12 col-xs-12">
+        <div class="row qa-container" id="qa-container">
+            @foreach (var item in Model.Questions)
+            {
+            <div class="card list-qa">
+                <div class="card main-qa">
+                    <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
+                    <p class="like-rep">
+                        <span><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(item.NumberOfLike)</i></span>
+                        <span class="btn-reply" data-toggle="modal" data-target="#myModal"><i class="fa fa-reply" aria-hidden="true"></i> Reply</span>
+                        <input type="hidden" value="@(item.QuestionId)" />
+                    </p>
+                    <span class="create-time">@(item.CreateTime)</span>
+
+                </div>
+                
+                @foreach (var subItem in item.Comments)
+                {
+                <div class="card-header list-answer">
+                    <span>@(subItem.Username): </span>
+                    <span>@(subItem.CommentContent)</span>
+                    <br />
+                    <span>@(subItem.CreateTime)</span>
+                    <br />
+
+                </div>
+                }
+
+            </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<!--Template list QA-->
+<div style="display:none;" id="list-qa">
+    <div class="card list-qa">
+        <div class="card main-qa">
+            <span class="username-content"></span>
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"><span class="number-of-like"> &nbsp; &nbsp; <i class="fa fa-reply" aria-hidden="true"></i>&nbsp; Reply</span></i>
+
+            <span class="create-time"></span>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal Post New Question -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Post Question</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Input your name</label>
+                    <input type="text" id="txtUsername" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea class="form-control" id="txtContent"></textarea>
+                </div>
+                <input type="checkbox" id="btnHiddenUser"  /> Post with incognito
+                
+            </div>
+            <div class="modal-footer">
+                <button id="btnSendQuestion" type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
 </div>
 @section scripts {
     <script>
@@ -22,12 +117,28 @@
 
             // Start the connection.
             $.connection.hub.start().done(function () {
-                console.log("Success");
-                $('#sendmessage').click(function () {
+                $('#btnSendQuestion').click(function () {
                     // Call the Send method on the hub.
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    // Clear text box and reset focus for next comment.
-                    $('#message').val('').focus();
+                    chat.server.send($('#txtUsername').val(), $('#txtContent').val());
+
+                    $.ajax({
+                        url: "api/Questions",
+                        method: "POST",
+                        data: {
+                            Username: $('#txtUsername').val(),
+                            QuestionContent: $('#txtContent').val()
+                        },
+                        success: function () {
+                            var listQa = $('#list-qa').clone();
+                            listQa.find('.username-content').html($('#txtUsername').val() + ": " + $('#txtContent').val());
+                            listQa.find('.create-time').html(new Date().toLocaleString("en-GB"));
+                            listQa.find('.number-of-like').html('0');
+                            $('#qa-container').append(listQa.html());
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
                 });
             });
 
@@ -38,11 +149,7 @@
                     + '</strong>: ' + htmlEncode(message) + '</li>');
             };
 
-            // Get the user name and store it to prepend to messages.
-            $('#displayname').val(prompt('Enter your name:', ''));
 
-            // Set initial focus to message input box.
-            $('#message').focus();
 
 
         });
@@ -52,6 +159,9 @@
             var encodedValue = $('<div />').text(value).html();
             return encodedValue;
         }
+
+
+        
     </script>
 }
 

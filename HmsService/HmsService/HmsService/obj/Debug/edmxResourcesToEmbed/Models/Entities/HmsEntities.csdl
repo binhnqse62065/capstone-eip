@@ -38,8 +38,11 @@
     <EntitySet Name="AspNetUsers" EntityType="HmsEntities.AspNetUser" />
     <EntitySet Name="CollectionItems" EntityType="HmsEntities.CollectionItem" />
     <EntitySet Name="CollectionTypes" EntityType="HmsEntities.CollectionType" />
+    <EntitySet Name="Comments" EntityType="HmsEntities.Comment" />
     <EntitySet Name="Events" EntityType="HmsEntities.Event" />
     <EntitySet Name="EventCollections" EntityType="HmsEntities.EventCollection" />
+    <EntitySet Name="QAs" EntityType="HmsEntities.QA" />
+    <EntitySet Name="Questions" EntityType="HmsEntities.Question" />
     <EntitySet Name="Sessions" EntityType="HmsEntities.Session" />
     <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -58,13 +61,25 @@
       <End Role="CollectionType" EntitySet="CollectionTypes" />
       <End Role="EventCollection" EntitySet="EventCollections" />
     </AssociationSet>
+    <AssociationSet Name="FK_Comment_Question" Association="HmsEntities.FK_Comment_Question">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
     <AssociationSet Name="FK_EventCollection_Event" Association="HmsEntities.FK_EventCollection_Event">
       <End Role="Event" EntitySet="Events" />
       <End Role="EventCollection" EntitySet="EventCollections" />
     </AssociationSet>
+    <AssociationSet Name="FK_QA_Event" Association="HmsEntities.FK_QA_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="QA" EntitySet="QAs" />
+    </AssociationSet>
     <AssociationSet Name="FK_Session_Event" Association="HmsEntities.FK_Session_Event">
       <End Role="Event" EntitySet="Events" />
       <End Role="Session" EntitySet="Sessions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_QA" Association="HmsEntities.FK_Question_QA">
+      <End Role="QA" EntitySet="QAs" />
+      <End Role="Question" EntitySet="Questions" />
     </AssociationSet>
     <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
       <End Role="Session" EntitySet="Sessions" />
@@ -165,6 +180,18 @@
     <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="CollectionType" ToRole="EventCollection" />
   </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionId" Type="Int32" />
+    <Property Name="CommentContent" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="NumberOfLike" Type="Int32" />
+    <NavigationProperty Name="Question" Relationship="HmsEntities.FK_Comment_Question" FromRole="Comment" ToRole="Question" />
+  </EntityType>
   <EntityType Name="Event">
     <Key>
       <PropertyRef Name="EventID" />
@@ -178,6 +205,7 @@
     <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TemplateId" Type="Int32" />
     <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="Event" ToRole="EventCollection" />
+    <NavigationProperty Name="QAs" Relationship="HmsEntities.FK_QA_Event" FromRole="Event" ToRole="QA" />
     <NavigationProperty Name="Sessions" Relationship="HmsEntities.FK_Session_Event" FromRole="Event" ToRole="Session" />
   </EntityType>
   <EntityType Name="EventCollection">
@@ -191,6 +219,30 @@
     <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
     <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="EventCollection" ToRole="CollectionType" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="EventCollection" ToRole="Event" />
+  </EntityType>
+  <EntityType Name="QA">
+    <Key>
+      <PropertyRef Name="QAId" />
+    </Key>
+    <Property Name="QAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QAName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EventId" Type="Int32" />
+    <Property Name="InteractionId" Type="Int32" />
+    <NavigationProperty Name="Event" Relationship="HmsEntities.FK_QA_Event" FromRole="QA" ToRole="Event" />
+    <NavigationProperty Name="Questions" Relationship="HmsEntities.FK_Question_QA" FromRole="QA" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QAId" Type="Int32" />
+    <Property Name="QuestionContent" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="NumberOfLike" Type="Int32" />
+    <NavigationProperty Name="Comments" Relationship="HmsEntities.FK_Comment_Question" FromRole="Question" ToRole="Comment" />
+    <NavigationProperty Name="QA" Relationship="HmsEntities.FK_Question_QA" FromRole="Question" ToRole="QA" />
   </EntityType>
   <EntityType Name="Session">
     <Key>
@@ -270,6 +322,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Comment_Question">
+    <End Type="HmsEntities.Question" Role="Question" Multiplicity="0..1" />
+    <End Type="HmsEntities.Comment" Role="Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="QuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_EventCollection_Event">
     <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
     <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="*" />
@@ -278,6 +342,18 @@
         <PropertyRef Name="EventID" />
       </Principal>
       <Dependent Role="EventCollection">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QA_Event">
+    <End Type="HmsEntities.Event" Role="Event" Multiplicity="0..1" />
+    <End Type="HmsEntities.QA" Role="QA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="QA">
         <PropertyRef Name="EventId" />
       </Dependent>
     </ReferentialConstraint>
@@ -291,6 +367,18 @@
       </Principal>
       <Dependent Role="Session">
         <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_QA">
+    <End Type="HmsEntities.QA" Role="QA" Multiplicity="0..1" />
+    <End Type="HmsEntities.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QA">
+        <PropertyRef Name="QAId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="QAId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

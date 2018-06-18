@@ -93,6 +93,17 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <Property Name="Name" Type="varchar" MaxLength="50" />
     <Property Name="Description" Type="varchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentId" />
+    </Key>
+    <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionId" Type="int" />
+    <Property Name="CommentContent" Type="nvarchar" MaxLength="100" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="NumberOfLike" Type="int" />
+  </EntityType>
   <EntityType Name="Event">
     <Key>
       <PropertyRef Name="EventID" />
@@ -114,6 +125,26 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <Property Name="Name" Type="varchar" MaxLength="50" />
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="TypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QA">
+    <Key>
+      <PropertyRef Name="QAId" />
+    </Key>
+    <Property Name="QAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QAName" Type="nvarchar" MaxLength="50" />
+    <Property Name="EventId" Type="int" />
+    <Property Name="InteractionId" Type="int" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QAId" Type="int" />
+    <Property Name="QuestionContent" Type="nvarchar" MaxLength="150" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="NumberOfLike" Type="int" />
   </EntityType>
   <EntityType Name="Session">
     <Key>
@@ -147,6 +178,18 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
       </Principal>
       <Dependent Role="CollectionItem">
         <PropertyRef Name="EventCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Question">
+    <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="QuestionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -230,6 +273,30 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_QA_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+    <End Role="QA" Type="Self.QA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="QA">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_QA">
+    <End Role="QA" Type="Self.QA" Multiplicity="0..1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QA">
+        <PropertyRef Name="QAId" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="QAId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Session_Event">
     <End Role="Event" Type="Self.Event" Multiplicity="1" />
     <End Role="Session" Type="Self.Session" Multiplicity="*" />
@@ -251,8 +318,11 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CollectionItem" EntityType="Self.CollectionItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CollectionType" EntityType="Self.CollectionType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EventCollection" EntityType="Self.EventCollection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QA" EntityType="Self.QA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Activity" EntityType="Self.Activity" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -271,6 +341,10 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <AssociationSet Name="FK_CollectionItem_EventCollection" Association="Self.FK_CollectionItem_EventCollection">
       <End Role="EventCollection" EntitySet="EventCollection" />
       <End Role="CollectionItem" EntitySet="CollectionItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Question" Association="Self.FK_Comment_Question">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -295,6 +369,14 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <AssociationSet Name="FK_EventCollection_Event" Association="Self.FK_EventCollection_Event">
       <End Role="Event" EntitySet="Event" />
       <End Role="EventCollection" EntitySet="EventCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QA_Event" Association="Self.FK_QA_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="QA" EntitySet="QA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_QA" Association="Self.FK_Question_QA">
+      <End Role="QA" EntitySet="QA" />
+      <End Role="Question" EntitySet="Question" />
     </AssociationSet>
     <AssociationSet Name="FK_Session_Event" Association="Self.FK_Session_Event">
       <End Role="Event" EntitySet="Event" />

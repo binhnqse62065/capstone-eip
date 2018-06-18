@@ -1,0 +1,28 @@
+﻿.btn-lastest-question {
+    margin-right:10px;
+}
+
+.list-qa {
+    width:100%;
+    margin-bottom:20px;
+}
+.list-answer {
+    height: unset;
+    /*background-color: wheat;*/
+    /*border-radius: 60px;*/
+    margin-left: 35px;
+}
+
+.main-qa {
+    /*background-color: wheat;*/
+    /*border-radius: 35px;*/
+    padding-left: 30px;
+}
+
+.like-rep {
+    color:unset;
+}
+
+.btn-reply {
+    cursor:pointer;
+}

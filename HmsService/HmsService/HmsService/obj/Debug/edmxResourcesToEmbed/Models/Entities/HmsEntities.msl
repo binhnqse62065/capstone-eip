@@ -76,6 +76,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="HmsEntities.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="HmsEntities.Event">
         <MappingFragment StoreEntitySet="Event">
@@ -97,6 +109,28 @@
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="EventCollectionID" ColumnName="EventCollectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QAs">
+      <EntityTypeMapping TypeName="HmsEntities.QA">
+        <MappingFragment StoreEntitySet="QA">
+          <ScalarProperty Name="InteractionId" ColumnName="InteractionId" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="QAName" ColumnName="QAName" />
+          <ScalarProperty Name="QAId" ColumnName="QAId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="HmsEntities.Question">
+        <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="QuestionContent" ColumnName="QuestionContent" />
+          <ScalarProperty Name="QAId" ColumnName="QAId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
