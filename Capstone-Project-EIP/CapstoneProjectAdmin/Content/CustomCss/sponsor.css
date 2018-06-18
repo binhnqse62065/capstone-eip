@@ -1,0 +1,43 @@
+﻿.contact-box.center-version {
+    border: 1px solid #e7eaec;
+    padding: 0;
+}
+
+.ibox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+}
+
+.ibox-title {
+    background-color: #ffffff;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 2px 0 0;
+    color: inherit;
+    margin-bottom: 0;
+    padding: 15px 15px 7px;
+    min-height: 48px;
+}
+
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
+}
+
+.float-e-margins .btn {
+    margin-bottom: 5px;
+}
+
+.box-shadow{
+    box-shadow:5px 10px 20px 7px #888888;
+}
