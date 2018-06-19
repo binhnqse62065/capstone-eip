@@ -3,7 +3,6 @@
     ViewBag.Title = "Speaker";
 }
 
-
 @using HmsService.Models.Entities;
 @model Event
 
@@ -12,13 +11,12 @@
 }
 <div class="row">
     @{
+        int i = 0;
         foreach (var item in listSpeaker)
         {
             <div class="col-md-4 col-sm-8 col-12">
-                <div class="sponsonrs-box">
-                    <div>
-                        <img class="img-fluid" src="@(item.ImageUrl)" alt="brand">
-                    </div>
+                <div class="box-speaker-shadow">
+                        <a href="" id="speaker-modal" data-toggle="modal" data-target="#speakerModal@(i)"><img class="img-fluid image-speaker-custom" src="@(item.ImageUrl)" alt="brand"></a>
                     <div class="item-title">
                         <h3 class="title title-medium" style="text-align:center">
                             <a>@(item.Name)</a>
@@ -26,8 +24,25 @@
                     </div>
                 </div>
             </div>
+            <div id="speakerModal@(i)" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">@(item.Name)</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>@(item.Description)</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            i++;
         }
     }
 
 </div>
-

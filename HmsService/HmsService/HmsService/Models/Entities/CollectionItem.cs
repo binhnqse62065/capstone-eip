@@ -16,7 +16,7 @@ namespace HmsService.Models.Entities
     {
         public int CollectionItemID { get; set; }
         public string Name { get; set; }
-        public string Desciption { get; set; }
+        public string Description { get; set; }
         public string ImageUrl { get; set; }
         public int EventCollectionId { get; set; }
     

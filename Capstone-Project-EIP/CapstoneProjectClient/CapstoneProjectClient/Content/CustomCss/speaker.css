@@ -1,0 +1,22 @@
+﻿.image-speaker-custom {
+    width: 369px;
+    height: 207px;
+}
+
+.box-speaker-shadow {
+    box-shadow: 5px 10px 20px 7px #888888;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .image-speaker-custom {
+        width: 100%;
+        height: auto;
+    }
+
+    .box-speaker-shadow {
+        box-shadow: 5px 10px 20px 7px #888888;
+    }
+}
