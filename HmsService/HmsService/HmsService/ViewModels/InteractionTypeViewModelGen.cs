@@ -7,20 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HmsService.Models.Entities.Services
+namespace HmsService.ViewModels
 {
     using System;
     using System.Collections.Generic;
     
-    
-    public partial interface IQuestionService : SkyWeb.DatVM.Data.IBaseService<Question>
+    public partial class InteractionTypeViewModel : SkyWeb.DatVM.Mvc.BaseEntityViewModel<HmsService.Models.Entities.InteractionType>
     {
-    }
+    	
+    			public virtual int InteractionTypeId { get; set; }
+    			public virtual string InteractionName { get; set; }
+    	
+    	public InteractionTypeViewModel() : base() { }
+    	public InteractionTypeViewModel(HmsService.Models.Entities.InteractionType entity) : base(entity) { }
     
-    public partial class QuestionService : SkyWeb.DatVM.Data.BaseService<Question>, IQuestionService
-    {
-        public QuestionService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IQuestionRepository repository) : base(unitOfWork, repository)
-        {
-        }
     }
 }

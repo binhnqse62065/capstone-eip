@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HmsService.Models.Entities.Services
+namespace HmsService.Models.Entities.Repositories
 {
     using System;
     using System.Collections.Generic;
     
     
-    public partial interface IQuestionService : SkyWeb.DatVM.Data.IBaseService<Question>
+    public partial interface IInteractionTypeRepository : SkyWeb.DatVM.Data.IBaseRepository<InteractionType>
     {
     }
     
-    public partial class QuestionService : SkyWeb.DatVM.Data.BaseService<Question>, IQuestionService
+    public partial class InteractionTypeRepository : SkyWeb.DatVM.Data.BaseRepository<InteractionType>, IInteractionTypeRepository
     {
-        public QuestionService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IQuestionRepository repository) : base(unitOfWork, repository)
-        {
-        }
+    	public InteractionTypeRepository(System.Data.Entity.DbContext dbContext) : base(dbContext)
+    	{
+    	}
     }
 }

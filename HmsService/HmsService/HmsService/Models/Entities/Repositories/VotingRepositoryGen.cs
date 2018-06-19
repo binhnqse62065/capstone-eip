@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HmsService.Models.Entities.Services
+namespace HmsService.Models.Entities.Repositories
 {
     using System;
     using System.Collections.Generic;
     
     
-    public partial interface IQuestionService : SkyWeb.DatVM.Data.IBaseService<Question>
+    public partial interface IVotingRepository : SkyWeb.DatVM.Data.IBaseRepository<Voting>
     {
     }
     
-    public partial class QuestionService : SkyWeb.DatVM.Data.BaseService<Question>, IQuestionService
+    public partial class VotingRepository : SkyWeb.DatVM.Data.BaseRepository<Voting>, IVotingRepository
     {
-        public QuestionService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IQuestionRepository repository) : base(unitOfWork, repository)
-        {
-        }
+    	public VotingRepository(System.Data.Entity.DbContext dbContext) : base(dbContext)
+    	{
+    	}
     }
 }

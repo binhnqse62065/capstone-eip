@@ -12,26 +12,24 @@ namespace HmsService.Models.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Session
+    public partial class Voting
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Session()
+        public Voting()
         {
             this.Interactions = new HashSet<Interaction>();
-            this.Activities = new HashSet<Activity>();
+            this.VotingQuestions = new HashSet<VotingQuestion>();
         }
     
-        public int SessionID { get; set; }
-        public string Name { get; set; }
-        public Nullable<System.DateTime> StartTime { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
+        public int VotingId { get; set; }
+        public string VotingName { get; set; }
         public string Description { get; set; }
-        public int EventId { get; set; }
+        public Nullable<int> EventId { get; set; }
     
         public virtual Event Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Interaction> Interactions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<VotingQuestion> VotingQuestions { get; set; }
     }
 }

@@ -261,6 +261,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HmsEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Interaction.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\InteractionRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\InteractionType.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\InteractionTypeRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\QA.cs">
       <DependentUpon>HmsEntities.tt</DependentUpon>
     </Compile>
@@ -306,6 +318,12 @@
     <Compile Include="Models\Entities\Repositories\EventRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Repositories\InteractionRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\InteractionTypeRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Repositories\QARepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
@@ -318,6 +336,15 @@
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Repositories\SessionRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\VotingOptionRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\VotingQuestionRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Repositories\VotingRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Services\ActivityServiceGen.cs">
@@ -350,6 +377,12 @@
     <Compile Include="Models\Entities\Services\EventCollectionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\InteractionServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Services\InteractionTypeServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Services\QuestionService.cs" />
     <Compile Include="Models\Entities\Services\QAService.cs" />
     <Compile Include="Models\Entities\Services\EventService.cs" />
@@ -370,6 +403,15 @@
     <Compile Include="Models\Entities\Services\SessionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\VotingOptionServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Services\VotingQuestionServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Services\VotingServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Session.cs">
       <DependentUpon>HmsEntities.tt</DependentUpon>
     </Compile>
@@ -381,6 +423,24 @@
     </Compile>
     <Compile Include="Models\Entities\sp_helpdiagrams_Result.cs">
       <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Voting.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\VotingOption.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\VotingOptionRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\VotingQuestion.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\VotingQuestionRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\VotingRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityExtensions.cs" />
     <Compile Include="Models\Enums.cs" />
@@ -421,6 +481,12 @@
     <Compile Include="Sdk\C__MigrationHistoryApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\InteractionApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\InteractionTypeApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sdk\QuestionApi.cs" />
     <Compile Include="Sdk\QAApi.cs" />
     <Compile Include="Sdk\EventApi.cs" />
@@ -442,6 +508,15 @@
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
     <Compile Include="Sdk\SessionApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\VotingApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\VotingOptionApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sdk\VotingQuestionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ActivityViewModelGen.cs">
@@ -477,6 +552,12 @@
     <Compile Include="ViewModels\EventViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\InteractionTypeViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InteractionViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\QAViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
@@ -490,6 +571,15 @@
       <DependentUpon>ViewModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ViewModels\VotingOptionViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VotingQuestionViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VotingViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

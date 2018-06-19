@@ -22,6 +22,5 @@ namespace HmsService.Models.Entities.Services
         public QAService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IQARepository repository) : base(unitOfWork, repository)
         {
         }
-
     }
 }

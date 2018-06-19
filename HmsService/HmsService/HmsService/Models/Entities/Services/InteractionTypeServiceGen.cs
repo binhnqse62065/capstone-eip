@@ -13,13 +13,13 @@ namespace HmsService.Models.Entities.Services
     using System.Collections.Generic;
     
     
-    public partial interface IQuestionService : SkyWeb.DatVM.Data.IBaseService<Question>
+    public partial interface IInteractionTypeService : SkyWeb.DatVM.Data.IBaseService<InteractionType>
     {
     }
     
-    public partial class QuestionService : SkyWeb.DatVM.Data.BaseService<Question>, IQuestionService
+    public partial class InteractionTypeService : SkyWeb.DatVM.Data.BaseService<InteractionType>, IInteractionTypeService
     {
-        public QuestionService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IQuestionRepository repository) : base(unitOfWork, repository)
+        public InteractionTypeService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IInteractionTypeRepository repository) : base(unitOfWork, repository)
         {
         }
     }

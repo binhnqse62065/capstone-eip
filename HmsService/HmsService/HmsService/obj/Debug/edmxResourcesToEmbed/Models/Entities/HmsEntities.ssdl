@@ -126,6 +126,24 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="TypeId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Interaction">
+    <Key>
+      <PropertyRef Name="InteractionId" />
+    </Key>
+    <Property Name="InteractionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SessionId" Type="int" />
+    <Property Name="InteractionName" Type="nvarchar" MaxLength="100" />
+    <Property Name="InteractionTypeId" Type="int" />
+    <Property Name="InteractionItemId" Type="int" />
+    <Property Name="IsRunning" Type="bit" />
+  </EntityType>
+  <EntityType Name="InteractionType">
+    <Key>
+      <PropertyRef Name="InteractionTypeId" />
+    </Key>
+    <Property Name="InteractionTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InteractionName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="QA">
     <Key>
       <PropertyRef Name="QAId" />
@@ -156,6 +174,32 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <Property Name="EndTime" Type="datetime" />
     <Property Name="Description" Type="nvarchar" MaxLength="250" />
     <Property Name="EventId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Voting">
+    <Key>
+      <PropertyRef Name="VotingId" />
+    </Key>
+    <Property Name="VotingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VotingName" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="EventId" Type="int" />
+  </EntityType>
+  <EntityType Name="VotingOption">
+    <Key>
+      <PropertyRef Name="VotingOptionId" />
+    </Key>
+    <Property Name="VotingOptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VotingQuestionId" Type="int" />
+    <Property Name="VotingOptionContent" Type="nvarchar" MaxLength="100" />
+    <Property Name="NumberOfVoting" Type="int" />
+  </EntityType>
+  <EntityType Name="VotingQuestion">
+    <Key>
+      <PropertyRef Name="VotingQuestionId" />
+    </Key>
+    <Property Name="VotingQuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VotingQuestionContent" Type="nvarchar" MaxLength="100" />
+    <Property Name="VotingId" Type="int" />
   </EntityType>
   <Association Name="FK_Activity_Session">
     <End Role="Session" Type="Self.Session" Multiplicity="1" />
@@ -273,6 +317,54 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Interaction_InteractionType">
+    <End Role="InteractionType" Type="Self.InteractionType" Multiplicity="0..1" />
+    <End Role="Interaction" Type="Self.Interaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InteractionType">
+        <PropertyRef Name="InteractionTypeId" />
+      </Principal>
+      <Dependent Role="Interaction">
+        <PropertyRef Name="InteractionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interaction_QA">
+    <End Role="QA" Type="Self.QA" Multiplicity="0..1" />
+    <End Role="Interaction" Type="Self.Interaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QA">
+        <PropertyRef Name="QAId" />
+      </Principal>
+      <Dependent Role="Interaction">
+        <PropertyRef Name="InteractionItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interaction_Session">
+    <End Role="Session" Type="Self.Session" Multiplicity="0..1" />
+    <End Role="Interaction" Type="Self.Interaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="SessionID" />
+      </Principal>
+      <Dependent Role="Interaction">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interaction_Voting">
+    <End Role="Voting" Type="Self.Voting" Multiplicity="0..1" />
+    <End Role="Interaction" Type="Self.Interaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Voting">
+        <PropertyRef Name="VotingId" />
+      </Principal>
+      <Dependent Role="Interaction">
+        <PropertyRef Name="InteractionItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_QA_Event">
     <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
     <End Role="QA" Type="Self.QA" Multiplicity="*" />
@@ -309,6 +401,42 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Voting_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+    <End Role="Voting" Type="Self.Voting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="Voting">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VotingOption_VotingQuestion">
+    <End Role="VotingQuestion" Type="Self.VotingQuestion" Multiplicity="0..1" />
+    <End Role="VotingOption" Type="Self.VotingOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VotingQuestion">
+        <PropertyRef Name="VotingQuestionId" />
+      </Principal>
+      <Dependent Role="VotingOption">
+        <PropertyRef Name="VotingQuestionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VotingQuestion_Voting">
+    <End Role="Voting" Type="Self.Voting" Multiplicity="0..1" />
+    <End Role="VotingQuestion" Type="Self.VotingQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Voting">
+        <PropertyRef Name="VotingId" />
+      </Principal>
+      <Dependent Role="VotingQuestion">
+        <PropertyRef Name="VotingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="HmsEntitiesStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -321,9 +449,14 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EventCollection" EntityType="Self.EventCollection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Interaction" EntityType="Self.Interaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InteractionType" EntityType="Self.InteractionType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QA" EntityType="Self.QA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Voting" EntityType="Self.Voting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VotingOption" EntityType="Self.VotingOption" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VotingQuestion" EntityType="Self.VotingQuestion" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Activity" EntityType="Self.Activity" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [Activity].[ActivityID] AS [ActivityID], 
@@ -370,6 +503,22 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
       <End Role="Event" EntitySet="Event" />
       <End Role="EventCollection" EntitySet="EventCollection" />
     </AssociationSet>
+    <AssociationSet Name="FK_Interaction_InteractionType" Association="Self.FK_Interaction_InteractionType">
+      <End Role="InteractionType" EntitySet="InteractionType" />
+      <End Role="Interaction" EntitySet="Interaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interaction_QA" Association="Self.FK_Interaction_QA">
+      <End Role="QA" EntitySet="QA" />
+      <End Role="Interaction" EntitySet="Interaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interaction_Session" Association="Self.FK_Interaction_Session">
+      <End Role="Session" EntitySet="Session" />
+      <End Role="Interaction" EntitySet="Interaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interaction_Voting" Association="Self.FK_Interaction_Voting">
+      <End Role="Voting" EntitySet="Voting" />
+      <End Role="Interaction" EntitySet="Interaction" />
+    </AssociationSet>
     <AssociationSet Name="FK_QA_Event" Association="Self.FK_QA_Event">
       <End Role="Event" EntitySet="Event" />
       <End Role="QA" EntitySet="QA" />
@@ -381,6 +530,18 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     <AssociationSet Name="FK_Session_Event" Association="Self.FK_Session_Event">
       <End Role="Event" EntitySet="Event" />
       <End Role="Session" EntitySet="Session" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Voting_Event" Association="Self.FK_Voting_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="Voting" EntitySet="Voting" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VotingOption_VotingQuestion" Association="Self.FK_VotingOption_VotingQuestion">
+      <End Role="VotingQuestion" EntitySet="VotingQuestion" />
+      <End Role="VotingOption" EntitySet="VotingOption" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VotingQuestion_Voting" Association="Self.FK_VotingQuestion_Voting">
+      <End Role="Voting" EntitySet="Voting" />
+      <End Role="VotingQuestion" EntitySet="VotingQuestion" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

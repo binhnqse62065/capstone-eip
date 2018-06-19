@@ -7,20 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HmsService.Models.Entities.Services
+namespace HmsService.Models.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    
-    public partial interface IQuestionService : SkyWeb.DatVM.Data.IBaseService<Question>
+    public partial class VotingOption
     {
-    }
+        public int VotingOptionId { get; set; }
+        public Nullable<int> VotingQuestionId { get; set; }
+        public string VotingOptionContent { get; set; }
+        public Nullable<int> NumberOfVoting { get; set; }
     
-    public partial class QuestionService : SkyWeb.DatVM.Data.BaseService<Question>, IQuestionService
-    {
-        public QuestionService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IQuestionRepository repository) : base(unitOfWork, repository)
-        {
-        }
+        public virtual VotingQuestion VotingQuestion { get; set; }
     }
 }

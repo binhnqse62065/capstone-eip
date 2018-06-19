@@ -20,6 +20,7 @@ namespace HmsService.Models.Entities
             this.EventCollections = new HashSet<EventCollection>();
             this.QAs = new HashSet<QA>();
             this.Sessions = new HashSet<Session>();
+            this.Votings = new HashSet<Voting>();
         }
     
         public int EventID { get; set; }
@@ -37,5 +38,7 @@ namespace HmsService.Models.Entities
         public virtual ICollection<QA> QAs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Session> Sessions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Voting> Votings { get; set; }
     }
 }
