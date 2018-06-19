@@ -43,6 +43,9 @@
     <EntitySet Name="EventCollections" EntityType="HmsEntities.EventCollection" />
     <EntitySet Name="Sessions" EntityType="HmsEntities.Session" />
     <EntitySet Name="Timelines" EntityType="HmsEntities.Timeline" />
+    <EntitySet Name="Votings" EntityType="HmsEntities.Voting" />
+    <EntitySet Name="VotingOptions" EntityType="HmsEntities.VotingOption" />
+    <EntitySet Name="VotingQuestions" EntityType="HmsEntities.VotingQuestion" />
     <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
       <End Role="Session" EntitySet="Sessions" />
       <End Role="Activity" EntitySet="Activities" />
@@ -71,9 +74,21 @@
       <End Role="Event" EntitySet="Events" />
       <End Role="Session" EntitySet="Sessions" />
     </AssociationSet>
+    <AssociationSet Name="FK_Voting_Event" Association="HmsEntities.FK_Voting_Event">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="Voting" EntitySet="Votings" />
+    </AssociationSet>
     <AssociationSet Name="FK_Timeline_Session" Association="HmsEntities.FK_Timeline_Session">
       <End Role="Session" EntitySet="Sessions" />
       <End Role="Timeline" EntitySet="Timelines" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VotingQuestion_Voting" Association="HmsEntities.FK_VotingQuestion_Voting">
+      <End Role="Voting" EntitySet="Votings" />
+      <End Role="VotingQuestion" EntitySet="VotingQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VotingOption_VotingQuestion" Association="HmsEntities.FK_VotingOption_VotingQuestion">
+      <End Role="VotingQuestion" EntitySet="VotingQuestions" />
+      <End Role="VotingOption" EntitySet="VotingOptions" />
     </AssociationSet>
     <AssociationSet Name="AspNetUserRoles" Association="HmsEntities.AspNetUserRoles">
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
@@ -196,6 +211,7 @@
     <Property Name="TemplateId" Type="Int32" />
     <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="Event" ToRole="EventCollection" />
     <NavigationProperty Name="Sessions" Relationship="HmsEntities.FK_Session_Event" FromRole="Event" ToRole="Session" />
+    <NavigationProperty Name="Votings" Relationship="HmsEntities.FK_Voting_Event" FromRole="Event" ToRole="Voting" />
   </EntityType>
   <EntityType Name="EventCollection">
     <Key>
@@ -233,6 +249,37 @@
     <Property Name="TimelineDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="StartTime" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Timeline_Session" FromRole="Timeline" ToRole="Session" />
+  </EntityType>
+  <EntityType Name="Voting">
+    <Key>
+      <PropertyRef Name="VotingId" />
+    </Key>
+    <Property Name="VotingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VotingName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="EventId" Type="Int32" />
+    <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Voting_Event" FromRole="Voting" ToRole="Event" />
+    <NavigationProperty Name="VotingQuestions" Relationship="HmsEntities.FK_VotingQuestion_Voting" FromRole="Voting" ToRole="VotingQuestion" />
+  </EntityType>
+  <EntityType Name="VotingOption">
+    <Key>
+      <PropertyRef Name="VotingOptionId" />
+    </Key>
+    <Property Name="VotingOptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VotingQuestionId" Type="Int32" />
+    <Property Name="VotingOptionDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="NumberOfVoting" Type="Int32" />
+    <NavigationProperty Name="VotingQuestion" Relationship="HmsEntities.FK_VotingOption_VotingQuestion" FromRole="VotingOption" ToRole="VotingQuestion" />
+  </EntityType>
+  <EntityType Name="VotingQuestion">
+    <Key>
+      <PropertyRef Name="VotingQuestionId" />
+    </Key>
+    <Property Name="VotingQuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VotingQuestionDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="VotingId" Type="Int32" />
+    <NavigationProperty Name="Voting" Relationship="HmsEntities.FK_VotingQuestion_Voting" FromRole="VotingQuestion" ToRole="Voting" />
+    <NavigationProperty Name="VotingOptions" Relationship="HmsEntities.FK_VotingOption_VotingQuestion" FromRole="VotingQuestion" ToRole="VotingOption" />
   </EntityType>
   <Association Name="FK_Activity_Session">
     <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
@@ -322,6 +369,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Voting_Event">
+    <End Type="HmsEntities.Event" Role="Event" Multiplicity="0..1" />
+    <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="Voting">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Timeline_Session">
     <End Type="HmsEntities.Session" Role="Session" Multiplicity="0..1" />
     <End Type="HmsEntities.Timeline" Role="Timeline" Multiplicity="*" />
@@ -331,6 +390,30 @@
       </Principal>
       <Dependent Role="Timeline">
         <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VotingQuestion_Voting">
+    <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="0..1" />
+    <End Type="HmsEntities.VotingQuestion" Role="VotingQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Voting">
+        <PropertyRef Name="VotingId" />
+      </Principal>
+      <Dependent Role="VotingQuestion">
+        <PropertyRef Name="VotingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VotingOption_VotingQuestion">
+    <End Type="HmsEntities.VotingQuestion" Role="VotingQuestion" Multiplicity="0..1" />
+    <End Type="HmsEntities.VotingOption" Role="VotingOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VotingQuestion">
+        <PropertyRef Name="VotingQuestionId" />
+      </Principal>
+      <Dependent Role="VotingOption">
+        <PropertyRef Name="VotingQuestionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

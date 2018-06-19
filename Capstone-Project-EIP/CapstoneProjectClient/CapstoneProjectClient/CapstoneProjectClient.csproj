@@ -381,6 +381,11 @@
     <Content Include="Content\bootstrap\Dashboard\index.html" />
     <Content Include="Content\bootstrap\Dashboard\use.fontawesome.com\99347ac47f.js" />
     <Content Include="Content\bootstrap\Dashboard\www.google-analytics.com\analytics.js" />
+    <Content Include="Content\bootstrap\Poll\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\Poll\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\Poll\js\jquery-1.11.1.js" />
+    <Content Include="Content\bootstrap\Poll\js\processBar.js" />
     <Content Include="Content\CustomCss\home.css" />
     <Content Include="Content\CustomCss\main.css" />
     <Content Include="Content\CustomCss\speaker.css" />
@@ -414,6 +419,10 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
