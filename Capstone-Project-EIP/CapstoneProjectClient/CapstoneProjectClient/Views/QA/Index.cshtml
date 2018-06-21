@@ -1,8 +1,10 @@
 ﻿@using HmsService.Models.Entities;
+@using System.Globalization;
 @model QA
 
 @{
     ViewBag.Title = "Q&A";
+    
 }
 
 @*<div class="container">
@@ -28,12 +30,12 @@
         <div class="row qa-container" id="qa-container">
             @foreach (var item in Model.Questions)
             {
-                <div class="card list-qa">
+                <div class="card list-qa" id="list-qa-@(item.QuestionId)">
                     <div class="card main-qa">
                         <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
                         <p class="like-rep">
                             <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(item.NumberOfLike)</i></button>
-                            <button class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                            <button id="btn-reply" onclick="replyQuestion(@(item.QuestionId))" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
                         </p>
                         <span class="create-time">@(item.CreateTime)</span>
 
@@ -41,13 +43,19 @@
 
                     @foreach (var subItem in item.Comments)
                     {
-                        <div class="card-header list-answer">
-                            <span>@(subItem.Username): </span>
-                            <span>@(subItem.CommentContent)</span>
-                            <br />
-                            <span>@(subItem.CreateTime)</span>
-                            <br />
-                        </div>
+                    <div class="card-header list-answer">
+                        <span id="username-reply">@(subItem.Username): </span>
+                        <span id="reply-content">@(subItem.CommentContent)</span>
+                        <p class="like-rep">
+                            <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(item.NumberOfLike)</i></button>
+                            <button id="btn-reply" onclick="replyQuestion(@(item.QuestionId))" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                        </p>
+                        @{
+                            var createTimeTmp = (DateTime)subItem.CreateTime;
+                            var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                        }
+                        <span id="reply-time">@(createTime)</span>
+                    </div>
                     }
 
                 </div>
@@ -69,6 +77,19 @@
             <span class="create-time"></span>
 
         </div>
+    </div>
+</div>
+
+<div id="list-reply-template" style="display:none;">
+    <div class="card-header list-answer">
+        <span id="username-reply"></span>
+        <span id="reply-content"></span>
+        <p class="like-rep">
+            <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 0</button>
+            <button id="btn-reply" onclick="replyQuestion()" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+        </p>
+        <span id="reply-time"></span>
+        <br />
     </div>
 </div>
 
@@ -124,6 +145,7 @@
                 <div class="form-group">
                     <label>Content</label>
                     <textarea class="form-control" id="txtContentReply"></textarea>
+                    <input type="hidden" id="questionId" value="" />
                 </div>
                 <input type="checkbox" id="btnHiddenUser" /> Post with incognito
 
@@ -138,6 +160,7 @@
 </div>
 @section scripts {
     <script>
+        var questionId;
         $(function () {
             var url = "http://localhost:59917";
             $.connection.hub.url = url + "/signalr/hubs";
@@ -148,6 +171,7 @@
 
             // Start the connection.
             $.connection.hub.start().done(function () {
+                /**/
                 $('#btnSendQuestion').click(function () {
                     // Call the Send method on the hub.
                     chat.server.send($('#txtUsername').val(), $('#txtContent').val());
@@ -157,7 +181,8 @@
                         method: "POST",
                         data: {
                             Username: $('#txtUsername').val(),
-                            QuestionContent: $('#txtContent').val()
+                            QuestionContent: $('#txtContent').val(),
+                            NumberOfLike: 0
 
                         },
                         success: function () {
@@ -170,35 +195,70 @@
                     });
                 });
 
-                $('#btnSendQuestion').click(function () {
-                    chat.server.send($('#txtUsernameReply').val(), $('#txtContentReply').val());
+                
 
+                $('#btnSendReply').click(function () {
+                    var usernameRep = $('#txtUsernameReply').val();
+                    var contentReply = $('#txtContentReply').val();
+                    var questionId = $('#questionId').val();
+                    chat.server.sendReply(usernameRep, contentReply, questionId);
+                    
+                    $.ajax({
+                        url: "api/Comments",
+                        method: "POST",
+                        data: {
+                            Username: usernameRep,
+                            CommentContent: contentReply,
+                            NumberOfLike: 0,
+                            QuestionId: questionId
 
+                        },
+                        success: function () {
+                            $('#txtUsernameReply').val("");
+                            $('#txtContentReply').val("");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
                 });
             });
 
             // Create a function that the hub can call back to display messages.
             chat.client.addNewMessageToPage = function (name, message) {
                 // Add the message to the page.
-                var listQa = $('#list-qa').clone();
-                listQa.find('.username-content').html(name + ": " + message);
-                listQa.find('.create-time').html(new Date().toLocaleString("en-GB"));
-                listQa.find('.number-of-like').html('0');
-                $('#qa-container').append(listQa.html());
+                if (message.length != 0) {
+                    var listQa = $('#list-qa').clone();
+                    listQa.find('.username-content').html(name + ": " + message);
+                    listQa.find('.create-time').html(new Date().toLocaleString("en-GB"));
+                    listQa.find('.number-of-like').html('0');
+                    $('#qa-container').append(listQa.html());
+                }
+
+                
             };
 
+            //Create a function that the hub call back to display reply
+
+            chat.client.addNewReplyToPage = function (name, message, questionId) {
+                // Add the message to the page.
+                if (message.length != 0) {
+                    var listReply = $('#list-reply-template').clone();
+                    listReply.find('#username-reply').html(name + ": ");
+                    listReply.find('#reply-content').html(message);
+                    listReply.find('#reply-time').html(new Date().toLocaleString("en-GB"));
+                    var listQaContainer = '#list-qa-' + questionId;
+                    $(listQaContainer).append(listReply.html());
+                }
 
 
+            };
 
         });
 
-        // This optional function html-encodes messages for display in the page.
-        function htmlEncode(value) {
-            var encodedValue = $('<div />').text(value).html();
-            return encodedValue;
+        function replyQuestion(questionId) {
+            $('#questionId').val(questionId);
         }
-
-
 
     </script>
 }

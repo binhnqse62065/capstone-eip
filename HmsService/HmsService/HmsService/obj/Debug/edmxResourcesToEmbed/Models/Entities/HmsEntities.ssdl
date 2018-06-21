@@ -81,7 +81,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
     </Key>
     <Property Name="CollectionItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Desciption" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
     <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
     <Property Name="EventCollectionId" Type="int" Nullable="false" />
   </EntityType>

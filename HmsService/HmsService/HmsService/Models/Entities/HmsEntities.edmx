@@ -86,7 +86,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="CollectionItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Desciption" Type="varchar" MaxLength="250" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
           <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
           <Property Name="EventCollectionId" Type="int" Nullable="false" />
         </EntityType>
@@ -752,7 +752,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="CollectionItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Desciption" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
@@ -1192,7 +1192,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
               <MappingFragment StoreEntitySet="CollectionItem">
                 <ScalarProperty Name="EventCollectionId" ColumnName="EventCollectionId" />
                 <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CollectionItemID" ColumnName="CollectionItemID" />
               </MappingFragment>

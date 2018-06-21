@@ -16,6 +16,11 @@ namespace CapstoneProjectClient
             Clients.All.addNewMessageToPage(name, message);
         }
 
+        public void SendReply(string name, string message, int questionId)
+        {
+            Clients.All.addNewReplyToPage(name, message, questionId);
+        }
+
         public ChatHub() : this(GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients) { }
 
         public ChatHub(IHubConnectionContext<dynamic> clients)

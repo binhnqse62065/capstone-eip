@@ -8,10 +8,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Results;
+using CapstoneProjectClient.Models;
 using HmsService.Models.Entities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CapstoneProjectClient.API
 {
+    [RoutePrefix("api/question")]
     public class QuestionsController : ApiController
     {
         private HmsEntities db = new HmsEntities();
@@ -71,8 +76,10 @@ namespace CapstoneProjectClient.API
         }
 
         // POST: api/Questions
-        [ResponseType(typeof(Question))]
-        public IHttpActionResult PostQuestion(Question question)
+        //[ResponseType(typeof(Question))]
+        [Route("add-question")]
+        [HttpPost]
+        public HttpResponseMessage PostQuestion(Question question)
         {
             //if (!ModelState.IsValid)
             //{
@@ -83,7 +90,15 @@ namespace CapstoneProjectClient.API
             db.Questions.Add(question);
             db.SaveChanges();
 
-            return StatusCode(HttpStatusCode.OK);
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new {
+                    succes = true,
+                    message = "Add successful!",
+                    questionId = question.QuestionId
+                })
+            };
         }
 
         // DELETE: api/Questions/5
@@ -102,6 +117,7 @@ namespace CapstoneProjectClient.API
             return Ok(question);
         }
 
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

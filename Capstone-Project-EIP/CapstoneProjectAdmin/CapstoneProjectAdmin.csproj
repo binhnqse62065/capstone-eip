@@ -7475,6 +7475,7 @@
     <Content Include="Views\Livestream\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Api\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

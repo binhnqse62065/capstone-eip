@@ -26,23 +26,16 @@ namespace CapstoneProjectClient.Controllers
              * notify là hàm để thông báo message đến toàn bộ người dùng khác
              */
             //IEnumerable<Customer> customers = null;
-            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
-            if (context != null)
-            {
-                context.Clients.All.addNewMessageToPage("Binh", "Hello");
-            }
+            //IHubContext context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+            //if (context != null)
+            //{
+            //    context.Clients.All.addNewMessageToPage("Binh", "Hello");
+            //}
 
 
 
             return View(QAItem);
         }
 
-
-        public ActionResult PostNewQuestion(Question question)
-        {
-            QuestionApi questionApi = new QuestionApi();
-            questionApi.BaseService.Create(question);
-            return View("Index");
-        }
     }
 }

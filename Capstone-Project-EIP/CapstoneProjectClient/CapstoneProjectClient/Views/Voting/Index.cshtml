@@ -6,7 +6,7 @@
 
 @model Voting
 @{
-    var votingQuestion = Model.VotingQuestions.FirstOrDefault(e => e.VotingId == 1).VotingQuestionDetail;
+    var votingQuestion = Model.VotingQuestions.FirstOrDefault(e => e.VotingId == 1).VotingQuestionContent;
     var listQuestionOptions = Model.VotingQuestions.FirstOrDefault(e => e.VotingQuestionId == 1).VotingOptions;
 }
 
@@ -34,7 +34,7 @@
                                 <div class="radio">
                                     <label>
                                         <input type="radio" name="group-poll">
-                                        <strong>i.  </strong>@item.VotingOptionDetail
+                                        <strong>i.  </strong>@item.VotingOptionContent
                                     </label>
                                 </div>
                                 i++;
@@ -49,7 +49,7 @@
                                 string percentId = "demo" + j;
                                 foreach (var item in listQuestionOptions)
                                 {
-                                    @item.VotingOptionDetail  <span id="@(percentId)">:</span> 
+                                    @item.VotingOptionContent  <span id="@(percentId)">:</span> 
                                 <div class="progress progress-striped active">
                                 <div id="@classId"class="progress-bar progress-bar-danger" style="width: 0%">
                                 </div>

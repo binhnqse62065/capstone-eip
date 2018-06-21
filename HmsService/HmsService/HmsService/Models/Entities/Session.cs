@@ -19,7 +19,6 @@ namespace HmsService.Models.Entities
         {
             this.Interactions = new HashSet<Interaction>();
             this.Activities = new HashSet<Activity>();
-            this.Timelines = new HashSet<Timeline>();
         }
     
         public int SessionID { get; set; }
@@ -29,12 +28,10 @@ namespace HmsService.Models.Entities
         public string Description { get; set; }
         public int EventId { get; set; }
     
+        public virtual Event Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Interaction> Interactions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> Activities { get; set; }
-        public virtual Event Event { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Timeline> Timelines { get; set; }
     }
 }

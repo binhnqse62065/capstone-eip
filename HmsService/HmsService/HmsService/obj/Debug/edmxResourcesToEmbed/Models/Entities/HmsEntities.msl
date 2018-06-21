@@ -61,7 +61,7 @@
         <MappingFragment StoreEntitySet="CollectionItem">
           <ScalarProperty Name="EventCollectionId" ColumnName="EventCollectionId" />
           <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-          <ScalarProperty Name="Desciption" ColumnName="Desciption" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="CollectionItemID" ColumnName="CollectionItemID" />
         </MappingFragment>
