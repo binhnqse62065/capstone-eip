@@ -16,5 +16,9 @@ namespace CapstoneProjectClient.Controllers
             var eventCurr = eventApi.BaseService.GetEventById(1);
             return View(eventCurr);
         }
+
+       
     }
+
+
 }

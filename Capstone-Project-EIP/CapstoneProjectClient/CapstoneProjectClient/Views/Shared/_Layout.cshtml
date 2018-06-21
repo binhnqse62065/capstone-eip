@@ -21,7 +21,8 @@
     <script src="~/Content/bootstrap/Dashboard/use.fontawesome.com/99347ac47f.js"></script>
     <!-- Font Icons CSS-->
     <link rel="stylesheet" href="~/Content/bootstrap/Dashboard/file.myfontastic.com/da58YPMQ7U5HY8Rb6UxkNf/icons.css">
-
+    <!--Progress Bar-->
+    <link rel="stylesheet" href="~/Content/ProgressBar/css/bootstrap-progressbar-3.3.4.css">
     <!--Custom Css-->
     <link rel="stylesheet" href="~/Content/CustomCss/main.css">
     <link rel="stylesheet" href="~/Content/CustomCss/sponsor.css">
@@ -29,7 +30,6 @@
     <link rel="stylesheet" href="~/Content/CustomCss/home.css">
     <link rel="stylesheet" href="~/Content/CustomCss/timeline.css">
 
-    <link rel="stylesheet" href="~/Content/CustomCss/QA.css">
 
 
 
@@ -52,7 +52,7 @@
                 <ul id="side-main-menu" class="side-menu list-unstyled">
                     <li class="active"><a href="@Url.Action("Index", "Home")"> <i class="icon-home"></i><span>Home</span></a></li>
                     <li> <a href="@Url.Action("Index", "Timeline")"><i class="icon-form"></i><span>Timeline</span></a></li>
-                    <li> <a href="@Url.Action("Index", "QA")"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Question")"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
                     <li> <a href="@Url.Action("Index", "Voting")"> <i class="fa fa-check-circle-o"> </i><span>Voting</span></a></li>
                     <li> <a href="@Url.Action("Index", "Livestream")"> <i class="fa fa-video-camera"></i><span>Livestream</span></a></li>
                     <li> <a href="@Url.Action("Index", "Speaker")"> <i class="fa fa-users"></i><span>Speaker</span></a></li>
@@ -212,16 +212,16 @@
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/jquery.nicescroll.min.js"></script>
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/jquery.validate.min.js"></script>
-    @*<script src="~/Content/bootstrap/Dashboard/cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>*@
+    <script src="~/Content/bootstrap/Dashboard/cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/charts-home.js"></script>
     <script src="~/Content/bootstrap/Dashboard/www.google-analytics.com/analytics.js"></script>
     <script src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/js/front.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
     <!--Signal R-->
-
     <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
-    <script src="http://localhost:59917/signalr/hubs"></script>
-
+    <script src="~/signalr/hubs"></script>
+    <!--Progress Bar-->
+    <script src="~/Content/ProgressBar/bootstrap-progressbar.min.js"></script>
 
     @RenderSection("scripts", required: false)
     <!---->
