@@ -16,7 +16,9 @@
         {
             <div class="col-md-4 col-sm-8 col-12">
                 <div class="box-speaker-shadow">
-                        <a href="" id="speaker-modal" data-toggle="modal" data-target="#speakerModal@(i)"><img class="img-fluid image-speaker-custom" src="@(item.ImageUrl)" alt="brand"></a>
+                        <a href="" id="speaker-modal" data-toggle="modal" data-target="#speakerModal@(i)">
+                    <img class="img-fluid image-speaker-custom" src="@(item.ImageUrl)" alt="brand">
+                        </a>
                     <div class="item-title">
                         <h3 class="title title-medium" style="text-align:center">
                             <a>@(item.Name)</a>
@@ -46,3 +48,9 @@
     }
 
 </div>
+
+<script>
+    function clickModal(name, description, imageUrl) {
+
+    }
+</script>

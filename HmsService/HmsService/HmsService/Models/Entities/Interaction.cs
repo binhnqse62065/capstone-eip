@@ -17,11 +17,10 @@ namespace HmsService.Models.Entities
         public int InteractionId { get; set; }
         public Nullable<int> SessionId { get; set; }
         public string InteractionName { get; set; }
-        public Nullable<int> InteractionTypeId { get; set; }
-        public Nullable<int> InteractionItemId { get; set; }
+        public Nullable<int> VotingId { get; set; }
+        public Nullable<int> QAId { get; set; }
         public Nullable<bool> IsRunning { get; set; }
     
-        public virtual InteractionType InteractionType { get; set; }
         public virtual QA QA { get; set; }
         public virtual Session Session { get; set; }
         public virtual Voting Voting { get; set; }

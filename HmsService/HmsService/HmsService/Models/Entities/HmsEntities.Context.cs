@@ -38,10 +38,10 @@ namespace HmsService.Models.Entities
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventCollection> EventCollections { get; set; }
         public virtual DbSet<Interaction> Interactions { get; set; }
-        public virtual DbSet<InteractionType> InteractionTypes { get; set; }
         public virtual DbSet<QA> QAs { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Session> Sessions { get; set; }
+        public virtual DbSet<Timeline> Timelines { get; set; }
         public virtual DbSet<Voting> Votings { get; set; }
         public virtual DbSet<VotingOption> VotingOptions { get; set; }
         public virtual DbSet<VotingQuestion> VotingQuestions { get; set; }

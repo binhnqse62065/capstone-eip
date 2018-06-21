@@ -116,19 +116,11 @@
       <EntityTypeMapping TypeName="HmsEntities.Interaction">
         <MappingFragment StoreEntitySet="Interaction">
           <ScalarProperty Name="IsRunning" ColumnName="IsRunning" />
-          <ScalarProperty Name="InteractionItemId" ColumnName="InteractionItemId" />
-          <ScalarProperty Name="InteractionTypeId" ColumnName="InteractionTypeId" />
+          <ScalarProperty Name="QAId" ColumnName="QAId" />
+          <ScalarProperty Name="VotingId" ColumnName="VotingId" />
           <ScalarProperty Name="InteractionName" ColumnName="InteractionName" />
           <ScalarProperty Name="SessionId" ColumnName="SessionId" />
           <ScalarProperty Name="InteractionId" ColumnName="InteractionId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="InteractionTypes">
-      <EntityTypeMapping TypeName="HmsEntities.InteractionType">
-        <MappingFragment StoreEntitySet="InteractionType">
-          <ScalarProperty Name="InteractionName" ColumnName="InteractionName" />
-          <ScalarProperty Name="InteractionTypeId" ColumnName="InteractionTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -163,6 +155,17 @@
           <ScalarProperty Name="StartTime" ColumnName="StartTime" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Timelines">
+      <EntityTypeMapping TypeName="HmsEntities.Timeline">
+        <MappingFragment StoreEntitySet="Timeline">
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="TimelineDetail" ColumnName="TimelineDetail" />
+          <ScalarProperty Name="TimelineTitle" ColumnName="TimelineTitle" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="TimelineId" ColumnName="TimelineId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
