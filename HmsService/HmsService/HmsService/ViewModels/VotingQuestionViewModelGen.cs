@@ -16,7 +16,7 @@ namespace HmsService.ViewModels
     {
     	
     			public virtual int VotingQuestionId { get; set; }
-    			public virtual string VotingQuestionDetail { get; set; }
+    			public virtual string VotingQuestionContent { get; set; }
     			public virtual Nullable<int> VotingId { get; set; }
     	
     	public VotingQuestionViewModel() : base() { }

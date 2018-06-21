@@ -11,18 +11,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Activities">
-      <EntityTypeMapping TypeName="HmsEntities.Activity">
-        <MappingFragment StoreEntitySet="Activity">
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
       <EntityTypeMapping TypeName="HmsEntities.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
@@ -88,6 +76,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="HmsEntities.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="HmsEntities.Event">
         <MappingFragment StoreEntitySet="Event">
@@ -109,6 +109,40 @@
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="EventCollectionID" ColumnName="EventCollectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Interactions">
+      <EntityTypeMapping TypeName="HmsEntities.Interaction">
+        <MappingFragment StoreEntitySet="Interaction">
+          <ScalarProperty Name="IsRunning" ColumnName="IsRunning" />
+          <ScalarProperty Name="QAId" ColumnName="QAId" />
+          <ScalarProperty Name="VotingId" ColumnName="VotingId" />
+          <ScalarProperty Name="InteractionName" ColumnName="InteractionName" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="InteractionId" ColumnName="InteractionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QAs">
+      <EntityTypeMapping TypeName="HmsEntities.QA">
+        <MappingFragment StoreEntitySet="QA">
+          <ScalarProperty Name="InteractionId" ColumnName="InteractionId" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="QAName" ColumnName="QAName" />
+          <ScalarProperty Name="QAId" ColumnName="QAId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="HmsEntities.Question">
+        <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="QuestionContent" ColumnName="QuestionContent" />
+          <ScalarProperty Name="QAId" ColumnName="QAId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -149,7 +183,7 @@
       <EntityTypeMapping TypeName="HmsEntities.VotingOption">
         <MappingFragment StoreEntitySet="VotingOption">
           <ScalarProperty Name="NumberOfVoting" ColumnName="NumberOfVoting" />
-          <ScalarProperty Name="VotingOptionDetail" ColumnName="VotingOptionDetail" />
+          <ScalarProperty Name="VotingOptionContent" ColumnName="VotingOptionContent" />
           <ScalarProperty Name="VotingQuestionId" ColumnName="VotingQuestionId" />
           <ScalarProperty Name="VotingOptionId" ColumnName="VotingOptionId" />
         </MappingFragment>
@@ -159,8 +193,20 @@
       <EntityTypeMapping TypeName="HmsEntities.VotingQuestion">
         <MappingFragment StoreEntitySet="VotingQuestion">
           <ScalarProperty Name="VotingId" ColumnName="VotingId" />
-          <ScalarProperty Name="VotingQuestionDetail" ColumnName="VotingQuestionDetail" />
+          <ScalarProperty Name="VotingQuestionContent" ColumnName="VotingQuestionContent" />
           <ScalarProperty Name="VotingQuestionId" ColumnName="VotingQuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Activities">
+      <EntityTypeMapping TypeName="HmsEntities.Activity">
+        <MappingFragment StoreEntitySet="Activity">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

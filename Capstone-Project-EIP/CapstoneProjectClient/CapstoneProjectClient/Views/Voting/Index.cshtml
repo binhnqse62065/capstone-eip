@@ -4,10 +4,11 @@
 }
 @using HmsService.Models.Entities;
 
-@model Voting
+@model Event
 @{
-    var votingQuestion = Model.VotingQuestions.FirstOrDefault(e => e.VotingId == 1).VotingQuestionDetail;
-    var listQuestionOptions = Model.VotingQuestions.FirstOrDefault(e => e.VotingQuestionId == 1).VotingOptions;
+    var voting = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Interactions.FirstOrDefault(e => e.IsRunning == true).Voting;
+    var votingQuestion = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingQuestions.FirstOrDefault(e => e.VotingQuestionId == 1).VotingQuestionContent;
+    var listQuestionOptions = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingQuestions.FirstOrDefault(e => e.VotingQuestionId == 1).VotingOptions;
 }
 
 <link href="~/Content/bootstrap/Poll/css/bootstrap.css" rel="stylesheet" />
@@ -24,41 +25,76 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <strong>Question : </strong>@votingQuestion
-
                     </div>
                     <div class="panel-body">
                         @{
-                            int i = 0;
+                            int i = 1;
                             foreach (var item in listQuestionOptions)
                             {
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="group-poll">
-                                        <strong>i.  </strong>@item.VotingOptionDetail
+                                        <input type="radio" name="group-poll" value="@item.VotingOptionId">
+                                        <strong>@(i).  </strong>@item.VotingOptionContent
                                     </label>
                                 </div>
                                 i++;
                             }
                         }
+                    </div>
+                    <p id="thanks" style="color:green; text-align:center"></p>
+                    <div class="text-center">
+                        <a id="btn-vote" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
+                    </div>
+                    <div id="result" class="panel-body">
                         <hr />
                         <h5 class="text-danger">Result Of User Votes :</h5>
                         <hr />
-                        @{
+                        @*@{
                                 int j = 1;
-                                string classId = "myBar" + j;
-                                string percentId = "demo" + j;
+                                float s = 0;
+                                float[] p = new float[listQuestionOptions.Count + 2];
                                 foreach (var item in listQuestionOptions)
                                 {
-                                    @item.VotingOptionDetail  <span id="@(percentId)">:</span> 
-                                <div class="progress progress-striped active">
-                                <div id="@classId"class="progress-bar progress-bar-danger" style="width: 0%">
+                                    s = s + item.NumberOfVoting.Value;
+                                }
+                                foreach (var item in listQuestionOptions)
+                                {
+                                    string classId = "myBar" + j;
+                                    string percentId = "demo" + j;
+                                    p[j] = (item.NumberOfVoting.Value / s) * 100;
+                                    double n = Math.Round(p[j]);
+                                    @item.VotingOptionContent <span id="@(percentId)">: @n%</span>
+                                    j++;
+                                    <div class="progress progress-striped active">
+                                        <div id="@classId" class="progress-bar progress-bar-success" style="width: @n%">
+                                        </div>
+                                    </div>
+                                }
+                                <div class="panel-footer">
+                                    <a class="btn btn-success btn-sm" onclick="move(@p)"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
                                 </div>
+                            }*@
+                        @{
+                            int j = 1;
+                            float s = 0;
+                            float[] p = new float[listQuestionOptions.Count + 2];
+                            foreach (var item in listQuestionOptions)
+                            {
+                                s = s + item.NumberOfVoting.Value;
+                            }
+                            foreach (var item in listQuestionOptions)
+                            {
+                                string classId = "myBar" + j;
+                                string percentId = "demo" + j;
+                                p[j] = (item.NumberOfVoting.Value / s) * 100;
+                                double n = Math.Round(p[j]);
+                                @item.VotingOptionContent <span id="@(percentId)"></span>
+                                j++;
+                                <div class="progress progress-striped">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="@n"></div>
                                 </div>
-                                    }
+                            }
                         }
-                    </div>
-                    <div class="panel-footer">
-                        <a href="#" class="btn btn-success btn-sm" onclick="move()"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
                     </div>
                 </div>
             </div>

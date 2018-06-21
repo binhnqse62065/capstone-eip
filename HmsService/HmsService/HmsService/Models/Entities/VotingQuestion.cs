@@ -21,7 +21,7 @@ namespace HmsService.Models.Entities
         }
     
         public int VotingQuestionId { get; set; }
-        public string VotingQuestionDetail { get; set; }
+        public string VotingQuestionContent { get; set; }
         public Nullable<int> VotingId { get; set; }
     
         public virtual Voting Voting { get; set; }
