@@ -42,10 +42,10 @@
     <EntitySet Name="Events" EntityType="HmsEntities.Event" />
     <EntitySet Name="EventCollections" EntityType="HmsEntities.EventCollection" />
     <EntitySet Name="Interactions" EntityType="HmsEntities.Interaction" />
-    <EntitySet Name="InteractionTypes" EntityType="HmsEntities.InteractionType" />
     <EntitySet Name="QAs" EntityType="HmsEntities.QA" />
     <EntitySet Name="Questions" EntityType="HmsEntities.Question" />
     <EntitySet Name="Sessions" EntityType="HmsEntities.Session" />
+    <EntitySet Name="Timelines" EntityType="HmsEntities.Timeline" />
     <EntitySet Name="Votings" EntityType="HmsEntities.Voting" />
     <EntitySet Name="VotingOptions" EntityType="HmsEntities.VotingOption" />
     <EntitySet Name="VotingQuestions" EntityType="HmsEntities.VotingQuestion" />
@@ -86,10 +86,6 @@
       <End Role="Event" EntitySet="Events" />
       <End Role="Voting" EntitySet="Votings" />
     </AssociationSet>
-    <AssociationSet Name="FK_Interaction_InteractionType" Association="HmsEntities.FK_Interaction_InteractionType">
-      <End Role="InteractionType" EntitySet="InteractionTypes" />
-      <End Role="Interaction" EntitySet="Interactions" />
-    </AssociationSet>
     <AssociationSet Name="FK_Interaction_QA" Association="HmsEntities.FK_Interaction_QA">
       <End Role="QA" EntitySet="QAs" />
       <End Role="Interaction" EntitySet="Interactions" />
@@ -109,6 +105,10 @@
     <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
       <End Role="Session" EntitySet="Sessions" />
       <End Role="Activity" EntitySet="Activities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Timeline_Session" Association="HmsEntities.FK_Timeline_Session">
+      <End Role="Session" EntitySet="Sessions" />
+      <End Role="Timeline" EntitySet="Timelines" />
     </AssociationSet>
     <AssociationSet Name="FK_VotingQuestion_Voting" Association="HmsEntities.FK_VotingQuestion_Voting">
       <End Role="Voting" EntitySet="Votings" />
@@ -261,21 +261,12 @@
     <Property Name="InteractionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SessionId" Type="Int32" />
     <Property Name="InteractionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="InteractionTypeId" Type="Int32" />
-    <Property Name="InteractionItemId" Type="Int32" />
+    <Property Name="VotingId" Type="Int32" />
+    <Property Name="QAId" Type="Int32" />
     <Property Name="IsRunning" Type="Boolean" />
-    <NavigationProperty Name="InteractionType" Relationship="HmsEntities.FK_Interaction_InteractionType" FromRole="Interaction" ToRole="InteractionType" />
     <NavigationProperty Name="QA" Relationship="HmsEntities.FK_Interaction_QA" FromRole="Interaction" ToRole="QA" />
     <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Interaction" ToRole="Session" />
     <NavigationProperty Name="Voting" Relationship="HmsEntities.FK_Interaction_Voting" FromRole="Interaction" ToRole="Voting" />
-  </EntityType>
-  <EntityType Name="InteractionType">
-    <Key>
-      <PropertyRef Name="InteractionTypeId" />
-    </Key>
-    <Property Name="InteractionTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="InteractionName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_InteractionType" FromRole="InteractionType" ToRole="Interaction" />
   </EntityType>
   <EntityType Name="QA">
     <Key>
@@ -315,6 +306,18 @@
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />
     <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
+    <NavigationProperty Name="Timelines" Relationship="HmsEntities.FK_Timeline_Session" FromRole="Session" ToRole="Timeline" />
+  </EntityType>
+  <EntityType Name="Timeline">
+    <Key>
+      <PropertyRef Name="TimelineId" />
+    </Key>
+    <Property Name="TimelineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SessionId" Type="Int32" />
+    <Property Name="TimelineTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TimelineDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Timeline_Session" FromRole="Timeline" ToRole="Session" />
   </EntityType>
   <EntityType Name="Voting">
     <Key>
@@ -473,18 +476,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Interaction_InteractionType">
-    <End Type="HmsEntities.InteractionType" Role="InteractionType" Multiplicity="0..1" />
-    <End Type="HmsEntities.Interaction" Role="Interaction" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="InteractionType">
-        <PropertyRef Name="InteractionTypeId" />
-      </Principal>
-      <Dependent Role="Interaction">
-        <PropertyRef Name="InteractionTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Interaction_QA">
     <End Type="HmsEntities.QA" Role="QA" Multiplicity="0..1" />
     <End Type="HmsEntities.Interaction" Role="Interaction" Multiplicity="*" />
@@ -493,7 +484,7 @@
         <PropertyRef Name="QAId" />
       </Principal>
       <Dependent Role="Interaction">
-        <PropertyRef Name="InteractionItemId" />
+        <PropertyRef Name="VotingId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -517,7 +508,7 @@
         <PropertyRef Name="VotingId" />
       </Principal>
       <Dependent Role="Interaction">
-        <PropertyRef Name="InteractionItemId" />
+        <PropertyRef Name="VotingId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -541,6 +532,18 @@
         <PropertyRef Name="SessionID" />
       </Principal>
       <Dependent Role="Activity">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Timeline_Session">
+    <End Type="HmsEntities.Session" Role="Session" Multiplicity="0..1" />
+    <End Type="HmsEntities.Timeline" Role="Timeline" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="SessionID" />
+      </Principal>
+      <Dependent Role="Timeline">
         <PropertyRef Name="SessionId" />
       </Dependent>
     </ReferentialConstraint>

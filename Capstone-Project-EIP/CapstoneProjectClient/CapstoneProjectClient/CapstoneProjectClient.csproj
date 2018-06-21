@@ -211,6 +211,7 @@
   <ItemGroup>
     <Compile Include="API\CommentsController.cs" />
     <Compile Include="API\QuestionsController.cs" />
+    <Compile Include="API\VotingController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -395,8 +396,17 @@
     <Content Include="Content\bootstrap\Dashboard\index.html" />
     <Content Include="Content\bootstrap\Dashboard\use.fontawesome.com\99347ac47f.js" />
     <Content Include="Content\bootstrap\Dashboard\www.google-analytics.com\analytics.js" />
+    <Content Include="Content\bootstrap\Poll\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\Poll\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\Poll\js\jquery-1.11.1.js" />
+    <Content Include="Content\bootstrap\Poll\js\processBar.js" />
+    <Content Include="Content\CustomCss\home.css" />
     <Content Include="Content\CustomCss\main.css" />
     <Content Include="Content\CustomCss\QA.css" />
+    <Content Include="Content\CustomCss\speaker.css" />
+    <Content Include="Content\CustomCss\sponsor.css" />
+    <Content Include="Content\CustomCss\timeline.css" />
     <Content Include="Content\img\new_statesman_events.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -426,6 +436,10 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\bootstrap\Poll\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

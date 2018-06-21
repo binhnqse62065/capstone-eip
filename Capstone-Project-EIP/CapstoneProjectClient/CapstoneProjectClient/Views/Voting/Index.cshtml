@@ -49,31 +49,6 @@
                         <hr />
                         <h5 class="text-danger">Result Of User Votes :</h5>
                         <hr />
-                        @*@{
-                                int j = 1;
-                                float s = 0;
-                                float[] p = new float[listQuestionOptions.Count + 2];
-                                foreach (var item in listQuestionOptions)
-                                {
-                                    s = s + item.NumberOfVoting.Value;
-                                }
-                                foreach (var item in listQuestionOptions)
-                                {
-                                    string classId = "myBar" + j;
-                                    string percentId = "demo" + j;
-                                    p[j] = (item.NumberOfVoting.Value / s) * 100;
-                                    double n = Math.Round(p[j]);
-                                    @item.VotingOptionContent <span id="@(percentId)">: @n%</span>
-                                    j++;
-                                    <div class="progress progress-striped active">
-                                        <div id="@classId" class="progress-bar progress-bar-success" style="width: @n%">
-                                        </div>
-                                    </div>
-                                }
-                                <div class="panel-footer">
-                                    <a class="btn btn-success btn-sm" onclick="move(@p)"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
-                                </div>
-                            }*@
                         @{
                             int j = 1;
                             float s = 0;
