@@ -21,6 +21,8 @@ namespace CapstoneProjectClient.API
     {
         private HmsEntities db = new HmsEntities();
 
+        [Route("getAllQuestion")]
+        [HttpGet]
         // GET: api/Questions
         public IEnumerable<Question> GetQuestions()
         {
@@ -77,7 +79,7 @@ namespace CapstoneProjectClient.API
 
         // POST: api/Questions
         //[ResponseType(typeof(Question))]
-        [Route("add-question")]
+        [Route("AddQuestion")]
         [HttpPost]
         public HttpResponseMessage PostQuestion(Question question)
         {
@@ -94,7 +96,7 @@ namespace CapstoneProjectClient.API
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new JsonContent(new {
-                    succes = true,
+                    success = true,
                     message = "Add successful!",
                     questionId = question.QuestionId
                 })

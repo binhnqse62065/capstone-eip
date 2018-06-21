@@ -114,6 +114,7 @@
                 <div class="form-group">
                     <label>Content</label>
                     <textarea class="form-control" id="txtContent"></textarea>
+                    <input type="hidden" id="new-question-id" />
                 </div>
                 <input type="checkbox" id="btnHiddenUser" /> Post with incognito
 
@@ -175,9 +176,10 @@
                 $('#btnSendQuestion').click(function () {
                     // Call the Send method on the hub.
                     chat.server.send($('#txtUsername').val(), $('#txtContent').val());
+                    
 
                     $.ajax({
-                        url: "api/Questions",
+                        url: "api/question/AddQuestion",
                         method: "POST",
                         data: {
                             Username: $('#txtUsername').val(),
@@ -185,9 +187,11 @@
                             NumberOfLike: 0
 
                         },
-                        success: function () {
+                        success: function (data) {
                             $('#txtUsername').val("");
                             $('#txtContent').val("");
+                            $('#new-question-id').val(data.questionId);
+                            console.log($('#new-question-id').val());
                         },
                         error: function (data) {
                             console.log(data);
@@ -232,6 +236,8 @@
                     listQa.find('.username-content').html(name + ": " + message);
                     listQa.find('.create-time').html(new Date().toLocaleString("en-GB"));
                     listQa.find('.number-of-like').html('0');
+                    console.log("ID: " + $('#new-question-id').val());
+                    listQa.find('.list-qa').attr('id', 'list-qa-' +  $('#new-question-id').val());
                     $('#qa-container').append(listQa.html());
                 }
 
@@ -260,6 +266,7 @@
             $('#questionId').val(questionId);
         }
 
+        
     </script>
 }
 
