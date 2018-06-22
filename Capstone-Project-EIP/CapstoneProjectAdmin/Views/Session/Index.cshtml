@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Manage Session";
+}
+
+@using HmsService.Models.Entities;
+@model Session
+
+<div class="container">
+    <div class="box">
+        </div>
+        <div class="box-header">
+            <h2 class="col-sm-10">Manage Session</h2>
+            <a class="col-sm-2 btn btn-primary" href="@Url.Action("Edit","Session")" style="margin-top:20px">
+                <i class="fa fa-pencil btn-css" aria-hidden="true" style="margin-right:10px"></i>
+                <span>Edit</span>
+            </a>
+        </div>
+        <div class="box-body">
+            <div class="col-sm-10">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="name-title">Name</label>
+                    </div>
+                    <div class="col-sm-8">@Html.Raw(Model.Name)</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="name-title">Start Time</label>
+                    </div>
+                    <div class="col-sm-8">@Html.Raw(Model.StartTime)</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="name-title">End Time</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo">@Html.Raw(Model.EndTime)</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="name-title">Description</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo">@Html.Raw(Model.Description)</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="name-title">Livestream Url</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
