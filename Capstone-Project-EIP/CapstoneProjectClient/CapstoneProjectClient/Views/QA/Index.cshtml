@@ -21,7 +21,7 @@
 
     <div class="col-md-12 col-xs-12">
         <div class="row qa-container" id="qa-container">
-            @foreach (var item in Model.Questions)
+            @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
             {
                 <div class="card list-qa" id="list-qa-@(item.QuestionId)">
                     <div class="card main-qa">
@@ -245,7 +245,12 @@
                             localStorage.setItem("" + questionId, "true");
                         }
                     }
-                    chat.server.likeQuestion(questionId, data.newNumberOfLike);
+                    if (localStorage.getItem("" + questionId) == 'true') {
+                        chat.server.likeQuestion(questionId, parseInt($(this).text()) + 1);
+                    }
+                    else {
+                        chat.server.likeQuestion(questionId, parseInt($(this).text()) - 1);
+                    }
                     $.ajax({
                         url: urlApi,
                         method: "POST",
