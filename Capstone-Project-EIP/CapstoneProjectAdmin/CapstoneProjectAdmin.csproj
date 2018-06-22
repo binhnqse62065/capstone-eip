@@ -64,6 +64,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -72,6 +75,12 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
@@ -189,11 +198,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\SessionController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
@@ -205,6 +216,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JsonContent.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -6796,6 +6808,39 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomCss\admin.css" />
     <Content Include="Content\CustomCss\sponsor.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_asc.png" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_both.png" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_desc.png" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.bootstrap.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.bootstrap.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.foundation.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.foundation.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.jqueryui.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.jqueryui.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.semanticui.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\dataTables.semanticui.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\jquery.dataTables.js" />
+    <Content Include="Content\DataTables\DataTables-1.10.18\js\jquery.dataTables.min.js" />
+    <Content Include="Content\DataTables\datatables.css" />
+    <Content Include="Content\DataTables\datatables.js" />
+    <Content Include="Content\DataTables\datatables.min.css" />
+    <Content Include="Content\DataTables\datatables.min.js" />
     <Content Include="Content\img\background-wifi-2.png" />
     <Content Include="Content\img\download.png" />
     <Content Include="favicon.ico" />
@@ -7434,7 +7479,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -7475,7 +7522,6 @@
     <Content Include="Views\Livestream\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Api\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

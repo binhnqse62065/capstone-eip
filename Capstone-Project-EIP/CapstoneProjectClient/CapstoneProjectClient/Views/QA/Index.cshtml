@@ -7,13 +7,6 @@
     
 }
 
-@*<div class="container">
-        <input type="text" id="message" />
-        <input type="button" id="sendmessage" value="Send" />
-        <input type="hidden" id="displayname" />
-        <ul id="discussion"></ul>
-    </div>*@
-
 <div class="container">
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Post Question</button>
@@ -34,8 +27,8 @@
                     <div class="card main-qa">
                         <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
                         <p class="like-rep">
-                            <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(item.NumberOfLike)</i></button>
-                            <button id="btn-reply" onclick="replyQuestion(@(item.QuestionId))" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                            <button id="btn-like-question-@(item.QuestionId)" class="btn btn-primary btn-sm btn-like-question" value="@(item.QuestionId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> </i> @(item.NumberOfLike)</button>
+                            <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
                         </p>
                         <span class="create-time">@(item.CreateTime)</span>
 
@@ -47,8 +40,8 @@
                         <span id="username-reply">@(subItem.Username): </span>
                         <span id="reply-content">@(subItem.CommentContent)</span>
                         <p class="like-rep">
-                            <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(item.NumberOfLike)</i></button>
-                            <button id="btn-reply" onclick="replyQuestion(@(item.QuestionId))" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                            <button class="btn btn-primary btn-sm btn-like-reply" value="@(subItem.CommentId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(subItem.NumberOfLike)</i></button>
+                            <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
                         </p>
                         @{
                             var createTimeTmp = (DateTime)subItem.CreateTime;
@@ -71,22 +64,22 @@
         <div class="card main-qa">
             <span class="username-content"></span>
             <p class="like-rep">
-                <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"> 0</i></button>
-                <button class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                <button class="btn btn-primary btn-sm btn-like-question" value=""><i class="fa fa-thumbs-o-up" aria-hidden="true"> 0</i></button>
+                <button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
             </p>
             <span class="create-time"></span>
-
         </div>
     </div>
 </div>
 
+<!--Template Reply-->
 <div id="list-reply-template" style="display:none;">
     <div class="card-header list-answer">
         <span id="username-reply"></span>
         <span id="reply-content"></span>
         <p class="like-rep">
-            <button class="btn btn-primary btn-sm"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 0</button>
-            <button id="btn-reply" onclick="replyQuestion()" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+            <button class="btn btn-primary btn-sm btn-like-reply" value=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 0</button>
+            <button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
         </p>
         <span id="reply-time"></span>
         <br />
@@ -94,7 +87,7 @@
 </div>
 
 
-
+<input type="hidden" id="questionId" value="" />
 
 <!-- Modal Post New Question -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -163,8 +156,10 @@
     <script>
         var questionId;
         $(function () {
-            var url = "http://localhost:59917";
-            $.connection.hub.url = url + "/signalr/hubs";
+            //var url = window.location.href;
+            //console.log(url);
+            //var url = "http://localhost:59917";
+            //$.connection.hub.url = url + "/signalr/hubs";
 
 
             // Reference the auto-generated proxy for the hub.
@@ -172,12 +167,12 @@
 
             // Start the connection.
             $.connection.hub.start().done(function () {
-                /**/
+                //Click send question
                 $('#btnSendQuestion').click(function () {
                     // Call the Send method on the hub.
-                    chat.server.send($('#txtUsername').val(), $('#txtContent').val());
                     
-
+                    
+                    //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
                     $.ajax({
                         url: "api/question/AddQuestion",
                         method: "POST",
@@ -185,25 +180,26 @@
                             Username: $('#txtUsername').val(),
                             QuestionContent: $('#txtContent').val(),
                             NumberOfLike: 0
-
                         },
-                        success: function (data) {
+                        success: function (data) {    
+                            chat.server.send($('#txtUsername').val(), $('#txtContent').val(), data.questionId);
                             $('#txtUsername').val("");
                             $('#txtContent').val("");
-                            $('#new-question-id').val(data.questionId);
-                            console.log($('#new-question-id').val());
                         },
                         error: function (data) {
                             console.log(data);
                         }
                     });
+
+                    //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
+
                 });
 
-                
-
+                //Click send reply of question
                 $('#btnSendReply').click(function () {
                     var usernameRep = $('#txtUsernameReply').val();
                     var contentReply = $('#txtContentReply').val();
+                    console.log($('#questionId').val());
                     var questionId = $('#questionId').val();
                     chat.server.sendReply(usernameRep, contentReply, questionId);
                     
@@ -226,18 +222,56 @@
                         }
                     });
                 });
+
+
+
+
+
+                //click like question
+                $('.btn-like-question').click(function () {
+                    var questionId = $(this).attr('value');
+                    var urlApi = 'api/question/LikeQuestion';
+                    var isLike = localStorage.getItem("" + questionId);
+
+                    if (isLike == null) {
+                        localStorage.setItem("" + questionId, "true");
+                    }
+                    else {
+                        if (isLike == 'true') {
+                            localStorage.setItem("" + questionId, "false");
+                            urlApi = 'api/question/DisLikeQuestion';
+                        }
+                        else {
+                            localStorage.setItem("" + questionId, "true");
+                        }
+                    }
+                    chat.server.likeQuestion(questionId, data.newNumberOfLike);
+                    $.ajax({
+                        url: urlApi,
+                        method: "POST",
+                        data: {
+                            QuestionId: questionId
+                        },
+                        success: function (data) {
+                            
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                });
             });
 
             // Create a function that the hub can call back to display messages.
-            chat.client.addNewMessageToPage = function (name, message) {
+            chat.client.addNewMessageToPage = function (name, message, newQuestionId) {
                 // Add the message to the page.
                 if (message.length != 0) {
                     var listQa = $('#list-qa').clone();
                     listQa.find('.username-content').html(name + ": " + message);
                     listQa.find('.create-time').html(new Date().toLocaleString("en-GB"));
                     listQa.find('.number-of-like').html('0');
-                    console.log("ID: " + $('#new-question-id').val());
-                    listQa.find('.list-qa').attr('id', 'list-qa-' +  $('#new-question-id').val());
+                    listQa.find('.btn-reply').attr('value',newQuestionId);
+                    listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
                     $('#qa-container').append(listQa.html());
                 }
 
@@ -260,13 +294,20 @@
 
             };
 
+            //Create a function that hub call back to update new like of question
+            chat.client.updateNewLikeOfQuestion = function (questionId, newNumberOfLike) {
+                var str = '<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> ' + newNumberOfLike;
+                $('#btn-like-question-' + questionId).empty();
+                $('#btn-like-question-' + questionId).append(str);
+            };
+
+
+            $(document).on('click', '.btn-reply', function () {
+                $('#questionId').val($(this).attr('value'));
+            });
+
         });
-
-        function replyQuestion(questionId) {
-            $('#questionId').val(questionId);
-        }
-
-        
+   
     </script>
 }
 

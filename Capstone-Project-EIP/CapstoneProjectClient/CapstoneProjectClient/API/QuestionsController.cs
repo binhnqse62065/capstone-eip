@@ -133,5 +133,43 @@ namespace CapstoneProjectClient.API
         {
             return db.Questions.Count(e => e.QuestionId == id) > 0;
         }
+
+        [Route("LikeQuestion")]
+        [HttpPost]
+        public HttpResponseMessage LikeQuestion(Question question)
+        {
+            var currQuestion = db.Questions.Find(question.QuestionId);
+            currQuestion.NumberOfLike += 1;
+            db.SaveChanges();
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    newNumberOfLike = currQuestion.NumberOfLike
+                })
+            };
+        }
+
+        [Route("DisLikeQuestion")]
+        [HttpPost]
+        public HttpResponseMessage DisLikeQuestion(Question question)
+        {
+            var currQuestion = db.Questions.Find(question.QuestionId);
+            currQuestion.NumberOfLike -= 1;
+            db.SaveChanges();
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    newNumberOfLike = currQuestion.NumberOfLike
+                })
+            };
+        }
     }
 }
