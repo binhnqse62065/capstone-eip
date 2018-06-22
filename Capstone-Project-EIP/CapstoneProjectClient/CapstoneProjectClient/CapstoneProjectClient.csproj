@@ -407,6 +407,7 @@
     <Content Include="Content\CustomCss\speaker.css" />
     <Content Include="Content\CustomCss\sponsor.css" />
     <Content Include="Content\CustomCss\timeline.css" />
+    <Content Include="Content\CustomCss\voting.css" />
     <Content Include="Content\img\new_statesman_events.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

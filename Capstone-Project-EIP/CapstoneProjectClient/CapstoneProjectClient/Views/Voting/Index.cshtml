@@ -15,8 +15,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h2>Bootstrap Poll Example</h2>
-            <br />
+            <h3>Voting</h3>
         </div>
     </div>
     <div class="row ">
@@ -41,15 +40,13 @@
                             }
                         }
                     </div>
-                    <p id="thanks" style="color:green; text-align:center"></p>
+                    <h5 id="thanks" style="color:green; text-align:center; display:none;"></h5>
                     <div class="text-center">
-                        <a id="btn-vote" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
+                        <a id="btn-vote" class="btn btn-sm btn-default" style="background-color:darkgrey"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
                     </div>
-                    <hr />
-                    <div id="result" class="panel-body">
+                    <div id="result" class="panel-body result">
                         <h5 class="text-danger">Result Of User Votes :</h5>
-                        <input id="votingQuestionId" type="hidden" value="@(listQuestionOptions.FirstOrDefault().VotingQuestionId)" />
-                        <hr />
+                        @*<input id="votingQuestionId" type="hidden" value="@(listQuestionOptions.FirstOrDefault().VotingQuestionId)" />*@
                         <div>
                             @{
                                 int j = 1;
