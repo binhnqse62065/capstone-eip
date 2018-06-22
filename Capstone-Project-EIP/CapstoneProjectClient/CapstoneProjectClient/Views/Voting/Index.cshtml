@@ -43,40 +43,43 @@
                     </div>
                     <p id="thanks" style="color:green; text-align:center"></p>
                     <div class="text-center">
-                        <a id="btn-vote" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
+                        <a id="btn-vote" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
                     </div>
+                    <hr />
                     <div id="result" class="panel-body">
-                        <hr />
                         <h5 class="text-danger">Result Of User Votes :</h5>
+                        <input id="votingQuestionId" type="hidden" value="@(listQuestionOptions.FirstOrDefault().VotingQuestionId)" />
                         <hr />
-                        @{
-                            int j = 1;
-                            float s = 0;
-                            float[] p = new float[listQuestionOptions.Count + 2];
-                            foreach (var item in listQuestionOptions)
-                            {
-                                s = s + item.NumberOfVoting.Value;
+                        <div>
+                            @{
+                                int j = 1;
+                                float s = 0;
+                                float[] p = new float[listQuestionOptions.Count + 2];
+                                foreach (var item in listQuestionOptions)
+                                {
+                                    s = s + item.NumberOfVoting.Value;
+                                }
+                                foreach (var item in listQuestionOptions)
+                                {
+                                    p[j] = (item.NumberOfVoting.Value / s) * 100;
+                                    double n = Math.Round(p[j]);
+                                    @item.VotingOptionContent
+                                    j++;
+                                    <div class="progress progress-striped">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="@n"></div>
+                                    </div>
+                                }
                             }
-                            foreach (var item in listQuestionOptions)
-                            {
-                                string classId = "myBar" + j;
-                                string percentId = "demo" + j;
-                                p[j] = (item.NumberOfVoting.Value / s) * 100;
-                                double n = Math.Round(p[j]);
-                                @item.VotingOptionContent <span id="@(percentId)"></span>
-                                j++;
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="@n"></div>
-                                </div>
-                            }
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@section scripts {
+    <script src="~/Content/bootstrap/Poll/js/processBar.js"></script>
+}
+@*<script src="~/Content/bootstrap/Poll/js/jquery-1.11.1.js"></script>
+    <script src="~/Content/bootstrap/Poll/js/bootstrap.js"></script>*@
 
-<script src="~/Content/bootstrap/Poll/js/jquery-1.11.1.js"></script>
-<script src="~/Content/bootstrap/Poll/js/bootstrap.js"></script>
-<script src="~/Content/bootstrap/Poll/js/processBar.js"></script>

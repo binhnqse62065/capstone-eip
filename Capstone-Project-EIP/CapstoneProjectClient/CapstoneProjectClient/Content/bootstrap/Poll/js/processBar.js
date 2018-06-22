@@ -37,19 +37,26 @@
 //    });
 //});
 
+
 $(document).ready(function () {
     $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
     $('#thanks').css('display', 'none');
+    $('#result').css('display', 'none');
     $('#btn-vote').on('click', function () {
         var select = $('input[name=group-poll]:checked').val();
         $.ajax({
-            url: '@Url.Action("UpdateNumberVote", "Voting")',
+            url: 'api/voting/ChangeNumberOfVoting',
             method: "POST",
             data: {
-                VotingOptionId: select
+                votingOptionId: select,
+                //votingQuestionId: $('#votingQuestionId').val()
             },
             success: function () {
-                $('#result').load();
+                $('#result').load(' #result', function () {
+                    $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
+                    $('#result').css('display', 'show')
+
+                });
             },
             error: function (data) {
                 console.log(data);
