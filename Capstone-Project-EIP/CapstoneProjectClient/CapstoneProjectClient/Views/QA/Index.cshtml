@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Q&A";
-    
+
 }
 
 <div class="container">
@@ -36,19 +36,19 @@
 
                     @foreach (var subItem in item.Comments)
                     {
-                    <div class="card-header list-answer">
-                        <span id="username-reply">@(subItem.Username): </span>
-                        <span id="reply-content">@(subItem.CommentContent)</span>
-                        <p class="like-rep">
-                            <button class="btn btn-primary btn-sm btn-like-reply" value="@(subItem.CommentId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(subItem.NumberOfLike)</i></button>
-                            <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
-                        </p>
-                        @{
-                            var createTimeTmp = (DateTime)subItem.CreateTime;
-                            var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                        }
-                        <span id="reply-time">@(createTime)</span>
-                    </div>
+                        <div class="card-header list-answer">
+                            <span id="username-reply">@(subItem.Username): </span>
+                            <span id="reply-content">@(subItem.CommentContent)</span>
+                            <p class="like-rep">
+                                <button class="btn btn-primary btn-sm btn-like-reply" value="@(subItem.CommentId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(subItem.NumberOfLike)</i></button>
+                                <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                            </p>
+                            @{
+                                var createTimeTmp = (DateTime)subItem.CreateTime;
+                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                            }
+                            <span id="reply-time">@(createTime)</span>
+                        </div>
                     }
 
                 </div>
@@ -170,8 +170,8 @@
                 //Click send question
                 $('#btnSendQuestion').click(function () {
                     // Call the Send method on the hub.
-                    
-                    
+
+
                     //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
                     $.ajax({
                         url: "api/question/AddQuestion",
@@ -181,7 +181,7 @@
                             QuestionContent: $('#txtContent').val(),
                             NumberOfLike: 0
                         },
-                        success: function (data) {    
+                        success: function (data) {
                             chat.server.send($('#txtUsername').val(), $('#txtContent').val(), data.questionId);
                             $('#txtUsername').val("");
                             $('#txtContent').val("");
@@ -202,7 +202,7 @@
                     console.log($('#questionId').val());
                     var questionId = $('#questionId').val();
                     chat.server.sendReply(usernameRep, contentReply, questionId);
-                    
+
                     $.ajax({
                         url: "api/Comments",
                         method: "POST",
@@ -245,7 +245,6 @@
                             localStorage.setItem("" + questionId, "true");
                         }
                     }
-                    chat.server.likeQuestion(questionId, data.newNumberOfLike);
                     $.ajax({
                         url: urlApi,
                         method: "POST",
@@ -253,7 +252,7 @@
                             QuestionId: questionId
                         },
                         success: function (data) {
-                            
+                            chat.server.likeQuestion(questionId, data.newNumberOfLike);
                         },
                         error: function (data) {
                             console.log(data);
@@ -270,12 +269,12 @@
                     listQa.find('.username-content').html(name + ": " + message);
                     listQa.find('.create-time').html(new Date().toLocaleString("en-GB"));
                     listQa.find('.number-of-like').html('0');
-                    listQa.find('.btn-reply').attr('value',newQuestionId);
+                    listQa.find('.btn-reply').attr('value', newQuestionId);
                     listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
                     $('#qa-container').append(listQa.html());
                 }
 
-                
+
             };
 
             //Create a function that the hub call back to display reply
@@ -307,7 +306,7 @@
             });
 
         });
-   
+
     </script>
 }
 
