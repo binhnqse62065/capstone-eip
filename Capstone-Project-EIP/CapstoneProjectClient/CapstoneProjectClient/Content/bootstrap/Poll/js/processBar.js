@@ -37,26 +37,35 @@
 //    });
 //});
 
+
 $(document).ready(function () {
     $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
-    $('#thanks').css('display', 'none');
+    //$('#thanks').css('display', 'none');
+    //$('#result').css('display', 'none');
     $('#btn-vote').on('click', function () {
         var select = $('input[name=group-poll]:checked').val();
         $.ajax({
-            url: '@Url.Action("UpdateNumberVote", "Voting")',
+            url: 'api/voting/ChangeNumberOfVoting',
             method: "POST",
             data: {
-                VotingOptionId: select
+                votingOptionId: select,
+                //votingQuestionId: $('#votingQuestionId').val()
             },
             success: function () {
-                $('#result').load();
+                $('#result').load(' #result', function () {
+                    //$('#result').removeAttr('hidden');
+                    $('#btn-vote').css('display', 'none');
+                    $('#thanks').css('display', 'show');
+                    $('#thanks').text("Thank you for your voting!");
+                    $('.result').css('display', 'block');
+                    $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
+
+                });
             },
             error: function (data) {
                 console.log(data);
             }
         });
-        $('#btn-vote').css('display', 'none');
-        $('#thanks').css('display', 'show')
-        $('#thanks').text("Thank you for your voting!");
+
     });
 });
