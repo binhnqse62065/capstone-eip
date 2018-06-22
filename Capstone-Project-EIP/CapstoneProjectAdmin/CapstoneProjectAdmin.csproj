@@ -206,9 +206,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InteractionController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Global.asax.cs">
@@ -7520,8 +7523,14 @@
     <Content Include="Views\Sponsor\Index.cshtml" />
     <Content Include="Views\Speaker\Index.cshtml" />
     <Content Include="Views\Livestream\Index.cshtml" />
+    <Content Include="Views\Session\Index.cshtml" />
+    <Content Include="Views\Activity\Index.cshtml" />
+    <Content Include="Views\Activity\Edit.cshtml" />
+    <Content Include="Views\Session\Edit.cshtml" />
+    <Content Include="Views\Interaction\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="API\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
