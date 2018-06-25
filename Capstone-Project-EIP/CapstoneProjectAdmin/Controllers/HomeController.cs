@@ -19,9 +19,10 @@ namespace CapstoneProjectAdmin.Controllers
             return View(cur);
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            return View();
+            var currentEvent = db.Events.Find(id);
+            return View(currentEvent);
         }
 
         public ActionResult Update(Event eventUpdate)

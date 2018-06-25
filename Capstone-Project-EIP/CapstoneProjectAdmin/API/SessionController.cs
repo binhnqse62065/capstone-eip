@@ -1,4 +1,6 @@
-﻿using CapstoneProjectAdmin.Models;
+﻿using AutoMapper;
+using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,19 +18,27 @@ namespace CapstoneProjectAdmin.API
 
         [Route("getAllSession")]
         [HttpGet]
-        public HttpResponseMessage GetQuestions()
+        public IEnumerable<SessionViewModel> GetQuestions()
         {
-            var session = db.Sessions.FirstOrDefault();
-            return new HttpResponseMessage()
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new JsonContent(new
-                {
-                    success = true,
-                    message = "Add successful!",
-                    data = session
-                })
-            };
+            var session = db.Sessions.Where(s => s.EventId == 1).ToList().Select(s => new SessionViewModel {
+                SessionID = s.SessionID,
+                Name = s.Name,
+                StartTime = s.StartTime,
+                EndTime = s.EndTime
+                
+            });
+            return session.ToList();
+            //return new HttpResponseMessage()
+            //{
+            //    StatusCode = HttpStatusCode.OK,
+            //    Content = new JsonContent(new
+            //    {
+            //        success = true,
+            //        message = "Add successful!",
+            //        data = session
+            //    })
+            //};
+
         }
     }
 }

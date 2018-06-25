@@ -25,3 +25,12 @@
 .modal-dialog{
     left:unset !important;
 }
+
+
+.tableHeadText {
+    padding-left: 15px;
+    
+    font-size: medium;
+    color: gray;
+    font-weight: 600;
+}
