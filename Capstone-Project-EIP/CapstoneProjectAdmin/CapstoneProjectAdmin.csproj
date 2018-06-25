@@ -214,6 +214,7 @@
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
+    <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -7529,6 +7530,7 @@
     <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Session\Edit.cshtml" />
     <Content Include="Views\Interaction\Index.cshtml" />
+    <Content Include="Views\Timeline\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
