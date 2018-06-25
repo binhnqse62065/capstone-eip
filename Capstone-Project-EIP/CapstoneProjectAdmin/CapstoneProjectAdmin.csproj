@@ -223,6 +223,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\SessionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AdminLTE-master\.gitignore" />
@@ -7530,7 +7531,6 @@
     <Content Include="Views\Interaction\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="API\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

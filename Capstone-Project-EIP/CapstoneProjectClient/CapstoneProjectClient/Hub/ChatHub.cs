@@ -16,9 +16,9 @@ namespace CapstoneProjectClient
             Clients.All.addNewMessageToPage(name, message, newQuestionId);
         }
 
-        public void SendReply(string name, string message, int questionId)
+        public void SendReply(string name, string message, int questionId, int commentId)
         {
-            Clients.All.addNewReplyToPage(name, message, questionId);
+            Clients.All.addNewReplyToPage(name, message, questionId, commentId);
         }
 
         public void LikeQuestion(int questionId, int newNumberOfLike)
@@ -26,6 +26,11 @@ namespace CapstoneProjectClient
             Clients.All.updateNewLikeOfQuestion(questionId, newNumberOfLike);
         }
 
+
+        public void LikeComment(int commentId, int newNumberOfLike)
+        {
+            Clients.All.updateNewLikeOfComment(commentId, newNumberOfLike);
+        }
         public ChatHub() : this(GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients) { }
 
         public ChatHub(IHubConnectionContext<dynamic> clients)
