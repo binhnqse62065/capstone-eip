@@ -113,8 +113,8 @@
                     {
                         name: "Function",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateSession" onclick="openModelUpdate(' + row.sessionID +',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>';
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateSession" onclick="openModelUpdate(' + row.sessionID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm btn-delete" data-id="' + row.sessionID + '"><i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
@@ -142,6 +142,13 @@
                         console.log(data);
                     }
                 });
+            });
+
+
+            //Delete session
+            $('.btn-delete').on('click', function () {
+                console.log("AAA");
+                console.log($(this).attr('data-id'));
             });
         });
 
