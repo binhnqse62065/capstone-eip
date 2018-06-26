@@ -199,6 +199,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\SessionController.cs" />
+    <Compile Include="API\SpeakerController.cs" />
+    <Compile Include="API\SponsorController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -6848,6 +6850,8 @@
     <Content Include="Content\DataTables\datatables.min.js" />
     <Content Include="Content\img\background-wifi-2.png" />
     <Content Include="Content\img\download.png" />
+    <Content Include="Content\SpeakerJs\Speaker.js" />
+    <Content Include="Content\SponsorJs\Sponsor.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

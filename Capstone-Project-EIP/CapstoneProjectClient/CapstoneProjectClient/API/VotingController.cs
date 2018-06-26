@@ -19,23 +19,9 @@ namespace CapstoneProjectClient.API
         [HttpPost]
         public HttpResponseMessage ChangeNumberOfVoting(JObject requestObj)
         {
-            //var votingQuestionId = requestObj.SelectToken("votingQuestionId").ToObject<Int32>();
             var votingOption = db.VotingOptions.Find(requestObj.SelectToken("votingOptionId").ToObject<Int32>());
             votingOption.NumberOfVoting += 1;
             db.SaveChanges();
-
-
-            //var listVotingOption = db.VotingOptions.Where(v => v.VotingQuestionId == votingQuestionId);
-            //int? totalVote = 0;
-            //foreach(var item in listVotingOption)
-            //{
-            //    if (item.NumberOfVoting != null) totalVote += item.NumberOfVoting;   
-            //}
-            //float?[] listPercent = new float?[listVotingOption.Count()];
-            //for(int i = 0; i < listVotingOption.Count(); i++)
-            //{
-            //    listPercent[i] = (float)listVotingOption.ElementAt(i).NumberOfVoting / totalVote;
-            //}
             
             return new HttpResponseMessage()
             {
