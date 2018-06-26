@@ -15,7 +15,7 @@
                 collectionItemImageUrl: imageUrl,
             },
             success: function () {
-                console.log('Success');
+                $('#tblSpeaker').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -36,7 +36,7 @@
                 ImageUrl: imageUrl,
             },
             success: function (data) {
-                Alert('Success');
+                $('#tblSpeaker').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -45,7 +45,7 @@
     });
 
         $('#btn-del').on('click', function () {
-        var id = $('#btn-save').val();
+            var id = $('#btn-del').val();
         $.ajax({
             url: 'api/speaker/DeleteSpeaker',
             method: "POST",
@@ -53,7 +53,7 @@
                 CollectionItemID: id,
             },
             success: function (data) {
-                Alert('Success');
+                $('#tblSpeaker').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);

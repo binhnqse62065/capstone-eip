@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="btn-add" type="button" class="btn btn-primary"  data-dismiss="modal" style="margin-top:5px">Add</button>
+                            <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -75,83 +75,86 @@
             </div>
         </div>
 
-        <div class="ibox-content">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="sponsonrs-layout1">
-                        <div class="row">
-                            @foreach (var item in listSpeaker)
-                            {
-                                <div class="col-md-3 col-sm-6 col-12" onclick="showModalSpeaker('@(item.CollectionItemID)', '@(item.Name)', '@(item.Description)', '@(item.ImageUrl)')">
-                                    <div class="box-shadow">
-                                        <a href="#" data-toggle="modal" data-target="#speakerModal">
-                                            <img src="@(item.ImageUrl)" alt="brand" class="img-fluid" style="width:260px; height:200px;">
-                                        </a>
-                                    </div>
+        <div class="modal fade" id="deleteModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h2 class="modal-title">Are your sure?</h2>
+                    </div>
+                    <div class="modal-body">
+                        <h3 class="speaker-del-title"></h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-del" type="button" class="btn btn-default speaker-del-id" data-dismiss="modal">Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="speakerModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Speaker</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-3 form-control-label">Name:</label>
+                            <div class="col-sm-9 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
                                 </div>
-                            }
-                                <!-- Trigger the modal with a button -->
-                                @*<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal@(item.CollectionItemID)">Open Modal</button>*@
-
-                                <!-- Modal -->
-                                <div id="speakerModal" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title">Edit Speaker</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 form-control-label">Name:</label>
-                                                    <div class="col-sm-9 input-group">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                                        </div>
-                                                        <input type="text" class="form-control speaker-title">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 form-control-label">Descripstion:</label>
-                                                    <div class="col-sm-9 input-group">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-info" aria-hidden="true"></i>
-                                                        </div>
-                                                        <textarea type="text" class="form-control speaker-description"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-3 form-control-label">Image:</label>
-                                                    <div class="col-sm-9 input-group">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-link" aria-hidden="true"></i>
-                                                        </div>
-                                                        <input type="text" class="form-control speaker-image">
-                                                    </div>
-                                                    <div class="col-sm-3"></div>
-                                                    <div class="row col-sm-9">
-                                                        <label>or</label>
-                                                        <input type="file" id="myFile">
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button id="btn-save" type="submit" class="btn btn-primary speaker-id"  data-dismiss="modal" style="margin-top:5px">Save change</button>
-                                                <button id="btn-del" type="submit" class="btn btn-danger speaker-id" data-dismiss="modal">Delete</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <input type="text" class="form-control speaker-title">
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 form-control-label">Descripstion:</label>
+                            <div class="col-sm-9 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-info" aria-hidden="true"></i>
+                                </div>
+                                <textarea type="text" class="form-control speaker-description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 form-control-label">Image:</label>
+                            <div class="col-sm-9 input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                </div>
+                                <textarea type="text" class="form-control speaker-image"></textarea>
+                            </div>
+                            <div class="col-sm-3"></div>
+                            <div class="row col-sm-9">
+                                <label>or</label>
+                                <input type="file" id="myFile">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-save" type="submit" class="btn btn-primary speaker-id" data-dismiss="modal" style="margin-top:5px">Save change</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <table class="table table-hover table-bordered" id="tblSpeaker">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th>Function</th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -164,6 +167,47 @@
             $('.speaker-id').val(id); 
 
         }
+
+         function delSpeaker(id, name) {
+            $('.speaker-del-id').val(id);
+            $('.speaker-del-title').html("Delete Speaker " + name);
+        }
+
+         $(document).ready(function () {
+            $('#tblSpeaker').DataTable({
+                ajax: {
+                    url: "api/speaker/getAllSpeaker",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "Name",
+                        render: function (data, type, row) {
+                            return row.name;
+                        }
+                    },
+                    {
+                        name: "Description",
+                        render: function (data, type, row) {
+                            return row.description;
+                        }
+                    },
+                    {
+                        name: "Image",
+                        render: function (data, type, row) {
+                            return '<img src="' + row.imageUrl + '" alt="brand" class="img-fluid" style="width:260px; height:200px;">';
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#speakerModal" onclick="showModalSpeaker(' + row.collectionItemID + ',\'' + row.name + '\', \'' + row.description + '\', \'' + row.imageUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm speaker-id" data-toggle="modal" data-target="#deleteModal" onclick="delSpeaker(' + row.collectionItemID + ',\'' + row.name + '\')"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+        });
     </script>
 }
     <script src="~/Content/SpeakerJs/Speaker.js"></script>

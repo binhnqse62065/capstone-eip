@@ -2,9 +2,9 @@
     $('#btn-save').on('click', function () {
         var id = $('#btn-save').val();
         var name = $('.sponsor-title').val();
+        console.log(name);
         var description = $('.sponsor-description').val();
         var imageUrl = $('.sponsor-image').val();
-        console.log($('.sponsor-title').val());
         $.ajax({
             url: 'api/sponsor/UpdateSponsorData',
             method: "POST",
@@ -15,8 +15,7 @@
                 collectionItemImageUrl: imageUrl,
             },
             success: function (data) {
-                $('#sponsor-image-' + id).attr('src', data.data.sponsorImage);
-
+                $('#tblSponsor').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -39,7 +38,7 @@
                 ImageUrl: imageUrl,
             },
             success: function (data) {
-                Alert('Success');
+                $('#tblSponsor').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -49,7 +48,7 @@
     });
 
         $('#btn-del').on('click', function () {
-        var id = $('#btn-save').val();
+            var id = $('#btn-del').val();
         $.ajax({
             url: 'api/sponsor/DeleteSponsor',
             method: "POST",
@@ -57,7 +56,7 @@
                 CollectionItemID: id,
             },
             success: function (data) {
-                Alert('Success');
+                $('#tblSponsor').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);

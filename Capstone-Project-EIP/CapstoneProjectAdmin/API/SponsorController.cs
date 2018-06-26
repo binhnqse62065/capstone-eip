@@ -1,4 +1,5 @@
 ﻿using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,12 +16,20 @@ namespace CapstoneProjectAdmin.API
     {
         private HmsEntities db = new HmsEntities();
 
+        [Route("getAllSponsor")]
+        [HttpGet]
+        public IEnumerable<CollectionItem> GetSponsor()
+        {
+            var sponsor = db.CollectionItems.Where(s => s.EventCollectionId == 3).ToList();
+            return sponsor;
+        }
+
+
         [Route("UpdateSponsorData")]
         [HttpPost]
         public HttpResponseMessage UpdateSponsorData(JObject requestObj)
         {
             var sponsor = db.CollectionItems.Find(requestObj.SelectToken("collectionItemId").ToObject<Int32>());
-            var name = requestObj.SelectToken("collectionItemName").ToObject<String>();
             sponsor.Name = requestObj.SelectToken("collectionItemName").ToObject<String>();
             sponsor.Description = requestObj.SelectToken("collectionItemDescription").ToObject<String>();
             sponsor.ImageUrl = requestObj.SelectToken("collectionItemImageUrl").ToObject<String>();

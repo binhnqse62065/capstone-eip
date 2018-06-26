@@ -15,6 +15,15 @@ namespace CapstoneProjectAdmin.API
     {
         private HmsEntities db = new HmsEntities();
 
+        [Route("getAllSpeaker")]
+        [HttpGet]
+        public IEnumerable<CollectionItem> GetSpeaker()
+        {
+            var speaker = db.CollectionItems.Where(s => s.EventCollectionId == 2).ToList();
+            return speaker;
+        }
+
+
         [Route("UpdateSpeakerData")]
         [HttpPost]
         public HttpResponseMessage UpdateSpeakerData(JObject requestObj)
