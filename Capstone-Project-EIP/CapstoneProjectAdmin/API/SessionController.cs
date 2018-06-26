@@ -18,26 +18,58 @@ namespace CapstoneProjectAdmin.API
 
         [Route("getAllSession")]
         [HttpGet]
-        public IEnumerable<SessionViewModel> GetQuestions()
+        public IEnumerable<SessionViewModel> GetSession()
         {
             var session = db.Sessions.Where(s => s.EventId == 1).ToList().Select(s => new SessionViewModel {
                 SessionID = s.SessionID,
                 Name = s.Name,
-                StartTime = s.StartTime,
-                EndTime = s.EndTime
-                
+                StartTime = s.StartTime.Value.ToString("dd/MM/yyyy"),
+                EndTime = s.EndTime.Value.ToString("dd/MM/yyyy"),
+                Description = s.Description
+
             });
             return session.ToList();
-            //return new HttpResponseMessage()
-            //{
-            //    StatusCode = HttpStatusCode.OK,
-            //    Content = new JsonContent(new
-            //    {
-            //        success = true,
-            //        message = "Add successful!",
-            //        data = session
-            //    })
-            //};
+
+        }
+
+        [Route("UpdateSession")]
+        [HttpPost]
+        public HttpResponseMessage UpdateSession(Session session)
+        {
+            try
+            {
+                var curSession = db.Sessions.Find(session.SessionID);
+                curSession.Name = session.Name;
+                curSession.Description = session.Description; 
+                db.SaveChanges();
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        data = new
+                        {
+                            Name = session.Name,
+                            Description = session.Description,
+                            StartTime = session.StartTime,
+                            EndTime = session.EndTime
+                        }
+                    })
+                };
+
+            }
+            catch(Exception e)
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new JsonContent(new
+                    {
+                        success = false
+                    })
+                };
+            }
 
         }
     }

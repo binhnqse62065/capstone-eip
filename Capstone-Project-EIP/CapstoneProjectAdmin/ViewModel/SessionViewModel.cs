@@ -9,8 +9,8 @@ namespace CapstoneProjectAdmin.ViewModel
     {
         public int SessionID { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> StartTime { get; set; }
-        public Nullable<System.DateTime> EndTime { get; set; }
+        public String StartTime { get; set; }
+        public String EndTime { get; set; }
         public string Description { get; set; }
         public int EventId { get; set; }
 
