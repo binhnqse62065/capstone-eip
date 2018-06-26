@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <!--Data Table-->
     <link rel="stylesheet" href="~/Content/DataTables/datatables.min.css">
+    <!--Sweet Alert-->
+    <link rel="stylesheet" href="~/Content/bootstrap-sweetalert-master/dist/sweetalert.css">
+
 
     <!--Custom Css-->
     <link rel="stylesheet" href="~/Content/CustomCss/admin.css">
@@ -87,6 +90,8 @@
     <script src="~/Content/AdminLTE-master/dist/js/adminlte.min.js"></script>
     <!--Data Table-->
     <script src="~/Content/DataTables/datatables.min.js"></script>
+    <!--Sweet Alert-->
+    <script src="~/Content/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
 
 
 </head>
@@ -594,12 +599,7 @@
     @RenderSection("scripts", required: false)
     <script>
         $(document).ready(function () {
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('editor1');
-
-            //Date range picker
-            $('#reservation').daterangepicker();
+            
 
 
 

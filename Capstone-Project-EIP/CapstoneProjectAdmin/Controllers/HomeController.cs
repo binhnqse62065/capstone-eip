@@ -25,6 +25,7 @@ namespace CapstoneProjectAdmin.Controllers
             return View(currentEvent);
         }
 
+        [HttpPost]
         public ActionResult Update(Event eventUpdate)
         {
             var eventUp = db.Events.Find(1);
@@ -38,7 +39,7 @@ namespace CapstoneProjectAdmin.Controllers
                 var err = e.Message;
             }
             
-            return View();
+            return View("Index");
         }
 
         public ActionResult About()

@@ -72,5 +72,41 @@ namespace CapstoneProjectAdmin.API
             }
 
         }
+
+        [Route("DeleteSession")]
+        [HttpPost]
+        public HttpResponseMessage DeleteSession(Session session)
+        {
+            try
+            {
+                var curSession = db.Sessions.Find(session.SessionID);
+                db.Sessions.Remove(curSession);
+                db.SaveChanges();
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true
+                    })
+                };
+
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        data = e.Message
+                    })
+                };
+            }
+
+        }
     }
+
+
 }
