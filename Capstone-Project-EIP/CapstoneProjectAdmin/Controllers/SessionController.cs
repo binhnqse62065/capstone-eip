@@ -14,9 +14,7 @@ namespace CapstoneProjectAdmin.Controllers
         private HmsEntities db = new HmsEntities();
         public ActionResult Index()
         {
-            EventApi eventApi = new EventApi();
-            var cur = eventApi.BaseService.GetEventById(1);
-            return View(cur.Sessions.ElementAt(1));
+            return View();
         }
 
         public ActionResult Edit()
