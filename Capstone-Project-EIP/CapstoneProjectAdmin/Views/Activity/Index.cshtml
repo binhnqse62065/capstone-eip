@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    
+
 }
 @using HmsService.Models.Entities;
 @model Activity
@@ -9,42 +9,213 @@
 <div class="container">
     <div class="box">
         <div class="box-header">
-            <h2 class="col-sm-10">Manage Activity</h2>
-            <a class="col-sm-2 btn btn-primary" href="@Url.Action("Edit","Activity")" style="margin-top:20px">
-                <i class="fa fa-pencil btn-css" aria-hidden="true" style="margin-right:10px"></i>
-                <span>Edit</span>
-            </a>
-        </div>
-        <div class="box-body">
-            <div class="col-sm-10">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="name-title">Name</label>
+            <h2 class="col-sm-8">Manage Activity</h2>
+            <div class="col-sm-4">
+                <div class="col-sm-2"></div>
+                <button class="col-sm-5 btn btn-primary" data-toggle="modal" data-target="#addActivityModal" style="margin-top:20px" type="button">
+                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Activity
+                </button>
+            </div>
+
+            <div class="modal fade" id="addActivityModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Activity</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Name:</label>
+                                <div class="col-sm-9 input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Enter name">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Date and time range:</label>
+
+                                <div class="input-group col-sm-9">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" id="startEndTime" value="@Html.Raw(Model.StartTime)">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Description:</label>
+                                <div class="col-sm-9 input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-info" aria-hidden="true"></i>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Enter Description">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
                     </div>
-                    <div class="col-sm-8 evtinfo">@Html.Raw(Model.Name)</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="name-title evtinfo">Start Time</label>
-                    </div>
-                    <div class="col-sm-8">@Html.Raw(Model.StartTime)</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="name-title evtinfo">End Time</label>
-                    </div>
-                    <div class="col-sm-8">@Html.Raw(Model.EndTime)</div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label class="name-title">Description</label>
-                    </div>
-                    <div class="col-sm-8 evtinfo">@Html.Raw(Model.Description)</div>
+
                 </div>
             </div>
 
         </div>
+        <div class="box-body">
+            <table class="table table-hover table-bordered" id="tblActivity">
+                <thead>
+                    <tr>
+                        <th>Activity Name</th>
+                        <th>Start Time - End Time</th>
+                        <th>Description</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="modalUpdateActivity" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Activity</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Name<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="activityName" type="text" class="form-control" placeholder="Enter Session's name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Start Time - End Time<span class="required"></span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="startEndTime" type="text" class="form-control" placeholder="Enter Session's name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Description</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input id="activityDescription" type="text" class="form-control" placeholder="Enter Description">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-update-activity" class="btn btn-primary" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="txtActivityId" value="" />
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tblActivity').DataTable({
+                ajax: {
+                    url: "api/activity/getAllActivity",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "name",
+                        render: function (data, type, row) {
+                            return row.name;
+                        }
+                    },
+                    {
+                        name: "startTime - End Time",
+                        render: function (data, type, row) {
+                            return row.startTime + " - " + row.endTime;
+                        }
+                    },
+                    {
+                        name: "Description",
+                        render: function (data, type, row) {
+                            return row.description;
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateActivity" onclick="openModelUpdate(' + row.activityID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm btn-delete" data-id="' + row.activityID + '"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+
+
+            //Date range picker
+            $('#startEndTime').daterangepicker();
+
+
+            //Save update session
+            $('#btn-update-activity').on('click', function () {
+                console.log($('#txtActivityId').val());
+                console.log($('#activityName').val());
+                console.log($('#activityDescription').val());
+                $.ajax({
+                    url: 'api/activity/UpdateActivity',
+                    method: "POST",
+                    data: {
+                        ActivityID: $('#txtActivityId').val(),
+                        Name: $('#activityName').val(),
+                        Description: $('#activityDescription').val()
+                    },
+                    success: function (data) {
+                        $('#tblActivity').DataTable().ajax.reload();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
+
+
+            //Delete session
+            $('.btn-delete').on('click', function () {
+                console.log("AAA");
+                console.log($(this).attr('data-id'));
+            });
+        });
+
+        function openModelUpdate(id,name, startTime, endTime, description) {
+            $('#activityName').val(name);
+            $('#activityDescription').val(description);
+            $('#startEndTime').val(startTime + " - " + endTime);
+            $('#txtActivityId').val(id);
+        }
+    </script>
+}
 
 
