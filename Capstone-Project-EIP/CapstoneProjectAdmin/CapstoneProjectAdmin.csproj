@@ -29,7 +29,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -201,6 +201,7 @@
     <Compile Include="API\ActivityAPIController.cs" />
     <Compile Include="API\QAAPIController.cs" />
     <Compile Include="API\SessionController.cs" />
+    <Compile Include="API\TimelineAPIController.cs" />
     <Compile Include="API\VotingAPIController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -7651,7 +7652,6 @@
     <Content Include="Views\Livestream\Index.cshtml" />
     <Content Include="Views\Session\Index.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
-    <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Interaction\Index.cshtml" />
     <Content Include="Views\Timeline\Index.cshtml" />
   </ItemGroup>

@@ -12,7 +12,7 @@
             <h2 class="col-sm-8">Manage Activity</h2>
             <div class="col-sm-4">
                 <div class="col-sm-2"></div>
-                <button class="col-sm-5 btn btn-primary" data-toggle="modal" data-target="#addActivityModal" style="margin-top:20px" type="button">
+                <button class="col-sm-5 btn btn-primary" data-toggle="modal" data-target="#addActivityModal"  style="margin-top:20px" type="button">
                     <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Activity
                 </button>
             </div>
@@ -33,7 +33,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Enter name">
+                                    <input type="text" class="form-control" id="addName" placeholder="Enter name">
                                 </div>
                             </div>
 
@@ -44,7 +44,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="startEndTime" value="@Html.Raw(Model.StartTime)">
+                                    <input type="text" class="form-control pull-right" id="AddStartEndTime" value="">
                                 </div>
                             </div>
 
@@ -54,13 +54,13 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-info" aria-hidden="true"></i>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Enter Description">
+                                    <input type="text" class="form-control" id="addDescription" placeholder="Enter Description">
                                 </div>
                             </div>
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Add</button>
+                            <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -168,7 +168,7 @@
                         name: "Function",
                         render: function (data, type, row) {
                             return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateActivity" onclick="openModelUpdate(' + row.activityID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm btn-delete" data-id="' + row.activityID + '"><i class="fa fa-trash"></i></button>';
+                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteSession(' + row.activityID + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
@@ -176,10 +176,10 @@
 
 
             //Date range picker
-            $('#startEndTime').daterangepicker();
+            $('#AddStartEndTime').daterangepicker();
 
 
-            //Save update session
+            //Save update activity
             $('#btn-update-activity').on('click', function () {
                 console.log($('#txtActivityId').val());
                 console.log($('#activityName').val());
@@ -201,12 +201,33 @@
                 });
             });
 
+            //Add activity
+            $('#addActivity').on('click', function () {
+                var time = $('#AddStartEndTime').val();
+                var timeSplit = time.split('-');
+                var startTime = timeSplit[0].trim();
+                var endTime = timeSplit[1].trim();
 
-            //Delete session
-            $('.btn-delete').on('click', function () {
-                console.log("AAA");
-                console.log($(this).attr('data-id'));
+                $.ajax({
+                    url: 'api/activity/AddActivity',
+                    method: 'POST',
+                    data: {
+                        SessionId:1,
+                        Name: $('#addName').val(),
+                        Description: $('#addDescription').val(),
+                        StartTime: startTime,
+                        EndTime: endTime
+                    },
+                    success: function (data) {
+                        reloadTable();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
             });
+
+            
         });
 
         function openModelUpdate(id,name, startTime, endTime, description) {
@@ -214,6 +235,50 @@
             $('#activityDescription').val(description);
             $('#startEndTime').val(startTime + " - " + endTime);
             $('#txtActivityId').val(id);
+            $('#startEndTime').daterangepicker({
+                locale: {
+                    format:'DD/MM/YYYY'
+                }
+            });
+
+        }
+
+        function deleteSession(id) {
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false
+            },
+                function (isConfirm) {
+                    $.ajax({
+                        url: 'api/activity/DeleteActivity',
+                        method: "POST",
+                        data: {
+                            ActivityID: id,
+                            
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Error", "Please delete all activity of this session", "error");
+                        }
+                    });
+                });
+
+
+        }
+
+        function reloadTable() {
+            $('#tblActivity').DataTable().ajax.reload();
         }
     </script>
 }
