@@ -15,12 +15,9 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="SessionId" />
           </Key>
           <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
@@ -168,8 +165,8 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="StartTime" Type="datetime" />
-          <Property Name="EndTime" Type="datetime" />
+          <Property Name="StartTime" Type="date" />
+          <Property Name="EndTime" Type="date" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="EventId" Type="int" Nullable="false" />
         </EntityType>
@@ -189,7 +186,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="VotingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VotingName" Type="nvarchar" MaxLength="100" />
-          <Property Name="EventId" Type="int" />
+          <Property Name="EventId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VotingOption">
           <Key>
@@ -198,7 +195,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <Property Name="VotingOptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="VotingOptionContent" Type="nvarchar" MaxLength="100" />
           <Property Name="NumberOfVoting" Type="int" />
-          <Property Name="VotingId" Type="int" />
+          <Property Name="VotingId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Activity_Session">
           <End Role="Session" Type="Self.Session" Multiplicity="1" />
@@ -401,7 +398,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Voting_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="Voting" Type="Self.Voting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -412,8 +409,8 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VotingOption_Voting">
-          <End Role="Voting" Type="Self.Voting" Multiplicity="0..1" />
+        <Association Name="FK_VotingOption_Voting1">
+          <End Role="Voting" Type="Self.Voting" Multiplicity="1" />
           <End Role="VotingOption" Type="Self.VotingOption" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Voting">
@@ -426,6 +423,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
         </Association>
         <EntityContainer Name="HmsEntitiesStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -443,16 +441,6 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <EntitySet Name="Timeline" EntityType="Self.Timeline" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voting" EntityType="Self.Voting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VotingOption" EntityType="Self.VotingOption" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Activity" EntityType="Self.Activity" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Activity].[ActivityID] AS [ActivityID], 
-    [Activity].[Name] AS [Name], 
-    [Activity].[SessionId] AS [SessionId], 
-    [Activity].[StartTime] AS [StartTime], 
-    [Activity].[EndTime] AS [EndTime], 
-    [Activity].[Description] AS [Description]
-    FROM [dbo].[Activity] AS [Activity]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Activity_Session" Association="Self.FK_Activity_Session">
             <End Role="Session" EntitySet="Session" />
             <End Role="Activity" EntitySet="Activity" />
@@ -521,7 +509,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             <End Role="Event" EntitySet="Event" />
             <End Role="Voting" EntitySet="Voting" />
           </AssociationSet>
-          <AssociationSet Name="FK_VotingOption_Voting" Association="Self.FK_VotingOption_Voting">
+          <AssociationSet Name="FK_VotingOption_Voting1" Association="Self.FK_VotingOption_Voting1">
             <End Role="Voting" EntitySet="Voting" />
             <End Role="VotingOption" EntitySet="VotingOption" />
           </AssociationSet>
@@ -562,6 +550,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="C__MigrationHistory" EntityType="HmsEntities.C__MigrationHistory" />
+          <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
           <EntitySet Name="AspNetRoles" EntityType="HmsEntities.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="HmsEntities.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="HmsEntities.AspNetUserLogin" />
@@ -578,7 +567,10 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <EntitySet Name="Timelines" EntityType="HmsEntities.Timeline" />
           <EntitySet Name="Votings" EntityType="HmsEntities.Voting" />
           <EntitySet Name="VotingOptions" EntityType="HmsEntities.VotingOption" />
-          <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
+          <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
+            <End Role="Session" EntitySet="Sessions" />
+            <End Role="Activity" EntitySet="Activities" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -631,15 +623,11 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             <End Role="QA" EntitySet="QAs" />
             <End Role="Question" EntitySet="Questions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
-            <End Role="Session" EntitySet="Sessions" />
-            <End Role="Activity" EntitySet="Activities" />
-          </AssociationSet>
           <AssociationSet Name="FK_Timeline_Session" Association="HmsEntities.FK_Timeline_Session">
             <End Role="Session" EntitySet="Sessions" />
             <End Role="Timeline" EntitySet="Timelines" />
           </AssociationSet>
-          <AssociationSet Name="FK_VotingOption_Voting" Association="HmsEntities.FK_VotingOption_Voting">
+          <AssociationSet Name="FK_VotingOption_Voting1" Association="HmsEntities.FK_VotingOption_Voting1">
             <End Role="Voting" EntitySet="Votings" />
             <End Role="VotingOption" EntitySet="VotingOptions" />
           </AssociationSet>
@@ -668,6 +656,18 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ActivityID" />
+          </Key>
+          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SessionId" Type="Int32" Nullable="false" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -824,13 +824,13 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartTime" Type="DateTime" Precision="3" />
-          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="StartTime" Type="DateTime" Precision="0" />
+          <Property Name="EndTime" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
           <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />
-          <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
           <NavigationProperty Name="Timelines" Relationship="HmsEntities.FK_Timeline_Session" FromRole="Session" ToRole="Timeline" />
         </EntityType>
         <EntityType Name="Timeline">
@@ -850,10 +850,10 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </Key>
           <Property Name="VotingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VotingName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="EventId" Type="Int32" />
+          <Property Name="EventId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Voting_Event" FromRole="Voting" ToRole="Event" />
           <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Voting" FromRole="Voting" ToRole="Interaction" />
-          <NavigationProperty Name="VotingOptions" Relationship="HmsEntities.FK_VotingOption_Voting" FromRole="Voting" ToRole="VotingOption" />
+          <NavigationProperty Name="VotingOptions" Relationship="HmsEntities.FK_VotingOption_Voting1" FromRole="Voting" ToRole="VotingOption" />
         </EntityType>
         <EntityType Name="VotingOption">
           <Key>
@@ -862,22 +862,21 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           <Property Name="VotingOptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="VotingOptionContent" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="NumberOfVoting" Type="Int32" />
-          <Property Name="VotingId" Type="Int32" />
-          <NavigationProperty Name="Voting" Relationship="HmsEntities.FK_VotingOption_Voting" FromRole="VotingOption" ToRole="Voting" />
+          <Property Name="VotingId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Voting" Relationship="HmsEntities.FK_VotingOption_Voting1" FromRole="VotingOption" ToRole="Voting" />
         </EntityType>
-        <EntityType Name="Activity">
-          <Key>
-            <PropertyRef Name="ActivityID" />
-            <PropertyRef Name="SessionId" />
-          </Key>
-          <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SessionId" Type="Int32" Nullable="false" />
-          <Property Name="StartTime" Type="DateTime" Precision="3" />
-          <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
-        </EntityType>
+        <Association Name="FK_Activity_Session">
+          <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
+          <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Session">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="Activity">
+              <PropertyRef Name="SessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="HmsEntities.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -979,7 +978,7 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Voting_Event">
-          <End Type="HmsEntities.Event" Role="Event" Multiplicity="0..1" />
+          <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
           <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -1038,18 +1037,6 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Activity_Session">
-          <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
-          <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Session">
-              <PropertyRef Name="SessionID" />
-            </Principal>
-            <Dependent Role="Activity">
-              <PropertyRef Name="SessionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Timeline_Session">
           <End Type="HmsEntities.Session" Role="Session" Multiplicity="0..1" />
           <End Type="HmsEntities.Timeline" Role="Timeline" Multiplicity="*" />
@@ -1062,8 +1049,8 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VotingOption_Voting">
-          <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="0..1" />
+        <Association Name="FK_VotingOption_Voting1">
+          <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="1" />
           <End Type="HmsEntities.VotingOption" Role="VotingOption" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Voting">
@@ -1091,6 +1078,18 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="HmsEntities.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1268,18 +1267,6 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
                 <ScalarProperty Name="NumberOfVoting" ColumnName="NumberOfVoting" />
                 <ScalarProperty Name="VotingOptionContent" ColumnName="VotingOptionContent" />
                 <ScalarProperty Name="VotingOptionId" ColumnName="VotingOptionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="HmsEntities.Activity">
-              <MappingFragment StoreEntitySet="Activity">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
