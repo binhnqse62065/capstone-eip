@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "QA";
+}
+
+@using HmsService.Models.Entities;
+@using System.Globalization;
+@model QA
+
+<div class="container">
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Post Question</button>
+
+    <div class="col-md-12 col-xs-12">
+        <div class="row">
+            <button type="button" class="btn btn-default btn-sm btn-lastest-question">Lastest Question</button> &nbsp;
+            <button type="button" class="btn btn-default btn-sm">Hotest Question</button>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-xs-12">
+        <div class="row qa-container" id="qa-container">
+            @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
+            {
+                <div class="card list-qa" id="list-qa-@(item.QuestionId)">
+                    <div class="card main-qa">
+                        <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
+                        <p class="like-rep">
+                            <button id="btn-like-question-@(item.QuestionId)" class="btn btn-primary btn-sm btn-like-question" value="@(item.QuestionId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> </i> @(item.NumberOfLike)</button>
+                            <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                        </p>
+                        <span class="create-time">@(item.CreateTime)</span>
+
+                    </div>
+
+                    @foreach (var subItem in item.Comments)
+                    {
+                        <div class="card-header list-answer">
+                            <span id="username-reply">@(subItem.Username): </span>
+                            <span id="reply-content">@(subItem.CommentContent)</span>
+                            <p class="like-rep">
+                                <button id="btn-like-reply-@(subItem.CommentId)" class="btn btn-primary btn-sm btn-like-reply" value="@(subItem.CommentId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(subItem.NumberOfLike)</i></button>
+                                <button value="@(item.QuestionId)" id="btn-reply-@(subItem.CommentId)" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                            </p>
+                            @{
+                                var createTimeTmp = (DateTime)subItem.CreateTime;
+                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                            }
+                            <span id="reply-time">@(createTime)</span>
+                        </div>
+                    }
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<!--Template list QA-->
+<div style="display:none;" id="list-qa">
+    <div class="card list-qa">
+        <div class="card main-qa">
+            <span class="username-content"></span>
+            <p class="like-rep">
+                <button class="btn btn-primary btn-sm btn-like-question" value=""><i class="fa fa-thumbs-o-up" aria-hidden="true"> 0</i></button>
+                <button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+            </p>
+            <span class="create-time"></span>
+        </div>
+    </div>
+</div>
+
+<!--Template Reply-->
+<div id="list-reply-template" style="display:none;">
+    <div class="card-header list-answer">
+        <span id="username-reply"></span>
+        <span id="reply-content"></span>
+        <p class="like-rep">
+            <button class="btn btn-primary btn-sm btn-like-reply" value=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 0</button>
+            <button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+        </p>
+        <span id="reply-time"></span>
+        <br />
+    </div>
+</div>
+
+
+<input type="hidden" id="questionId" value="" />
+
+<!-- Modal Post New Question -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Post Question</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Input your name</label>
+                    <input type="text" id="txtUsername" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea class="form-control" id="txtContent"></textarea>
+                    <input type="hidden" id="new-question-id" />
+                </div>
+                <input type="checkbox" id="btnHiddenUser" /> Post with incognito
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnSendQuestion" type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Post New Question -->
+<div class="modal fade" id="modalReply" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Post Reply</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Input your name</label>
+                    <input type="text" id="txtUsernameReply" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea class="form-control" id="txtContentReply"></textarea>
+                    <input type="hidden" id="questionId" value="" />
+                </div>
+                <input type="checkbox" id="btnHiddenUser" /> Post with incognito
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnSendReply" type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

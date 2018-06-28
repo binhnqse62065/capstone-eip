@@ -18,18 +18,17 @@ namespace HmsService.Models.Entities
         public Voting()
         {
             this.Interactions = new HashSet<Interaction>();
-            this.VotingQuestions = new HashSet<VotingQuestion>();
+            this.VotingOptions = new HashSet<VotingOption>();
         }
     
         public int VotingId { get; set; }
         public string VotingName { get; set; }
-        public string Description { get; set; }
         public Nullable<int> EventId { get; set; }
     
         public virtual Event Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Interaction> Interactions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VotingQuestion> VotingQuestions { get; set; }
+        public virtual ICollection<VotingOption> VotingOptions { get; set; }
     }
 }

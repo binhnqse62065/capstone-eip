@@ -38,6 +38,8 @@
     <!--Custom Css-->
     <link rel="stylesheet" href="~/Content/CustomCss/admin.css">
     <link rel="stylesheet" href="~/Content/CustomCss/sponsor.css">
+    <link rel="stylesheet" href="~/Content/CustomCss/style.default.css">
+
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -407,7 +409,7 @@
         </li>*@
                     <li><a href="@Url.Action("Index","Home")"><i class="icon-home"></i> <span>Home</span></a></li>
                     <li><a href="@Url.Action("Index","Timeline")"><i class="icon-form"></i> <span>Timeline</span></a></li>
-                    <li><a><i class="fa fa-question-circle"></i> <span>Q&A</span></a></li>
+                    <li><a href="@Url.Action("Index","QA")"><i class="fa fa-question-circle"></i> <span>QA</span></a></li>
                     <li><a><i class="fa fa-check-circle-o"></i> <span>Voting</span></a></li>
                     <li><a href="@Url.Action("Index","Interaction")"><i class="fa fa-check-circle-o"></i> <span>Interaction</span></a></li>
                     <li><a href="@Url.Action("Index","Activity")"><i class="fa fa-rocket" aria-hidden="true"></i><span>Activity</span></a></li>
@@ -415,6 +417,8 @@
                     <li><a href="@Url.Action("Index","Livestream")"><i class="fa fa-video-camera"></i> <span>Livestream</span></a></li>
                     <li><a href="@Url.Action("Index","Speaker")"><i class="fa fa-users"></i> <span>Speaker</span></a></li>
                     <li><a href="@Url.Action("Index","Sponsor")"><i class="fa fa-users"></i> <span>Sponsor</span></a></li>
+
+
                     <li><a><i class="fa fa-sign-out"></i> <span>Sign out</span></a></li>
                     @*<li class="treeview">
             <a href="#">

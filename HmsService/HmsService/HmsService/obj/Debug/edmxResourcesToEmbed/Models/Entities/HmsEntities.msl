@@ -173,7 +173,6 @@
       <EntityTypeMapping TypeName="HmsEntities.Voting">
         <MappingFragment StoreEntitySet="Voting">
           <ScalarProperty Name="EventId" ColumnName="EventId" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="VotingName" ColumnName="VotingName" />
           <ScalarProperty Name="VotingId" ColumnName="VotingId" />
         </MappingFragment>
@@ -182,19 +181,10 @@
     <EntitySetMapping Name="VotingOptions">
       <EntityTypeMapping TypeName="HmsEntities.VotingOption">
         <MappingFragment StoreEntitySet="VotingOption">
+          <ScalarProperty Name="VotingId" ColumnName="VotingId" />
           <ScalarProperty Name="NumberOfVoting" ColumnName="NumberOfVoting" />
           <ScalarProperty Name="VotingOptionContent" ColumnName="VotingOptionContent" />
-          <ScalarProperty Name="VotingQuestionId" ColumnName="VotingQuestionId" />
           <ScalarProperty Name="VotingOptionId" ColumnName="VotingOptionId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="VotingQuestions">
-      <EntityTypeMapping TypeName="HmsEntities.VotingQuestion">
-        <MappingFragment StoreEntitySet="VotingQuestion">
-          <ScalarProperty Name="VotingId" ColumnName="VotingId" />
-          <ScalarProperty Name="VotingQuestionContent" ColumnName="VotingQuestionContent" />
-          <ScalarProperty Name="VotingQuestionId" ColumnName="VotingQuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

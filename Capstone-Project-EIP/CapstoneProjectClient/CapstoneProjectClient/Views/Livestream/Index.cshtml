@@ -3,3 +3,24 @@
     ViewBag.Title = "Livestream";
 }
 <iframe width="100%" height="315" src="https://www.youtube.com/embed/2ccaHpy5Ewo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div class="demo">
+    <blockquote class="imgur-embed-pub" lang="en" data-id="a/DfGAHK0" data-context="false"><a href="//imgur.com/DfGAHK0">Capstone</a></blockquote>
+    <script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+</div>
+
+
+
+<button class="abc" onclick="getImg()">Click</button>
+@section scripts {
+    <script>
+        function getImg() {
+            var img = document.getElementsByClassName('post')[0].src;
+            console.log(img);
+        }
+        //$(document).ready(function () {
+        //    $('#abc').on('click', function () {
+
+        //    });
+        //});
+    </script>
+}
