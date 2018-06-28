@@ -16,7 +16,8 @@ namespace CapstoneProjectAdmin.Controllers
         {
             EventApi eventApi = new EventApi();
             var cur = eventApi.BaseService.GetEventById(1);
-            return View(cur.Sessions.ElementAt(1).Activities.ElementAt(1));
+            var ac = cur.Sessions.FirstOrDefault().Activities.FirstOrDefault();
+            return View(ac);
         }
 
         public ActionResult Edit()

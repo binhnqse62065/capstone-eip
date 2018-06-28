@@ -176,18 +176,24 @@
 
 
             //Date range picker
-            $('#startEndTime').daterangepicker();
+            //$('#startEndTime').daterangepicker();
 
 
             //Save update session
-            $('#btn-update-session').on('click', function () {
+            $('#btn-update-session').on('click', function () {     
+                var time = $('#startEndTime').val();
+                var timeSplit = time.split('-');
+                var startTime = timeSplit[0].trim();
+                var endTime = timeSplit[1].trim()
                 $.ajax({
                     url: 'api/session/UpdateSession',
                     method: "POST",
                     data: {
                         SessionID: $('#txtSessionId').val(),
                         Name: $('#sessionName').val(),
-                        Description: $('#sessionDescription').val()
+                        Description: $('#sessionDescription').val(),
+                        StartTime: startTime,
+                        EndTime: endTime
                     },
                     success: function (data) {
                         $('#tblSession').DataTable().ajax.reload();
@@ -211,6 +217,11 @@
             $('#sessionDescription').val(description);
             $('#startEndTime').val(startTime + " - " + endTime);
             $('#txtSessionId').val(id);
+            $('#startEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
         }
 
         function deleteSession(id) {

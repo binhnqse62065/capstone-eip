@@ -4,6 +4,7 @@ using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -40,7 +41,15 @@ namespace CapstoneProjectAdmin.API
             {
                 var curSession = db.Sessions.Find(session.SessionID);
                 curSession.Name = session.Name;
-                curSession.Description = session.Description; 
+                curSession.Description = session.Description;
+
+
+                
+                IFormatProvider culture = new CultureInfo("en-US", true);
+                DateTime startTimeFormat = DateTime.ParseExact(session.StartTime.Value.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                //DateTime endTimeFormat = DateTime.ParseExact(session.EndTime.ToString(), "yyyy-MM-dd", culture);
+                curSession.StartTime = startTimeFormat;
+                //curSession.EndTime = endTimeFormat;
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {

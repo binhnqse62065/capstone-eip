@@ -335,9 +335,6 @@
     <Compile Include="Models\Entities\Repositories\VotingOptionRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Repositories\VotingQuestionRepositoryGen.cs">
-      <DependentUpon>Repositories.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entities\Repositories\VotingRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
@@ -400,9 +397,6 @@
     <Compile Include="Models\Entities\Services\VotingOptionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Services\VotingQuestionServiceGen.cs">
-      <DependentUpon>Services.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entities\Services\VotingServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -431,12 +425,6 @@
       <DependentUpon>HmsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\VotingOptionRefined.cs">
-      <DependentUpon>EntityRefinery.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\VotingQuestion.cs">
-      <DependentUpon>HmsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\VotingQuestionRefined.cs">
       <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\VotingRefined.cs">
@@ -516,9 +504,6 @@
     <Compile Include="Sdk\VotingOptionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sdk\VotingQuestionApiGen.cs">
-      <DependentUpon>Sdk.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\ActivityViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
@@ -573,9 +558,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ViewModels\VotingOptionViewModelGen.cs">
-      <DependentUpon>ViewModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\VotingQuestionViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\VotingViewModelGen.cs">

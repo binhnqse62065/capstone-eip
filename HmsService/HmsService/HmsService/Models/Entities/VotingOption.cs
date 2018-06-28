@@ -15,10 +15,10 @@ namespace HmsService.Models.Entities
     public partial class VotingOption
     {
         public int VotingOptionId { get; set; }
-        public Nullable<int> VotingQuestionId { get; set; }
         public string VotingOptionContent { get; set; }
         public Nullable<int> NumberOfVoting { get; set; }
+        public int VotingId { get; set; }
     
-        public virtual VotingQuestion VotingQuestion { get; set; }
+        public virtual Voting Voting { get; set; }
     }
 }

@@ -28,6 +28,7 @@ namespace HmsService.Models.Entities
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
@@ -44,8 +45,6 @@ namespace HmsService.Models.Entities
         public virtual DbSet<Timeline> Timelines { get; set; }
         public virtual DbSet<Voting> Votings { get; set; }
         public virtual DbSet<VotingOption> VotingOptions { get; set; }
-        public virtual DbSet<VotingQuestion> VotingQuestions { get; set; }
-        public virtual DbSet<Activity> Activities { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
