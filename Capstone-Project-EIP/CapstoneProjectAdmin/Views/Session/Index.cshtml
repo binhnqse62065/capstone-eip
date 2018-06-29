@@ -3,6 +3,8 @@
     ViewBag.Title = "Manage Session";
 }
 
+@using HmsService.Models.Entities;
+@model Session
 
 <div class="container">
 
@@ -16,7 +18,6 @@
                 </button>
             </div>
 
-            <!--Modal Add Session-->
             <div class="modal fade" id="addSessionModal" role="dialog">
                 <div class="modal-dialog">
 
@@ -33,7 +34,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                                     </div>
-                                    <input id="txtNameAdd" type="text" class="form-control" placeholder="Enter Session's name">
+                                    <input type="text" class="form-control" placeholder="Enter Speaker's name">
                                 </div>
                             </div>
 
@@ -44,7 +45,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="startEndTimeAdd" value="">
+                                    <input type="text" class="form-control pull-right" id="startEndTime" value="@Html.Raw(Model.StartTime)">
                                 </div>
                             </div>
 
@@ -54,13 +55,13 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-info" aria-hidden="true"></i>
                                     </div>
-                                    <input id="txtDescriptionAdd" type="text" class="form-control" placeholder="Enter Description">
+                                    <input type="text" class="form-control" placeholder="Enter Description">
                                 </div>
                             </div>
 
                         </div>
                         <div class="modal-footer">
-                            <button id="btn-add-session" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+                            <button type="button" class="btn btn-primary">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -83,7 +84,7 @@
 </div>
 
 
-<!-- Modal Update Session -->
+<!-- Modal -->
 <div id="modalUpdateSession" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
@@ -113,7 +114,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="startEndTimeUpdate" type="text" class="form-control" placeholder="Enter Session's name">
+                        <input id="startEndTime" type="text" class="form-control" placeholder="Enter Session's name">
                     </div>
                 </div>
                 <div class="form-group">
@@ -175,23 +176,15 @@
 
 
             //Date range picker
-            $('#startEndTimeAdd').daterangepicker({
-                locale: {
-                    format: 'DD/MM/YYYY'
-                }
-            });
+            $('#startEndTime').daterangepicker();
 
 
             //Save update session
-            $('#btn-update-session').on('click', function () {
-                var time = $('#startEndTimeUpdate').val();
+            $('#btn-update-session').on('click', function () {     
+                var time = $('#startEndTime').val();
                 var timeSplit = time.split('-');
-                var startTimeTmp = timeSplit[0].trim();
-                var endTimeTmp = timeSplit[1].trim();
-
-                var startTime = startTimeTmp.split("/").reverse().join("-");
-                var endTime = endTimeTmp.split("/").reverse().join("-");
-
+                var startTime = timeSplit[0].trim();
+                var endTime = timeSplit[1].trim()
                 $.ajax({
                     url: 'api/session/UpdateSession',
                     method: "POST",
@@ -203,7 +196,7 @@
                         EndTime: endTime
                     },
                     success: function (data) {
-                        reloadTable();
+                        $('#tblSession').DataTable().ajax.reload();
                     },
                     error: function (data) {
                         console.log(data);
@@ -211,43 +204,20 @@
                 });
             });
 
-            //Add Session
-            $('#btn-add-session').on('click', function () {
-                var sessionName = $('#txtNameAdd').val();
-                var sessionDescription = $('#txtDescriptionAdd').val();
-                var startEndTime = $('#startEndTimeAdd').val();
-                var timeSplit = startEndTime.split('-');
-                var startTime = timeSplit[0].trim().split("/").reverse().join("-");
-                var endTime = timeSplit[1].trim().split("/").reverse().join("-");
 
-                $.ajax({
-                    url: 'api/session/AddSession',
-                    method: "POST",
-                    data: {
-                        EventId: 1,
-                        Name: sessionName,
-                        Description: sessionDescription,
-                        StartTime: startTime,
-                        EndTime: endTime
-                    },
-                    success: function (data) {
-                        reloadTable();
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+            //Delete session
+            $('.btn-delete').click(function () {
+                console.log("AA");
             });
-
         });
 
 
         function openModelUpdate(id,name, startTime, endTime, description) {
             $('#sessionName').val(name);
             $('#sessionDescription').val(description);
-            $('#startEndTimeUpdate').val(startTime + " - " + endTime);
+            $('#startEndTime').val(startTime + " - " + endTime);
             $('#txtSessionId').val(id);
-            $('#startEndTimeUpdate').daterangepicker({
+            $('#startEndTime').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY'
                 }
@@ -266,7 +236,7 @@
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: false
             },
-                function () {
+                function (isConfirm) {
                     $.ajax({
                         url: 'api/session/DeleteSession',
                         method: "POST",

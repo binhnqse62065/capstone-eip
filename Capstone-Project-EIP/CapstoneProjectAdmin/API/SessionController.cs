@@ -69,6 +69,8 @@ namespace CapstoneProjectAdmin.API
 
         }
 
+        
+
         [Route("DeleteSession")]
         [HttpPost]
         public HttpResponseMessage DeleteSession(Session session)
