@@ -231,6 +231,7 @@
     <Compile Include="ViewModel\ActivityViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
     <Compile Include="ViewModel\SessionViewModel.cs" />
+    <Compile Include="ViewModel\TimelineViewModel.cs" />
     <Compile Include="ViewModel\VotingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,17 +17,125 @@ namespace CapstoneProjectAdmin.API
         private HmsEntities db = new HmsEntities();
         [Route("getAllTimeline")]
         [HttpGet]
-        public IEnumerable<ActivityViewModel> GetActivities()
+        public IEnumerable<TimelineViewModel> GetTimelines()
         {
-            var listActivity = db.Activities.Where(a => a.SessionId == 1).ToList().Select(a => new ActivityViewModel
+            var listTimeline = db.Timelines.Where(a => a.SessionId == 1).ToList().Select(a => new TimelineViewModel
             {
-                ActivityID = a.ActivityID,
-                Name = a.Name,
-                StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy") : "",
-                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy") : "",
-                Description = a.Description
+                TimelineId = a.TimelineId,
+                TimelineTitle = a.TimelineTitle,
+                StartTime = a.StartTime != null ? a.StartTime.ToString() : "",
+                TimelineDetail = a.TimelineDetail
             });
-            return listActivity;
+            return listTimeline;
+        }
+
+        [Route("addTimeline")]
+        [HttpPost]
+        public HttpResponseMessage AddTimeline(Timeline timeline)
+        {
+            try
+            {
+                db.Timelines.Add(timeline);
+                db.SaveChanges();
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        data = new
+                        {
+                            
+                            
+                        }
+                    })
+                };
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        data = e.Message
+
+                    })
+                };
+            }
+        }
+
+        [Route("UpdateTimeline")]
+        [HttpPost]
+        public HttpResponseMessage UpdateTimeline(Timeline timeline)
+        {
+            try
+            {
+                var curTimeline = db.Timelines.FirstOrDefault(a => a.TimelineId == timeline.TimelineId);
+                curTimeline.TimelineTitle = timeline.TimelineTitle;
+                curTimeline.TimelineDetail = timeline.TimelineDetail != null ? timeline.TimelineDetail : "";
+                db.SaveChanges();
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        data = new
+                        {
+                            TimelineTitle = timeline.TimelineTitle,
+                            TimelineDetail = timeline.TimelineDetail,
+                            StartTime = timeline.StartTime
+                        }
+                    })
+                };
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new JsonContent(new
+                    {
+                        success = false
+                    })
+                };
+            }
+        }
+
+        [Route("DeleteTimeline")]
+        [HttpPost]
+        public HttpResponseMessage DeleteTimeline(Timeline timeline)
+        {
+            try
+            {
+                var curTimeline = db.Timelines.Find(timeline.TimelineId);
+                db.Timelines.Remove(curTimeline);
+                db.SaveChanges();
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true
+                    })
+                };
+
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        data = e.Message
+                    })
+                };
+            }
+
         }
     }
 }

@@ -25,26 +25,26 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label class="col-sm-3 form-control-label">Name:</label>
+                                <label class="col-sm-3 form-control-label">Title:</label>
                                 <div class="col-sm-9 input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Enter Timeline's name">
+                                    <input type="text" class="form-control" id="addTitle" placeholder="Enter Timeline's title">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 form-control-label">Posting content:</label>
+                                <label class="col-sm-3 form-control-label">Timeline Detail:</label>
                                 <div class="col-sm-9 input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-info" aria-hidden="true"></i>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Enter content">
+                                    <input type="text" class="form-control" id="addTimelineDetail" placeholder="Enter detail">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" style="margin-top:5px">Add</button>
+                            <button type="button" id="addTimeline" class="btn btn-primary" style="margin-top:5px" data-dismiss="modal">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -67,4 +67,174 @@
         </div>
     </div>
 </div>
+
+<!-----------------Edit Timeline Modal ---------------------->
+<div id="modalUpdateTimeline" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Timeline</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Title<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="timelineTitle" type="text" class="form-control" placeholder="Enter Timeline's name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Timeline Detail</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input id="editTimelineDetail" type="text" class="form-control" placeholder="Enter Description">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-update-timeline" class="btn btn-primary" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="txtTimelineId" value="" />
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tblTimeline').DataTable({
+                ajax: {
+                    url: "api/timeline/getAllTimeline",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "Title",
+                        render: function (data, type, row) {
+                            return row.timelineTitle;
+                        }
+                    },
+
+                    {
+                        name: "Detail",
+                        render: function (data, type, row) {
+                            return row.timelineDetail;
+                        }
+                    },
+                    {
+                        name: "startTime",
+                        render: function (data, type, row) {
+                            return row.startTime.split(' ')[1].split(':')[0] + ':' + row.startTime.split(' ')[1].split(':')[1];
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateTimeline" onclick="openModelUpdate(' + row.timelineId + ',\'' + row.timelineTitle + '\',\'' + row.timelineDetail + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteSession(' + row.timelineId + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+            //Add timeline
+            $('#addTimeline').on('click', function () {
+
+                var dt = new Date($.now());
+                var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                console.log(time);
+                $.ajax({
+                    url: 'api/timeline/addTimeline',
+                    method: 'POST',
+                    data: {
+                        SessionId: 1,
+                        TimelineTitle: $('#addTitle').val(),
+                        TimelineDetail: $('#addTimelineDetail').val(),
+                        StartTime: time,
+                    },
+                    success: function (data) {
+                        reloadTable();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
+
+            //Save update timeline
+            $('#btn-update-timeline').on('click', function () {
+                console.log($('#txtTimelineId').val());
+                console.log($('#timelineTitle').val());
+                console.log($('#editTimelineDetail').val());
+                $.ajax({
+                    url: 'api/timeline/UpdateTimeline',
+                    method: "POST",
+                    data: {
+                        TimelineId: $('#txtTimelineId').val(),
+                        TimelineTitle: $('#timelineTitle').val(),
+                        TimelineDetail: $('#editTimelineDetail').val()
+                    },
+                    success: function (data) {
+                        $('#tblTimeline').DataTable().ajax.reload();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+
+        function deleteSession(id) {
+            console.log(id);
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false
+            },
+                function (isConfirm) {
+                    $.ajax({
+                        url: 'api/timeline/DeleteTimeline',
+                        method: "POST",
+                        data: {
+                            TimelineId: id,
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Error", "Please delete all activity of this session", "error");
+                        }
+                    });
+                });
+        }
+
+        function openModelUpdate(id, name, description) {
+            $('#timelineTitle').val(name);
+            $('#editTimelineDetail').val(description);
+            $('#txtTimelineId').val(id);
+        }
+
+        function reloadTable() {
+            $('#tblTimeline').DataTable().ajax.reload();
+        }
+    </script>
+}
 
