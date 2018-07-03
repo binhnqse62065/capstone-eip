@@ -199,8 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\ActivityAPIController.cs" />
+    <Compile Include="API\InteractionController.cs" />
     <Compile Include="API\QAAPIController.cs" />
     <Compile Include="API\SessionController.cs" />
+    <Compile Include="API\SpeakerController.cs" />
+    <Compile Include="API\SponsorController.cs" />
     <Compile Include="API\TimelineAPIController.cs" />
     <Compile Include="API\VotingAPIController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -215,6 +218,7 @@
     <Compile Include="Controllers\InteractionController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
@@ -231,6 +235,7 @@
     <Compile Include="ViewModel\ActivityViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
     <Compile Include="ViewModel\SessionViewModel.cs" />
+    <Compile Include="ViewModel\TimelineViewModel.cs" />
     <Compile Include="ViewModel\VotingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -6841,7 +6846,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomCss\admin.css" />
+    <Content Include="Content\CustomCss\QA.css" />
     <Content Include="Content\CustomCss\sponsor.css" />
+    <Content Include="Content\CustomCss\style.default.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.css" />
@@ -6877,6 +6884,10 @@
     <Content Include="Content\DataTables\datatables.min.js" />
     <Content Include="Content\img\background-wifi-2.png" />
     <Content Include="Content\img\download.png" />
+    <Content Include="Content\Interaction\Interaction.js" />
+    <Content Include="Content\QAJs\QA.js" />
+    <Content Include="Content\SpeakerJs\Speaker.js" />
+    <Content Include="Content\SponsorJs\Sponsor.js" />
     <Content Include="Content\sweetalert-master\.gitignore" />
     <Content Include="Content\sweetalert-master\assets\logotype.png" />
     <Content Include="Content\sweetalert-master\assets\swal.gif" />
@@ -7654,6 +7665,7 @@
     <Content Include="Views\Activity\Index.cshtml" />
     <Content Include="Views\Interaction\Index.cshtml" />
     <Content Include="Views\Timeline\Index.cshtml" />
+    <Content Include="Views\QA\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

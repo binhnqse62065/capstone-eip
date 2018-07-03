@@ -1,10 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "Manage Session";
+﻿@{
+     ViewBag.Title = "Manage Session";
 }
 
-@using HmsService.Models.Entities;
-@model Session
 
 <div class="container">
 
@@ -45,7 +42,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="startEndTime" value="@Html.Raw(Model.StartTime)">
+                                    <input type="text" class="form-control pull-right" id="startEndTime" value="">
                                 </div>
                             </div>
 
@@ -61,7 +58,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Add</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>

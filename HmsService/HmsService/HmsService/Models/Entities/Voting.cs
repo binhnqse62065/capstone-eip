@@ -23,7 +23,7 @@ namespace HmsService.Models.Entities
     
         public int VotingId { get; set; }
         public string VotingName { get; set; }
-        public int EventId { get; set; }
+        public Nullable<int> EventId { get; set; }
     
         public virtual Event Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
