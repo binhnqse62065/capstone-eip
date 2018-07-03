@@ -1,94 +1,55 @@
-﻿using AutoMapper;
-using CapstoneProjectAdmin.Models;
-using CapstoneProjectAdmin.ViewModel;
-using HmsService.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using HmsService.Models.Entities;
+using HmsService.Sdk;
+using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 
 namespace CapstoneProjectAdmin.API
 {
-    [RoutePrefix("api/session")]
-    public class SessionController : ApiController
+    [RoutePrefix("api/timeline")]
+    public class TimelineAPIController : ApiController
     {
         private HmsEntities db = new HmsEntities();
-
-        [Route("getAllSession")]
+        [Route("getAllTimeline")]
         [HttpGet]
-        public IEnumerable<SessionViewModel> GetSession()
+        public IEnumerable<TimelineViewModel> GetTimelines()
         {
-            var session = db.Sessions.Where(s => s.EventId == 1).ToList().Select(s => new SessionViewModel {
-                SessionID = s.SessionID,
-                Name = s.Name,
-                StartTime = s.StartTime.Value.ToString("dd/MM/yyyy"),
-                EndTime = s.EndTime.Value.ToString("dd/MM/yyyy"),
-                Description = s.Description
-
+            var listTimeline = db.Timelines.Where(a => a.SessionId == 1).ToList().Select(a => new TimelineViewModel
+            {
+                TimelineId = a.TimelineId,
+                TimelineTitle = a.TimelineTitle,
+                StartTime = a.StartTime != null ? a.StartTime.ToString() : "",
+                TimelineDetail = a.TimelineDetail
             });
-            return session.ToList();
-
+            return listTimeline;
         }
 
-        [Route("UpdateSession")]
+        [Route("addTimeline")]
         [HttpPost]
-        public HttpResponseMessage UpdateSession(Session session)
+        public HttpResponseMessage AddTimeline(Timeline timeline)
         {
             try
             {
-                var curSession = db.Sessions.Find(session.SessionID);
-                curSession.Name = session.Name;
-                curSession.Description = session.Description;
-                curSession.StartTime = session.StartTime;
-                curSession.EndTime = session.EndTime;
+                db.Timelines.Add(timeline);
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new JsonContent(new
                     {
-                        success = true
+                        success = true,
+                        data = new
+                        {
+                            
+                            
+                        }
                     })
                 };
-
-            }
-            catch(Exception e)
-            {
-                return new HttpResponseMessage()
-                {
-                    StatusCode = HttpStatusCode.InternalServerError,
-                    Content = new JsonContent(new
-                    {
-                        success = false
-                    })
-                };
-            }
-
-        }
-
-        
-
-        [Route("DeleteSession")]
-        [HttpPost]
-        public HttpResponseMessage DeleteSession(Session session)
-        {
-            try
-            {
-                var curSession = db.Sessions.Find(session.SessionID);
-                db.Sessions.Remove(curSession);
-                db.SaveChanges();
-                return new HttpResponseMessage()
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new JsonContent(new
-                    {
-                        success = true
-                    })
-                };
-
             }
             catch (Exception e)
             {
@@ -99,21 +60,58 @@ namespace CapstoneProjectAdmin.API
                     {
                         success = false,
                         data = e.Message
+
                     })
                 };
             }
-
         }
 
-
-        [Route("AddSession")]
+        [Route("UpdateTimeline")]
         [HttpPost]
-        public HttpResponseMessage AddSession(Session session)
+        public HttpResponseMessage UpdateTimeline(Timeline timeline)
         {
             try
             {
+                var curTimeline = db.Timelines.FirstOrDefault(a => a.TimelineId == timeline.TimelineId);
+                curTimeline.TimelineTitle = timeline.TimelineTitle;
+                curTimeline.TimelineDetail = timeline.TimelineDetail != null ? timeline.TimelineDetail : "";
+                db.SaveChanges();
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        data = new
+                        {
+                            TimelineTitle = timeline.TimelineTitle,
+                            TimelineDetail = timeline.TimelineDetail,
+                            StartTime = timeline.StartTime
+                        }
+                    })
+                };
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new JsonContent(new
+                    {
+                        success = false
+                    })
+                };
+            }
+        }
 
-                db.Sessions.Add(session);
+        [Route("DeleteTimeline")]
+        [HttpPost]
+        public HttpResponseMessage DeleteTimeline(Timeline timeline)
+        {
+            try
+            {
+                var curTimeline = db.Timelines.Find(timeline.TimelineId);
+                db.Timelines.Remove(curTimeline);
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
@@ -140,6 +138,4 @@ namespace CapstoneProjectAdmin.API
 
         }
     }
-
-
 }
