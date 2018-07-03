@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -7,7 +6,6 @@
 @model Event
 
 @{
-    var interactList = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Interactions;
     var votingItemList = Model.Votings;
     var qaItemList = Model.QAs;
 }

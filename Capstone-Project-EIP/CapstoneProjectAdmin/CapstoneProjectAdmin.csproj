@@ -199,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\ActivityAPIController.cs" />
+    <Compile Include="API\HomeController.cs" />
     <Compile Include="API\InteractionController.cs" />
     <Compile Include="API\QAAPIController.cs" />
     <Compile Include="API\SessionController.cs" />
@@ -6882,6 +6883,7 @@
     <Content Include="Content\DataTables\datatables.js" />
     <Content Include="Content\DataTables\datatables.min.css" />
     <Content Include="Content\DataTables\datatables.min.js" />
+    <Content Include="Content\HomeJs\Home.js" />
     <Content Include="Content\img\background-wifi-2.png" />
     <Content Include="Content\img\download.png" />
     <Content Include="Content\Interaction\Interaction.js" />

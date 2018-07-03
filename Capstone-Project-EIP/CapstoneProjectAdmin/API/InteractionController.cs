@@ -37,10 +37,6 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage UpdateInteractionData(Interaction interaction)
         {
-            //var interaction = db.Interactions.Find(requestObj.SelectToken("interactionId").ToObject<Int32>());
-            //interaction.InteractionName = requestObj.SelectToken("interactionName").ToObject<String>();
-            //interaction.VotingId = requestObj.SelectToken("votingId").ToObject<Int32>();
-            //interaction.QAId = requestObj.SelectToken("qaId").ToObject<Int32>();
             var interactionUpdate = db.Interactions.Find(interaction.InteractionId);
             interactionUpdate.InteractionName = interaction.InteractionName;
             if(interaction.VotingId == null)

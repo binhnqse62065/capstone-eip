@@ -109,13 +109,15 @@ warning 6002: The table/view 'Demo.dbo.Activity' does not have a primary key def
       <PropertyRef Name="EventID" />
     </Key>
     <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="EventDescription" Type="varchar(max)" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="EventDescription" Type="nvarchar(max)" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="Address" Type="nvarchar" MaxLength="50" />
     <Property Name="TemplateId" Type="int" />
+    <Property Name="CodeLogin" Type="int" />
+    <Property Name="ImageURL" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="EventCollection">
     <Key>
