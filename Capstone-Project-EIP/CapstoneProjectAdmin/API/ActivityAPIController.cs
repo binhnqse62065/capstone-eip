@@ -25,7 +25,8 @@ namespace CapstoneProjectAdmin.API
                 Name = a.Name,
                 StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/mm/yyyy") : "",
                 EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/mm/yyyy"): "",
-                Description = a.Description
+                Description = a.Description,
+                SessionName = a.Session.Name
             });
             return listActivity; 
         }

@@ -76,6 +76,7 @@
                         <th>Activity Name</th>
                         <th>Start Time - End Time</th>
                         <th>Description</th>
+                        <th>Session Name</th>
                         <th>Function</th>
                     </tr>
                 </thead>
@@ -162,6 +163,12 @@
                         name: "Description",
                         render: function (data, type, row) {
                             return row.description;
+                        }
+                    },
+                    {
+                        name: "Session Name",
+                        render: function (data, type, row) {
+                            return row.sessionName;
                         }
                     },
                     {

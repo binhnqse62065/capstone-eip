@@ -218,6 +218,7 @@
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
+    <Compile Include="Controllers\VotingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,6 +231,7 @@
     <Compile Include="ViewModel\ActivityViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
     <Compile Include="ViewModel\SessionViewModel.cs" />
+    <Compile Include="ViewModel\VotingOptionViewModel.cs" />
     <Compile Include="ViewModel\VotingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -6841,6 +6843,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomCss\admin.css" />
     <Content Include="Content\CustomCss\sponsor.css" />
+    <Content Include="Content\CustomCss\voting.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.css" />
@@ -7654,6 +7657,7 @@
     <Content Include="Views\Activity\Edit.cshtml" />
     <Content Include="Views\Interaction\Index.cshtml" />
     <Content Include="Views\Timeline\Index.cshtml" />
+    <Content Include="Views\Voting\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
