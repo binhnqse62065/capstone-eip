@@ -15,7 +15,7 @@ namespace HmsService.Models.Entities
     public partial class Interaction
     {
         public int InteractionId { get; set; }
-        public Nullable<int> SessionId { get; set; }
+        public int SessionId { get; set; }
         public string InteractionName { get; set; }
         public Nullable<int> VotingId { get; set; }
         public Nullable<int> QAId { get; set; }

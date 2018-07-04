@@ -79,7 +79,6 @@ E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstonePr
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.pdb
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Autofac.Integration.Mvc.dll
-E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Autofac.Integration.Mvc.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\ApplicationInsights.config
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.dll.config
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.dll

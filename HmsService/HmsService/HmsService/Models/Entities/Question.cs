@@ -14,12 +14,6 @@ namespace HmsService.Models.Entities
     
     public partial class Question
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Question()
-        {
-            this.Comments = new HashSet<Comment>();
-        }
-    
         public int QuestionId { get; set; }
         public Nullable<int> QAId { get; set; }
         public string QuestionContent { get; set; }
@@ -27,8 +21,6 @@ namespace HmsService.Models.Entities
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<int> NumberOfLike { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
         public virtual QA QA { get; set; }
     }
 }

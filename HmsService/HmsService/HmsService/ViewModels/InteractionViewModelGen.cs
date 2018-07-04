@@ -16,7 +16,7 @@ namespace HmsService.ViewModels
     {
     	
     			public virtual int InteractionId { get; set; }
-    			public virtual Nullable<int> SessionId { get; set; }
+    			public virtual int SessionId { get; set; }
     			public virtual string InteractionName { get; set; }
     			public virtual Nullable<int> VotingId { get; set; }
     			public virtual Nullable<int> QAId { get; set; }

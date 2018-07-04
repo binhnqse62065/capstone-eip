@@ -15,7 +15,7 @@ namespace HmsService.Models.Entities
     public partial class Timeline
     {
         public int TimelineId { get; set; }
-        public Nullable<int> SessionId { get; set; }
+        public int SessionId { get; set; }
         public string TimelineTitle { get; set; }
         public string TimelineDetail { get; set; }
         public Nullable<System.DateTime> StartTime { get; set; }
