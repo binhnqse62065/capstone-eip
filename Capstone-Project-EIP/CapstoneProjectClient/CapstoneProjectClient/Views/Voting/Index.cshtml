@@ -7,8 +7,7 @@
 @model Event
 @{
     var voting = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Interactions.FirstOrDefault(e => e.IsRunning == true).Voting;
-    var votingQuestion = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingQuestions.FirstOrDefault(e => e.VotingQuestionId == 1).VotingQuestionContent;
-    var listQuestionOptions = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingQuestions.FirstOrDefault(e => e.VotingQuestionId == 1).VotingOptions;
+    var listOptions = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingOptions;
 }
 
 <link href="~/Content/bootstrap/Poll/css/bootstrap.css" rel="stylesheet" />
@@ -23,12 +22,12 @@
             <div class="user-poll-section">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>Question : </strong>@votingQuestion
+                        <strong>Question : </strong>@voting.VotingName
                     </div>
                     <div class="panel-body">
                         @{
                             int i = 1;
-                            foreach (var item in listQuestionOptions)
+                            foreach (var item in listOptions)
                             {
                                 <div class="radio">
                                     <label>
@@ -51,12 +50,12 @@
                             @{
                                 int j = 1;
                                 float s = 0;
-                                float[] p = new float[listQuestionOptions.Count + 2];
-                                foreach (var item in listQuestionOptions)
+                                float[] p = new float[listOptions.Count + 2];
+                                foreach (var item in listOptions)
                                 {
                                     s = s + item.NumberOfVoting.Value;
                                 }
-                                foreach (var item in listQuestionOptions)
+                                foreach (var item in listOptions)
                                 {
                                     p[j] = (item.NumberOfVoting.Value / s) * 100;
                                     double n = Math.Round(p[j]);
@@ -77,6 +76,4 @@
 @section scripts {
     <script src="~/Content/bootstrap/Poll/js/processBar.js"></script>
 }
-@*<script src="~/Content/bootstrap/Poll/js/jquery-1.11.1.js"></script>
-    <script src="~/Content/bootstrap/Poll/js/bootstrap.js"></script>*@
 

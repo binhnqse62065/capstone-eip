@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "QA";
+}
+
+@using HmsService.Models.Entities;
+@using System.Globalization;
+@model QA
+
+<div class="container">
+    <!-- Trigger the modal with a button -->
+
+    <div class="col-md-12 col-xs-12">
+        <div class="row qa-container" id="qa-container">
+            @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
+            {
+                <div class="card list-qa" id="question-@(item.QuestionId)">
+                    <div class="card main-qa">
+                        <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
+                        <br />
+                        @{
+                            var createQuestionTimeTmp = (DateTime)item.CreateTime;
+                            var createQuestionTime = createQuestionTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                        }
+                        <span class="create-time">@(createQuestionTime)</span>
+                        <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteQuestionModal" onclick="delQuestion(@item.QuestionId, '@item.Username')">Delete</button>
+                    </div>
+
+                    @foreach (var subItem in item.Comments)
+                    {
+                        <div class="card-header list-answer" id="comment-@(subItem.CommentId)">
+                            <span id="username-reply">@(subItem.Username): </span>
+                            <span id="reply-content">@(subItem.CommentContent)</span>
+                            <br />
+                            @{
+                                var createTimeTmp = (DateTime)subItem.CreateTime;
+                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                            }
+                            <span id="reply-time">@(createTime)</span>
+                            <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment(@subItem.CommentId, '@subItem.Username')">Delete</button>
+
+                        </div>
+                    }
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+<!--Delete Question Modal-->
+<div class="modal fade" id="deleteQuestionModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Are your sure?</h2>
+            </div>
+            <div class="modal-body">
+                <h3 class="question-del-title"></h3>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-del-question" type="button" class="btn btn-default question-del-id" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Delete Comment Modal-->
+<div class="modal fade" id="deleteCommentModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Are your sure?</h2>
+            </div>
+            <div class="modal-body">
+                <h3 class="comment-del-title"></h3>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-del-comment" type="button" class="btn btn-default comment-del-id" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<input type="hidden" id="questionId" value="" />
+@section scripts {
+    <script>
+        function delQuestion(id, name) {
+            $('.question-del-id').val(id);
+            $('.question-del-title').html("Delete question of " + name);
+        }
+
+        function delComment(id, name) {
+            $('.comment-del-id').val(id);
+            $('.comment-del-title').html("Delete comment of " + name);
+        }
+    </script>
+
+}
+<script src="~/Content/QAJs/QA.js"></script>

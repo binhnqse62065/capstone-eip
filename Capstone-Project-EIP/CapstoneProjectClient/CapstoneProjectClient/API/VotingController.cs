@@ -19,7 +19,6 @@ namespace CapstoneProjectClient.API
         [HttpPost]
         public HttpResponseMessage ChangeNumberOfVoting(JObject requestObj)
         {
-
             var votingOption = db.VotingOptions.Find(requestObj.SelectToken("votingOptionId").ToObject<Int32>());
             votingOption.NumberOfVoting += 1;
             db.SaveChanges();
