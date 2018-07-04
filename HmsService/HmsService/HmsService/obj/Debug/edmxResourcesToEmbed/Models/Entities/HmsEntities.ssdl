@@ -21,6 +21,14 @@
     <Property Name="EndTime" Type="datetime" />
     <Property Name="Description" Type="varchar" MaxLength="250" />
   </EntityType>
+  <EntityType Name="ActivityItem">
+    <Key>
+      <PropertyRef Name="ActivityItemId" />
+    </Key>
+    <Property Name="ActivityItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ActivityId" Type="int" Nullable="false" />
+    <Property Name="CollectionItemId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
       <PropertyRef Name="Id" />
@@ -206,6 +214,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ActivityItem_Activity">
+    <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+    <End Role="ActivityItem" Type="Self.ActivityItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activity">
+        <PropertyRef Name="ActivityID" />
+      </Principal>
+      <Dependent Role="ActivityItem">
+        <PropertyRef Name="ActivityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ActivityItem_CollectionItem">
+    <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="1" />
+    <End Role="ActivityItem" Type="Self.ActivityItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollectionItem">
+        <PropertyRef Name="CollectionItemID" />
+      </Principal>
+      <Dependent Role="ActivityItem">
+        <PropertyRef Name="CollectionItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CollectionItem_EventCollection">
     <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="1" />
     <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
@@ -215,6 +247,18 @@
       </Principal>
       <Dependent Role="CollectionItem">
         <PropertyRef Name="EventCollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_Question">
+    <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="QuestionId" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="QuestionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -409,6 +453,7 @@
   <EntityContainer Name="HmsEntitiesStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ActivityItem" EntityType="Self.ActivityItem" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -430,9 +475,21 @@
       <End Role="Session" EntitySet="Session" />
       <End Role="Activity" EntitySet="Activity" />
     </AssociationSet>
+    <AssociationSet Name="FK_ActivityItem_Activity" Association="Self.FK_ActivityItem_Activity">
+      <End Role="Activity" EntitySet="Activity" />
+      <End Role="ActivityItem" EntitySet="ActivityItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ActivityItem_CollectionItem" Association="Self.FK_ActivityItem_CollectionItem">
+      <End Role="CollectionItem" EntitySet="CollectionItem" />
+      <End Role="ActivityItem" EntitySet="ActivityItem" />
+    </AssociationSet>
     <AssociationSet Name="FK_CollectionItem_EventCollection" Association="Self.FK_CollectionItem_EventCollection">
       <End Role="EventCollection" EntitySet="EventCollection" />
       <End Role="CollectionItem" EntitySet="CollectionItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_Question" Association="Self.FK_Comment_Question">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />

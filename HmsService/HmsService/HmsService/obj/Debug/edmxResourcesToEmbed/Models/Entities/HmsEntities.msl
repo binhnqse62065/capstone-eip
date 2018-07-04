@@ -23,6 +23,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ActivityItems">
+      <EntityTypeMapping TypeName="HmsEntities.ActivityItem">
+        <MappingFragment StoreEntitySet="ActivityItem">
+          <ScalarProperty Name="CollectionItemId" ColumnName="CollectionItemId" />
+          <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+          <ScalarProperty Name="ActivityItemId" ColumnName="ActivityItemId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
       <EntityTypeMapping TypeName="HmsEntities.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">

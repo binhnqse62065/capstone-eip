@@ -6,7 +6,7 @@
 
 @model Event
 @{
-    var voting = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Interactions.FirstOrDefault(e => e.IsRunning == true).Voting;
+    var voting = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Interactions.FirstOrDefault(e => e.IsRunning == true && e.VotingId != null).Voting;
     var listOptions = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingOptions;
 }
 

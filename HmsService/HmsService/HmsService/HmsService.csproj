@@ -178,6 +178,12 @@
     <Compile Include="Models\Entities\Activity.cs">
       <DependentUpon>HmsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\ActivityItem.cs">
+      <DependentUpon>HmsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\ActivityItemRefined.cs">
+      <DependentUpon>EntityRefinery.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\ActivityRefined.cs">
       <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
@@ -279,6 +285,9 @@
     <Compile Include="Models\Entities\QuestionRefined.cs">
       <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Repositories\ActivityItemRepositoryGen.cs">
+      <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Repositories\ActivityRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
@@ -337,6 +346,9 @@
     </Compile>
     <Compile Include="Models\Entities\Repositories\VotingRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Services\ActivityItemServiceGen.cs">
+      <DependentUpon>Services.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Services\ActivityServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
@@ -447,6 +459,9 @@
     <Compile Include="Sdk\ActivityApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\ActivityItemApiGen.cs">
+      <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Sdk\AspNetRoleApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
@@ -509,6 +524,9 @@
     </Compile>
     <Compile Include="Sdk\VotingOptionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ActivityItemViewModelGen.cs">
+      <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ActivityViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>

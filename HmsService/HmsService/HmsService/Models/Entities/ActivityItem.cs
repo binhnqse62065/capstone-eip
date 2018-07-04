@@ -12,15 +12,13 @@ namespace HmsService.Models.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class ActivityItem
     {
-        public int CommentId { get; set; }
-        public Nullable<int> QuestionId { get; set; }
-        public string CommentContent { get; set; }
-        public string Username { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<int> NumberOfLike { get; set; }
+        public int ActivityItemId { get; set; }
+        public int ActivityId { get; set; }
+        public int CollectionItemId { get; set; }
     
-        public virtual Question Question { get; set; }
+        public virtual Activity Activity { get; set; }
+        public virtual CollectionItem CollectionItem { get; set; }
     }
 }

@@ -26,6 +26,14 @@
           <Property Name="EndTime" Type="datetime" />
           <Property Name="Description" Type="varchar" MaxLength="250" />
         </EntityType>
+        <EntityType Name="ActivityItem">
+          <Key>
+            <PropertyRef Name="ActivityItemId" />
+          </Key>
+          <Property Name="ActivityItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActivityId" Type="int" Nullable="false" />
+          <Property Name="CollectionItemId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -211,6 +219,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ActivityItem_Activity">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="ActivityItem" Type="Self.ActivityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="ActivityItem">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActivityItem_CollectionItem">
+          <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="1" />
+          <End Role="ActivityItem" Type="Self.ActivityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectionItem">
+              <PropertyRef Name="CollectionItemID" />
+            </Principal>
+            <Dependent Role="ActivityItem">
+              <PropertyRef Name="CollectionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CollectionItem_EventCollection">
           <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="1" />
           <End Role="CollectionItem" Type="Self.CollectionItem" Multiplicity="*" />
@@ -220,6 +252,18 @@
             </Principal>
             <Dependent Role="CollectionItem">
               <PropertyRef Name="EventCollectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -414,6 +458,7 @@
         <EntityContainer Name="HmsEntitiesStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActivityItem" EntityType="Self.ActivityItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
@@ -435,9 +480,21 @@
             <End Role="Session" EntitySet="Session" />
             <End Role="Activity" EntitySet="Activity" />
           </AssociationSet>
+          <AssociationSet Name="FK_ActivityItem_Activity" Association="Self.FK_ActivityItem_Activity">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="ActivityItem" EntitySet="ActivityItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActivityItem_CollectionItem" Association="Self.FK_ActivityItem_CollectionItem">
+            <End Role="CollectionItem" EntitySet="CollectionItem" />
+            <End Role="ActivityItem" EntitySet="ActivityItem" />
+          </AssociationSet>
           <AssociationSet Name="FK_CollectionItem_EventCollection" Association="Self.FK_CollectionItem_EventCollection">
             <End Role="EventCollection" EntitySet="EventCollection" />
             <End Role="CollectionItem" EntitySet="CollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Question" Association="Self.FK_Comment_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -537,6 +594,7 @@
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="C__MigrationHistory" EntityType="HmsEntities.C__MigrationHistory" />
           <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
+          <EntitySet Name="ActivityItems" EntityType="HmsEntities.ActivityItem" />
           <EntitySet Name="AspNetRoles" EntityType="HmsEntities.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="HmsEntities.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="HmsEntities.AspNetUserLogin" />
@@ -557,6 +615,14 @@
             <End Role="Session" EntitySet="Sessions" />
             <End Role="Activity" EntitySet="Activities" />
           </AssociationSet>
+          <AssociationSet Name="FK_ActivityItem_Activity" Association="HmsEntities.FK_ActivityItem_Activity">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="ActivityItem" EntitySet="ActivityItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ActivityItem_CollectionItem" Association="HmsEntities.FK_ActivityItem_CollectionItem">
+            <End Role="CollectionItem" EntitySet="CollectionItems" />
+            <End Role="ActivityItem" EntitySet="ActivityItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -572,6 +638,10 @@
           <AssociationSet Name="FK_EventCollection_CollectionType" Association="HmsEntities.FK_EventCollection_CollectionType">
             <End Role="CollectionType" EntitySet="CollectionTypes" />
             <End Role="EventCollection" EntitySet="EventCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Question" Association="HmsEntities.FK_Comment_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
           <AssociationSet Name="FK_EventCollection_Event" Association="HmsEntities.FK_EventCollection_Event">
             <End Role="Event" EntitySet="Events" />
@@ -650,6 +720,17 @@
           <Property Name="EndTime" Type="DateTime" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
+          <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_Activity" FromRole="Activity" ToRole="ActivityItem" />
+        </EntityType>
+        <EntityType Name="ActivityItem">
+          <Key>
+            <PropertyRef Name="ActivityItemId" />
+          </Key>
+          <Property Name="ActivityItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActivityId" Type="Int32" Nullable="false" />
+          <Property Name="CollectionItemId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="HmsEntities.FK_ActivityItem_Activity" FromRole="ActivityItem" ToRole="Activity" />
+          <NavigationProperty Name="CollectionItem" Relationship="HmsEntities.FK_ActivityItem_CollectionItem" FromRole="ActivityItem" ToRole="CollectionItem" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -709,6 +790,7 @@
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_CollectionItem" FromRole="CollectionItem" ToRole="ActivityItem" />
           <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
         </EntityType>
         <EntityType Name="CollectionType">
@@ -730,6 +812,7 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="NumberOfLike" Type="Int32" />
+          <NavigationProperty Name="Question" Relationship="HmsEntities.FK_Comment_Question" FromRole="Comment" ToRole="Question" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -798,6 +881,7 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="NumberOfLike" Type="Int32" />
+          <NavigationProperty Name="Comments" Relationship="HmsEntities.FK_Comment_Question" FromRole="Question" ToRole="Comment" />
           <NavigationProperty Name="QA" Relationship="HmsEntities.FK_Question_QA" FromRole="Question" ToRole="QA" />
         </EntityType>
         <EntityType Name="Session">
@@ -859,6 +943,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ActivityItem_Activity">
+          <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="1" />
+          <End Type="HmsEntities.ActivityItem" Role="ActivityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ActivityID" />
+            </Principal>
+            <Dependent Role="ActivityItem">
+              <PropertyRef Name="ActivityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ActivityItem_CollectionItem">
+          <End Type="HmsEntities.CollectionItem" Role="CollectionItem" Multiplicity="1" />
+          <End Type="HmsEntities.ActivityItem" Role="ActivityItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectionItem">
+              <PropertyRef Name="CollectionItemID" />
+            </Principal>
+            <Dependent Role="ActivityItem">
+              <PropertyRef Name="CollectionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="HmsEntities.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -908,6 +1016,18 @@
             </Principal>
             <Dependent Role="EventCollection">
               <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Question">
+          <End Type="HmsEntities.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="HmsEntities.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="QuestionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1060,6 +1180,15 @@
                 <ScalarProperty Name="SessionId" ColumnName="SessionId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActivityItems">
+            <EntityTypeMapping TypeName="HmsEntities.ActivityItem">
+              <MappingFragment StoreEntitySet="ActivityItem">
+                <ScalarProperty Name="CollectionItemId" ColumnName="CollectionItemId" />
+                <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
+                <ScalarProperty Name="ActivityItemId" ColumnName="ActivityItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

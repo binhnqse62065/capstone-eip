@@ -12,15 +12,7 @@ namespace HmsService.Models.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class ActivityItem : SkyWeb.DatVM.Data.IEntity
     {
-        public int CommentId { get; set; }
-        public Nullable<int> QuestionId { get; set; }
-        public string CommentContent { get; set; }
-        public string Username { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<int> NumberOfLike { get; set; }
-    
-        public virtual Question Question { get; set; }
     }
 }

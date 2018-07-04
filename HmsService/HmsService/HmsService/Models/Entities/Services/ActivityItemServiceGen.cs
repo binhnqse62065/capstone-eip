@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HmsService.Models.Entities
+namespace HmsService.Models.Entities.Services
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
-    {
-        public int CommentId { get; set; }
-        public Nullable<int> QuestionId { get; set; }
-        public string CommentContent { get; set; }
-        public string Username { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<int> NumberOfLike { get; set; }
     
-        public virtual Question Question { get; set; }
+    public partial interface IActivityItemService : SkyWeb.DatVM.Data.IBaseService<ActivityItem>
+    {
+    }
+    
+    public partial class ActivityItemService : SkyWeb.DatVM.Data.BaseService<ActivityItem>, IActivityItemService
+    {
+        public ActivityItemService(SkyWeb.DatVM.Data.IUnitOfWork unitOfWork, Repositories.IActivityItemRepository repository) : base(unitOfWork, repository)
+        {
+        }
     }
 }

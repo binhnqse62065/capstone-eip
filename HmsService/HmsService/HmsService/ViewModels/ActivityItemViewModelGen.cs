@@ -7,20 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HmsService.Models.Entities
+namespace HmsService.ViewModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class ActivityItemViewModel : SkyWeb.DatVM.Mvc.BaseEntityViewModel<HmsService.Models.Entities.ActivityItem>
     {
-        public int CommentId { get; set; }
-        public Nullable<int> QuestionId { get; set; }
-        public string CommentContent { get; set; }
-        public string Username { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<int> NumberOfLike { get; set; }
+    	
+    			public virtual int ActivityItemId { get; set; }
+    			public virtual int ActivityId { get; set; }
+    			public virtual int CollectionItemId { get; set; }
+    	
+    	public ActivityItemViewModel() : base() { }
+    	public ActivityItemViewModel(HmsService.Models.Entities.ActivityItem entity) : base(entity) { }
     
-        public virtual Question Question { get; set; }
     }
 }

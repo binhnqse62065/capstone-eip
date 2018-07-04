@@ -7,20 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HmsService.Models.Entities
+namespace HmsService.Sdk
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class ActivityItemApi : HmsService.Sdk.BaseSdkApi<HmsService.Models.Entities.ActivityItem, HmsService.ViewModels.ActivityItemViewModel, HmsService.Models.Entities.Services.IActivityItemService>
     {
-        public int CommentId { get; set; }
-        public Nullable<int> QuestionId { get; set; }
-        public string CommentContent { get; set; }
-        public string Username { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
-        public Nullable<int> NumberOfLike { get; set; }
-    
-        public virtual Question Question { get; set; }
+    	
     }
 }
