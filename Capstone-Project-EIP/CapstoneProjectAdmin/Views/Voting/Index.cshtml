@@ -1,0 +1,348 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="box">
+        <div class="box-header">
+            <h2 class="col-sm-8">Manage Voting</h2>
+            <div class="col-sm-4">
+                <div class="col-sm-2"></div>
+                <button class="col-sm-5 btn btn-primary" data-toggle="modal" data-target="#addVotingModal" style="margin-top:20px" type="button">
+                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Voting
+                </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table table-hover table-bordered" id="tblVoting">
+                <thead>
+                    <tr>
+                        <th>Voting Name</th>
+                        <th>Number option</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Modal Add Session-->
+<div class="modal fade" id="addVotingModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Voting</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="txt-voting-name" type="text" class="form-control" placeholder="Enter Voting's name">
+                    </div>
+                </div>
+                <div class="form-group form-option">
+                    <label class="col-sm-3 form-control-label">Option:</label>
+                    <div class="col-sm-9 input-group">
+
+                    </div>
+                </div>
+                <div class="form-group group-option" id="group-option">
+
+                    <div class="col-md-10 input-group option-item">
+                        <input type="text" class="form-control voting-option-value" placeholder="Enter Option Value">
+                        <a class="input-group-btn btn btn-danger btn-remove-option"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+
+
+
+                </div>
+
+                <div class="form-group">
+                    <a class="btn btn-info btn-add-option" id="btn-add-option"><i class="fa fa-plus" aria-hidden="true"></i> Add more option</a>
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add-voting" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Update Voting -->
+<div id="updateVotingModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Voting</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="voting-name-update" type="text" class="form-control voting-name-update" placeholder="Enter Voting's name">
+                        <input type="hidden" id="voting-update-id" value="" />
+                    </div>
+                </div>
+                <div class="form-group form-option">
+                    <label class="col-sm-3 form-control-label">Option:</label>
+                    <div class="col-sm-9 input-group">
+
+                    </div>
+                </div>
+                <div class="form-group group-option" id="group-option-update">
+
+
+                </div>
+
+                <div class="form-group">
+                    <a class="btn btn-info btn-add-option-update" id="btn-add-option-update"><i class="fa fa-plus" aria-hidden="true"></i> Add more option</a>
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button id="btn-update-voting" type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Template Option-->
+<div id="template-option">
+    <div class="col-md-10 input-group option-item">
+        <input type="text" class="form-control voting-option-value" placeholder="Enter Option Value" value="">
+        <a class="input-group-btn btn btn-danger btn-remove-option"><i class="fa fa-times" aria-hidden="true"></i></a>
+        <input type="hidden" value="" class="voting-option-id" />
+    </div>
+</div>
+
+<!--Template Option Update-->
+<div id="template-option-update">
+    <div class="col-md-10 input-group option-item">
+        <input type="text" class="form-control voting-option-value-update" placeholder="Enter Option Value" value="" data-id="">
+        <a class="input-group-btn btn btn-danger btn-remove-option"><i class="fa fa-times" aria-hidden="true"></i></a>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#tblVoting').DataTable({
+                ajax: {
+                    url: "api/voting/getAllVoting",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "name",
+                        render: function (data, type, row) {
+                            return row.name;
+                        }
+                    },
+                    {
+                        name: "Description",
+                        render: function (data, type, row) {
+                            return row.numberOption;
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateVotingModal" onclick="openUpdateModal(' + row.votingID + ')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteVoting(' + row.votingID + ')"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+
+
+            //Add new option
+            $('#btn-add-option').on('click', function () {
+                var templateOption = $('#template-option').clone();
+                $('#group-option').append(templateOption.html());
+            });
+
+            //Remove option
+            $(document).on('click', '.btn-remove-option', function () {
+                $(this).parent('div.option-item').remove();
+            });
+
+
+            //Add Voting
+            $(document).on('click', '#btn-add-voting', function () {
+                var isValid = true;
+                var votingName = $('#txt-voting-name').val();
+                if (votingName.length == 0) {
+                    isValid = false;
+                }
+                var votingOptions = $('.voting-option-value');
+                if (votingOptions.length == 0) {
+                    isValid = false;
+                }
+                var votingOptionsArr = [];
+                // length - 1 do có 1 input là template nên không sử dụng
+                for (var i = 0; i < votingOptions.length - 1; i++) {
+                    var optionObj = {};
+                    if ($(votingOptions[i]).val().length == 0) {
+                        isValid = false;
+                    }
+                    optionObj.VotingOptionContent = $(votingOptions[i]).val();
+                    optionObj.NumberOfVoting = 0;
+                    votingOptionsArr.push(optionObj);
+                }
+
+                $.ajax({
+                    url: 'api/voting/AddVoting',
+                    method: "POST",
+                    data: {
+                        VotingName: votingName,
+                        EventId: 1,
+                        VotingOptions: votingOptionsArr
+                    },
+                    success: function (data) {
+                        reloadTable();
+                        swal("Success!", "Your voting has been added successfully", "success");
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+
+
+
+            });
+
+
+
+            //Add more option in update modal
+            $('#btn-add-option-update').on('click', function () {
+                var templateOption = $('#template-option-update').clone();
+                $('#group-option-update').append(templateOption.html());
+            });
+
+
+            //Update voting
+            $(document).on('click', '#btn-update-voting', function () {
+                var votingId = $('#voting-update-id').val();
+                var votingName = $('#voting-name-update').val();
+                var votingOptionValues = $('.voting-option-value-update');
+                var votingOptionArr = [];
+                // do input cuối cùng là template nên không sử dụng
+                for (var i = 0; i < votingOptionValues.length - 1; i++) {
+                    var optionObj = {};
+                    optionObj.VotingOptionId = $(votingOptionValues[i]).attr('data-id');
+                    optionObj.VotingOptionContent = $(votingOptionValues[i]).val();
+                    optionObj.VotingId = votingId;
+                    votingOptionArr.push(optionObj);
+
+                }
+                var votingUpdate = {
+                    VotingId: votingId,
+                    VotingName: votingName,
+                    VotingOptions: votingOptionArr
+                };
+                $.ajax({
+                    url: 'api/voting/UpdateVoting',
+                    method: "POST",
+                    data: votingUpdate,
+                    success: function (data) {
+                        swal("Success!", "Voting has been updated successfully", "success");
+                        reloadTable();
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+
+
+            });
+        });
+
+        function reloadTable() {
+            $('#tblVoting').DataTable().ajax.reload();
+        }
+
+        function openUpdateModal(id) {
+            $.ajax({
+                url: 'api/voting/GetVotingById',
+                method: "POST",
+                data: {
+                    VotingId: id
+                },
+                success: function (data) {
+                    $('#voting-update-id').val(id);
+                    $('#group-option-update').html("");
+                    var templateOption = $('#template-option-update').clone();
+                    $('#voting-name-update').attr('value', data.data.Name);
+                    for (var i = 0; i < data.data.VotingOptions.length; i++) {
+                        templateOption.find('.voting-option-value-update').attr('value', data.data.VotingOptions[i].VotingOptionContent);
+                        templateOption.find('.voting-option-value-update').attr('data-id', data.data.VotingOptions[i].VotingOptionId);
+                        $('#group-option-update').append(templateOption.html());
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function deleteVoting(id) {
+            swal({
+                title: "Are you sure?",
+                text: "All voting option will be delete with this voting",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel plx!",
+                closeOnConfirm: false
+            },
+                function () {
+                    $.ajax({
+                        url: 'api/voting/DeleteVoting',
+                        method: "POST",
+                        data: {
+                            VotingId: id,
+
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Deleted!", "Your voting has been deleted successfully", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Error", "Can not delete because this voting is template of interaction", "error");
+                        }
+                    });
+                });
+        }
+
+
+    </script>
+}

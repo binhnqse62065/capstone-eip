@@ -42,12 +42,7 @@ namespace CapstoneProjectAdmin.API
                     StatusCode = HttpStatusCode.OK,
                     Content = new JsonContent(new
                     {
-                        success = true,
-                        data = new
-                        {
-                            
-                            
-                        }
+                        success = true
                     })
                 };
             }

@@ -142,7 +142,7 @@
                         name: "Function",
                         render: function (data, type, row) {
                             return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateTimeline" onclick="openModelUpdate(' + row.timelineId + ',\'' + row.timelineTitle + '\',\'' + row.timelineDetail + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteSession(' + row.timelineId + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
+                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteTimeline(' + row.timelineId + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
@@ -164,6 +164,7 @@
                     },
                     success: function (data) {
                         reloadTable();
+                        swal("Success!", "Timeline has been added successfully", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -185,6 +186,7 @@
                         TimelineDetail: $('#editTimelineDetail').val()
                     },
                     success: function (data) {
+                        swal("Success!", "Timeline has been updated successfully", "success");
                         $('#tblTimeline').DataTable().ajax.reload();
                     },
                     error: function (data) {
@@ -194,7 +196,7 @@
             });
         });
 
-        function deleteSession(id) {
+        function deleteTimeline(id) {
             console.log(id);
 
             swal({
@@ -207,7 +209,7 @@
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: false
             },
-                function (isConfirm) {
+                function () {
                     $.ajax({
                         url: 'api/timeline/DeleteTimeline',
                         method: "POST",
@@ -216,11 +218,11 @@
                         },
                         success: function (data) {
                             reloadTable();
-                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            swal("Deleted!", "Your timeline has been deleted successfully", "success");
                         },
                         error: function (data) {
                             console.log(data);
-                            swal("Error", "Please delete all activity of this session", "error");
+                            swal("Error", "Some error occur", "error");
                         }
                     });
                 });
