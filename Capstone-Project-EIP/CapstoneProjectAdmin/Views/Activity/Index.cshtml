@@ -168,6 +168,7 @@
                     {
                         name: "Session Name",
                         render: function (data, type, row) {
+                            console.log(row);
                             return row.sessionName;
                         }
                     },
@@ -200,7 +201,8 @@
                         Description: $('#activityDescription').val()
                     },
                     success: function (data) {
-                        $('#tblActivity').DataTable().ajax.reload();
+                        reloadTable();
+                        swal("Success!", "Activity has been updated successfully", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -227,6 +229,7 @@
                     },
                     success: function (data) {
                         reloadTable();
+                        swal("Success!", "Activity has been added successfully", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -262,7 +265,7 @@
                 cancelButtonText: "No, cancel plx!",
                 closeOnConfirm: false
             },
-                function (isConfirm) {
+                function () {
                     $.ajax({
                         url: 'api/activity/DeleteActivity',
                         method: "POST",
@@ -272,11 +275,11 @@
                         },
                         success: function (data) {
                             reloadTable();
-                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            swal("Deleted!", "Your activity has been deleted successfully", "success");
                         },
                         error: function (data) {
                             console.log(data);
-                            swal("Error", "Please delete all activity of this session", "error");
+                            swal("Error", "Some error occur", "error");
                         }
                     });
                 });

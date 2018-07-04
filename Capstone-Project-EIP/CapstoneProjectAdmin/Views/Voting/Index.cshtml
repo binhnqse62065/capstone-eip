@@ -133,7 +133,7 @@
 <!--Template Option-->
 <div id="template-option">
     <div class="col-md-10 input-group option-item">
-        <input type="text" class="form-control voting-option-value" placeholder="Enter Option Value" value="" >
+        <input type="text" class="form-control voting-option-value" placeholder="Enter Option Value" value="">
         <a class="input-group-btn btn btn-danger btn-remove-option"><i class="fa fa-times" aria-hidden="true"></i></a>
         <input type="hidden" value="" class="voting-option-id" />
     </div>
@@ -226,6 +226,7 @@
                     },
                     success: function (data) {
                         reloadTable();
+                        swal("Success!", "Your voting has been added successfully", "success");
 
                     },
                     error: function (data) {

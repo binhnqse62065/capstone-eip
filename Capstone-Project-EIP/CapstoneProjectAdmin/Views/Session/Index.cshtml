@@ -204,6 +204,7 @@
                     },
                     success: function (data) {
                         reloadTable();
+                        swal("Success!", "Session has been updated successfully", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -232,6 +233,7 @@
                     },
                     success: function (data) {
                         reloadTable();
+                        swal("Success!", "Session has been added successfully", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -276,7 +278,7 @@
                         },
                         success: function (data) {
                             reloadTable();
-                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            swal("Deleted!", "Your session has been deleted successfully", "success");
                         },
                         error: function (data) {
                             console.log(data);
