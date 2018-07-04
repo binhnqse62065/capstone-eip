@@ -23,9 +23,16 @@ namespace CapstoneProjectAdmin.API
             var listActivity = db.Activities.Where(a => a.SessionId == 1).ToList().Select(a => new ActivityViewModel {
                 ActivityID = a.ActivityID,
                 Name = a.Name,
+<<<<<<< HEAD
                 StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy") : "",
                 EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy"): "",
                 Description = a.Description
+=======
+                StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/mm/yyyy") : "",
+                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/mm/yyyy"): "",
+                Description = a.Description,
+                SessionName = a.Session.Name
+>>>>>>> fdb0cc0115ab822d8bdb9aa09ffae354fabcae50
             });
             return listActivity; 
         }
