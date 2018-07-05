@@ -1,0 +1,20 @@
+﻿.form-option {
+    height:20px;
+}
+
+.group-option {
+    padding-left:15px;
+}
+
+.btn-add-option {
+    margin-top:20px;
+    margin-left:15px;
+}
+
+#template-option, #template-option-update {
+    display: none;
+}
+
+.input-group {
+    margin-bottom:15px;
+}

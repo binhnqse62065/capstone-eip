@@ -1,20 +1,26 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
+@using HmsService.Models.Entities;
+@model Event
+
+@{
+    var votingItemList = Model.Votings;
+    var qaItemList = Model.QAs;
+}
 <div class="container">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <div class="row">
                 <h2 class="col-sm-10">Manage Interaction</h2>
                 <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px">
+                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addInteractionModal" style="margin-top:20px">
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Interaction
                     </button>
                 </div>
             </div>
-            <div class="modal fade" id="addSpeakerModal" role="dialog">
+            <div class="modal fade" id="addInteractionModal" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -32,16 +38,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Enter Speaker's name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 form-control-label">Description</label>
-                                <div class="col-sm-9 input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-info" aria-hidden="true"></i>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Enter Description">
+                                    <input type="text" id="newName" class="form-control" placeholder="Enter Interaction's name">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -53,14 +50,14 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-comments" aria-hidden="true"></i>
                                     </div>
-                                    <select class="form-control">
+                                    <select id="InteractionSelectBox" class="form-control">
                                         <option>---Choose---</option>
-                                        <option>Interaction 1</option>
-                                        <option>Interaction 2</option>
+                                        <option value="1">Voting</option>
+                                        <option value="2">QA</option>
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label class="col-sm-3 form-control-label">
                                     Kind Interaction
@@ -70,17 +67,14 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                     </div>
-                                    <select class="form-control">
+                                    <select Id="KindOfInteractionSelectBox" class="form-control">
                                         <option>---Choose---</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" style="margin-top:5px">Add</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <button type="button" id="btn-add" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -89,25 +83,297 @@
             </div>
         </div>
 
-        <div class="ibox-content">
-            <div class="nav-tabs">
-                <div class="tab-content">
-                    <div id="activity-tab">
-                        <div class="col-sm-6">
-                            <div class="col-sm-12">
-                                <div class="tableHeadText">Unavailable</div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="col-sm-12">
-                                <div class="tableHeadText">Running</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="ibox-content col-sm-6 col-md-6">
+            <div>
+                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Available</div>
+                <table class="table table-hover table-bordered" id="tblInteraction">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Function</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="ibox-content col-sm-6 col-md-6">
+            <div>
+                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Running</div>
+                <table class="table table-hover table-bordered" id="tblInteractionRunning">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Function</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="deleteModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Are your sure?</h2>
+                </div>
+                <div class="modal-body">
+                    <h3 class="interaction-del-title"></h3>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-del" type="button" class="btn btn-default interaction-del-id" data-dismiss="modal">Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="stopModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Are your sure?</h2>
+                </div>
+                <div class="modal-body">
+                    <h3 class="interaction-stop-title"></h3>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-stop" type="button" class="btn btn-default interaction-stop-id" data-dismiss="modal">Stop</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="playModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">Are your sure?</h2>
+                </div>
+                <div class="modal-body">
+                    <h3 class="interaction-play-title"></h3>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-play" type="button" class="btn btn-default interaction-play-id" data-dismiss="modal">Play</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="editInteractionModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit Interaction</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">
+                            Name<span class="required">*</span>
+                        </label>
+                        <div class="col-sm-9 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                            </div>
+                            <input type="text" class="form-control interaction-name" placeholder="Enter Interaction's name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">
+                            Select Interaction
+                            <span class="required">*</span>
+                        </label>
+                        <div class="input-group col-sm-9">
+                            <div class="input-group-addon">
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                            </div>
+                            <select id="InteractionEditSelectBox" class="form-control">
+                                <option>---Choose---</option>
+                                <option value="1">Voting</option>
+                                <option value="2">QA</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">
+                            Kind Interaction
+                            <span class="required">*</span>
+                        </label>
+                        <div class="input-group col-sm-9">
+                            <div class="input-group-addon">
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            </div>
+                            <select Id="KindOfInteractionEditSelectBox" class="form-control">
+                                <option>---Choose---</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-save" class="btn btn-primary interaction-id" data-dismiss="modal" style="margin-top:5px">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
+@section scripts {
+    <script>
+    function editInteractionModal(id, name, votingId, qaId) {
+        $('.interaction-name').val(name);
+        if (votingId != 'null') {
+            $('#InteractionEditSelectBox option[value="1"]').attr("selected", "selected");
+            $('#KindOfInteractionEditSelectBox').empty();
+            $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+            $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in votingItemList){<option value='@item.VotingId'>@item.VotingName</option>}}");
+            $('#KindOfInteractionEditSelectBox option[value="' + votingId + '"]').attr("selected", "selected");
+        } else if (qaId != 'null') {
+            $('#InteractionEditSelectBox option[value="2"]').attr("selected", "selected");
+            $('#KindOfInteractionEditSelectBox').empty();
+            $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+            $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in qaItemList){<option value='@item.QAId'>@item.QAName</option>}}");
+            $('#KindOfInteractionEditSelectBox option[value="' + qaId + '"]').attr("selected", "selected");
+        }
+        $('.interaction-id').val(id);
+
+        }
+
+
+        function stopInteraction(id, name) {
+            $('.interaction-stop-id').val(id);
+            $('.interaction-stop-title').html("Stop Interaction " + name);
+        }
+
+
+        function delInteraction(id, name) {
+            $('.interaction-del-id').val(id);
+            $('.interaction-del-title').html("Delete Interaction " + name);
+        }
+
+
+        function playInteraction(id, name) {
+            $('.interaction-play-id').val(id);
+            $('.interaction-play-title').html("Play Interaction " + name);
+        }
+
+
+        $(document).ready(function () {
+            $('#InteractionEditSelectBox').on('click', function () {
+                var SelectValue = $('#InteractionEditSelectBox').find(":selected").val();
+                if (SelectValue == 1) {
+                    $('#KindOfInteractionEditSelectBox').empty();
+                    $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+                    $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in votingItemList){<option value='@item.VotingId'>@item.VotingName</option>}}");
+                } else if (SelectValue == 2) {
+                    $('#KindOfInteractionEditSelectBox').empty();
+                    $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+                    $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in qaItemList){<option value='@item.QAId'>@item.QAName</option>}}");
+                } else {
+                    $('#KindOfInteractionEditSelectBox').empty();
+                    $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+                }
+            });
+
+            $('#InteractionSelectBox').on('click', function () {
+                var SelectValue = $('#InteractionSelectBox').find(":selected").val();
+                if (SelectValue == 1) {
+                    $('#KindOfInteractionSelectBox').empty();
+                    $('#KindOfInteractionSelectBox').append("<option>---Choose---</option>");
+                    $('#KindOfInteractionSelectBox').append("@{foreach (var item in votingItemList){<option value='@item.VotingId'>@item.VotingName</option>}}");
+                } else if (SelectValue == 2) {
+                    $('#KindOfInteractionSelectBox').empty();
+                    $('#KindOfInteractionSelectBox').append("<option>---Choose---</option>");
+                    $('#KindOfInteractionSelectBox').append("@{foreach (var item in qaItemList){<option value='@item.QAId'>@item.QAName</option>}}");
+                } else {
+                    $('#KindOfInteractionSelectBox').empty();
+                    $('#KindOfInteractionSelectBox').append("<option>---Choose---</option>");
+                }
+            });
+
+            $('#tblInteraction').DataTable({
+                ajax: {
+                    url: "api/interaction/getAllInteractionNotRunning",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "Name",
+                        render: function (data, type, row) {
+                            return row.interactionName;
+                        }
+                    },
+                    {
+                        name: "Type",
+                        render: function (data, type, row) {
+                            if (row.votingId != null) {
+                                return '<p>Voting<p/>';
+                            } else if (row.qaId != null) {
+                                return '<p>QA<p/>';
+                            }
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editInteractionModal" onclick="editInteractionModal(' + row.interactionId + ',\'' + row.interactionName + '\', \'' + row.votingId + '\', \'' + row.qaId + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm speaker-id" data-toggle="modal" data-target="#deleteModal" onclick="delInteraction(' + row.interactionId + ',\'' + row.interactionName + '\')"><i class="fa fa-trash"></i></button>       ' +
+                                '<button class="btn btn-success btn-sm speaker-id" data-toggle="modal" data-target="#playModal" onclick="playInteraction(' + row.interactionId + ',\'' + row.interactionName + '\')"><i class="fa fa-play" aria-hidden="true"></i></button>';
+                        }
+                    }
+                ]
+            });
+
+            $('#tblInteractionRunning').DataTable({
+                ajax: {
+                    url: "api/interaction/getIsRunningInteraction",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "Name",
+                        render: function (data, type, row) {
+                                return row.interactionName;
+                        }
+                    },
+                    {
+                        name: "Type",
+                        render: function (data, type, row) {
+                                if (row.votingId != null) {
+                                    return '<p>Voting<p/>';
+                                } else if (row.qaId != null) {
+                                    return '<p>QA<p/>';
+                                }
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#stopModal" onclick="stopInteraction(' + row.interactionId + ',\'' + row.interactionName + '\')"><i class="fa fa-stop" aria-hidden="true"></i></button>';
+                        }
+                    }
+                ]
+            });
+
+        });
+    </script>
+}
+<script src="~/Content/Interaction/Interaction.js"></script>

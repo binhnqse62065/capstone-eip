@@ -42,28 +42,15 @@ namespace CapstoneProjectAdmin.API
                 var curSession = db.Sessions.Find(session.SessionID);
                 curSession.Name = session.Name;
                 curSession.Description = session.Description;
-
-
-                
-                IFormatProvider culture = new CultureInfo("en-US", true);
-                DateTime startTimeFormat = DateTime.ParseExact(session.StartTime.Value.ToString(), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                //DateTime endTimeFormat = DateTime.ParseExact(session.EndTime.ToString(), "yyyy-MM-dd", culture);
-                curSession.StartTime = startTimeFormat;
-                //curSession.EndTime = endTimeFormat;
+                curSession.StartTime = session.StartTime;
+                curSession.EndTime = session.EndTime;
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new JsonContent(new
                     {
-                        success = true,
-                        data = new
-                        {
-                            Name = session.Name,
-                            Description = session.Description,
-                            StartTime = session.StartTime,
-                            EndTime = session.EndTime
-                        }
+                        success = true
                     })
                 };
 
@@ -92,6 +79,41 @@ namespace CapstoneProjectAdmin.API
             {
                 var curSession = db.Sessions.Find(session.SessionID);
                 db.Sessions.Remove(curSession);
+                db.SaveChanges();
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true
+                    })
+                };
+
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        data = e.Message
+                    })
+                };
+            }
+
+        }
+
+
+        [Route("AddSession")]
+        [HttpPost]
+        public HttpResponseMessage AddSession(Session session)
+        {
+            try
+            {
+
+                db.Sessions.Add(session);
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
