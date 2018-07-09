@@ -11,11 +11,11 @@ using HmsService.Sdk;
 
 namespace HmsService.Sdk
 {
-    public partial class EventApi
+    public partial class SessionApi
     {
-        public IEnumerable<Event> GetAllEvent()
+       public IEnumerable<SessionViewModel> GetSessionsByEventId(int eventId)
         {
-            return this.BaseService.Get();
+            return this.BaseService.GetAllSessionsByEventId(eventId);
         }
     }
 }

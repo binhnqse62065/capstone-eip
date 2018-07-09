@@ -18,6 +18,7 @@ namespace HmsService.ViewModels
     			public virtual int QAId { get; set; }
     			public virtual string QAName { get; set; }
     			public virtual int EventId { get; set; }
+    			public virtual Nullable<int> InteractionId { get; set; }
     	
     	public QAViewModel() : base() { }
     	public QAViewModel(HmsService.Models.Entities.QA entity) : base(entity) { }

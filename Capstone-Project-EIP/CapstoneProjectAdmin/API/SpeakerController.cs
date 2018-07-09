@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json.Linq;
 using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 
 namespace CapstoneProjectAdmin.API
 {
@@ -15,11 +16,22 @@ namespace CapstoneProjectAdmin.API
     {
         private HmsEntities db = new HmsEntities();
 
-        [Route("getAllSpeaker")]
+        [Route("GetAllSpeakerByEventId/{eventId}")]
         [HttpGet]
-        public IEnumerable<CollectionItem> GetSpeaker()
+        public IEnumerable<CollectionItemViewModel> GetAllSpeakerByEventId(int eventId)
         {
-            var speaker = db.CollectionItems.Where(s => s.EventCollectionId == 2).ToList();
+            var speaker = db.EventCollections
+                .FirstOrDefault(s => s.EventId == eventId && s.TypeId == (int)CollectionType.Speaker)
+                .CollectionItems
+                .Select(s => new CollectionItemViewModel
+                {
+                    CollectionItemID = s.CollectionItemID,
+                    Name = s.Name,
+                    Description = s.Description,
+                    ImageUrl = s.ImageUrl,
+                    EventCollectionId = s.EventCollectionId,
+                    EventId = eventId
+                }).ToList();
             return speaker;
         }
 
@@ -85,5 +97,11 @@ namespace CapstoneProjectAdmin.API
                 })
             };
         }
+    }
+
+    public enum CollectionType
+    {
+        Speaker = 2,
+        Sponsor = 3
     }
 }

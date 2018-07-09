@@ -9,8 +9,9 @@ namespace CapstoneProjectAdmin.Controllers
     public class VotingController : Controller
     {
         // GET: Voting
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            ViewBag.EventId = id;
             return View();
         }
     }

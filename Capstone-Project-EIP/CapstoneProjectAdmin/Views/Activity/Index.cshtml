@@ -1,92 +1,123 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+    int sessionId = 0;
+    int[] listSessionsId = new int[Model.Count()];
+    for (int i = 0; i < Model.Count(); i++)
+    {
+        listSessionsId[i] = Model.ElementAt(i).SessionID;
+    }
+    if (Model.Count() > 0)
+    {
+        sessionId = Model.FirstOrDefault().SessionID;
+    }
+    }
 }
-@using HmsService.Models.Entities;
-@model Activity
-
+@using HmsService.ViewModels
+@model IEnumerable<SessionViewModel>
 <div class="container">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <div class="row">
-                <h2 class="col-sm-10">Manage Activity</h2>
-                <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px">
-                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Activity
-                    </button>
-                </div>
+    <div class="box">
+        <div class="box-header">
+            <h2 class="col-sm-8">Manage Activity</h2>
+            <div class="col-sm-4">
+                <div class="col-sm-2"></div>
+                <button class="col-sm-5 btn btn-primary" data-toggle="modal" data-target="#addActivityModal" style="margin-top:20px" type="button">
+                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Activity
+                </button>
             </div>
+
+
+
         </div>
-
-        <div class="modal fade" id="addActivityModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Activity</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Name:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                </div>
-                                <input type="text" class="form-control" id="addName" placeholder="Enter name">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Date and time range:</label>
-
-                            <div class="input-group col-sm-9">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-clock-o"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="AddStartEndTime" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Description:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-info" aria-hidden="true"></i>
-                                </div>
-                                <input type="text" class="form-control" id="addDescription" placeholder="Enter Description">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Add</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-
+        <div class="box-body">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <li class="@(i == 0 ? "active" : "")" onclick="InitDatatable(@(i), @Model.ElementAt(i).SessionID); ChangeTabIndex(@(i), @Model.ElementAt(i).SessionID)"><a href="#tab_@(i)" data-toggle="tab">@Html.Raw(Model.ElementAt(i).Name)</a></li>
+                    }
+                </ul>
             </div>
-        </div>
+            <!--Tab content-->
+            <div class="tab-content">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <div class="tab-pane @(i == 0 ? "active" : "")" id="tab_@(i)">
+                        <table class="table table-hover table-bordered" id="tblActivity@(i)">
+                            <thead>
+                                <tr>
+                                    <th>Activity Name</th>
+                                    <th>Start Time - End Time</th>
+                                    <th>Description</th>
+                                    <th>Session Name</th>
+                                    <th>Function</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                }
+                <!-- /.tab-pane -->
+            </div>
 
-    </div>
-    <div class="box-body">
-        <table class="table table-hover table-bordered" id="tblActivity">
-            <thead>
-                <tr>
-                    <th>Activity Name</th>
-                    <th>Start Time - End Time</th>
-                    <th>Description</th>
-                    <th>Session Name</th>
-                    <th>Function</th>
-                </tr>
-            </thead>
-        </table>
+        </div>
     </div>
 </div>
 
-<!-- Modal -->
+<!--Add Activity Modal-->
+<div class="modal fade" id="addActivityModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Activity</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control" id="addName" placeholder="Enter name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Date and time range:</label>
+
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="AddStartEndTime" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Description:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control" id="addDescription" placeholder="Enter Description">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Update Activity Modal -->
 <div id="modalUpdateActivity" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
 
@@ -138,51 +169,24 @@
 </div>
 
 <input type="hidden" id="txtActivityId" value="" />
+<input type="hidden" id="tab-index" value="0" />
+<input type="hidden" id="session-id" value="@(sessionId)" />
 
 @section scripts{
     <script>
-        $(document).ready(function () {
-            $('#tblActivity').DataTable({
-                ajax: {
-                    url: "api/activity/getAllActivity",
-                    dataSrc: ""
-                },
-                columns: [
-                    {
-                        name: "name",
-                        render: function (data, type, row) {
-                            return row.name;
-                        }
-                    },
-                    {
-                        name: "startTime - End Time",
-                        render: function (data, type, row) {
-                            return row.startTime + " - " + row.endTime;
-                        }
-                    },
-                    {
-                        name: "Description",
-                        render: function (data, type, row) {
-                            return row.description;
-                        }
-                    },
-                    {
-                        name: "Session Name",
-                        render: function (data, type, row) {
-                            console.log(row);
-                            return row.sessionName;
-                        }
-                    },
-                    {
-                        name: "Function",
-                        render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateActivity" onclick="openModelUpdate(' + row.activityID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteSession(' + row.activityID + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
-                        }
-                    }
-                ]
-            });
+        var urlApi = '@curPath';
 
+        $(document).ready(function () {
+
+            var listSessions = @Html.Raw(Json.Encode(listSessionsId));
+            if (listSessions.length > 0)
+            {
+                InitDatatable(0, listSessions[0]);
+            }
+            else
+            {
+                InitDatatable(0, 0);
+            }
 
             //Date range picker
             $('#AddStartEndTime').daterangepicker();
@@ -194,7 +198,7 @@
                 console.log($('#activityName').val());
                 console.log($('#activityDescription').val());
                 $.ajax({
-                    url: 'api/activity/UpdateActivity',
+                    url: urlApi + 'api/activity/UpdateActivity',
                     method: "POST",
                     data: {
                         ActivityID: $('#txtActivityId').val(),
@@ -219,10 +223,10 @@
                 var endTime = timeSplit[1].trim();
 
                 $.ajax({
-                    url: 'api/activity/AddActivity',
+                    url: urlApi + 'api/activity/AddActivity',
                     method: 'POST',
                     data: {
-                        SessionId:1,
+                        SessionId: $('#session-id').val(),
                         Name: $('#addName').val(),
                         Description: $('#addDescription').val(),
                         StartTime: startTime,
@@ -238,7 +242,7 @@
                 });
             });
 
-            
+
         });
 
         function openModelUpdate(id,name, startTime, endTime, description) {
@@ -268,11 +272,11 @@
             },
                 function () {
                     $.ajax({
-                        url: 'api/activity/DeleteActivity',
+                        url: urlApi + 'api/activity/DeleteActivity',
                         method: "POST",
                         data: {
                             ActivityID: id,
-                            
+
                         },
                         success: function (data) {
                             reloadTable();
@@ -289,7 +293,57 @@
         }
 
         function reloadTable() {
-            $('#tblActivity').DataTable().ajax.reload();
+            var index = $('#tab-index').val();
+            $('#tblActivity' + index).DataTable().ajax.reload();
+        }
+
+        function InitDatatable(index, sessionId) {
+            $('#tblActivity' + index).DataTable({
+                "bDestroy": true,
+                ajax: {
+                    url: urlApi + "api/activity/GetAllActivityBySessionId/" + sessionId,
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "name",
+                        render: function (data, type, row) {
+                            return row.name;
+                        }
+                    },
+                    {
+                        name: "startTime - End Time",
+                        render: function (data, type, row) {
+                            return row.startTime + " - " + row.endTime;
+                        }
+                    },
+                    {
+                        name: "Description",
+                        render: function (data, type, row) {
+                            return row.description;
+                        }
+                    },
+                    {
+                        name: "Session Name",
+                        render: function (data, type, row) {
+                            return row.sessionName;
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateActivity" onclick="openModelUpdate(' + row.activityID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteSession(' + row.activityID + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+        }
+
+        function ChangeTabIndex(index, sessionId) {
+            $('#tab-index').val(index);
+            $('#session-id').val(sessionId);
+
         }
     </script>
 }

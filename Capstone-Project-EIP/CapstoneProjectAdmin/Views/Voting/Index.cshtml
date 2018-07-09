@@ -1,6 +1,9 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    //int eventId = Int32.Parse(ViewContext.RouteData.Values["id"].ToString());
+    int eventId = ViewBag.EventId;
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 
 <div class="container">
@@ -152,10 +155,12 @@
 
 @section scripts {
     <script>
+        var urlApi = '@curPath';
+        var eventId = @eventId;
         $(document).ready(function () {
             $('#tblVoting').DataTable({
                 ajax: {
-                    url: "api/voting/getAllVoting",
+                    url: urlApi + "/api/voting/GetVotingsByEventId/" + eventId,
                     dataSrc: ""
                 },
                 columns: [
@@ -218,11 +223,11 @@
                 }
 
                 $.ajax({
-                    url: 'api/voting/AddVoting',
+                    url: urlApi + 'api/voting/AddVoting',
                     method: "POST",
                     data: {
                         VotingName: votingName,
-                        EventId: 1,
+                        EventId: eventId,
                         VotingOptions: votingOptionsArr
                     },
                     success: function (data) {
@@ -269,7 +274,7 @@
                     VotingOptions: votingOptionArr
                 };
                 $.ajax({
-                    url: 'api/voting/UpdateVoting',
+                    url: urlApi + 'api/voting/UpdateVoting',
                     method: "POST",
                     data: votingUpdate,
                     success: function (data) {
@@ -291,7 +296,7 @@
 
         function openUpdateModal(id) {
             $.ajax({
-                url: 'api/voting/GetVotingById',
+                url: urlApi + 'api/voting/GetVotingById',
                 method: "POST",
                 data: {
                     VotingId: id
@@ -326,7 +331,7 @@
             },
                 function () {
                     $.ajax({
-                        url: 'api/voting/DeleteVoting',
+                        url: urlApi + 'api/voting/DeleteVoting',
                         method: "POST",
                         data: {
                             VotingId: id,

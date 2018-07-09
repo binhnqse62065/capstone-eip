@@ -1,7 +1,21 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    String path = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+    int eventId = ViewBag.EventId;
+    int sessionId = 0;
+    int[] listSessionsId = new int[Model.Count()];
+    for (int i = 0; i < Model.Count(); i++)
+    {
+        listSessionsId[i] = Model.ElementAt(i).SessionID;
+    }
+    if(Model.Count() > 0)
+    {
+        sessionId = Model.FirstOrDefault().SessionID;
+    }
 }
+@using HmsService.ViewModels
+@model IEnumerable<SessionViewModel>
 
 <div class="container">
     <div class="ibox float-e-margins">
@@ -9,7 +23,7 @@
             <div class="row">
                 <h2 class="col-sm-10">Timeline</h2>
                 <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px">
+                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px" @(Model.Count() == 0 ? "disabled" : "")>
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Timeline
                     </button>
                 </div>
@@ -55,16 +69,35 @@
         </div>
 
         <div class="ibox-content">
-            <table class="table table-hover table-bordered" id="tblTimeline">
-                <thead>
-                    <tr>
-                        <th>Timeline Title</th>
-                        <th>Timeline Detail</th>
-                        <th>Start Time</th>
-                        <th>Function</th>
-                    </tr>
-                </thead>
-            </table>
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <li class="@(i == 0 ? "active" : "")" onclick="InitDatatable(@(i), @Model.ElementAt(i).SessionID); ChangeTabIndex(@(i), @Model.ElementAt(i).SessionID)"><a href="#tab_@(i)" data-toggle="tab">@Html.Raw(Model.ElementAt(i).Name)</a></li>
+                    }
+                </ul>
+                <div class="tab-content">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <div class="tab-pane @(i == 0 ? "active" : "")" id="tab_@(i)">
+                            <table class="table table-hover table-bordered" id="tblTimelineSession@(i)">
+                                <thead>
+                                    <tr>
+                                        <th>Timeline Title</th>
+                                        <th>Timeline Detail</th>
+                                        <th>Start Time</th>
+                                        <th>Function</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    }
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+            
         </div>
     </div>
 </div>
@@ -110,55 +143,35 @@
 </div>
 
 <input type="hidden" id="txtTimelineId" value="" />
+<input type="hidden" id="tab-index" value="0" />
+<input type="hidden" id="session-id" value="@(sessionId)" />
 
 @section scripts{
-    <script>
+<script>
+        var urlApi = '@path';
+        
         $(document).ready(function () {
-            $('#tblTimeline').DataTable({
-                ajax: {
-                    url: "api/timeline/getAllTimeline",
-                    dataSrc: ""
-                },
-                columns: [
-                    {
-                        name: "Title",
-                        render: function (data, type, row) {
-                            return row.timelineTitle;
-                        }
-                    },
+            var listSessions = @Html.Raw(Json.Encode(listSessionsId));
+            if (listSessions.length > 0)
+            {
+                InitDatatable(0, listSessions[0]);
+            }
+            else
+            {
+                InitDatatable(0, 0);
+            }
 
-                    {
-                        name: "Detail",
-                        render: function (data, type, row) {
-                            return row.timelineDetail;
-                        }
-                    },
-                    {
-                        name: "startTime",
-                        render: function (data, type, row) {
-                            return row.startTime.split(' ')[1].split(':')[0] + ':' + row.startTime.split(' ')[1].split(':')[1];
-                        }
-                    },
-                    {
-                        name: "Function",
-                        render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateTimeline" onclick="openModelUpdate(' + row.timelineId + ',\'' + row.timelineTitle + '\',\'' + row.timelineDetail + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteTimeline(' + row.timelineId + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
-                        }
-                    }
-                ]
-            });
+
             //Add timeline
             $('#addTimeline').on('click', function () {
 
                 var dt = new Date($.now());
                 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-                console.log(time);
                 $.ajax({
-                    url: 'api/timeline/addTimeline',
+                    url: urlApi + 'api/timeline/addTimeline',
                     method: 'POST',
                     data: {
-                        SessionId: 1,
+                        SessionId: $('#session-id').val(),
                         TimelineTitle: $('#addTitle').val(),
                         TimelineDetail: $('#addTimelineDetail').val(),
                         StartTime: time,
@@ -175,9 +188,6 @@
 
             //Save update timeline
             $('#btn-update-timeline').on('click', function () {
-                console.log($('#txtTimelineId').val());
-                console.log($('#timelineTitle').val());
-                console.log($('#editTimelineDetail').val());
                 $.ajax({
                     url: 'api/timeline/UpdateTimeline',
                     method: "POST",
@@ -198,8 +208,6 @@
         });
 
         function deleteTimeline(id) {
-            console.log(id);
-
             swal({
                 title: "Are you sure?",
                 text: "You will not be able to recover this imaginary file!",
@@ -212,7 +220,7 @@
             },
                 function () {
                     $.ajax({
-                        url: 'api/timeline/DeleteTimeline',
+                        url: urlApi + 'api/timeline/DeleteTimeline',
                         method: "POST",
                         data: {
                             TimelineId: id,
@@ -236,8 +244,60 @@
         }
 
         function reloadTable() {
-            $('#tblTimeline').DataTable().ajax.reload();
+            var index = $('#tab-index').val();
+            $('#tblTimelineSession' + index).DataTable().ajax.reload();
         }
-    </script>
+
+        function InitDatatable(index, sessionId) {
+            $('#tblTimelineSession' + index).DataTable({
+                "bDestroy": true,
+                ajax: {
+                    url: urlApi + 'api/timeline/GetAllTimelineBySessionId/' + sessionId,
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "Title",
+                        render: function (data, type, row) {
+                            return row.timelineTitle;
+                        }
+                    },
+
+                    {
+                        name: "Detail",
+                        render: function (data, type, row) {
+                            return row.timelineDetail;
+                        }
+                    },
+                    {
+                        name: "startTime",
+                        render: function (data, type, row) {
+                            if (row.startTime.length > 0)
+                            {
+                                return row.startTime.split(' ')[1].split(':')[0] + ':' + row.startTime.split(' ')[1].split(':')[1];
+                            }
+                            else
+                            {
+                                return row.startTime;
+                            }
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateTimeline" onclick="openModelUpdate(' + row.timelineId + ',\'' + row.timelineTitle + '\',\'' + row.timelineDetail + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteTimeline(' + row.timelineId + ')" id="btn-delete"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+        }
+
+        function ChangeTabIndex(index,sessionId) {
+            $('#tab-index').val(index);
+            $('#session-id').val(sessionId);
+
+        }
+</script>
 }
 

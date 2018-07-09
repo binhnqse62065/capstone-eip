@@ -1,87 +1,94 @@
 ﻿
 @{
     ViewBag.Title = "Manage Session";
+    int eventId = ViewBag.EventId;
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+
 }
 
 
 <div class="container">
-    <div class="ibox float-e-margins">
-        <div class="ibox-title">
-            <div class="row">
-                <h2 class="col-sm-10">Manage Voting</h2>
-                <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px">
-                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Session
-                    </button>
-                </div>
+
+    <div class="box">
+        <div class="box-header">
+            <h2 class="col-sm-8">Quản lý session</h2>
+            <div class="col-sm-4">
+                <div class="col-sm-2"></div>
+                <button class="col-sm-5 btn btn-primary" data-toggle="modal" data-target="#addSessionModal" style="margin-top:20px" type="button">
+                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm session
+                </button>
             </div>
+
+
+
         </div>
+        <div class="ibox-content">
+            <table class="table table-hover table-bordered" id="tblSession">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Thời gian bắt đầu - kết thúc</th>
+                        <th>Miêu tả</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 
-        <!--Modal Add Session-->
-        <div class="modal fade" id="addSessionModal" role="dialog">
-            <div class="modal-dialog">
+</div>
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Session</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Name:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                </div>
-                                <input id="txtNameAdd" type="text" class="form-control" placeholder="Enter Session's name">
-                            </div>
+<!--Modal Add Session-->
+<div class="modal fade" id="addSessionModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm session</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Tên:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Date and time range:</label>
-
-                            <div class="input-group col-sm-9">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-clock-o"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="startEndTimeAdd" value="">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Description:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-info" aria-hidden="true"></i>
-                                </div>
-                                <input id="txtDescriptionAdd" type="text" class="form-control" placeholder="Enter Description">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btn-add-session" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <input id="txtNameAdd" type="text" class="form-control" placeholder="Enter Session's name">
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Thời gian bắt đầu - kết thúc:</label>
+
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="startEndTimeAdd" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Miêu tả:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input id="txtDescriptionAdd" type="text" class="form-control" placeholder="Enter Description">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add-session" type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
             </div>
         </div>
 
     </div>
-    <table class="table table-hover table-bordered" id="tblSession">
-        <thead>
-            <tr>
-                <th>Session Name</th>
-                <th>Start Time - End Time</th>
-                <th>Description</th>
-                <th>Function</th>
-            </tr>
-        </thead>
-    </table>
 </div>
-
 
 <!-- Modal Update Session -->
 <div id="modalUpdateSession" class="modal fade" role="dialog">
@@ -91,12 +98,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Cập nhật thông tin session</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Name<span class="required">*</span>
+                        Tên<span class="required">*</span>
                     </label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
@@ -107,7 +114,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Start Time - End Time<span class="required"></span>
+                        Thời gian bắt đầu - kết thúc<span class="required"></span>
                     </label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
@@ -117,7 +124,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Description</label>
+                    <label class="col-sm-3 form-control-label">Miêu tả</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
@@ -127,21 +134,25 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btn-update-session" class="btn btn-primary" data-dismiss="modal">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btn-update-session" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
         </div>
     </div>
 </div>
 
+
 <input type="hidden" id="txtSessionId" value="" />
 
 @section scripts {
     <script>
+        var urlApi = '@curPath';
+        var eventId = @eventId;
+
         $(document).ready(function () {
             $('#tblSession').DataTable({
                 ajax: {
-                    url: "api/session/getAllSession",
+                    url: urlApi + "api/session/getSessionsByEventId/" + eventId,
                     dataSrc: ""
                 },
                 columns: [
@@ -193,7 +204,7 @@
                 var endTime = endTimeTmp.split("/").reverse().join("-");
 
                 $.ajax({
-                    url: 'api/session/UpdateSession',
+                    url: urlApi + 'api/session/UpdateSession',
                     method: "POST",
                     data: {
                         SessionID: $('#txtSessionId').val(),
@@ -204,7 +215,7 @@
                     },
                     success: function (data) {
                         reloadTable();
-                        swal("Success!", "Session has been updated successfully", "success");
+                        swal("Thành công!", "Bạn đã update thông tin sesstion thành công", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -222,10 +233,10 @@
                 var endTime = timeSplit[1].trim().split("/").reverse().join("-");
 
                 $.ajax({
-                    url: 'api/session/AddSession',
+                    url: urlApi + 'api/session/AddSession',
                     method: "POST",
                     data: {
-                        EventId: 1,
+                        EventId: eventId,
                         Name: sessionName,
                         Description: sessionDescription,
                         StartTime: startTime,
@@ -270,7 +281,7 @@
             },
                 function () {
                     $.ajax({
-                        url: 'api/session/DeleteSession',
+                        url: urlApi + 'api/session/DeleteSession',
                         method: "POST",
                         data: {
                             SessionID: id,
@@ -287,7 +298,7 @@
                     });
                 });
 
-            
+
         }
 
         function reloadTable() {

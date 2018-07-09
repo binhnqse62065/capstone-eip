@@ -1,12 +1,13 @@
 ﻿$(document).ready(function () {
+    var urlApi = $(location).attr('origin');
+
     $('#btn-save').on('click', function () {
         var id = $('#btn-save').val();
         var name = $('.speaker-title').val();
         var description = $('.speaker-description').val();
         var imageUrl = $('.speaker-image').val();
-        console.log($('.speaker-title').val());
         $.ajax({
-            url: 'api/speaker/UpdateSpeakerData',
+            url: urlApi + '/api/speaker/UpdateSpeakerData',
             method: "POST",
             data: {
                 collectionItemId: id,
@@ -23,12 +24,12 @@
         });
     });
 
-        $('#btn-add').on('click', function () {
+    $('#btn-add').on('click', function () {
         var name = $('#newName').val();
         var description = $('#newDescription').val();
         var imageUrl = $('#newImageUrl').val();
         $.ajax({
-            url: 'api/speaker/AddSpeaker',
+            url: urlApi + '/api/speaker/AddSpeaker',
             method: "POST",
             data: {
                 Name: name,
@@ -44,10 +45,10 @@
         });
     });
 
-        $('#btn-del').on('click', function () {
-            var id = $('#btn-del').val();
+    $('#btn-del').on('click', function () {
+        var id = $('#btn-del').val();
         $.ajax({
-            url: 'api/speaker/DeleteSpeaker',
+            url: urlApi + '/api/speaker/DeleteSpeaker',
             method: "POST",
             data: {
                 CollectionItemID: id,

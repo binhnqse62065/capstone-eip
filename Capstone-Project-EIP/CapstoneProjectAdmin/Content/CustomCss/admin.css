@@ -34,3 +34,43 @@
     color: gray;
     font-weight: 600;
 }
+
+.page-title {
+    text-align:center;
+}
+
+.box-is-running {
+    border-top-color: #00a65a !important;
+}
+
+.box-happened {
+    border-top-color: #dd4b39 !important;
+}
+
+.btn-box-tool i {
+    color:black;
+}
+
+.event-box-body {
+    background-color: #D3D3D3;
+}
+
+.event-title {
+    font-size:20px;
+    text-align:center;
+}
+
+.event-box {
+    min-height:120px;
+}
+
+.event-box-footer {
+    position:absolute !important;
+    width:100%;
+    bottom:0;
+}
+
+.event-link {
+    text-decoration:none;
+    color:white;
+}

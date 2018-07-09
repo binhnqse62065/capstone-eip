@@ -15,19 +15,22 @@ namespace CapstoneProjectAdmin.API
     public class TimelineAPIController : ApiController
     {
         private HmsEntities db = new HmsEntities();
-        [Route("getAllTimeline")]
+
+        [Route("GetAllTimelineBySessionId/{sessionId}")]
         [HttpGet]
-        public IEnumerable<TimelineViewModel> GetTimelines()
+        public IEnumerable<TimelineViewModel> GetTimelines(int sessionId)
         {
-            var listTimeline = db.Timelines.Where(a => a.SessionId == 1).ToList().Select(a => new TimelineViewModel
+            var listTimeline = db.Timelines.Where(a => a.SessionId == sessionId).ToList().Select(a => new TimelineViewModel
             {
                 TimelineId = a.TimelineId,
                 TimelineTitle = a.TimelineTitle,
                 StartTime = a.StartTime != null ? a.StartTime.ToString() : "",
-                TimelineDetail = a.TimelineDetail
+                TimelineDetail = a.TimelineDetail,
+                SessionId = a.SessionId
             });
             return listTimeline;
         }
+
 
         [Route("addTimeline")]
         [HttpPost]

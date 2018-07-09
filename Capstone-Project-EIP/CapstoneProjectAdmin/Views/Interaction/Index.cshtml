@@ -8,6 +8,8 @@
 @{
     var votingItemList = Model.Votings;
     var qaItemList = Model.QAs;
+    int eventId = Int32.Parse(ViewContext.RouteData.Values["id"].ToString());
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 <div class="container">
     <div class="ibox float-e-margins">
@@ -238,6 +240,9 @@
 
 @section scripts {
     <script>
+        var urlApi = '@curPath';
+        var eventId = @eventId;
+
     function editInteractionModal(id, name, votingId, qaId) {
         $('.interaction-name').val(name);
         if (votingId != 'null') {
@@ -246,7 +251,8 @@
             $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
             $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in votingItemList){<option value='@item.VotingId'>@item.VotingName</option>}}");
             $('#KindOfInteractionEditSelectBox option[value="' + votingId + '"]').attr("selected", "selected");
-        } else if (qaId != 'null') {
+        }
+        else if (qaId != 'null') {
             $('#InteractionEditSelectBox option[value="2"]').attr("selected", "selected");
             $('#KindOfInteractionEditSelectBox').empty();
             $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
@@ -311,7 +317,7 @@
 
             $('#tblInteraction').DataTable({
                 ajax: {
-                    url: "api/interaction/getAllInteractionNotRunning",
+                    url: urlApi + "api/interaction/getAllInteractionNotRunning",
                     dataSrc: ""
                 },
                 columns: [
@@ -344,7 +350,7 @@
 
             $('#tblInteractionRunning').DataTable({
                 ajax: {
-                    url: "api/interaction/getIsRunningInteraction",
+                    url: urlApi + "api/interaction/getIsRunningInteraction",
                     dataSrc: ""
                 },
                 columns: [

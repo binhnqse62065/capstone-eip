@@ -13,24 +13,22 @@ using System.Web.Http;
 namespace CapstoneProjectAdmin.API
 {
     [RoutePrefix("api/session")]
-    public class SessionController : ApiController
+    public class SessionAPIController : ApiController
     {
         private HmsEntities db = new HmsEntities();
 
-        [Route("getAllSession")]
+        [Route("getSessionsByEventId/{id}")]
         [HttpGet]
-        public IEnumerable<SessionViewModel> GetSession()
+        public IEnumerable<SessionViewModel> GetSession(int id)
         {
-            var session = db.Sessions.Where(s => s.EventId == 1).ToList().Select(s => new SessionViewModel {
+            var session = db.Sessions.Where(s => s.EventId == id).ToList().Select(s => new SessionViewModel {
                 SessionID = s.SessionID,
                 Name = s.Name,
                 StartTime = s.StartTime.Value.ToString("dd/MM/yyyy"),
                 EndTime = s.EndTime.Value.ToString("dd/MM/yyyy"),
                 Description = s.Description
-
             });
             return session.ToList();
-
         }
 
         [Route("UpdateSession")]

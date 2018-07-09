@@ -32,6 +32,22 @@ namespace CapstoneProjectAdmin.API
             return listVoting;
         }
 
+        [Route("GetVotingsByEventId/{id}")]
+        [HttpGet]
+        public IEnumerable<VotingViewModel> GetVotingsByEventId(int id)
+        {
+
+            var listVoting = db.Votings.Where(a => a.EventId == id).ToList().Select(a => new VotingViewModel
+            {
+                VotingID = a.VotingId,
+                Name = a.VotingName,
+                EventId = a.EventId,
+                NumberOption = a.VotingOptions.Count
+
+            });
+            return listVoting;
+        }
+
         [Route("AddVoting")]
         [HttpPost]
         public HttpResponseMessage AddVoting(Voting voting)

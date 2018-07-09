@@ -380,6 +380,7 @@
     <Compile Include="Models\Entities\Services\EventCollectionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\SessionService.cs" />
     <Compile Include="Models\Entities\Services\InteractionService.cs" />
     <Compile Include="Models\Entities\Services\InteractionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
@@ -411,6 +412,7 @@
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Services\VotingOptionService.cs" />
+    <Compile Include="Models\Entities\Services\TimelineService.cs" />
     <Compile Include="Models\Entities\Services\VotingService.cs" />
     <Compile Include="Models\Entities\Services\VotingServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
@@ -513,10 +515,12 @@
     <Compile Include="Sdk\SessionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\SessionApi.cs" />
     <Compile Include="Sdk\TimelineApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
     <Compile Include="Sdk\InteractionApi.cs" />
+    <Compile Include="Sdk\TimelineApi.cs" />
     <Compile Include="Sdk\VotingOptionApi.cs" />
     <Compile Include="Sdk\VotingApi.cs" />
     <Compile Include="Sdk\VotingApiGen.cs">

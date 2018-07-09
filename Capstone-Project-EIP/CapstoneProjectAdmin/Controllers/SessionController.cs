@@ -12,8 +12,10 @@ namespace CapstoneProjectAdmin.Controllers
     {
         // GET: Session
         private HmsEntities db = new HmsEntities();
-        public ActionResult Index()
+
+        public ActionResult Index(int id)
         {
+            ViewBag.EventId = id;
             return View();
         }
 

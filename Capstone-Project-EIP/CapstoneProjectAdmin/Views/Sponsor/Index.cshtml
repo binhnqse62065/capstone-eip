@@ -1,14 +1,10 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    int eventId = ViewBag.EventId;
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 
-@using HmsService.Models.Entities;
-@model Event
-
-@{
-    var listSponsor = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 3).CollectionItems;
-}
 
 <div class="container">
     <div class="ibox float-e-margins">
@@ -21,146 +17,133 @@
                     </button>
                 </div>
             </div>
-            <div class="modal fade" id="addSponsorModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Sponsor</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="col-sm-3 form-control-label">Name:</label>
-                                <div class="col-sm-9 input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                    </div>
-                                    <input id="newName" type="text" class="form-control" placeholder="Enter Sponsor's name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 form-control-label">Description:</label>
-                                <div class="col-sm-9 input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-info" aria-hidden="true"></i>
-                                    </div>
-                                    <textarea id="newDescription" type="text" class="form-control" placeholder="Enter Description"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 form-control-label">Image:</label>
-                                <div class="col-sm-9 input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-link" aria-hidden="true"></i>
-                                    </div>
-                                    <input id="newImageUrl" type="text" class="form-control" placeholder="Input image url">
-                                </div>
-                                <div class="col-sm-3"></div>
-                                <div class="row col-sm-9">
-                                    <label>or</label>
-                                    <input type="file" id="myFile">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Add</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            
         </div>
 
-        <div class="modal fade" id="deleteModal" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h2 class="modal-title">Are your sure?</h2>
-                    </div>
-                    <div class="modal-body">
-                        <h3 class="sponsor-del-title"></h3>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btn-del" type="button" class="btn btn-default sponsor-del-id" data-dismiss="modal">Delete</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-
-            </div>
+        <div class="ibox-content">
+            <table class="table table-hover table-bordered" id="tblSponsor">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
-
-        <div class="modal fade" id="sponsorModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Sponsor</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Name:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                </div>
-                                <input type="text" class="form-control sponsor-title">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Descripstion:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-info" aria-hidden="true"></i>
-                                </div>
-                                <textarea type="text" class="form-control sponsor-description"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Image:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-link" aria-hidden="true"></i>
-                                </div>
-                                <textarea type="text" class="form-control sponsor-image"></textarea>
-                            </div>
-                            <div class="col-sm-3"></div>
-                            <div class="row col-sm-9">
-                                <label>or</label>
-                                <input type="file" id="myFile">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btn-save" type="submit" class="btn btn-primary sponsor-id" data-dismiss="modal" style="margin-top:5px">Save change</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <table class="table table-hover table-bordered" id="tblSponsor">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Function</th>
-                </tr>
-            </thead>
-        </table>
     </div>
 </div>
 
+<!--Modal Add Sponsor-->
+<div class="modal fade" id="addSponsorModal" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Sponsor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="newName" type="text" class="form-control" placeholder="Enter Sponsor's name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Description:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <textarea id="newDescription" type="text" class="form-control" placeholder="Enter Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Image:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-link" aria-hidden="true"></i>
+                        </div>
+                        <input id="newImageUrl" type="text" class="form-control" placeholder="Input image url">
+                    </div>
+                    <div class="col-sm-3"></div>
+                    <div class="row col-sm-9">
+                        <label>or</label>
+                        <input type="file" id="myFile">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Modal Update Sponsor-->
+<div class="modal fade" id="sponsorModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Sponsor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control sponsor-title">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Descripstion:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <textarea type="text" class="form-control sponsor-description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Image:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-link" aria-hidden="true"></i>
+                        </div>
+                        <textarea type="text" class="form-control sponsor-image"></textarea>
+                    </div>
+                    <div class="col-sm-3"></div>
+                    <div class="row col-sm-9">
+                        <label>or</label>
+                        <input type="file" id="myFile">
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-save" type="submit" class="btn btn-primary sponsor-id" data-dismiss="modal" style="margin-top:5px">Save change</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts {
     <script>
+        var urlApi = '@curPath';
+        var eventId = @eventId;
+
         function showModalSponsor(id, name, description, image) {
             $('.sponsor-title').val(name);
             $('.sponsor-description').val(description);
@@ -175,7 +158,7 @@
         $(document).ready(function () {
             $('#tblSponsor').DataTable({
                 ajax: {
-                    url: "api/sponsor/getAllSponsor",
+                    url: urlApi + "/api/sponsor/GetAllSponsorByEventId/" + eventId,
                     dataSrc: ""
                 },
                 columns: [
