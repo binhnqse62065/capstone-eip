@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HmsService.Sdk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,12 @@ namespace CapstoneProjectAdmin.Controllers
     public class TimelineController : Controller
     {
         // GET: Timeline
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            return View();
+            ViewBag.EventId = id;
+            SessionApi sessionApi = new SessionApi();
+            var listSession = sessionApi.GetSessionsByEventId(id);
+            return View(listSession);
         }
     }
 }

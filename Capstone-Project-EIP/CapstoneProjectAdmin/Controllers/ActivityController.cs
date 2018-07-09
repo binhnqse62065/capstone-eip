@@ -12,12 +12,13 @@ namespace CapstoneProjectAdmin.Controllers
     {
         // GET: Activity
         private HmsEntities db = new HmsEntities();
-        public ActionResult Index()
+        
+        public ActionResult Index(int id)
         {
-            EventApi eventApi = new EventApi();
-            var cur = eventApi.BaseService.GetEventById(1);
-            var ac = cur.Sessions.FirstOrDefault().Activities.FirstOrDefault();
-            return View(ac);
+            ViewBag.EventId = id;
+            SessionApi sessionApi = new SessionApi();
+            var listSession = sessionApi.GetSessionsByEventId(id);
+            return View(listSession);
         }
 
         public ActionResult Edit()

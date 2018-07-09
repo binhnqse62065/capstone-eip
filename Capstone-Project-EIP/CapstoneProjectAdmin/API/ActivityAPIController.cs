@@ -16,11 +16,11 @@ namespace CapstoneProjectAdmin.API
     {
         private HmsEntities db = new HmsEntities();
 
-        [Route("getAllActivity")]
+        [Route("GetAllActivityBySessionId/{id}")]
         [HttpGet]
-        public IEnumerable<ActivityViewModel> GetActivities()
+        public IEnumerable<ActivityViewModel> GetActivitiesBySessionId(int id)
         {
-            var listActivity = db.Activities.Where(a => a.SessionId == 1).ToList().Select(a => new ActivityViewModel {
+            var listActivity = db.Activities.Where(a => a.SessionId == id).ToList().Select(a => new ActivityViewModel {
                 ActivityID = a.ActivityID,
                 Name = a.Name,
                 StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy") : "",

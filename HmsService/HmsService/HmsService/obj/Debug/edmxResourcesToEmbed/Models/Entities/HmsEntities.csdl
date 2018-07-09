@@ -32,6 +32,8 @@
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
     <EntitySet Name="C__MigrationHistory" EntityType="HmsEntities.C__MigrationHistory" />
+    <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
+    <EntitySet Name="ActivityItems" EntityType="HmsEntities.ActivityItem" />
     <EntitySet Name="AspNetRoles" EntityType="HmsEntities.AspNetRole" />
     <EntitySet Name="AspNetUserClaims" EntityType="HmsEntities.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="HmsEntities.AspNetUserLogin" />
@@ -48,7 +50,18 @@
     <EntitySet Name="Timelines" EntityType="HmsEntities.Timeline" />
     <EntitySet Name="Votings" EntityType="HmsEntities.Voting" />
     <EntitySet Name="VotingOptions" EntityType="HmsEntities.VotingOption" />
-    <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
+    <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
+      <End Role="Session" EntitySet="Sessions" />
+      <End Role="Activity" EntitySet="Activities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ActivityItem_Activity" Association="HmsEntities.FK_ActivityItem_Activity">
+      <End Role="Activity" EntitySet="Activities" />
+      <End Role="ActivityItem" EntitySet="ActivityItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ActivityItem_CollectionItem" Association="HmsEntities.FK_ActivityItem_CollectionItem">
+      <End Role="CollectionItem" EntitySet="CollectionItems" />
+      <End Role="ActivityItem" EntitySet="ActivityItems" />
+    </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -101,10 +114,6 @@
       <End Role="QA" EntitySet="QAs" />
       <End Role="Question" EntitySet="Questions" />
     </AssociationSet>
-    <AssociationSet Name="FK_Activity_Session" Association="HmsEntities.FK_Activity_Session">
-      <End Role="Session" EntitySet="Sessions" />
-      <End Role="Activity" EntitySet="Activities" />
-    </AssociationSet>
     <AssociationSet Name="FK_Timeline_Session" Association="HmsEntities.FK_Timeline_Session">
       <End Role="Session" EntitySet="Sessions" />
       <End Role="Timeline" EntitySet="Timelines" />
@@ -138,6 +147,29 @@
     <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
     <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
     <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="ActivityID" />
+    </Key>
+    <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SessionId" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="EndTime" Type="DateTime" Precision="3" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
+    <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_Activity" FromRole="Activity" ToRole="ActivityItem" />
+  </EntityType>
+  <EntityType Name="ActivityItem">
+    <Key>
+      <PropertyRef Name="ActivityItemId" />
+    </Key>
+    <Property Name="ActivityItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActivityId" Type="Int32" Nullable="false" />
+    <Property Name="CollectionItemId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Activity" Relationship="HmsEntities.FK_ActivityItem_Activity" FromRole="ActivityItem" ToRole="Activity" />
+    <NavigationProperty Name="CollectionItem" Relationship="HmsEntities.FK_ActivityItem_CollectionItem" FromRole="ActivityItem" ToRole="CollectionItem" />
   </EntityType>
   <EntityType Name="AspNetRole">
     <Key>
@@ -197,6 +229,7 @@
     <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_CollectionItem" FromRole="CollectionItem" ToRole="ActivityItem" />
     <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
   </EntityType>
   <EntityType Name="CollectionType">
@@ -256,7 +289,7 @@
       <PropertyRef Name="InteractionId" />
     </Key>
     <Property Name="InteractionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SessionId" Type="Int32" />
+    <Property Name="SessionId" Type="Int32" Nullable="false" />
     <Property Name="InteractionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="VotingId" Type="Int32" />
     <Property Name="QAId" Type="Int32" />
@@ -271,7 +304,7 @@
     </Key>
     <Property Name="QAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="QAName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="EventId" Type="Int32" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
     <Property Name="InteractionId" Type="Int32" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_QA_Event" FromRole="QA" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_QA1" FromRole="QA" ToRole="Interaction" />
@@ -300,9 +333,9 @@
     <Property Name="EndTime" Type="DateTime" Precision="3" />
     <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />
-    <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
     <NavigationProperty Name="Timelines" Relationship="HmsEntities.FK_Timeline_Session" FromRole="Session" ToRole="Timeline" />
   </EntityType>
   <EntityType Name="Timeline">
@@ -310,7 +343,7 @@
       <PropertyRef Name="TimelineId" />
     </Key>
     <Property Name="TimelineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SessionId" Type="Int32" />
+    <Property Name="SessionId" Type="Int32" Nullable="false" />
     <Property Name="TimelineTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TimelineDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="StartTime" Type="DateTime" Precision="3" />
@@ -322,7 +355,7 @@
     </Key>
     <Property Name="VotingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="VotingName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="EventId" Type="Int32" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Voting_Event" FromRole="Voting" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Voting" FromRole="Voting" ToRole="Interaction" />
     <NavigationProperty Name="VotingOptions" Relationship="HmsEntities.FK_VotingOption_Voting" FromRole="Voting" ToRole="VotingOption" />
@@ -334,22 +367,45 @@
     <Property Name="VotingOptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="VotingOptionContent" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="NumberOfVoting" Type="Int32" />
-    <Property Name="VotingId" Type="Int32" />
+    <Property Name="VotingId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Voting" Relationship="HmsEntities.FK_VotingOption_Voting" FromRole="VotingOption" ToRole="Voting" />
   </EntityType>
-  <EntityType Name="Activity">
-    <Key>
-      <PropertyRef Name="ActivityID" />
-      <PropertyRef Name="SessionId" />
-    </Key>
-    <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SessionId" Type="Int32" Nullable="false" />
-    <Property Name="StartTime" Type="DateTime" Precision="3" />
-    <Property Name="EndTime" Type="DateTime" Precision="3" />
-    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
-  </EntityType>
+  <Association Name="FK_Activity_Session">
+    <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
+    <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Session">
+        <PropertyRef Name="SessionID" />
+      </Principal>
+      <Dependent Role="Activity">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ActivityItem_Activity">
+    <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="1" />
+    <End Type="HmsEntities.ActivityItem" Role="ActivityItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Activity">
+        <PropertyRef Name="ActivityID" />
+      </Principal>
+      <Dependent Role="ActivityItem">
+        <PropertyRef Name="ActivityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ActivityItem_CollectionItem">
+    <End Type="HmsEntities.CollectionItem" Role="CollectionItem" Multiplicity="1" />
+    <End Type="HmsEntities.ActivityItem" Role="ActivityItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollectionItem">
+        <PropertyRef Name="CollectionItemID" />
+      </Principal>
+      <Dependent Role="ActivityItem">
+        <PropertyRef Name="CollectionItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Type="HmsEntities.AspNetUser" Role="AspNetUser" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -427,7 +483,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_QA_Event">
-    <End Type="HmsEntities.Event" Role="Event" Multiplicity="0..1" />
+    <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
     <End Type="HmsEntities.QA" Role="QA" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Event">
@@ -451,7 +507,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Voting_Event">
-    <End Type="HmsEntities.Event" Role="Event" Multiplicity="0..1" />
+    <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
     <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Event">
@@ -475,7 +531,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Interaction_Session">
-    <End Type="HmsEntities.Session" Role="Session" Multiplicity="0..1" />
+    <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
     <End Type="HmsEntities.Interaction" Role="Interaction" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Session">
@@ -510,20 +566,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Activity_Session">
-    <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
-    <End Type="HmsEntities.Activity" Role="Activity" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Session">
-        <PropertyRef Name="SessionID" />
-      </Principal>
-      <Dependent Role="Activity">
-        <PropertyRef Name="SessionId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Timeline_Session">
-    <End Type="HmsEntities.Session" Role="Session" Multiplicity="0..1" />
+    <End Type="HmsEntities.Session" Role="Session" Multiplicity="1" />
     <End Type="HmsEntities.Timeline" Role="Timeline" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Session">
@@ -535,7 +579,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_VotingOption_Voting">
-    <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="0..1" />
+    <End Type="HmsEntities.Voting" Role="Voting" Multiplicity="1" />
     <End Type="HmsEntities.VotingOption" Role="VotingOption" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Voting">

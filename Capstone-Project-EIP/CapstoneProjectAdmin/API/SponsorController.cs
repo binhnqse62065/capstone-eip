@@ -16,11 +16,22 @@ namespace CapstoneProjectAdmin.API
     {
         private HmsEntities db = new HmsEntities();
 
-        [Route("getAllSponsor")]
+        [Route("GetAllSponsorByEventId/{eventId}")]
         [HttpGet]
-        public IEnumerable<CollectionItem> GetSponsor()
+        public IEnumerable<CollectionItemViewModel> GetSponsorByEventId(int eventId)
         {
-            var sponsor = db.CollectionItems.Where(s => s.EventCollectionId == 3).ToList();
+            var sponsor = db.EventCollections
+                .FirstOrDefault(s => s.EventId == eventId && s.TypeId == (int)CollectionType.Sponsor)
+                .CollectionItems
+                .Select(s => new CollectionItemViewModel
+                {
+                    CollectionItemID = s.CollectionItemID,
+                    Name = s.Name,
+                    Description = s.Description,
+                    ImageUrl = s.ImageUrl,
+                    EventCollectionId = s.EventCollectionId,
+                    EventId = eventId
+                }).ToList();
             return sponsor;
         }
 

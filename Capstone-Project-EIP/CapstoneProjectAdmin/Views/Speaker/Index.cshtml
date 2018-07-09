@@ -1,13 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-}
-
-@using HmsService.Models.Entities;
-@model Event
-
-@{
-    var listSpeaker = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
+    int eventId = ViewBag.EventId;
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 
 <div class="container">
@@ -72,6 +67,19 @@
 
                 </div>
             </div>
+        </div>
+
+        <div class="ibox-content">
+            <table class="table table-hover table-bordered" id="tblSpeaker">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
 
         <div class="modal fade" id="deleteModal" role="dialog">
@@ -144,21 +152,15 @@
             </div>
         </div>
 
-        <table class="table table-hover table-bordered" id="tblSpeaker">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th>Function</th>
-                </tr>
-            </thead>
-        </table>
+        
     </div>
 </div>
 
 @section scripts {
     <script>
+        var urlApi = '@curPath';
+        var eventId = @eventId;
+
         function showModalSpeaker(id, name, description, image) {
             $('.speaker-title').val(name);
             $('.speaker-description').val(description);
@@ -174,7 +176,7 @@
          $(document).ready(function () {
             $('#tblSpeaker').DataTable({
                 ajax: {
-                    url: "api/speaker/getAllSpeaker",
+                    url: urlApi + "api/speaker/GetAllSpeakerByEventId/" + eventId,
                     dataSrc: ""
                 },
                 columns: [

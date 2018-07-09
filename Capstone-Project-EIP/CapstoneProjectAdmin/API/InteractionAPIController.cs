@@ -11,7 +11,7 @@ using System.Web.Http;
 namespace CapstoneProjectAdmin.API
 {
     [RoutePrefix("api/interaction")]
-    public class InteractionController : ApiController
+    public class InteractionAPIController : ApiController
     {
         private HmsEntities db = new HmsEntities();
 

@@ -10,11 +10,10 @@ namespace CapstoneProjectAdmin.Controllers
     public class SpeakerController : Controller
     {
         // GET: Speaker
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
-            EventApi eventApi = new EventApi();
-            var cur = eventApi.BaseService.GetEventById(1);
-            return View(cur);
+            ViewBag.EventId = id;
+            return View();
         }
     }
 }

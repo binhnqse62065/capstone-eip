@@ -14,6 +14,12 @@ namespace HmsService.Models.Entities
     
     public partial class Activity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Activity()
+        {
+            this.ActivityItems = new HashSet<ActivityItem>();
+        }
+    
         public int ActivityID { get; set; }
         public string Name { get; set; }
         public int SessionId { get; set; }
@@ -22,5 +28,7 @@ namespace HmsService.Models.Entities
         public string Description { get; set; }
     
         public virtual Session Session { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ActivityItem> ActivityItems { get; set; }
     }
 }

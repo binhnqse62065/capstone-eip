@@ -16,7 +16,7 @@ namespace HmsService.ViewModels
     {
     	
     			public virtual int TimelineId { get; set; }
-    			public virtual Nullable<int> SessionId { get; set; }
+    			public virtual int SessionId { get; set; }
     			public virtual string TimelineTitle { get; set; }
     			public virtual string TimelineDetail { get; set; }
     			public virtual Nullable<System.DateTime> StartTime { get; set; }

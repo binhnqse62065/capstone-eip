@@ -15,7 +15,7 @@ namespace HmsService.Sdk
     {
         public IEnumerable<Event> GetAllEvent()
         {
-            return this.GetAllEvent();
+            return this.BaseService.Get();
         }
     }
 }
