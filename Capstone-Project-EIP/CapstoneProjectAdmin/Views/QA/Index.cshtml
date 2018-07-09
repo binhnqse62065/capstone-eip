@@ -4,50 +4,89 @@
 
 @using HmsService.Models.Entities;
 @using System.Globalization;
-@model QA
+@model Event
 
-<div class="container">
-    <!-- Trigger the modal with a button -->
-
-    <div class="col-md-12 col-xs-12">
-        <div class="row qa-container" id="qa-container">
-            @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
-            {
-                <div class="card list-qa" id="question-@(item.QuestionId)">
-                    <div class="card main-qa">
-                        <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
-                        <br />
-                        @{
-                            var createQuestionTimeTmp = (DateTime)item.CreateTime;
-                            var createQuestionTime = createQuestionTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                        }
-                        <span class="create-time">@(createQuestionTime)</span>
-                        <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteQuestionModal" onclick="delQuestion(@item.QuestionId, '@item.Username')">Delete</button>
-                    </div>
-
-                    @foreach (var subItem in item.Comments)
-                    {
-                        <div class="card-header list-answer" id="comment-@(subItem.CommentId)">
-                            <span id="username-reply">@(subItem.Username): </span>
-                            <span id="reply-content">@(subItem.CommentContent)</span>
-                            <br />
-                            @{
-                                var createTimeTmp = (DateTime)subItem.CreateTime;
-                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                            }
-                            <span id="reply-time">@(createTime)</span>
-                            <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment(@subItem.CommentId, '@subItem.Username')">Delete</button>
-
-                        </div>
-                    }
-
+<div class="container" style="width:100%">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row">
+                <h2 class="col-sm-10">Manage QA</h2>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addQAModal" style="margin-top:20px">
+                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add QA
+                    </button>
                 </div>
-            }
-
+            </div>
+        </div>
+        <!-- DataTable -->
+        <div class="ibox-content">
+            <table class="table table-hover table-bordered" id="tblQA">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="editQAModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Edit Question & Answer</h2>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 col-xs-12">
+                    <div class="row qa-container" id="qa-container">
+                        @*
+                            @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
+                            {
+                                <div class="card list-qa" id="question-@(item.QuestionId)">
+                                    <div class="card main-qa">
+                                        <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
+                                        <br />
+                                        @{
+                                            var createQuestionTimeTmp = (DateTime)item.CreateTime;
+                                            var createQuestionTime = createQuestionTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                        }
+                                        <span class="create-time">@(createQuestionTime)</span>
+                                        <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteQuestionModal" onclick="delQuestion(@item.QuestionId, '@item.Username')">Delete</button>
+                                    </div>
+
+                                    @foreach (var subItem in item.Comments)
+                                    {
+                                        <div class="card-header list-answer" id="comment-@(subItem.CommentId)">
+                                            <span id="username-reply">@(subItem.Username): </span>
+                                            <span id="reply-content">@(subItem.CommentContent)</span>
+                                            <br />
+                                            @{
+                                                var createTimeTmp = (DateTime)subItem.CreateTime;
+                                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                            }
+                                            <span id="reply-time">@(createTime)</span>
+                                            <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment(@subItem.CommentId, '@subItem.Username')">Delete</button>
+
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+                        *@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <!--Delete Question Modal-->
 <div class="modal fade" id="deleteQuestionModal" role="dialog">
@@ -91,6 +130,79 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="addQAModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add QA</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="newName" type="text" class="form-control" placeholder="Enter QA's name">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteQAModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Are your sure?</h2>
+            </div>
+            <div class="modal-body">
+                <h3 class="qa-del-title"></h3>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-del" type="button" class="btn btn-default qa-del-id" data-dismiss="modal">Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Template Question-->
+<div id="template-question" style="display:none">
+    <div class="card list-qa" id="question">
+        <div class="card main-qa">
+            <span class="username-content"></span>
+            <br />
+            <span class="create-time"></span>
+            <button id="btn-delete-question" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteQuestionModal" onclick="delQuestion()">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!--Template comment-->
+<div id="template-comment" style="display:none">
+    <div class="card-header list-answer" id="comment">
+        <span id="username-reply"></span>
+        <span id="reply-content"></span>
+        <br />
+        <span id="reply-time"></span>
+        <button id="btn-delete-comment" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment()">Delete</button>
+    </div>
+</div>
+
+
 <input type="hidden" id="questionId" value="" />
 @section scripts {
     <script>
@@ -103,6 +215,71 @@
             $('.comment-del-id').val(id);
             $('.comment-del-title').html("Delete comment of " + name);
         }
+
+        function delQA(id, name) {
+            $('.qa-del-id').val(id);
+            $('.qa-del-title').html("Delete QA " + name);
+        }
+
+        function editQA(id, name) {
+            console.log(id);
+            $.ajax({
+                url: 'api/QA/getAllQuestionComment',
+                method: "POST",
+                data: {
+                    QAId: id
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#qa-container').empty();
+                    for (var i = 0; i < data.data.length; i++) {
+                        var templateQuestion = $('#template-question').clone();
+                        templateQuestion.find('.list-qa').attr('id', 'question-' + data.data[i].QuestionId + '');
+                        templateQuestion.find('.username-content').text('' + data.data[i].Username + ' : ' + data.data[i].QuestionContent + '');
+                        templateQuestion.find('.create-time').text('' + data.data[i].CreateTime + '');
+                        templateQuestion.find('#btn-delete-question').attr('onclick', 'delQuestion(' + data.data[i].QuestionId + ',\'' + data.data[i].Username + '\')');
+                        templateQuestion.find('#btn-delete-question').attr('onclick', 'delQuestion(' + data.data[i].QuestionId + ',\'' + data.data[i].Username + '\')');
+                        $('#qa-container').append(templateQuestion.html());
+                        for (var j = 0; j < data.data[i].Comments.length; j++) {
+                            var templateComment = $('#template-comment').clone();
+                            templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
+                            templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
+                            templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
+                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime + '');
+                            templateComment.find('#btn-delete-comment').attr('onclick', 'delComment(' + data.data[i].Comments[j].CommentId + ', \'' + data.data[i].Comments[j].Username + '\')');
+                            $('#question-' + data.data[i].QuestionId + '').append(templateComment.html());
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#tblQA').DataTable({
+                ajax: {
+                    url: "api/QA/getAllQA",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "Name",
+                        render: function (data, type, row) {
+                            return row.qaName;
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editQAModal" onclick="editQA(' + row.qaId + ',\'' + row.qaName + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm speaker-id" data-toggle="modal" data-target="#deleteQAModal" onclick="delQA(' + row.qaId + ',\'' + row.qaName + '\')"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+        });
     </script>
 
 }

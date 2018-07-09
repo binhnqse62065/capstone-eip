@@ -150,7 +150,6 @@
     <EntitySetMapping Name="QAs">
       <EntityTypeMapping TypeName="HmsEntities.QA">
         <MappingFragment StoreEntitySet="QA">
-          <ScalarProperty Name="InteractionId" ColumnName="InteractionId" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="QAName" ColumnName="QAName" />
           <ScalarProperty Name="QAId" ColumnName="QAId" />

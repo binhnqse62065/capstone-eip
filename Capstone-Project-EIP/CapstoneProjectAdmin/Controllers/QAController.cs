@@ -12,10 +12,12 @@ namespace CapstoneProjectAdmin.Controllers
         // GET: QA
         public ActionResult Index()
         {
-
-            QAApi qAApi = new QAApi();
-            var QAItem = qAApi.BaseService.GetQABySessionId(1);
-            return View(QAItem);
+            EventApi eventApi = new EventApi();
+            var cur = eventApi.BaseService.GetEventById(1);
+            return View(cur);
+            //QAApi qAApi = new QAApi();
+            //var QAItem = qAApi.BaseService.GetQABySessionId(1);
+            //return View(QAItem);
         }
     }
 }

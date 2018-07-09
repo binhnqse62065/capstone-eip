@@ -8,16 +8,17 @@
 
 
 <div class="container">
-
-    <div class="box">
-        <div class="box-header">
-            <h2 class="col-sm-8">Quản lý session</h2>
-            <div class="col-sm-4">
-                <div class="col-sm-2"></div>
-                <button class="col-sm-5 btn btn-primary" data-toggle="modal" data-target="#addSessionModal" style="margin-top:20px" type="button">
-                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm session
-                </button>
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row">
+                <h2 class="col-sm-10">Manage Voting</h2>
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px">
+                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Session
+                    </button>
+                </div>
             </div>
+        </div>
 
 
 
@@ -89,6 +90,21 @@
 
     </div>
 </div>
+
+        </div>
+    </div>
+    <table class="table table-hover table-bordered" id="tblSession">
+        <thead>
+            <tr>
+                <th>Session Name</th>
+                <th>Start Time - End Time</th>
+                <th>Description</th>
+                <th>Function</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
 
 <!-- Modal Update Session -->
 <div id="modalUpdateSession" class="modal fade" role="dialog">

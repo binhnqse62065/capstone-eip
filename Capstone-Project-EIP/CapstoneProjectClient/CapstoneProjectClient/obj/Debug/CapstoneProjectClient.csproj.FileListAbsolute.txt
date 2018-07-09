@@ -142,7 +142,6 @@ E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClie
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Net.Http.Formatting.xml
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Web.Http.xml
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Web.Http.WebHost.xml
-E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Autofac.Integration.Mvc.xml
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\obj\Debug\CapstoneProjectClient.csprojAssemblyReference.cache
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\obj\Debug\CapstoneProjectClient.csproj.CoreCompileInputs.cache
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\obj\Debug\CapstoneProjectClient.csproj.CopyComplete
