@@ -15,7 +15,7 @@
       <PropertyRef Name="ActivityID" />
     </Key>
     <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="SessionId" Type="int" Nullable="false" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
@@ -151,7 +151,6 @@
     <Property Name="QAId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="QAName" Type="nvarchar" MaxLength="50" />
     <Property Name="EventId" Type="int" Nullable="false" />
-    <Property Name="InteractionId" Type="int" />
   </EntityType>
   <EntityType Name="Question">
     <Key>

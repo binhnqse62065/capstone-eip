@@ -219,6 +219,7 @@
     <Compile Include="Controllers\InteractionController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
@@ -235,7 +236,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ActivityViewModel.cs" />
+    <Compile Include="ViewModel\CommentsViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
+    <Compile Include="ViewModel\QuestionViewModel.cs" />
     <Compile Include="ViewModel\SessionViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModel.cs" />
     <Compile Include="ViewModel\VotingOptionViewModel.cs" />

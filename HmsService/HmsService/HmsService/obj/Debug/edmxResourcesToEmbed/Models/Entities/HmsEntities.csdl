@@ -153,7 +153,7 @@
       <PropertyRef Name="ActivityID" />
     </Key>
     <Property Name="ActivityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SessionId" Type="Int32" Nullable="false" />
     <Property Name="StartTime" Type="DateTime" Precision="3" />
     <Property Name="EndTime" Type="DateTime" Precision="3" />
@@ -305,7 +305,6 @@
     <Property Name="QAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="QAName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
-    <Property Name="InteractionId" Type="Int32" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_QA_Event" FromRole="QA" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_QA1" FromRole="QA" ToRole="Interaction" />
     <NavigationProperty Name="Questions" Relationship="HmsEntities.FK_Question_QA" FromRole="QA" ToRole="Question" />
