@@ -71,16 +71,11 @@
                         <ul class="upcoming-event-info">
                             <li>@(time)</li>
                             @*<li>Tobacco Dock, London</li>*@
-                            <li>@Html.Raw(Model.Address )</li>
+                            <li>@Html.Raw(Model.Address)</li>
                         </ul>
                         <img src="~/Content/Template/eventalk/img/slider/slider-text-img.png" alt="slider" class="img-responsive">
                         <div class="countdown-layout3">
                             <div id="countdown"></div>
-                        </div>
-                        <div class="row d-none d-xl-block">
-                            <div class="col-12 text-center">
-                                <a href="#" title="Buy Tickets Now!" class="btn-ghost color-light hover-yellow size-lg border-radius-5">Buy Tickets Now!</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -263,79 +258,16 @@
         </section>
         <!-- Schedule Area End Here -->
         <!-- Pricing Plan Area Start Here -->
-        <section id="pricing" class="section-space-default-less30 overlay-icon-layout2 bg-common bg-accent" style="background-image: url(~/Content/Template/eventalk/img/figure/figure5.png);">
+        <section id="register" class="section-space-default-less30 overlay-icon-layout2 bg-common bg-accent" style="background-image: url(~/Content/Template/eventalk/img/figure/figure5.png);">
             <div class="container zindex-up">
                 <div class="section-heading title-black color-dark text-left">
-                    <h2>Ticket Price &amp; Plan</h2>
-                    <p>Dorem ipsum dolor sit. Incidunt laborum beatae earum nihil odio consequatur officiis tempore</p>
+                    <h2>Register</h2>
                 </div>
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <div class="price-table-layout1">
-                            <div class="item-wrapper">
-                                <div class="item-title">
-                                    <h3 class="title-medium color-dark text-uppercase">Personal Plan</h3>
-                                </div>
-                                <div class="item-price">
-                                    49
-                                    <span class="currency">$</span>
-                                </div>
-                                <div class="item-body">
-                                    <ul>
-                                        <li>Entrance</li>
-                                        <li>Coffee Break</li>
-                                        <li>Certificate</li>
-                                        <li>Workshop</li>
-                                    </ul>
-                                </div>
-                                <a href="#" title="Buy Ticket" class="btn-fill size-md border-radius-5 color-yellow">Buy Ticket</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                        <div class="price-table-layout1">
-                            <div class="item-wrapper">
-                                <div class="item-title">
-                                    <h3 class="title-medium color-dark text-uppercase">Business Plan</h3>
-                                </div>
-                                <div class="item-price">
-                                    69
-                                    <span class="currency">$</span>
-                                </div>
-                                <div class="item-body">
-                                    <ul>
-                                        <li>Entrance</li>
-                                        <li>Coffee Break</li>
-                                        <li>Certificate</li>
-                                        <li>Workshop</li>
-                                    </ul>
-                                </div>
-                                <a href="#" title="Buy Ticket" class="btn-fill size-md border-radius-5 color-primary">Buy Ticket</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-12">
-                        <div class="price-table-layout1">
-                            <div class="item-wrapper">
-                                <div class="item-title">
-                                    <h3 class="title-medium color-dark text-uppercase">Premium Plan</h3>
-                                </div>
-                                <div class="item-price">
-                                    99
-                                    <span class="currency">$</span>
-                                </div>
-                                <div class="item-body">
-                                    <ul>
-                                        <li>Entrance</li>
-                                        <li>Coffee Break</li>
-                                        <li>Certificate</li>
-                                        <li>Workshop</li>
-                                    </ul>
-                                </div>
-                                <a href="#" title="Buy Ticket" class="btn-fill size-md border-radius-5 color-green">Buy Ticket</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="custom-form">
+                    <input id="guestName" placeholder="Name" type="text" class="custom-input" required />
+                    <input id="guestPhone" placeholder="Phone" type="tel" class="custom-input" required />
+                    <input id="guestEmail" placeholder="E-mail" type="email" class="custom-input" required />
+                    <button id="btn-submit">Register <span class="fa fa-chevron-right"></span></button>
                 </div>
             </div>
         </section>
@@ -392,3 +324,31 @@
 
 <!-- Mirrored from www.radiustheme.com/demo/html/eventalk/one-page-index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 24 May 2018 08:23:51 GMT -->
 </html>
+@*@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#btn-submit').on('click', function () {
+                var name = $('#guestName').val();
+                var phone = $('#guestPhone').val();
+                var email = $('#guestEmail').val();
+                $.ajax({
+                    url: 'api/landingPage/AddGuest',
+                    method: "POST",
+                    data: {
+                        GuestName: name,
+                        GuestPhone: phone,
+                        GuestEmail: email,
+                        EventId: 1,
+                    },
+                    success: function (data) {
+                        console.log('Add success');
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    </script>
+}*@
+

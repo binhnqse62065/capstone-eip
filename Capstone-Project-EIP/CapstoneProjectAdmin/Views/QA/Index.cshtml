@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "QA";
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+    int eventId = ViewBag.EventId;
 }
 
-@using HmsService.Models.Entities;
-@using System.Globalization;
-@model Event
 
 <div class="container" style="width:100%">
     <div class="ibox float-e-margins">
@@ -206,6 +205,10 @@
 <input type="hidden" id="questionId" value="" />
 @section scripts {
     <script>
+
+        var urlApi = '@curPath';
+        var eventId = @eventId;
+
         function delQuestion(id, name) {
             $('.question-del-id').val(id);
             $('.question-del-title').html("Delete question of " + name);
@@ -224,7 +227,7 @@
         function editQA(id, name) {
             console.log(id);
             $.ajax({
-                url: 'api/QA/getAllQuestionComment',
+                url: urlApi + 'api/QA/getAllQuestionComment',
                 method: "POST",
                 data: {
                     QAId: id
@@ -260,7 +263,7 @@
         $(document).ready(function () {
             $('#tblQA').DataTable({
                 ajax: {
-                    url: "api/QA/getAllQA",
+                    url: urlApi + "api/QA/getAllQA/" + eventId,
                     dataSrc: ""
                 },
                 columns: [

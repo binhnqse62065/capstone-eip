@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+
+    var urlApi = $(location).attr('origin');
+
     $('#btn-save').on('click', function () {
         var id = $('#btn-save').val();
         var name = $('.interaction-name').val();
@@ -19,7 +22,7 @@
         }
         console.log(interactionObject);
         $.ajax({
-            url: 'api/interaction/UpdateInteractionData',
+            url: urlApi + '/api/interaction/UpdateInteractionData',
             method: "POST",
             data: interactionObject,
             success: function () {
@@ -32,12 +35,13 @@
     });
 
     $('#btn-add').on('click', function () {
+        console.log(urlApi);
         var name = $('#newName').val();
         var selectValue = $('#InteractionSelectBox').find(":selected").val();
         var kindInteractionId = $('#KindOfInteractionSelectBox').find(":selected").val();
         if (selectValue == 1) {
             $.ajax({
-                url: 'api/interaction/AddInteraction',
+                url: urlApi + '/api/interaction/AddInteraction',
                 method: "POST",
                 data: {
                     InteractionName: name,
@@ -54,11 +58,11 @@
             });
         } else if (selectValue == 2) {
             $.ajax({
-                url: 'api/interaction/AddInteraction',
+                url: urlApi + '/api/interaction/AddInteraction',
                 method: "POST",
                 data: {
                     InteractionName: name,
-                    QAId: typeItemId,
+                    QAId: kindInteractionId,
                     SessionId: 1,
                     IsRunning: false
                 },
@@ -77,7 +81,7 @@
     $('#btn-del').on('click', function () {
         var id = $('#btn-del').val();
         $.ajax({
-            url: 'api/interaction/DeleteInteraction',
+            url: urlApi + '/api/interaction/DeleteInteraction',
             method: "POST",
             data: {
                 InteractionId: id,
@@ -94,7 +98,7 @@
     $('#btn-stop').on('click', function () {
         var id = $('#btn-stop').val();
         $.ajax({
-            url: 'api/interaction/StopInteraction',
+            url: urlApi + '/api/interaction/StopInteraction',
             method: "POST",
             data: {
                 InteractionId: id,
@@ -112,7 +116,7 @@
     $('#btn-play').on('click', function () {
         var id = $('#btn-play').val();
         $.ajax({
-            url: 'api/interaction/PlayInteraction',
+            url: urlApi + '/api/interaction/PlayInteraction',
             method: "POST",
             data: {
                 InteractionId: id

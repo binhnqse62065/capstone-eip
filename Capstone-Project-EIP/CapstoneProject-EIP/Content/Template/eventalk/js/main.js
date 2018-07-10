@@ -397,7 +397,7 @@
         -------------------------------------*/
         var eventCounter = $('#countdown');
         if (eventCounter.length) {
-            eventCounter.countdown('2018/06/10', function(e) {
+            eventCounter.countdown('2020/05/03', function(e) {
                 $(this).html(e.strftime("<div class='countdown-section'><h2>%D</h2> <h3>day%!D</h3> </div><div class='countdown-section'><h2>%H</h2> <h3>Hour%!H</h3> </div><div class='countdown-section'><h2>%M</h2> <h3>Minutes</h3> </div><div class='countdown-section'><h2>%S</h2> <h3>Second</h3> </div>"))
 
             });
@@ -516,29 +516,29 @@
     /*-------------------------------------
      Google Map
     -------------------------------------*/
-    //if ($('#googleMap').length) {
-    //    var initialize = function() {
-    //            var mapOptions = {
-    //                zoom: 15,
-    //                scrollwheel: false,
-    //                center: new google.maps.LatLng(-37.81618, 144.95692),
-    //                styles: [{
-    //                    stylers: [{
-    //                        saturation: -100
-    //                    }]
-    //                }]
-    //            };
-    //            var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
-    //            var marker = new google.maps.Marker({
-    //                position: map.getCenter(),
-    //                animation: google.maps.Animation.BOUNCE,
-    //                icon: 'img/map-marker.png',
-    //                map: map
-    //            });
-    //        }
-    //        // Add the map initialize function to the window load function
-    //    google.maps.event.addDomListener(window, "load", initialize);
-    //}
+    if ($('#googleMap').length) {
+        var initialize = function() {
+                var mapOptions = {
+                    zoom: 15,
+                    scrollwheel: false,
+                    center: new google.maps.LatLng(-37.81618, 144.95692),
+                    styles: [{
+                        stylers: [{
+                            saturation: -100
+                        }]
+                    }]
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+                var marker = new google.maps.Marker({
+                    position: map.getCenter(),
+                    animation: google.maps.Animation.BOUNCE,
+                    icon: 'img/map-marker.png',
+                    map: map
+                });
+            }
+            // Add the map initialize function to the window load function
+        google.maps.event.addDomListener(window, "load", initialize);
+    }
 
     /*-------------------------------------
      Carousel slider initiation

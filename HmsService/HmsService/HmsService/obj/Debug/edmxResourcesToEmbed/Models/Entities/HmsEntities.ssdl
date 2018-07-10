@@ -133,6 +133,16 @@
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="TypeId" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Guest">
+    <Key>
+      <PropertyRef Name="GuestId" />
+    </Key>
+    <Property Name="GuestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GuestName" Type="nvarchar" MaxLength="250" />
+    <Property Name="GuestEmail" Type="nvarchar" MaxLength="250" />
+    <Property Name="GuestPhone" Type="nvarchar" MaxLength="50" />
+    <Property Name="EventId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Interaction">
     <Key>
       <PropertyRef Name="InteractionId" />
@@ -341,6 +351,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Guest_Event">
+    <End Role="Event" Type="Self.Event" Multiplicity="1" />
+    <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="Guest">
+        <PropertyRef Name="EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Interaction_QA1">
     <End Role="QA" Type="Self.QA" Multiplicity="0..1" />
     <End Role="Interaction" Type="Self.Interaction" Multiplicity="*" />
@@ -463,6 +485,7 @@
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EventCollection" EntityType="Self.EventCollection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Interaction" EntityType="Self.Interaction" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="QA" EntityType="Self.QA" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
@@ -513,6 +536,10 @@
     <AssociationSet Name="FK_EventCollection_Event" Association="Self.FK_EventCollection_Event">
       <End Role="Event" EntitySet="Event" />
       <End Role="EventCollection" EntitySet="EventCollection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Guest_Event" Association="Self.FK_Guest_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="Guest" EntitySet="Guest" />
     </AssociationSet>
     <AssociationSet Name="FK_Interaction_QA1" Association="Self.FK_Interaction_QA1">
       <End Role="QA" EntitySet="QA" />
