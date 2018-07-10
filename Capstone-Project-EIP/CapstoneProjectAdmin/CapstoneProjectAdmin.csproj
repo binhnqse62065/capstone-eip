@@ -219,6 +219,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InteractionController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
@@ -6974,6 +6975,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomCss\admin.css" />
+    <Content Include="Content\CustomCss\login.css" />
     <Content Include="Content\CustomCss\QA.css" />
     <Content Include="Content\CustomCss\sponsor.css" />
     <Content Include="Content\CustomCss\style.default.css" />
@@ -8582,6 +8584,7 @@
     <Content Include="Views\Voting\Index.cshtml" />
     <Content Include="Views\QA\Index.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Login\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
