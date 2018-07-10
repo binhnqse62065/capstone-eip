@@ -61,11 +61,9 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\obj\Debug\CapstoneProjectClient.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\obj\Debug\CapstoneProjectClient.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\HmsService.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\SkyWeb.DatVM.Mvc.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Autofac.Integration.Mvc.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\HmsService.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\HmsService.dll.config
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Autofac.Integration.Mvc.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\obj\Debug\CapstoneProjectClient.csprojAssemblyReference.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Net.Http.Formatting.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Web.Http.dll

@@ -66,6 +66,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="SkyWeb.DatVM.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="SkyWeb.DatVM.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -210,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\CommentsController.cs" />
+    <Compile Include="API\LoginAPIController.cs" />
     <Compile Include="API\QuestionsController.cs" />
     <Compile Include="API\VotingController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />

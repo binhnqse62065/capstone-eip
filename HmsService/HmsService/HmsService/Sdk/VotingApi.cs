@@ -91,5 +91,17 @@ namespace HmsService.Sdk
                 return false;
             }
         }
+
+        public Voting GetVotingById(int votingId)
+        {
+            if(votingId != 0)
+            {
+                return this.BaseService.GetVotingById(votingId);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

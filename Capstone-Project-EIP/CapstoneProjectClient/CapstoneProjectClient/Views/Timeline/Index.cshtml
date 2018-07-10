@@ -4,57 +4,61 @@
 }
 @using HmsService.Models.Entities;
 
-@model Event
-    @{ 
-        var listTimeline = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Timelines.OrderByDescending(e => e.StartTime);
-    }
+@model IEnumerable<Timeline>
 
 <div class="container">
     <div class="page-header">
         <h1 id="timeline">Timeline</h1>
     </div>
-
-    <ul class="timeline">
-        @{
-            int i = 1;
-            foreach (var item in listTimeline)
-            {
-                if (i % 2 == 1)
+    @if (Model.Count() == 0)
+    {
+        <h3>Hiện tại không có dòng thời gian nào</h3>
+    }
+    else
+    {
+        <ul class="timeline">
+            @{
+                int i = 1;
+                foreach (var item in Model)
                 {
-                    <li>
-                        <div class="timeline-badge"><i id="icon-custom" class="fa fa-check-square-o"></i></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">@(item.TimelineTitle)</h4>
+                    if (i % 2 == 1)
+                    {
+                        <li>
+                            <div class="timeline-badge"><i id="icon-custom" class="fa fa-check-square-o"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">@(item.TimelineTitle)</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>
+                                        @(item.TimelineDetail)
+                                    </p>
+                                </div>
                             </div>
-                            <div class="timeline-body">
-                                <p>
-                                    @(item.TimelineDetail)
-                                </p>
+                        </li>
+                        i++;
+                    }
+                    else
+                    {
+                        <li class="timeline-inverted">
+                            <div class="timeline-badge warning"><i id="icon-custom" class="fa fa-check-square-o"></i></div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4 class="timeline-title">@(item.TimelineTitle)</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p>
+                                        @(item.TimelineDetail)
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    i++;
-                }
-                else
-                {
-                    <li class="timeline-inverted">
-                        <div class="timeline-badge warning"><i id="icon-custom" class="fa fa-check-square-o"></i></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">@(item.TimelineTitle)</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p>
-                                    @(item.TimelineDetail)
-                                </p>
-                            </div>
-                        </div>
-                    </li> 
-                    i++;
+                        </li>
+                        i++;
+                    }
                 }
             }
-        }
-    </ul>
+        </ul>
+    }
+
 </div>
 

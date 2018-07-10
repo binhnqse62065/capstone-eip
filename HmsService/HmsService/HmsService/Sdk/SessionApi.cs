@@ -17,5 +17,10 @@ namespace HmsService.Sdk
         {
             return this.BaseService.GetAllSessionsByEventId(eventId);
         }
+
+        public SessionViewModel GetSessionById(int sessionId)
+        {
+            return this.BaseService.GetSessionById(sessionId);
+        }
     }
 }

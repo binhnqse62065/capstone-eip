@@ -10,11 +10,14 @@ namespace CapstoneProjectClient.Controllers
     public class LivestreamController : Controller
     {
         // GET: Livestream
-        public ActionResult Index()
+        [Route("Livestream/Index/{eventId}/{sessionId}")]
+        public ActionResult Index(int eventId,int sessionId)
         {
-            EventApi eventApi = new EventApi();
-            var eventCurr = eventApi.BaseService.GetEventById(1);
-            return View(eventCurr);
+            ViewBag.EventId = eventId;
+            ViewBag.SessionId = sessionId;
+            SessionApi sessionApi = new SessionApi();
+            var curSession = sessionApi.GetSessionById(sessionId);
+            return View(curSession);
         }
     }
 }

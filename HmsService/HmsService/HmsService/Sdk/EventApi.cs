@@ -17,5 +17,10 @@ namespace HmsService.Sdk
         {
             return this.BaseService.Get();
         }
+
+        public Event CheckLoginCode(int code)
+        {
+            return this.BaseService.CheckLoginCode(code);
+        }
     }
 }

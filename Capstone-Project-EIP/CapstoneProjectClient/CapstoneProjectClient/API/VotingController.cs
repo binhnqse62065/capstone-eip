@@ -1,5 +1,6 @@
 ﻿using CapstoneProjectClient.Models;
 using HmsService.Models.Entities;
+using HmsService.Sdk;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,13 @@ namespace CapstoneProjectClient.API
 
         [Route("ChangeNumberOfVoting")]
         [HttpPost]
-        public HttpResponseMessage ChangeNumberOfVoting(JObject requestObj)
+        public HttpResponseMessage ChangeNumberOfVoting(VotingOption option)
         {
-            var votingOption = db.VotingOptions.Find(requestObj.SelectToken("votingOptionId").ToObject<Int32>());
+            var votingOption = db.VotingOptions.Find(option.VotingOptionId);
+            //var votingOption = db.VotingOptions.Find(requestObj.SelectToken("votingOptionId").ToObject<Int32>());
             votingOption.NumberOfVoting += 1;
+            VotingOptionApi votingOptionApi = new VotingOptionApi();
+            List<double> listPercentOption = votingOptionApi.GetNewResultVoting(option.VotingId);
             db.SaveChanges();
             
             return new HttpResponseMessage()
@@ -30,6 +34,7 @@ namespace CapstoneProjectClient.API
                 {
                     success = true,
                     message = "Add successful!",
+                    data = listPercentOption
                     
                 })
             };

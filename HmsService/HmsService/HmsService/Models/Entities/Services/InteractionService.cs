@@ -8,10 +8,20 @@ namespace HmsService.Models.Entities.Services
 {
     public partial interface IInteractionService
     {
-        
+        int? GetVotingIdBySessionId(int sessionId);
     }
     public partial class InteractionService
     {
-
+        public int? GetVotingIdBySessionId(int sessionId)
+        {
+            try
+            {
+                return this.FirstOrDefault(i => i.IsRunning == true && i.VotingId != null).VotingId;
+            }
+            catch(Exception e)
+            {
+                return 0;
+            }
+        }
     }
 }

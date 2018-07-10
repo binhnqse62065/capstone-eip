@@ -305,7 +305,6 @@
     <Property Name="QAId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="QAName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
-    <Property Name="InteractionId" Type="Int32" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_QA_Event" FromRole="QA" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_QA1" FromRole="QA" ToRole="Interaction" />
     <NavigationProperty Name="Questions" Relationship="HmsEntities.FK_Question_QA" FromRole="QA" ToRole="Question" />
@@ -333,6 +332,7 @@
     <Property Name="EndTime" Type="DateTime" Precision="3" />
     <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />

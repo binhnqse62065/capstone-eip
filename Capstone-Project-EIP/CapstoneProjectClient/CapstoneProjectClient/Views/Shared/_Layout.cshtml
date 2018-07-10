@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var eventId = ViewBag.EventId;
+    var sessionId = ViewBag.SessionId;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -55,8 +60,8 @@
             </div>
             <div class="main-menu">
                 <ul id="side-main-menu" class="side-menu list-unstyled">
-                    <li class="active"><a href="@Url.Action("Index", "Home")"> <i class="icon-home"></i><span>Home</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Timeline")"><i class="icon-form"></i><span>Timeline</span></a></li>
+                    <li class="active"><a href="@Url.Action("Index", "Home", new { eventId = eventId, sessionId = sessionId })"> <i class="icon-home"></i><span>Home</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Timeline", new { sessionId = sessionId})"><i class="icon-form"></i><span>Timeline</span></a></li>
                     <li> <a href="@Url.Action("Index", "QA")"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
                     <li> <a href="@Url.Action("Index", "Voting")"> <i class="fa fa-check-circle-o"> </i><span>Voting</span></a></li>
                     <li> <a href="@Url.Action("Index", "Livestream")"> <i class="fa fa-video-camera"></i><span>Livestream</span></a></li>
@@ -230,19 +235,6 @@
     <script src="~/Content/ProgressBar/bootstrap-progressbar.min.js"></script>
 
     @RenderSection("scripts", required: false)
-    <!---->
-    <script>
-                                                                //    (function (b, o, i, l, e, r) {
-                                                                //        b.GoogleAnalyticsObject = l; b[l] || (b[l] =
-                                                                //            function () { (b[l].q = b[l].q || []).push(arguments) }); b[l].l = +new Date;
-                                                                //        e = o.createElement(i); r = o.getElementsByTagName(i)[0];
-                                                                //        e.src = '~/Content/bootstrap/Dashboard/www.google-analytics.com/analytics.js';
-                                                                //        r.parentNode.insertBefore(e, r)
-                                                                //    }(window, document, 'script', 'ga'));
-                                                                //ga('create', 'UA-XXXXX-X'); ga('send', 'pageview');
-
-    </script>
-
 
 </body>
 </html>
