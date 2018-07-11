@@ -10,10 +10,10 @@
     var listOptions = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingOptions;*/
 }
 
-<link href="~/Content/bootstrap/Poll/css/bootstrap.css" rel="stylesheet" />
+@*<link href="~/Content/bootstrap/Poll/css/bootstrap.css" rel="stylesheet" />*@
 <div class="container">
     <div class="row">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center voting-title">
             <h3>Bình chọn</h3>
         </div>
     </div>
@@ -24,7 +24,7 @@
     else
     {
         <div class="row ">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-4 col-md-offset-4 panel-voting">
                 <div class="user-poll-section">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -52,25 +52,7 @@
                             <h5 class="text-danger">Result Of User Votes :</h5>
                             @*<input id="votingQuestionId" type="hidden" value="@(listQuestionOptions.FirstOrDefault().VotingQuestionId)" />*@
                             <div id="result-voting-section">
-                                @*@{
-                                    int j = 1;
-                                    float s = 0;
-                                    float[] p = new float[listOptions.Count + 2];
-                                    foreach (var item in listOptions)
-                                    {
-                                        s = s + item.NumberOfVoting.Value;
-                                    }
-                                    foreach (var item in listOptions)
-                                    {
-                                        p[j] = (item.NumberOfVoting.Value / s) * 100;
-                                        double n = Math.Round(p[j]);
-                                        @item.VotingOptionContent
-                                        j++;
-                                        <div class="progress progress-striped">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="@n"></div>
-                                        </div>
-                                    }
-                                }*@
+
                             </div>
                         </div>
                     </div>
@@ -82,7 +64,7 @@
 </div>
 
 <input type="hidden" id="txt-voting-id" value="@Model.VotingId" />
-<div id="progress-bar-result-template">
+<div id="progress-bar-result-template" style="display:none;">
     <div class="progress progress-striped">
         <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
     </div>

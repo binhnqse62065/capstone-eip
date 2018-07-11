@@ -450,6 +450,7 @@
     <Content Include="Content\CustomCss\timeline.css" />
     <Content Include="Content\CustomCss\voting.css" />
     <Content Include="Content\img\new_statesman_events.jpg" />
+    <Content Include="Content\img\Pi5sTPQ.jpg" />
     <Content Include="Content\ProgressBar\bootstrap-progressbar.js" />
     <Content Include="Content\ProgressBar\bootstrap-progressbar.min.js" />
     <Content Include="Content\ProgressBar\css\bootstrap-progressbar-2.0.0.css" />

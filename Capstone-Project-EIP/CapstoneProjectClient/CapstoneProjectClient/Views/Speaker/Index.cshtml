@@ -4,31 +4,39 @@
 }
 
 @using HmsService.Models.Entities;
-@model Event
+@model EventCollection
 
-@{
-    var listSpeaker = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
+@if (Model == null || Model.CollectionItems == null)
+{
+    <div class="collection-empty-title">
+        <h3>Hiện tại chưa có danh sách diễn giả</h3>
+    </div>
+
 }
-<div class="row">
-    @{
-        foreach (var item in listSpeaker)
-        {
-            <div class="col-md-4 col-sm-8 col-12" onclick="showModalSpeaker('@(item.Name)', '@(item.Description)')">
-                <div class="box-speaker-shadow">
-                    <a href="" data-toggle="modal" data-target="#speakerModal">
-                        <img class="img-fluid image-speaker-custom" src="@(item.ImageUrl)" alt="brand">
-                    </a>
-                    <div class="item-title">
-                        <h3 class="title title-medium" style="text-align:center">
-                            <a class="speaker-name">@(item.Name)</a>
-                        </h3>
+else
+{
+    <div class="row">
+        @{
+            foreach (var speaker in Model.CollectionItems)
+            {
+                <div class="col-md-4 col-sm-8 col-12" onclick="showModalSpeaker('@(speaker.Name)', '@(speaker.Description)')">
+                    <div class="box-speaker-shadow">
+                        <a href="" data-toggle="modal" data-target="#speakerModal">
+                            <img class="img-fluid image-speaker-custom" src="@(speaker.ImageUrl)" alt="brand">
+                        </a>
+                        <div class="item-title">
+                            <h3 class="title title-medium" style="text-align:center">
+                                <a class="speaker-name">@(speaker.Name)</a>
+                            </h3>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
-    }
 
-</div>
+    </div>
+}
+
 
 <div id="speakerModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -42,7 +50,7 @@
                 <p class="speaker-description"></p>
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

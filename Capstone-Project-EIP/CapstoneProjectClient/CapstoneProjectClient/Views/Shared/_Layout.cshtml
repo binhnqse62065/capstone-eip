@@ -62,13 +62,13 @@
                 <ul id="side-main-menu" class="side-menu list-unstyled">
                     <li class="active"><a href="@Url.Action("Index", "Home", new { eventId = eventId, sessionId = sessionId })"> <i class="icon-home"></i><span>Home</span></a></li>
                     <li> <a href="@Url.Action("Index", "Timeline", new { sessionId = sessionId})"><i class="icon-form"></i><span>Timeline</span></a></li>
-                    <li> <a href="@Url.Action("Index", "QA")"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Voting")"> <i class="fa fa-check-circle-o"> </i><span>Voting</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Livestream")"> <i class="fa fa-video-camera"></i><span>Livestream</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Speaker")"> <i class="fa fa-users"></i><span>Speaker</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Sponsor")"> <i class="fa fa-users"></i><span>Sponsor</span></a></li>
+                    <li> <a href="@Url.Action("Index", "QA" , new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Voting" , new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Voting</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Livestream</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Speaker", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>Speaker</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Sponsor", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>Sponsor</span></a></li>
                     <li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Logout")"> <i class="fa fa-sign-out"></i><span>Logout</span></a></li>
+                    <li> <a href="@Url.Action("Index", "Login")"> <i class="fa fa-sign-out"></i><span>Logout</span></a></li>
                     @*<li>
             <a href="#">
                 <i class="icon-mail"></i><span>Demo</span>

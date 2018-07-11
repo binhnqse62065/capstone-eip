@@ -13,6 +13,9 @@ namespace HmsService.Sdk
 {
     public partial class QAApi
     {
-
+        public QA GetQaById(int id)
+        {
+            return this.BaseService.GetQAById(id);
+        }
     }
 }

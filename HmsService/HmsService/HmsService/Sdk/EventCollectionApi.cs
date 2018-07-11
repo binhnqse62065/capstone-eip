@@ -8,20 +8,19 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using HmsService.Sdk;
-using System;
 
 namespace HmsService.Sdk
 {
-    public partial class InteractionApi
+    public partial class EventCollectionApi
     {
-        public int? GetVotingIdBySessionId(int sessionId)
+        public EventCollection GetSpeakerByEventId(int eventId)
         {
-            return this.BaseService.GetVotingIdBySessionId(sessionId);
+            return this.BaseService.GetSpeakerCollectionByEventId(eventId);
         }
 
-        public int GetQaIdBySessionId(int sessionId)
+        public EventCollection GetSponsorByEventId(int eventId)
         {
-            return (int)this.BaseService.GetQaBySessionId(sessionId);
+            return this.BaseService.GetSponsorCollectionByEventId(eventId);
         }
     }
 }

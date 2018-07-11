@@ -11,11 +11,14 @@ namespace CapstoneProjectClient.Controllers
     public class SponsorController : Controller
     {
         // GET: Sponsor
-        public ActionResult Index()
+        [Route("Sponsor/Index/{eventId}/{sessionId}")]
+        public ActionResult Index(int eventId,int sessionId)
         {
-            EventApi eventApi = new EventApi();
-            var eventCurr = eventApi.BaseService.GetEventById(1);
-            return View(eventCurr);
+            ViewBag.EventId = eventId;
+            ViewBag.SessionId = sessionId;
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var listSponsor = eventCollectionApi.GetSponsorByEventId(eventId);
+            return View(listSponsor);
         }
     }
 }
