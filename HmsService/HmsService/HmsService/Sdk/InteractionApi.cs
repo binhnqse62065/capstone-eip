@@ -14,6 +14,14 @@ namespace HmsService.Sdk
 {
     public partial class InteractionApi
     {
-     
+        public int? GetVotingIdBySessionId(int sessionId)
+        {
+            return this.BaseService.GetVotingIdBySessionId(sessionId);
+        }
+
+        public int GetQaIdBySessionId(int sessionId)
+        {
+            return (int)this.BaseService.GetQaBySessionId(sessionId);
+        }
     }
 }

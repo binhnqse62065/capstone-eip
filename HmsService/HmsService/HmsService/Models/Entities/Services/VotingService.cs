@@ -13,6 +13,9 @@ namespace HmsService.Models.Entities.Services
         bool UpdateVoting(Voting voting);
 
         bool DeleteVoting(Voting voting);
+        Voting GetVotingById(int id);
+
+        
     }
     public partial class VotingService
     {
@@ -55,6 +58,18 @@ namespace HmsService.Models.Entities.Services
             catch (Exception e)
             {
                 return false;
+            }
+        }
+
+        public Voting GetVotingById(int id)
+        {
+            try
+            {
+                return this.FirstOrDefault(v => v.VotingId == id);
+            }
+            catch(Exception e)
+            {
+                return null;
             }
         }
     }

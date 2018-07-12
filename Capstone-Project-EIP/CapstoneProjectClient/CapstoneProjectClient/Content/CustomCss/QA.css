@@ -26,3 +26,13 @@
 .btn-reply {
     cursor:pointer;
 }
+
+.error-qa-title {
+    font-weight:bold;
+    margin-top:20px;
+}
+
+.btn-post-question {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

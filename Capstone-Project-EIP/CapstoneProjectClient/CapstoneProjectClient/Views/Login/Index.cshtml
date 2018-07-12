@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 
 <!DOCTYPE html>
@@ -26,28 +27,53 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/main.css">
+
     <!--===============================================================================================-->
+    <!--Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="~/Content/CustomCss/main.css">
 </head>
 <body>
-
+    <div class="container-loader">
+        <div class="loader">
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+            <span class="loader-block"></span>
+        </div>
+    </div>
+    
     <div class="limiter">
-        <div class="container-login100 bubbles" style="background-image: url('https://i.imgur.com/Pi5sTPQ.jpg');">
+        <div class="container-login100 bubbles" style="background-image: url('../../Content/img/Pi5sTPQ.jpg');">
             <div class="wrap-login100 p-t-190 p-b-30">
-                <form class="login100-form validate-form">
-                    <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
-                        <input class="input100" type="text" name="pass" placeholder="Vui Lòng Nhập Mã Tham Gia">
+                <div class="login100-form validate-form" id="div-section">
+
+                    <div class="message-error">
+                        <h6>Code không đúng, vui lòng nhập lại</h6>
                     </div>
+                    <div class="wrap-input100 validate-input m-b-10" data-validate="Vui Lòng Nhập Mã Tham Gia">
+                        <input value="22223333" class="input100" id="txt-code-login" type="text" name="pass" placeholder="Vui Lòng Nhập Mã Tham Gia">
+                    </div>
+
                     <div class="container-login100-form-btn p-t-10">
-                        <button class="login100-form-btn">
+                        <button class="login100-form-btn" id="btn-check-code">
                             Đăng nhập
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 
-
+    <div id="session-template" style="display:none">
+        <div class="container-login100-form-btn p-t-10">
+            <a class="login100-form-btn" id="btn-session"></a>
+        </div>
+    </div>
 
 
     <!--===============================================================================================-->
@@ -63,3 +89,48 @@
 
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+        var urlApi = '@curPath';
+        
+        //Check Code
+        $('#btn-check-code').on('click', function () {
+            $('.container-loader').css('display', 'block');
+            var code = $('#txt-code-login').val();
+            if (code.length != 0) {
+                $.ajax({
+                    url: urlApi + 'api/login/CheckCodeLogin/' + code,
+                    method: "POST",
+                    success: function (data) {
+                        console.log(data);
+                        if (data.data != null) {
+                            $('.message-error').css('display', 'none');
+                            $('.container-loader').css('display', 'none');
+                            $('#txt-code-login').val("");
+                            $('#div-section').empty();
+                            for (var i = 0; i < data.data.length; i++) {
+                                var sectionTemplate = $('#session-template').clone();
+                                sectionTemplate.find('#btn-session').html(data.data[i].Name);
+                                sectionTemplate.find('#btn-session').attr('href', '/Home/Index/' + data.data[i].EventId + '/' + data.data[i].SessionID);
+                                $('#div-section').append(sectionTemplate.html());
+                            }
+                        }
+                        else {
+                            $('.message-error').css('display', 'block');
+                            $('#txt-code-login').val("");
+                            $('.container-loader').css('display', 'none');
+                        }
+                    },
+                    error: function (data) {
+                        $('.message-error').css('display', 'block');
+                        $('#txt-code-login').val("");
+                        $('.container-loader').css('display', 'none');
+                        console.log(data);
+                    }
+                });
+            }
+            
+        });
+
+    });
+</script>

@@ -15,8 +15,7 @@
             <div class="schedule-content">
                 <div class="tab-content">
                     @{
-                        var activityItem = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Activities;
-                        var collectionItem = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
+                        var activityItem = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Activities; 
                         <table class="table table-bordered">
                             <tbody>
                                 @foreach (var item in activityItem)

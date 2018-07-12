@@ -15,11 +15,17 @@ namespace CapstoneProjectClient.Controllers
         
 
         // GET: QA
-        public ActionResult Index()
+        [Route("QA/Index/{eventId}/{sessionId}")]
+        public ActionResult Index(int eventId, int sessionId)
         {
 
+            ViewBag.EventId = eventId;
+            ViewBag.SessionId = sessionId;
+            InteractionApi interactionApi = new InteractionApi();
             QAApi qAApi = new QAApi();
-            var QAItem = qAApi.BaseService.GetQABySessionId(1);
+
+            int qaId = interactionApi.GetQaIdBySessionId(sessionId);
+            QA qa = qAApi.GetQaById(qaId);
 
             /*
              * jObject là message lấy từ người dùng( gọi API)
@@ -34,7 +40,7 @@ namespace CapstoneProjectClient.Controllers
 
 
 
-            return View(QAItem);
+            return View(qa);
         }
 
     }

@@ -11,16 +11,16 @@ using HmsService.Sdk;
 
 namespace HmsService.Sdk
 {
-    public partial class SessionApi
+    public partial class EventCollectionApi
     {
-       public IEnumerable<SessionViewModel> GetSessionsByEventId(int eventId)
+        public EventCollection GetSpeakerByEventId(int eventId)
         {
-            return this.BaseService.GetAllSessionsByEventId(eventId);
+            return this.BaseService.GetSpeakerCollectionByEventId(eventId);
         }
 
-        public SessionViewModel GetSessionById(int sessionId)
+        public EventCollection GetSponsorByEventId(int eventId)
         {
-            return this.BaseService.GetSessionById(sessionId);
+            return this.BaseService.GetSponsorCollectionByEventId(eventId);
         }
     }
 }

@@ -8,6 +8,7 @@ using HmsService.Sdk;
 using HmsService.Models.Entities;
 using CapstoneProjectAdmin.ViewModel;
 using CapstoneProjectAdmin.Models;
+using HmsService.ViewModels;
 
 namespace CapstoneProjectAdmin.API
 {
@@ -28,7 +29,7 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage getAllQuestionComment(Question qa)
         {
-            var listQA = db.Questions.Where(a => a.QAId == qa.QAId).OrderByDescending(s => s.CreateTime).Select(v => new QuestionViewModel
+            var listQA = db.Questions.Where(a => a.QAId == qa.QAId).OrderByDescending(s => s.CreateTime).Select(v => new ViewModel.QuestionViewModel
             {
                 QuestionId = v.QuestionId,
                 QAId = v.QAId,

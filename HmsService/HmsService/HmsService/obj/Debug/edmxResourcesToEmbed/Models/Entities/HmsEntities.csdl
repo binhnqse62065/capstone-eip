@@ -349,6 +349,7 @@
     <Property Name="EndTime" Type="DateTime" Precision="3" />
     <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />

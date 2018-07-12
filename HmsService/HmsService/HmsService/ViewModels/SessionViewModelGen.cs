@@ -21,6 +21,7 @@ namespace HmsService.ViewModels
     			public virtual Nullable<System.DateTime> EndTime { get; set; }
     			public virtual string Description { get; set; }
     			public virtual int EventId { get; set; }
+    			public virtual string LivestreamUrl { get; set; }
     	
     	public SessionViewModel() : base() { }
     	public SessionViewModel(HmsService.Models.Entities.Session entity) : base(entity) { }

@@ -8,17 +8,21 @@ namespace HmsService.Models.Entities.Services
 {
     public partial interface IQAService
     {
-        QA GetQABySessionId(int sessionID);
+        QA GetQAById(int qaID);
 
     }
     public partial class QAService
     {
-        HmsEntities db = new HmsEntities();
-
-        public QA GetQABySessionId(int sessionId)
+        public QA GetQAById(int qaId)
         {
-            //chỉ để test thử phần load cần sửa lại
-            return this.Get(q => q.QAId == 1).FirstOrDefault();
+            try
+            {
+                return this.FirstOrDefault(q => q.QAId == qaId);
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
         }
     }
 }

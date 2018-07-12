@@ -4,58 +4,69 @@
 
 @{
     ViewBag.Title = "Q&A";
-    
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 
 <div class="container">
-    <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Post Question</button>
 
 
-    <div class="col-md-12 col-xs-12">
-        <div class="row">
-            <button type="button" class="btn btn-default btn-sm btn-lastest-question">Lastest Question</button> &nbsp;
-            <button type="button" class="btn btn-default btn-sm">Hotest Question</button>
+
+
+
+    @if (Model == null)
+    {
+        <h2 class="error-qa-title">Hiện chưa có câu hỏi nào</h2>
+
+    }
+    else
+    {
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-post-question" data-toggle="modal" data-target="#myModal">Post Question</button>
+        <div class="col-md-12 col-xs-12">
+            <div class="row">
+                <button type="button" class="btn btn-default btn-sm btn-lastest-question">Lastest Question</button> &nbsp;
+                <button type="button" class="btn btn-default btn-sm">Hotest Question</button>
+            </div>
         </div>
-    </div>
+        <div class="col-md-12 col-xs-12">
+            <div class="row qa-container" id="qa-container">
+                @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
+                {
+                    <div class="card list-qa" id="list-qa-@(item.QuestionId)">
+                        <div class="card main-qa">
+                            <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
+                            <p class="like-rep">
+                                <button id="btn-like-question-@(item.QuestionId)" class="btn btn-primary btn-sm btn-like-question" value="@(item.QuestionId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> </i> @(item.NumberOfLike)</button>
+                                <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+                            </p>
+                            <span class="create-time">@(item.CreateTime)</span>
 
-    <div class="col-md-12 col-xs-12">
-        <div class="row qa-container" id="qa-container">
-            @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
-            {
-                <div class="card list-qa" id="list-qa-@(item.QuestionId)">
-                    <div class="card main-qa">
-                        <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
-                        <p class="like-rep">
-                            <button id="btn-like-question-@(item.QuestionId)" class="btn btn-primary btn-sm btn-like-question" value="@(item.QuestionId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> </i> @(item.NumberOfLike)</button>
-                            <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
-                        </p>
-                        <span class="create-time">@(item.CreateTime)</span>
+                        </div>
 
-                    </div>
-
-                    @foreach (var subItem in item.Comments)
-                    {
-                    <div class="card-header list-answer">
-                        <span id="username-reply">@(subItem.Username): </span>
-                        <span id="reply-content">@(subItem.CommentContent)</span>
-                        <p class="like-rep">
-                            <button id="btn-like-reply-@(subItem.CommentId)" class="btn btn-primary btn-sm btn-like-reply" value="@(subItem.CommentId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(subItem.NumberOfLike)</i></button>
-                            <button value="@(item.QuestionId)" id="btn-reply-@(subItem.CommentId)" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
-                        </p>
-                        @{
-                            var createTimeTmp = (DateTime)subItem.CreateTime;
-                            var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                        @foreach (var subItem in item.Comments)
+                        {
+                            <div class="card-header list-answer">
+                                <span id="username-reply">@(subItem.Username): </span>
+                                <span id="reply-content">@(subItem.CommentContent)</span>
+                                <p class="like-rep">
+                                    <button id="btn-like-reply-@(subItem.CommentId)" class="btn btn-primary btn-sm btn-like-reply" value="@(subItem.CommentId)"><i class="fa fa-thumbs-o-up" aria-hidden="true"> @(subItem.NumberOfLike)</i></button>
+                                    @*<button value="@(item.QuestionId)" id="btn-reply-@(subItem.CommentId)" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>*@
+                                </p>
+                                @{
+                                    var createTimeTmp = (DateTime)subItem.CreateTime;
+                                    var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                }
+                                <span id="reply-time">@(createTime)</span>
+                            </div>
                         }
-                        <span id="reply-time">@(createTime)</span>
+
                     </div>
-                    }
+                }
 
-                </div>
-            }
-
+            </div>
         </div>
-    </div>
+    }
+
 </div>
 
 <!--Template list QA-->
@@ -79,7 +90,7 @@
         <span id="reply-content"></span>
         <p class="like-rep">
             <button class="btn btn-primary btn-sm btn-like-reply" value=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 0</button>
-            <button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>
+            @*<button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>*@
         </p>
         <span id="reply-time"></span>
         <br />
@@ -152,9 +163,12 @@
 
     </div>
 </div>
+
+<input type="hidden" value="@(Model != null ? Model.QAId : 0)" id="txt-qa-id" />
 @section scripts {
     <script>
         var questionId;
+        var urlApi = '@curPath/';
         $(function () {
             //var url = window.location.href;
             //console.log(url);
@@ -170,18 +184,19 @@
                 //Click send question
                 $('#btnSendQuestion').click(function () {
                     // Call the Send method on the hub.
-                    
-                    
+
+
                     //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
                     $.ajax({
-                        url: "api/question/AddQuestion",
+                        url: urlApi + "api/question/AddQuestion",
                         method: "POST",
                         data: {
                             Username: $('#txtUsername').val(),
                             QuestionContent: $('#txtContent').val(),
-                            NumberOfLike: 0
+                            NumberOfLike: 0,
+                            QAId: $('#txt-qa-id').val()
                         },
-                        success: function (data) {    
+                        success: function (data) {
                             chat.server.send($('#txtUsername').val(), $('#txtContent').val(), data.questionId);
                             $('#txtUsername').val("");
                             $('#txtContent').val("");
@@ -200,10 +215,10 @@
                     var usernameRep = $('#txtUsernameReply').val();
                     var contentReply = $('#txtContentReply').val();
                     var questionId = $('#questionId').val();
-                    
-                    
+
+
                     $.ajax({
-                        url: "api/Comments",
+                        url: urlApi + "api/Comments",
                         method: "POST",
                         data: {
                             Username: usernameRep,
@@ -226,7 +241,7 @@
                 //click like question
                 $(document).on('click', '.btn-like-question', function () {
                     var questionId = $(this).attr('value');
-                    var urlApi = 'api/question/LikeQuestion';
+                    var urlApiAjax = 'api/question/LikeQuestion';
                     var isLike = localStorage.getItem("" + questionId);
 
                     if (isLike == null) {
@@ -235,7 +250,7 @@
                     else {
                         if (isLike == 'true') {
                             localStorage.setItem("" + questionId, "false");
-                            urlApi = 'api/question/DisLikeQuestion';
+                            urlApiAjax = 'api/question/DisLikeQuestion';
                         }
                         else {
                             localStorage.setItem("" + questionId, "true");
@@ -248,13 +263,13 @@
                         chat.server.likeQuestion(questionId, parseInt($(this).text()) - 1);
                     }
                     $.ajax({
-                        url: urlApi,
+                        url: urlApi + urlApiAjax,
                         method: "POST",
                         data: {
                             QuestionId: questionId
                         },
                         success: function (data) {
-                            
+
                         },
                         error: function (data) {
                             console.log(data);
@@ -265,7 +280,7 @@
                 //Click like reply
                 $(document).on('click', '.btn-like-reply', function () {
                     var commentId = $(this).attr('value');
-                    var urlApi = 'api/comment/LikeComment';
+                    var urlApiAjax = 'api/comment/LikeComment';
                     var isLikedComment = localStorage.getItem("CommentID" + commentId);
                     if (isLikedComment == null) {
                         localStorage.setItem("CommentID" + commentId, "true");
@@ -273,7 +288,7 @@
                     else {
                         if (isLikedComment == "true") {
                             localStorage.setItem("CommentID" + commentId, "false");
-                            urlApi = 'api/comment/DisLikeComment';
+                            urlApiAjax = 'api/comment/DisLikeComment';
                         }
                         else {
                             localStorage.setItem("CommentID" + commentId, "true");
@@ -288,7 +303,7 @@
                         chat.server.likeComment(commentId, parseInt($(this).text()) - 1);
                     }
                     $.ajax({
-                        url: urlApi,
+                        url: urlApi + urlApiAjax,
                         method: "POST",
                         data: {
                             CommentId: commentId
@@ -318,10 +333,10 @@
                     listQa.find('.btn-like-question').attr('value', newQuestionId);
                     listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
                     listQa.find('.btn-like-question').attr('id', 'btn-like-question-' + newQuestionId);
-                    $('#qa-container').append(listQa.html());
+                    $('#qa-container').prepend(listQa.html());
                 }
 
-                
+
             };
 
             //Create a function that the hub call back to display reply
@@ -356,7 +371,7 @@
                 $('#btn-like-question-' + questionId).append(str);
             };
 
-            
+
 
 
             $(document).on('click', '.btn-reply', function () {
@@ -364,7 +379,7 @@
             });
 
         });
-   
+
     </script>
 }
 

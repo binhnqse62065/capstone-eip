@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HmsService.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,9 @@ namespace HmsService.Models.Entities.Services
     {
         IQueryable<Event> GetAllEvent();
 
-        Event GetEventById(int id);
+        EventViewModel GetEventById(int id);
+
+        Event CheckLoginCode(int code);
     }
     public partial class EventService
     {
@@ -19,9 +22,22 @@ namespace HmsService.Models.Entities.Services
             return this.Get(q => q.EventID == 1);
         }
 
-        public Event GetEventById(int id)
+        public EventViewModel GetEventById(int id)
         {
-            return this.FirstOrDefault(e => e.EventID == id);
+            var currentEvent = this.FirstOrDefault(e => e.EventID == id);
+            return new EventViewModel
+            {
+                Name = currentEvent.Name,
+                EventDescription = currentEvent.EventDescription,
+                Address = currentEvent.Address,
+                StartTime = currentEvent.StartTime
+            };
+        }
+
+        public Event CheckLoginCode(int code)
+        {
+            return this.FirstOrDefault(e => e.CodeLogin == code);
+            
         }
     }
 }

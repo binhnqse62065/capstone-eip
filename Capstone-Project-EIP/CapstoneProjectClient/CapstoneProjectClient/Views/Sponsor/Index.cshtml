@@ -3,28 +3,35 @@
 }
 
 @using HmsService.Models.Entities;
-@model Event
+@model EventCollection
 
-@{
-    var listSponsor = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 3).CollectionItems;
+@if (Model == null || Model.CollectionItems == null)
+{
+    <div class="collection-empty-title">
+        <h3>Hiện tại chưa có danh sách nhà tài trợ</h3>
+    </div>
 
 }
-<div class="row">
-    @{
-        foreach (var item in listSponsor)
-        {
-            <div class="col-md-3 col-sm-6 col-12" onclick="showModalSponsor('@(item.Name)', '@(item.Description)')">
-                <div class="box-sponsor-shadow">
-                    <a href="" id="speaker-modal" data-toggle="modal" data-target="#sponsorModal">
-                        <img src="@(item.ImageUrl)" alt="brand" class="img-fluid image-sponsor-custom">
-                    </a>
+else
+{
+    <div class="row">
+        @{
+            foreach (var sponsor in Model.CollectionItems)
+            {
+                <div class="col-md-3 col-sm-6 col-12" onclick="showModalSponsor('@(sponsor.Name)', '@(sponsor.Description)')">
+                    <div class="box-sponsor-shadow">
+                        <a href="" id="speaker-modal" data-toggle="modal" data-target="#sponsorModal">
+                            <img src="@(sponsor.ImageUrl)" alt="brand" class="img-fluid image-sponsor-custom">
+                        </a>
+                    </div>
                 </div>
-            </div>
-            
-        }
-    }
 
-</div>
+            }
+        }
+
+    </div>
+}
+
 <div id="sponsorModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->

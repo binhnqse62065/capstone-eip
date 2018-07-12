@@ -188,6 +188,7 @@
           <Property Name="EndTime" Type="datetime" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="LivestreamUrl" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Timeline">
           <Key>
@@ -936,6 +937,7 @@
           <Property Name="EndTime" Type="DateTime" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
+          <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
           <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />
@@ -1396,6 +1398,7 @@
           <EntitySetMapping Name="Sessions">
             <EntityTypeMapping TypeName="HmsEntities.Session">
               <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="LivestreamUrl" ColumnName="LivestreamUrl" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />

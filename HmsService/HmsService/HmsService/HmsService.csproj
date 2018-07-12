@@ -252,12 +252,6 @@
     <Compile Include="Models\Entities\EventRefined.cs">
       <DependentUpon>EntityRefinery.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Guest.cs">
-      <DependentUpon>HmsEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\GuestRefined.cs">
-      <DependentUpon>EntityRefinery.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entities\HmsEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -327,9 +321,6 @@
     <Compile Include="Models\Entities\Repositories\EventRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Repositories\GuestRepositoryGen.cs">
-      <DependentUpon>Repositories.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entities\Repositories\InteractionRepositoryGen.cs">
       <DependentUpon>Repositories.tt</DependentUpon>
     </Compile>
@@ -389,9 +380,7 @@
     <Compile Include="Models\Entities\Services\EventCollectionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Services\GuestServiceGen.cs">
-      <DependentUpon>Services.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Entities\Services\EventCollectionService.cs" />
     <Compile Include="Models\Entities\Services\SessionService.cs" />
     <Compile Include="Models\Entities\Services\InteractionService.cs" />
     <Compile Include="Models\Entities\Services\InteractionServiceGen.cs">
@@ -501,9 +490,7 @@
     <Compile Include="Sdk\C__MigrationHistoryApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
-    <Compile Include="Sdk\GuestApiGen.cs">
-      <DependentUpon>Sdk.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Sdk\EventCollectionApi.cs" />
     <Compile Include="Sdk\InteractionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
@@ -578,9 +565,6 @@
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\EventViewModelGen.cs">
-      <DependentUpon>ViewModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ViewModels\GuestViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\InteractionViewModelGen.cs">

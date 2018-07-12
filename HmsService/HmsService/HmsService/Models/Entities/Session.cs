@@ -28,6 +28,7 @@ namespace HmsService.Models.Entities
         public Nullable<System.DateTime> EndTime { get; set; }
         public string Description { get; set; }
         public int EventId { get; set; }
+        public string LivestreamUrl { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> Activities { get; set; }

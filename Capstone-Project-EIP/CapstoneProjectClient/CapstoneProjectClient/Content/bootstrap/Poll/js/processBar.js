@@ -1,20 +1,30 @@
 ﻿
 $(document).ready(function () {
+    var urlApi = $(location).attr('origin');
     $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
     $('#btn-vote').on('click', function () {
         var select = $('input[name=group-poll]:checked').val();
         $.ajax({
-            url: 'api/voting/ChangeNumberOfVoting',
+            url: urlApi + '/api/voting/ChangeNumberOfVoting',
             method: "POST",
             data: {
-                votingOptionId: select,
+                VotingOptionId: select,
+                VotingId: $('#txt-voting-id').val()
             },
-            success: function () {
+            success: function (data) {
+                console.log(data.data);
                 $('#result').load(' #result', function () {
                     $('#btn-vote').css('display', 'none');
                     $('#thanks').css('display', 'show');
                     $('#thanks').text("Thank you for your voting!");
                     $('.result').css('display', 'block');
+
+                    var resultTemplate = $('#progress-bar-result-template').clone();
+                    for (var i = 0; i < data.data.length; i++) {
+                        resultTemplate.find('.progress-bar').attr('data-transitiongoal', data.data[i]);
+                        $('#result-voting-section').append(resultTemplate.html());
+                    }
+
                     $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
                 });
             },

@@ -88,7 +88,6 @@ namespace CapstoneProjectClient.API
             //    return BadRequest(ModelState);
             //}
             question.CreateTime = DateTime.Now;
-            question.QAId = 1;
             db.Questions.Add(question);
             db.SaveChanges();
 
