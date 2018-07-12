@@ -410,7 +410,7 @@
         -------------------------------------*/
         var eventCounter = $('#countdown');
         if (eventCounter.length) {
-            eventCounter.countdown('2018/06/10', function(e) {
+            eventCounter.countdown('2020/05/03', function(e) {
                 $(this).html(e.strftime("<div class='countdown-section'><h2>%D</h2> <h3>day%!D</h3> </div><div class='countdown-section'><h2>%H</h2> <h3>Hour%!H</h3> </div><div class='countdown-section'><h2>%M</h2> <h3>Minutes</h3> </div><div class='countdown-section'><h2>%S</h2> <h3>Second</h3> </div>"))
 
             });

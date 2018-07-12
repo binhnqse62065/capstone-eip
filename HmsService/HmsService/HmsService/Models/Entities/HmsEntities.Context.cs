@@ -39,6 +39,7 @@ namespace HmsService.Models.Entities
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventCollection> EventCollections { get; set; }
+        public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<Interaction> Interactions { get; set; }
         public virtual DbSet<QA> QAs { get; set; }
         public virtual DbSet<Question> Questions { get; set; }

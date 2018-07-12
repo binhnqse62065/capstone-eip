@@ -1,9 +1,12 @@
 ﻿$(document).ready(function () {
 
+    var urlApi = $(location).attr('origin');
+
+
     $('#btn-del-question').on('click', function () {
         var id = $('#btn-del-question').val();
         $.ajax({
-            url: 'api/QA/DeleteQuestion',
+            url: urlApi + '/api/QA/DeleteQuestion',
             method: "POST",
             data: {
                 QuestionId: id,
@@ -20,7 +23,7 @@
     $('#btn-del-comment').on('click', function () {
         var id = $('#btn-del-comment').val();
         $.ajax({
-            url: 'api/QA/DeleteComment',
+            url: urlApi + '/api/QA/DeleteComment',
             method: "POST",
             data: {
                 CommentId: id,
@@ -38,7 +41,7 @@
         var name = $('#newName').val();
         console.log(name);
         $.ajax({
-            url: 'api/QA/AddQA',
+            url: urlApi + '/api/QA/AddQA',
             method: "POST",
             data: {
                 QAName: name,
@@ -57,7 +60,7 @@
     $('#btn-del').on('click', function () {
         var id = $('#btn-del').val();
         $.ajax({
-            url: 'api/QA/DeleteQA',
+            url: urlApi + '/api/QA/DeleteQA',
             method: "POST",
             data: {
                 QAId: id,

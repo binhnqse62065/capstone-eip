@@ -388,3 +388,9 @@ E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstonePro
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csprojAssemblyReference.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProject-EIP\obj\Debug\CapstoneProject-EIP.csproj.CopyComplete
+E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Net.Http.Formatting.dll
+E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Http.dll
+E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Http.WebHost.dll
+E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Net.Http.Formatting.xml
+E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Http.xml
+E:\Study\GitClone\Capstone-Project-EIP\CapstoneProject-EIP\bin\System.Web.Http.WebHost.xml

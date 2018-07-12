@@ -8,6 +8,7 @@ using System.Web.Routing;
 using HmsService.ViewModels;
 using HmsService.Models.Entities;
 using AutoMapper;
+using System.Web.Http;
 
 namespace CapstoneProject_EIP
 {
@@ -16,6 +17,9 @@ namespace CapstoneProject_EIP
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

@@ -5263,7 +5263,7 @@ div ~ :last-child .progress-layout2:before {
     padding: 20px 5px;
   }
 }
-/*.schedule-layout3 .schedule-nav li a:before {
+.schedule-layout3 .schedule-nav li a:before {
   content: "\f054";
   position: absolute;
   right: 15px;
@@ -5277,7 +5277,7 @@ div ~ :last-child .progress-layout2:before {
   z-index: 1;
   color: #e2e2e2;
   font-family: fontawesome;
-}*/
+}
 @media only screen and (max-width: 991px) {
   .schedule-layout3 .schedule-nav li a:before {
     font-size: 24px;

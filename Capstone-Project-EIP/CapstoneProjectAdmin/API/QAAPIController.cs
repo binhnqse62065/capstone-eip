@@ -17,11 +17,11 @@ namespace CapstoneProjectAdmin.API
     {
         private HmsEntities db = new HmsEntities();
 
-        [Route("getAllQA")]
+        [Route("getAllQA/{eventId}")]
         [HttpGet]
-        public IEnumerable<QA> GetQAs()
+        public IEnumerable<QA> GetQAs(int eventId)
         {
-            var listQA = db.QAs.Where(a => a.EventId == 1).ToList();
+            var listQA = db.QAs.Where(a => a.EventId == eventId).ToList();
             return listQA;
         }
 
