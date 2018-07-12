@@ -41,3 +41,8 @@
     background-color: rgba(128,128,128,0.6);
     display:none;
 }
+
+.error-livestream-title {
+    text-align: center;
+    margin-top: 20px;
+}

@@ -381,6 +381,7 @@
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Services\EventCollectionService.cs" />
+    <Compile Include="Models\Entities\Services\ActivityService.cs" />
     <Compile Include="Models\Entities\Services\SessionService.cs" />
     <Compile Include="Models\Entities\Services\InteractionService.cs" />
     <Compile Include="Models\Entities\Services\InteractionServiceGen.cs">
@@ -490,6 +491,7 @@
     <Compile Include="Sdk\C__MigrationHistoryApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\ActivitytApi.cs" />
     <Compile Include="Sdk\EventCollectionApi.cs" />
     <Compile Include="Sdk\InteractionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>

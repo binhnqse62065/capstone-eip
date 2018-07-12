@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 @using HmsService.Models.Entities;
-@model Event
+@model IEnumerable<Activity>
 
 
 <div class="container">
@@ -15,33 +15,37 @@
             <div class="schedule-content">
                 <div class="tab-content">
                     @{
-                        var activityItem = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Activities; 
                         <table class="table table-bordered">
                             <tbody>
-                                @foreach (var item in activityItem)
+                                @foreach (var activity in Model)
                                 {
                                     <tr>
                                         <td>
-                                            <a style="padding-right:2px">
-                                                <div class="schedule-info">
-                                                    <div class="media">
-                                                        <div class="speaker-img" style="position:relative; right:25px">
-                                                            <img src="@(item.ActivityItems.FirstOrDefault(e => e.ActivityId == item.ActivityID).CollectionItem.ImageUrl)" alt="schedule" class="rounded-circle img-circle" style="width:100%; height:100%">
-                                                        </div>
-                                                        <div class="media-body item-content" style="position:relative;right:35px">
-                                                            <h3 class="title title-medium color-dark size-sm">@(item.ActivityItems.FirstOrDefault(e => e.ActivityId == item.ActivityID).CollectionItem.Name)</h3>
-                                                            <p>@(item.StartTime.ToString())</p>
+                                            @foreach (var activityItem in activity.ActivityItems)
+                                            {
+                                                <a style="padding-right:2px">
+                                                    <div class="schedule-info">
+                                                        <div class="media">
+                                                            <div class="speaker-img" style="position:relative; right:25px">
+                                                                <img src="@(activityItem.CollectionItem.ImageUrl)" alt="schedule" class="rounded-circle img-circle" style="width:100%; height:100%">
+                                                            </div>
+                                                            <div class="media-body item-content" style="position:relative;right:35px">
+                                                                <h3 class="title title-medium color-dark size-sm">@(activityItem.CollectionItem.Name)</h3>
+                                                                <p>@(activityItem.CollectionItem.Description)</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            }
+
+
                                         </td>
                                         <td>
                                             <a tyle="padding-right:2px">
                                                 <div class="schedule-info">
-                                                    <div class="item-content"  style="position:absolute;right:65px">
-                                                        <h3 class="title title-medium color-dark size-sm">@(item.Name)</h3>
-                                                        <p>@(item.Description)</p>
+                                                    <div class="item-content" style="position:absolute;">
+                                                        <h3 class="title title-medium color-dark size-sm">@(activity.Name)</h3>
+                                                        <p>@(activity.StartTime.ToString())</p>
                                                     </div>
                                                 </div>
                                             </a>

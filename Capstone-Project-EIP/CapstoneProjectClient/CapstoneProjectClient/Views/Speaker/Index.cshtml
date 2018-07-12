@@ -19,7 +19,7 @@ else
         @{
             foreach (var speaker in Model.CollectionItems)
             {
-                <div class="col-md-4 col-sm-8 col-12" onclick="showModalSpeaker('@(speaker.Name)', '@(speaker.Description)')">
+                <div class="col-md-4 col-sm-6 col-12" onclick="showModalSpeaker('@(speaker.Name)', '@(speaker.Description)')">
                     <div class="box-speaker-shadow">
                         <a href="" data-toggle="modal" data-target="#speakerModal">
                             <img class="img-fluid image-speaker-custom" src="@(speaker.ImageUrl)" alt="brand">
@@ -39,7 +39,7 @@ else
 
 
 <div id="speakerModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-speaker">
 
         <div class="modal-content">
             <div class="modal-header">

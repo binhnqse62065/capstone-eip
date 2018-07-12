@@ -12,7 +12,7 @@
     {
         sessionId = Model.FirstOrDefault().SessionID;
     }
-    }
+}
 }
 @using HmsService.ViewModels
 @model IEnumerable<SessionViewModel>
@@ -22,17 +22,13 @@
             <div class="row">
                 <h2 class="col-sm-10">Manage Activity</h2>
                 <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px">
+                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addActivityModal" style="margin-top:20px">
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Activity
                     </button>
                 </div>
             </div>
         </div>
-
-
-
-        </div>
-        <div class="box-body">
+        <div class="ibox-content">
             <!-- Custom Tabs -->
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
@@ -64,8 +60,12 @@
             </div>
 
         </div>
+
+
     </div>
+   
 </div>
+
 
 <!--Add Activity Modal-->
 <div class="modal fade" id="addActivityModal" role="dialog">
@@ -116,23 +116,6 @@
             </div>
         </div>
 
-    </div>
-</div>
-
-        </div>
-        <div class="box-body">
-            <table class="table table-hover table-bordered" id="tblActivity">
-                <thead>
-                    <tr>
-                        <th>Activity Name</th>
-                        <th>Start Time - End Time</th>
-                        <th>Description</th>
-                        <th>Session Name</th>
-                        <th>Function</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
     </div>
 </div>
 
