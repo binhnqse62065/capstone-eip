@@ -15,7 +15,7 @@
       <PropertyRef Name="ActivityID" />
     </Key>
     <Property Name="ActivityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="SessionId" Type="int" Nullable="false" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
