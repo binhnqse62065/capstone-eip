@@ -15,10 +15,10 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <div class="row">
-                <h2 class="col-sm-10">Manage Interaction</h2>
+                <h2 class="col-sm-10">Quản Lý Tương Tác</h2>
                 <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addInteractionModal" style="margin-top:20px">
-                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Interaction
+                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
             </div>
@@ -29,12 +29,12 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Interaction</h4>
+                            <h4 class="modal-title">Thêm Tương Tác</h4>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label class="col-sm-3 form-control-label">
-                                    Name<span class="required">*</span>
+                                    Tên<span class="required">*</span>
                                 </label>
                                 <div class="col-sm-9 input-group">
                                     <div class="input-group-addon">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 form-control-label">
-                                    Select Interaction
+                                    Lựa chọn Tương tác
                                     <span class="required">*</span>
                                 </label>
                                 <div class="input-group col-sm-9">
@@ -53,16 +53,16 @@
                                         <i class="fa fa-comments" aria-hidden="true"></i>
                                     </div>
                                     <select id="InteractionSelectBox" class="form-control">
-                                        <option>---Choose---</option>
-                                        <option value="1">Voting</option>
-                                        <option value="2">QA</option>
+                                        <option>---Chọn---</option>
+                                        <option value="1">Bỏ Phiếu</option>
+                                        <option value="2">Hỏi Đáp</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-sm-3 form-control-label">
-                                    Kind Interaction
+                                    Loại Tương tác
                                     <span class="required">*</span>
                                 </label>
                                 <div class="input-group col-sm-9">
@@ -70,14 +70,14 @@
                                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
                                     </div>
                                     <select Id="KindOfInteractionSelectBox" class="form-control">
-                                        <option>---Choose---</option>
+                                        <option>---Chọn---</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btn-add" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Add</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" id="btn-add" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                         </div>
                     </div>
 
@@ -91,9 +91,9 @@
                 <table class="table table-hover table-bordered" id="tblInteraction">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Function</th>
+                            <th>Tên</th>
+                            <th>Loại</th>
+                            <th>Chức Năng</th>
                         </tr>
                     </thead>
                 </table>
@@ -101,13 +101,13 @@
         </div>
         <div class="ibox-content col-sm-6 col-md-6">
             <div>
-                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Running</div>
+                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Đang Chạy</div>
                 <table class="table table-hover table-bordered" id="tblInteractionRunning">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Function</th>
+                            <th>Tên</th>
+                            <th>Loại</th>
+                            <th>Chức Năng</th>
                         </tr>
                     </thead>
                 </table>
@@ -120,14 +120,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Are your sure?</h2>
+                    <h2 class="modal-title">Bạn có chắc chắn?</h2>
                 </div>
                 <div class="modal-body">
                     <h3 class="interaction-del-title"></h3>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-del" type="button" class="btn btn-default interaction-del-id" data-dismiss="modal">Delete</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="btn-del" type="button" class="btn btn-default interaction-del-id" data-dismiss="modal">Xóa</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                 </div>
             </div>
 
@@ -140,14 +140,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Are your sure?</h2>
+                    <h2 class="modal-title">Bạn có chắc chắn?</h2>
                 </div>
                 <div class="modal-body">
                     <h3 class="interaction-stop-title"></h3>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-stop" type="button" class="btn btn-default interaction-stop-id" data-dismiss="modal">Stop</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="btn-stop" type="button" class="btn btn-default interaction-stop-id" data-dismiss="modal">Dừng</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                 </div>
             </div>
 
@@ -160,14 +160,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Are your sure?</h2>
+                    <h2 class="modal-title">Bạn có chắc chắn?</h2>
                 </div>
                 <div class="modal-body">
                     <h3 class="interaction-play-title"></h3>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-play" type="button" class="btn btn-default interaction-play-id" data-dismiss="modal">Play</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="btn-play" type="button" class="btn btn-default interaction-play-id" data-dismiss="modal">Chạy</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                 </div>
             </div>
 
@@ -181,12 +181,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Interaction</h4>
+                    <h4 class="modal-title">Chỉnh Sửa Tương Tác</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="col-sm-3 form-control-label">
-                            Name<span class="required">*</span>
+                            Tên<span class="required">*</span>
                         </label>
                         <div class="col-sm-9 input-group">
                             <div class="input-group-addon">
@@ -197,7 +197,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-sm-3 form-control-label">
-                            Select Interaction
+                            Chọn Tương tác
                             <span class="required">*</span>
                         </label>
                         <div class="input-group col-sm-9">
@@ -205,9 +205,9 @@
                                 <i class="fa fa-comments" aria-hidden="true"></i>
                             </div>
                             <select id="InteractionEditSelectBox" class="form-control">
-                                <option>---Choose---</option>
-                                <option value="1">Voting</option>
-                                <option value="2">QA</option>
+                                <option>---Chọn---</option>
+                                <option value="1">Bỏ Phiếu</option>
+                                <option value="2">Hỏi Đáp</option>
                             </select>
                         </div>
                     </div>
@@ -222,14 +222,14 @@
                                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
                             </div>
                             <select Id="KindOfInteractionEditSelectBox" class="form-control">
-                                <option>---Choose---</option>
+                                <option>---Chọn---</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btn-save" class="btn btn-primary interaction-id" data-dismiss="modal" style="margin-top:5px">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="btn-save" class="btn btn-primary interaction-id" data-dismiss="modal" style="margin-top:5px">Lưu</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                 </div>
             </div>
 
