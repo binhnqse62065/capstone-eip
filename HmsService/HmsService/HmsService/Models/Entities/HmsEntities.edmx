@@ -619,6 +619,7 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Guests" EntityType="HmsEntities.Guest" />
           <EntitySet Name="C__MigrationHistory" EntityType="HmsEntities.C__MigrationHistory" />
           <EntitySet Name="Activities" EntityType="HmsEntities.Activity" />
           <EntitySet Name="ActivityItems" EntityType="HmsEntities.ActivityItem" />
@@ -631,7 +632,6 @@
           <EntitySet Name="Comments" EntityType="HmsEntities.Comment" />
           <EntitySet Name="Events" EntityType="HmsEntities.Event" />
           <EntitySet Name="EventCollections" EntityType="HmsEntities.EventCollection" />
-          <EntitySet Name="Guests" EntityType="HmsEntities.Guest" />
           <EntitySet Name="Interactions" EntityType="HmsEntities.Interaction" />
           <EntitySet Name="QAs" EntityType="HmsEntities.QA" />
           <EntitySet Name="Questions" EntityType="HmsEntities.Question" />
@@ -731,6 +731,17 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Guest">
+          <Key>
+            <PropertyRef Name="GuestId" />
+          </Key>
+          <Property Name="GuestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GuestName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GuestEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GuestPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Guest_Event" FromRole="Guest" ToRole="Event" />
+        </EntityType>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -877,17 +888,6 @@
           <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
           <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="EventCollection" ToRole="CollectionType" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="EventCollection" ToRole="Event" />
-        </EntityType>
-        <EntityType Name="Guest">
-          <Key>
-            <PropertyRef Name="GuestId" />
-          </Key>
-          <Property Name="GuestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GuestName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="GuestEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="GuestPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EventId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Guest_Event" FromRole="Guest" ToRole="Event" />
         </EntityType>
         <EntityType Name="Interaction">
           <Key>
@@ -1217,6 +1217,17 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HmsEntitiesStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Guests">
+            <EntityTypeMapping TypeName="HmsEntities.Guest">
+              <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
+                <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
+                <ScalarProperty Name="GuestName" ColumnName="GuestName" />
+                <ScalarProperty Name="GuestId" ColumnName="GuestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="HmsEntities.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -1348,17 +1359,6 @@
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="EventCollectionID" ColumnName="EventCollectionID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Guests">
-            <EntityTypeMapping TypeName="HmsEntities.Guest">
-              <MappingFragment StoreEntitySet="Guest">
-                <ScalarProperty Name="EventId" ColumnName="EventId" />
-                <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
-                <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
-                <ScalarProperty Name="GuestName" ColumnName="GuestName" />
-                <ScalarProperty Name="GuestId" ColumnName="GuestId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

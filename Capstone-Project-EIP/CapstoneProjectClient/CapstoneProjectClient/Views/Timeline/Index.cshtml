@@ -19,7 +19,7 @@
         <ul class="timeline">
             @{
                 int i = 1;
-                foreach (var item in Model)
+                foreach (var item in Model.OrderByDescending(t => t.StartTime))
                 {
                     if (i % 2 == 1)
                     {

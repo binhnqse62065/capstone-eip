@@ -26,6 +26,7 @@
                         <th>Tên</th>
                         <th>Thời gian bắt đầu - kết thúc</th>
                         <th>Miêu tả</th>
+                        <th>Liên kết trực tuyến</th>
                         <th>Chức năng</th>
                     </tr>
                 </thead>
@@ -77,6 +78,15 @@
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
                         <input id="txtDescriptionAdd" type="text" class="form-control" placeholder="Enter Description">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Liên kết trực tuyến:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-link" aria-hidden="true"></i>
+                        </div>
+                        <input id="txtLivestreamAdd" type="text" class="form-control" placeholder="Vui lòng nhập đường dẫn">
                     </div>
                 </div>
 
@@ -134,6 +144,15 @@
                         <input id="sessionDescription" type="text" class="form-control" placeholder="Enter Description">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Liên kết trực tuyến</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-link" aria-hidden="true"></i>
+                        </div>
+                        <input id="sessionLivestreamUrl" type="text" class="form-control" placeholder="Enter Description">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" id="btn-update-session" class="btn btn-primary" data-dismiss="modal">Lưu</button>
@@ -177,9 +196,15 @@
                         }
                     },
                     {
+                        name: "Livestream",
+                        render: function (data, type, row) {
+                            return row.livestreamUrl;
+                        }
+                    },
+                    {
                         name: "Function",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateSession" onclick="openModelUpdate(' + row.sessionID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateSession" onclick="openModelUpdate(' + row.sessionID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\', \'' + row.livestreamUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
                                 '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteSession(' + row.sessionID + ')"><i class="fa fa-trash"></i></button>';
                         }
                     }
@@ -213,7 +238,8 @@
                         Name: $('#sessionName').val(),
                         Description: $('#sessionDescription').val(),
                         StartTime: startTime,
-                        EndTime: endTime
+                        EndTime: endTime,
+                        LivestreamUrl: $('#sessionLivestreamUrl').val()
                     },
                     success: function (data) {
                         reloadTable();
@@ -230,6 +256,7 @@
                 var sessionName = $('#txtNameAdd').val();
                 var sessionDescription = $('#txtDescriptionAdd').val();
                 var startEndTime = $('#startEndTimeAdd').val();
+                var livestreamUrl = $('#txtLivestreamAdd').val();
                 var timeSplit = startEndTime.split('-');
                 var startTime = timeSplit[0].trim().split("/").reverse().join("-");
                 var endTime = timeSplit[1].trim().split("/").reverse().join("-");
@@ -242,7 +269,8 @@
                         Name: sessionName,
                         Description: sessionDescription,
                         StartTime: startTime,
-                        EndTime: endTime
+                        EndTime: endTime,
+                        LivestreamUrl: livestreamUrl
                     },
                     success: function (data) {
                         reloadTable();
@@ -257,11 +285,12 @@
         });
 
 
-        function openModelUpdate(id,name, startTime, endTime, description) {
+        function openModelUpdate(id,name, startTime, endTime, description,livestreamUrl) {
             $('#sessionName').val(name);
             $('#sessionDescription').val(description);
             $('#startEndTimeUpdate').val(startTime + " - " + endTime);
             $('#txtSessionId').val(id);
+            $('#sessionLivestreamUrl').val(livestreamUrl);
             $('#startEndTimeUpdate').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY'

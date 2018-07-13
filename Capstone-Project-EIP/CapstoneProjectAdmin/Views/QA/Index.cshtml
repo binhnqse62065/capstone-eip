@@ -262,7 +262,7 @@
         $(document).ready(function () {
             $('#tblQA').DataTable({
                 ajax: {
-                    url: urlApi + "/api/QA/getAllQA",
+                    url: urlApi + "api/QA/getAllQA/" + eventId,
                     dataSrc: ""
                 },
                 columns: [

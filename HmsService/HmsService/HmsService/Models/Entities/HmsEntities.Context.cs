@@ -27,6 +27,7 @@ namespace HmsService.Models.Entities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Activity> Activities { get; set; }
         public virtual DbSet<ActivityItem> ActivityItems { get; set; }
@@ -39,7 +40,6 @@ namespace HmsService.Models.Entities
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventCollection> EventCollections { get; set; }
-        public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<Interaction> Interactions { get; set; }
         public virtual DbSet<QA> QAs { get; set; }
         public virtual DbSet<Question> Questions { get; set; }

@@ -13,6 +13,7 @@ namespace CapstoneProjectAdmin.ViewModel
         public String EndTime { get; set; }
         public string Description { get; set; }
         public int EventId { get; set; }
+        public string LivestreamUrl { get; set; }
 
     }
 }

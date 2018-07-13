@@ -1,4 +1,14 @@
-﻿.name-title {
+﻿@font-face {
+    font-family: Icel_Black;
+    src: url(../fonts/Iciel/iCielPanton-Black.otf);
+}
+
+@font-face {
+    font-family: Gotham_Bold;
+    src: url(../fonts/Gotham/GothamRnd-Bold.otf);
+}
+
+.name-title {
     color:black;
     font-weight:600;
     font-size:large;
@@ -35,8 +45,18 @@
     font-weight: 600;
 }
 
+.page-title span {
+    /*text-align:center;*/
+    font-family: Gotham_Bold !important;
+    font-weight: bold;
+    font-size: 35px;
+    color: #3c8dbc;
+
+}
+
 .page-title {
-    text-align:center;
+    margin-top:20px;
+    margin-bottom:20px;
 }
 
 .box-is-running {
@@ -44,7 +64,11 @@
 }
 
 .box-happened {
-    border-top-color: #dd4b39 !important;
+    border-top-color: #808080 !important;
+}
+
+.bg-gray {
+    background-color: #808080 !important;
 }
 
 .btn-box-tool i {
@@ -73,4 +97,13 @@
 .event-link {
     text-decoration:none;
     color:white;
+}
+
+.skin-blue .main-header .logo {
+    background-color: #3c8dbc !important;
+}
+
+.btn-add-new-event {
+    float:right;
+    margin-bottom:20px;
 }
