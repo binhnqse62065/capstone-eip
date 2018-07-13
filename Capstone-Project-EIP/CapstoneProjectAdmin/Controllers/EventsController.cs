@@ -16,5 +16,10 @@ namespace CapstoneProjectAdmin.Controllers
             var listAllEvent = eventApi.GetAllEvent();
             return View(listAllEvent);
         }
+
+        public ActionResult Add()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Scripts.Render("~/bundles/jquery")
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/Content/AdminLTE-master/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/Content/img/favicon.png">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/jquery-ui/themes/base/jquery-ui.min.css">
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/bootstrap/less/dropdowns.less">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/dist/css/AdminLTE.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Content/CustomCss/admin.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/Content/AdminLTE-master/dist/css/skins/_all-skins.min.css">
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Content/AdminLTE-master/dist/js/adminlte.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/Content/AdminLTE-master/bower_components/moment/moment.js"></script>
+    <script src="~/Content/AdminLTE-master/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper" style="background-color:white;">
+        <header class="main-header">
+            <!-- Logo -->
+            <a class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>A</b>LT</span>
+                <!-- logo for regular state and mobile devices -->
+
+            </a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="~/Content/AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <span class="hidden-xs">Alexander Pierce</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="~/Content/AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                    <p>
+                                        Alexander Pierce - Web Developer
+                                        <small>Member since Nov. 2012</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <li class="user-body">
+                                    <div class="row">
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Followers</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Sales</a>
+                                        </div>
+                                        <div class="col-xs-4 text-center">
+                                            <a href="#">Friends</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.row -->
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        @RenderBody()
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

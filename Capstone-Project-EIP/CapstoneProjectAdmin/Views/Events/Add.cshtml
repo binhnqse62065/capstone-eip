@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_LayoutEvent.cshtml";
+}
+
+<div class="col-lg-offset-2 col-md-8">
+    <div class="box box-info box-add-event">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thêm mới sự kiện</h3>
+        </div>
+        <div class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Tên sự kiện</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Vui lòng nhập tên của sự kiện" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Miêu tả sự kiện</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Vui lòng nhập miêu tả của sự kiện" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Thời gian bắt đầu - thời gian kết thúc</label>
+                    <div class="col-md-10">
+                        <input id="event-time-range" type="text" class="form-control" placeholder="Vui lòng nhập tên sự kiện" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Địa chỉ</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ sự kiện" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Kinh độ</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Vui lòng nhập kinh độ của địa điểm diễn ra sự kiện" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Vĩ độ</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Vui lòng nhập vĩ độ của địa điểm diễn ra sự kiện" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Mã đăng nhập</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Vui lòng nhập mã đăng nhập của sự kiện" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Hình đại diện</label>
+                    <div class="col-md-10">
+                        <input type="file" class="form-control image-banner" />
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-primary pull-right">Lưu</button>
+                <button class="btn btn-danger pull-right margin-r-5">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#event-time-range').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
+
+
+            $('.image-banner').change(function () {
+                console.log(this.value);
+            });
+
+            $('.image-banner').change(function (event) {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                //$("img").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+                console.log(tmppath);
+
+                //$("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>[" + tmppath + "]</strong>");
+            });
+        });
+    </script>
+}

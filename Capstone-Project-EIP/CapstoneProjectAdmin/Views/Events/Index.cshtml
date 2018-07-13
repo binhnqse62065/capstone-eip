@@ -1,221 +1,127 @@
 ﻿@using HmsService.Models.Entities;
 @model IEnumerable<Event>
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutEvent.cshtml";
     var today = DateTime.Today;
     var listIsRunning = Model.Where(e => e.EndTime >= today && e.StartTime <= today).ToList();
     var listUpComming = Model.Where(e => e.StartTime >= today).ToList();
     var listHappened = Model.Where(e => e.EndTime < today).ToList();
 }
 
+<div class="col-md-12 page-title">
+    <span>Danh sách sự kiện</span>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    @Scripts.Render("~/bundles/jquery")
-    <!-- jQuery UI 1.11.4 -->
-    <script src="~/Content/AdminLTE-master/bower_components/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="~/Content/img/favicon.png">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/jquery-ui/themes/base/jquery-ui.min.css">
-    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/bootstrap/less/dropdowns.less">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/Content/AdminLTE-master/dist/css/AdminLTE.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="~/Content/CustomCss/admin.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="~/Content/AdminLTE-master/dist/css/skins/_all-skins.min.css">
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/Scripts/bootstrap.js"></script>
-    <script src="~/Content/AdminLTE-master/dist/js/adminlte.js"></script>
-
-</head>
-<body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper" style="background-color:white;">
-        <header class="main-header">
-            <!-- Logo -->
-            <a class="logo">
-                <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>LT</span>
-                <!-- logo for regular state and mobile devices -->
-                
-            </a>
-            <!-- Header Navbar: style can be found in header.less -->
-            <nav class="navbar navbar-static-top">
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="~/Content/AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Alexander Pierce</span>
+    <!--Button Add New Event-->
+    <a class="btn btn-info btn-lg btn-add-new-event" href="@Url.Action("Add","Events")">Tạo mới</a>
+</div>
+<div class="col-md-12">
+    <div class="box box-warning box-is-running">
+        <div class="box-header with-border bg-green">
+            <h3 class="box-title">Đang diễn ra</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body event-box-body">
+            @foreach (var isRunning in listIsRunning)
+            {
+                <a class="event-link" href="@Url.Action("Index","Home", new { id = isRunning.EventID })">
+                    <div class="col-lg-4 col-md-4">
+                        <!-- small box -->
+                        <div class="small-box bg-green event-box">
+                            <div class="inner event-title">
+                                @Html.Raw(isRunning.Name)
+                            </div>
+                            <a href="#" class="small-box-footer event-box-footer">
+                                More info <i class="fa fa-arrow-circle-right"></i>
                             </a>
-                            <ul class="dropdown-menu">
-                                <!-- User image -->
-                                <li class="user-header">
-                                    <img src="~/Content/AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                    <p>
-                                        Alexander Pierce - Web Developer
-                                        <small>Member since Nov. 2012</small>
-                                    </p>
-                                </li>
-                                <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Followers</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Sales</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Friends</a>
-                                        </div>
-                                    </div>
-                                    <!-- /.row -->
-                                </li>
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-
-
-
-        <div class="col-md-12 page-title">
-            <span>Danh sách sự kiện</span>
-
-            <!--Button Add New Event-->
-            <a class="btn btn-info btn-lg btn-add-new-event">Tạo mới</a>
-        </div>
-        <div class="col-md-12">
-            <div class="box box-warning box-is-running">
-                <div class="box-header with-border bg-green">
-                    <h3 class="box-title">Đang diễn ra</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
+                        </div>
                     </div>
-                    <!-- /.box-tools -->
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body event-box-body">
-                    @foreach (var isRunning in listIsRunning)
-                    {
-                        <a class="event-link" href="@Url.Action("Index","Home", new { id = isRunning.EventID })">
-                            <div class="col-lg-4 col-md-4">
-                                <!-- small box -->
-                                <div class="small-box bg-green event-box">
-                                    <div class="inner event-title">
-                                        @Html.Raw(isRunning.Name)
-                                    </div>
-                                    <a href="#" class="small-box-footer event-box-footer">
-                                        More info <i class="fa fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </a>
+                </a>
 
-                    }
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
+            }
         </div>
-
-        <div class="col-md-12">
-            <div class="box box-warning">
-                <div class="box-header with-border bg-yellow title-up-comming">
-                    <h3 class="box-title">Sắp diễn ra</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <!-- /.box-tools -->
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body event-box-body">
-                    @foreach (var upComming in listUpComming)
-                    {
-                        <a class="event-link" href="@Url.Action("Index", "Home", new { id = upComming.EventID })">
-                            <div class="col-lg-4 col-xs-4">
-                                <!-- small box -->
-                                <div class="small-box bg-yellow event-box">
-                                    <div class="inner event-title">
-                                        @Html.Raw(upComming.Name)
-                                    </div>
-                                    <a href="#" class="small-box-footer event-box-footer">
-                                        More info <i class="fa fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </a>
-
-                    }
-
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-        </div>
-
-        <div class="col-md-12">
-            <div class="box box-warning box-happened">
-                <div class="box-header with-border bg-gray">
-                    <h3 class="box-title">Đã diễn ra</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <!-- /.box-tools -->
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body event-box-body">
-                    @foreach (var happened in listHappened)
-                    {
-                        <a class="event-link" href="@Url.Action("Index", "Home", new { id = happened.EventID })">
-                            <div class="col-lg-4 col-xs-4">
-                                <!-- small box -->
-                                <div class="small-box bg-gray event-box">
-                                    <div class="inner event-title">
-                                        @Html.Raw(happened.Name)
-                                    </div>
-                                    <div class="icon">
-                                        <i class="ion ion-pie-graph"></i>
-                                    </div>
-                                    <a href="#" class="small-box-footer event-box-footer">
-                                        More info <i class="fa fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </a>
-
-                    }
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-        </div>
+        <!-- /.box-body -->
     </div>
-</body>
-</html>
+    <!-- /.box -->
+</div>
+
+<div class="col-md-12">
+    <div class="box box-warning">
+        <div class="box-header with-border bg-yellow title-up-comming">
+            <h3 class="box-title">Sắp diễn ra</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body event-box-body">
+            @foreach (var upComming in listUpComming)
+            {
+                <a class="event-link" href="@Url.Action("Index", "Home", new { id = upComming.EventID })">
+                    <div class="col-lg-4 col-xs-4">
+                        <!-- small box -->
+                        <div class="small-box bg-yellow event-box">
+                            <div class="inner event-title">
+                                @Html.Raw(upComming.Name)
+                            </div>
+                            <a href="#" class="small-box-footer event-box-footer">
+                                More info <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </a>
+
+            }
+
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</div>
+
+<div class="col-md-12">
+    <div class="box box-warning box-happened">
+        <div class="box-header with-border bg-gray">
+            <h3 class="box-title">Đã diễn ra</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body event-box-body">
+            @foreach (var happened in listHappened)
+            {
+                <a class="event-link" href="@Url.Action("Index", "Home", new { id = happened.EventID })">
+                    <div class="col-lg-4 col-xs-4">
+                        <!-- small box -->
+                        <div class="small-box bg-gray event-box">
+                            <div class="inner event-title">
+                                @Html.Raw(happened.Name)
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="#" class="small-box-footer event-box-footer">
+                                More info <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </a>
+
+            }
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</div>
