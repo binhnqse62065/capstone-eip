@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="HmsEntitiesStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Guests">
+      <EntityTypeMapping TypeName="HmsEntities.Guest">
+        <MappingFragment StoreEntitySet="Guest">
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
+          <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
+          <ScalarProperty Name="GuestName" ColumnName="GuestName" />
+          <ScalarProperty Name="GuestId" ColumnName="GuestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="C__MigrationHistory">
       <EntityTypeMapping TypeName="HmsEntities.C__MigrationHistory">
         <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -132,17 +143,6 @@
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="EventCollectionID" ColumnName="EventCollectionID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Guests">
-      <EntityTypeMapping TypeName="HmsEntities.Guest">
-        <MappingFragment StoreEntitySet="Guest">
-          <ScalarProperty Name="EventId" ColumnName="EventId" />
-          <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
-          <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
-          <ScalarProperty Name="GuestName" ColumnName="GuestName" />
-          <ScalarProperty Name="GuestId" ColumnName="GuestId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

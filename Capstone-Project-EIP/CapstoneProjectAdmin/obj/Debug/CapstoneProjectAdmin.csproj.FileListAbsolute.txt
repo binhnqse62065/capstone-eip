@@ -3,9 +3,7 @@ E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectA
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.pdb
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.dll
-E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\SkyWeb.DatVM.Mvc.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.pdb
-E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.dll.config
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Autofac.xml
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\AutoMapper.xml
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
@@ -327,3 +325,4 @@ E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\roslyn\VBCSCompi
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\System.Net.Http.Formatting.xml
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\System.Web.Http.xml
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\System.Web.Http.WebHost.xml
+E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.dll.config
