@@ -26,7 +26,9 @@ namespace CapstoneProjectAdmin.API
                 Name = s.Name,
                 StartTime = s.StartTime.Value.ToString("dd/MM/yyyy"),
                 EndTime = s.EndTime.Value.ToString("dd/MM/yyyy"),
-                Description = s.Description
+                Description = s.Description,
+                LivestreamUrl = s.LivestreamUrl
+                
             });
             return session.ToList();
         }
@@ -42,6 +44,7 @@ namespace CapstoneProjectAdmin.API
                 curSession.Description = session.Description;
                 curSession.StartTime = session.StartTime;
                 curSession.EndTime = session.EndTime;
+                curSession.LivestreamUrl = session.LivestreamUrl;
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {

@@ -103,5 +103,10 @@ namespace HmsService.Sdk
                 return null;
             }
         }
+
+        public IEnumerable<Voting> GetVotingByEventId(int eventId)
+        {
+            return this.BaseService.GetVotingByEventId(eventId);
+        }
     }
 }

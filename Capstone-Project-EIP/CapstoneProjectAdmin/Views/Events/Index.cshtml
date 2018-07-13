@@ -46,7 +46,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b>LTE</span>
+                
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -99,8 +99,11 @@
 
 
 
-        <div class="row col-md-12 page-title">
-            <h1>Danh sách sự kiện</h1>
+        <div class="col-md-12 page-title">
+            <span>Danh sách sự kiện</span>
+
+            <!--Button Add New Event-->
+            <a class="btn btn-info btn-lg btn-add-new-event">Tạo mới</a>
         </div>
         <div class="col-md-12">
             <div class="box box-warning box-is-running">
@@ -177,7 +180,7 @@
 
         <div class="col-md-12">
             <div class="box box-warning box-happened">
-                <div class="box-header with-border bg-red">
+                <div class="box-header with-border bg-gray">
                     <h3 class="box-title">Đã diễn ra</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
@@ -193,7 +196,7 @@
                         <a class="event-link" href="@Url.Action("Index", "Home", new { id = happened.EventID })">
                             <div class="col-lg-4 col-xs-4">
                                 <!-- small box -->
-                                <div class="small-box bg-red event-box">
+                                <div class="small-box bg-gray event-box">
                                     <div class="inner event-title">
                                         @Html.Raw(happened.Name)
                                     </div>

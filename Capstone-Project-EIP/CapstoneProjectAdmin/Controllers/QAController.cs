@@ -14,9 +14,6 @@ namespace CapstoneProjectAdmin.Controllers
         {
             ViewBag.EventId = id;
             return View();
-            //QAApi qAApi = new QAApi();
-            //var QAItem = qAApi.BaseService.GetQABySessionId(1);
-            //return View(QAItem);
         }
     }
 }

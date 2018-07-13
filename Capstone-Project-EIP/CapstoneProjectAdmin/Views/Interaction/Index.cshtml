@@ -1,11 +1,14 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+@using HmsService.Models.Entities;
+@model Event
 
 @{
+    
     var votingItemList = Model.Votings;
     var qaItemList = Model.QAs;
-    int eventId = Int32.Parse(ViewContext.RouteData.Values["id"].ToString());
+    int eventId = ViewBag.EventId;
     string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 <div class="container">

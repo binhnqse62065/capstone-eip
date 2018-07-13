@@ -30,7 +30,11 @@ namespace HmsService.Models.Entities.Services
                 Name = currentEvent.Name,
                 EventDescription = currentEvent.EventDescription,
                 Address = currentEvent.Address,
-                StartTime = currentEvent.StartTime
+                StartTime = currentEvent.StartTime,
+                CodeLogin = currentEvent.CodeLogin,
+                EndTime = currentEvent.EndTime,
+                TemplateId = currentEvent.TemplateId,
+                ImageURL = currentEvent.ImageURL
             };
         }
 

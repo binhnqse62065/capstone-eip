@@ -15,4 +15,8 @@
         width: 100%;
         height: auto;
     }
+
+    .modal-sponsor {
+        margin-right:25px;
+    }
 }

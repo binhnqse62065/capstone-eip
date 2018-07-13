@@ -46,7 +46,6 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.dll
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\SkyWeb.DatVM.Mvc.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Autofac.Integration.Mvc.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.pdb
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.dll.config
@@ -81,7 +80,6 @@ D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProje
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Microsoft.AI.WindowsServer.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Microsoft.AI.Web.xml
-D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Autofac.Integration.Mvc.xml
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.csproj.CoreCompileInputs.cache
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.dll
 D:\Study\CapstoneProject\CapStone-Project-EIP\Capstone-Project-EIP\CapstoneProjectAdmin\obj\Debug\CapstoneProjectAdmin.pdb

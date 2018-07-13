@@ -14,6 +14,7 @@ namespace HmsService.Models.Entities.Services
 
         bool DeleteVoting(Voting voting);
         Voting GetVotingById(int id);
+        IEnumerable<Voting> GetVotingByEventId(int eventId);
 
         
     }
@@ -66,6 +67,17 @@ namespace HmsService.Models.Entities.Services
             try
             {
                 return this.FirstOrDefault(v => v.VotingId == id);
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+        }
+        public IEnumerable<Voting> GetVotingByEventId(int eventId)
+        {
+            try
+            {
+                return this.Get(v => v.EventId == eventId);
             }
             catch(Exception e)
             {

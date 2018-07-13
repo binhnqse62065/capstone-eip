@@ -14,10 +14,13 @@ namespace CapstoneProjectAdmin.Controllers
         private HmsEntities db = new HmsEntities();
         public ActionResult Index(int id)
         {
-            EventApi eventApi = new EventApi();
-            var cur = eventApi.BaseService.GetEventById(id);
+            /*VotingApi votingApi = new VotingApi();
+            var listVoting = votingApi.GetVotingByEventId(id);
             ViewBag.EventId = id;
-            return View(cur);
+            return View(listVoting);*/
+            HmsEntities db = new HmsEntities();
+            ViewBag.EventId = id;
+            return View(db.Events.Find(id));
         }
     }
 }

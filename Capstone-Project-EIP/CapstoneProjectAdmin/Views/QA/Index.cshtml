@@ -205,7 +205,6 @@
 <input type="hidden" id="questionId" value="" />
 @section scripts {
     <script>
-
         var urlApi = '@curPath';
         var eventId = @eventId;
 
@@ -227,7 +226,7 @@
         function editQA(id, name) {
             console.log(id);
             $.ajax({
-                url: urlApi + 'api/QA/getAllQuestionComment',
+                url: urlApi +  '/api/QA/getAllQuestionComment',
                 method: "POST",
                 data: {
                     QAId: id
