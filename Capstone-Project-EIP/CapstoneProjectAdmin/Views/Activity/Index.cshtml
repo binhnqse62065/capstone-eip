@@ -71,25 +71,25 @@
 <div class="modal fade" id="addActivityModal" role="dialog">
     <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Activity</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Name:</label>
-                    <div class="col-sm-9 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Thêm Hoạt Động</h4>
                         </div>
-                        <input type="text" class="form-control" id="addName" placeholder="Enter name">
-                    </div>
-                </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Tên Hoạt Động:</label>
+                                <div class="col-sm-9 input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                    </div>
+                                    <input type="text" class="form-control" id="addName" placeholder="Nhập tên hoạt động">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Date and time range:</label>
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Ngày Giờ:</label>
 
                     <div class="input-group col-sm-9">
                         <div class="input-group-addon">
@@ -99,23 +99,40 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Description:</label>
-                    <div class="col-sm-9 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-info" aria-hidden="true"></i>
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Miêu Tả:</label>
+                                <div class="col-sm-9 input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-info" aria-hidden="true"></i>
+                                    </div>
+                                    <input type="text" class="form-control" id="addDescription" placeholder="Nhập miêu tả hoạt động">
+                                </div>
+                            </div>
+
                         </div>
-                        <input type="text" class="form-control" id="addDescription" placeholder="Enter Description">
+                        <div class="modal-footer">
+                            <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Thêm</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <div class="modal-footer">
-                <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Add</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
+    </div>
+</div>
+
         </div>
-
+        <div class="box-body">
+            <table class="table table-hover table-bordered" id="tblActivity">
+                <thead>
+                    <tr>
+                        <th>Tên hoạt động</th>
+                        <th>Thời gian bắt đầu - kết thúc</th>
+                        <th>Miêu tả</th>
+                        <th>Tên phiên</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -127,44 +144,44 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Activity</h4>
+                <h4 class="modal-title">Chỉnh Sửa Hoạt Động</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Name<span class="required">*</span>
+                        Tên<span class="required">*</span>
                     </label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="activityName" type="text" class="form-control" placeholder="Enter Session's name">
+                        <input id="activityName" type="text" class="form-control" placeholder="Nhập tên hoạt động">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Start Time - End Time<span class="required"></span>
+                        Thời gian Bắt đầu - Kết thúc<span class="required"></span>
                     </label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="startEndTime" type="text" class="form-control" placeholder="Enter Session's name">
+                        <input id="startEndTime" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Description</label>
+                    <label class="col-sm-3 form-control-label">Miêu tả</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <input id="activityDescription" type="text" class="form-control" placeholder="Enter Description">
+                        <input id="activityDescription" type="text" class="form-control" placeholder="Nhập miêu tả">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btn-update-activity" class="btn btn-primary" data-dismiss="modal">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btn-update-activity" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>

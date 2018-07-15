@@ -8593,6 +8593,8 @@
     <Content Include="Views\QA\Index.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Login\index.cshtml" />
+    <Content Include="Views\Shared\_LayoutEvent.cshtml" />
+    <Content Include="Views\Events\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
