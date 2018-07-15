@@ -16,7 +16,7 @@ $(document).ready(function () {
                 $('#result').load(' #result', function () {
                     $('#btn-vote').css('display', 'none');
                     $('#thanks').css('display', 'show');
-                    $('#thanks').text("Thank you for your voting!");
+                    $('#thanks').text("Cảm ơn vì đã bình chọn!");
                     $('.result').css('display', 'block');
 
                     var resultTemplate = $('#progress-bar-result-template').clone();

@@ -10,13 +10,12 @@ namespace CapstoneProjectClient.Controllers
 {
     public class HomeController : Controller
     {
-        [Route("Home/Index/{eventId}/{sessionId}")]
-        public ActionResult Index(int eventId, int sessionId)
+        [Route("Home/Index/{eventId}")]
+        public ActionResult Index(int eventId)
         {
             EventApi eventApi = new EventApi();
             var eventCurr = eventApi.BaseService.GetEventById(eventId);
             ViewBag.EventId = eventId;
-            ViewBag.SessionId = sessionId;
             return View(eventCurr);
         }
 

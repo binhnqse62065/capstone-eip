@@ -228,6 +228,7 @@
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
+    <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
@@ -991,6 +992,7 @@
     <Content Include="Views\Voting\Index.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Session\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

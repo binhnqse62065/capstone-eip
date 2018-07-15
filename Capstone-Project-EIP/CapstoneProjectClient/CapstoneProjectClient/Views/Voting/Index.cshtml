@@ -11,8 +11,8 @@
 }
 
 @*<link href="~/Content/bootstrap/Poll/css/bootstrap.css" rel="stylesheet" />*@
-<div class="container">
-    <div class="row">
+<div class="container" >
+    <div class="row" style="padding-top: 64px;">
         <div class="col-md-12 text-center voting-title">
             <h3>Bình chọn</h3>
         </div>
@@ -28,7 +28,7 @@
                 <div class="user-poll-section">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <strong>Question : </strong>@Model.VotingName
+                            <strong>Câu hỏi : </strong>@Model.VotingName
                         </div>
                         <div class="panel-body">
                             @{
@@ -46,10 +46,10 @@
                         </div>
                         <h5 id="thanks" style="color:green; text-align:center; display:none;"></h5>
                         <div class="text-center">
-                            <a id="btn-vote" class="btn btn-sm btn-default" style="background-color:darkgrey"><span class="glyphicon glyphicon-bell"></span> Mark Your Vote</a>
+                            <a id="btn-vote" class="btn btn-sm btn-default" style="background-color:darkgrey"><span class="glyphicon glyphicon-bell"></span>Bình chọn</a>
                         </div>
                         <div id="result" class="panel-body result">
-                            <h5 class="text-danger">Result Of User Votes :</h5>
+                            <h5 class="text-danger">Kết quả người dùng bình chọn :</h5>
                             @*<input id="votingQuestionId" type="hidden" value="@(listQuestionOptions.FirstOrDefault().VotingQuestionId)" />*@
                             <div id="result-voting-section">
 

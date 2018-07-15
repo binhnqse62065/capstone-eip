@@ -359,6 +359,7 @@
     <Compile Include="Models\Entities\Services\ActivityItemServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\ActivityService.cs" />
     <Compile Include="Models\Entities\Services\ActivityServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -477,6 +478,7 @@
     <Compile Include="Sdk\ActivityItemApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\ActivitytApi.cs" />
     <Compile Include="Sdk\AspNetRoleApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
