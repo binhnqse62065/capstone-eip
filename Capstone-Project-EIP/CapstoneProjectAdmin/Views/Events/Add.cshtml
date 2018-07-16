@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Add";
     Layout = "~/Views/Shared/_LayoutEvent.cshtml";
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 }
 
 <div class="col-lg-offset-2 col-md-8">
@@ -14,13 +15,13 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Tên sự kiện</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="Vui lòng nhập tên của sự kiện" />
+                        <input id="event-name" type="text" class="form-control" placeholder="Vui lòng nhập tên của sự kiện" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Miêu tả sự kiện</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="Vui lòng nhập miêu tả của sự kiện" />
+                        <input id="event-description" type="text" class="form-control" placeholder="Vui lòng nhập miêu tả của sự kiện" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -32,7 +33,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Địa chỉ</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ sự kiện" />
+                        <input id="event-address" type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ sự kiện" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,18 +51,24 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Mã đăng nhập</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="Vui lòng nhập mã đăng nhập của sự kiện" />
+                        <input id="event-code" type="text" class="form-control" placeholder="Vui lòng nhập mã đăng nhập của sự kiện" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Hình đại diện</label>
                     <div class="col-md-10">
-                        <input type="file" class="form-control image-banner" />
+                        <div class="field">
+                            <div class="control">
+                                <button class="button" type="button" id="picker">Chọn file</button>
+                                <input type="hidden" id="fileupload">
+                            </div>
+                        </div>
+                        <div id="thumbnail-container"></div>
                     </div>
                 </div>
             </div>
             <div class="box-footer">
-                <button class="btn btn-primary pull-right">Lưu</button>
+                <button class="btn btn-primary pull-right" id="btn-add-event">Lưu</button>
                 <button class="btn btn-danger pull-right margin-r-5">Hủy</button>
             </div>
         </div>
@@ -70,9 +77,28 @@
 
 </div>
 
+<div class="box">
+    <form id="pick-form">
+        <div class="field">
+            <div class="control">
+                <button class="button" type="button" id="picker">Pick file</button>
+                <input type="hidden" id="fileupload">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input class="button" type="submit" value="Submit">
+            </div>
+        </div>
+        <div id="thumbnail-container"></div>
+    </form>
+</div>
+
 @section scripts {
     <script>
         $(document).ready(function () {
+            var urlApi = '@curPath';
+
             $('#event-time-range').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY'
@@ -84,6 +110,7 @@
                 console.log(this.value);
             });
 
+            //Test thu lay link image tu may (chua duoc)
             $('.image-banner').change(function (event) {
                 var tmppath = URL.createObjectURL(event.target.files[0]);
                 //$("img").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
@@ -91,6 +118,114 @@
 
                 //$("#disp_tmp_path").html("Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>[" + tmppath + "]</strong>");
             });
+
+
+            //Add event
+            $('#btn-add-event').on('click', function () {
+                var eventName = $('#event-name').val();
+                var eventDescription = $('#event-description').val();
+                var eventAddress = $('#event-address').val();
+                var eventLoginCode = $('#event-code').val();
+                var imageUrl = $('#fileupload').val();
+
+                var eventTimeSplit = $('#event-time-range').val().split('-');
+                var startTime = eventTimeSplit[0].trim().split('/').reverse().join('-');
+                var endTime = eventTimeSplit[1].trim().split('/').reverse().join('-');
+
+                $.ajax({
+                    url: '@Url.Action("AddNewEvent", "Events")',
+                    method: "POST",
+                    data: {
+                        Name: eventName,
+                        EventDescription: eventDescription,
+                        Address: eventAddress,
+                        CodeLogin: eventLoginCode,
+                        StartTime: startTime,
+                        EndTime: endTime,
+                        ImageURL: imageUrl
+                    },
+                    success: function (data) {
+
+                        swal({
+                                    title: "Success!",
+                                    text: "Session has been added successfully",
+                                    type: "success"
+                                 },
+                                function () {
+                                window.location.replace('@Url.Action("Index", "Events")');
+                            });
+
+
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+
+            });
+
+
+
+
+
+
+            //Filestack dùng để up hình
+            // Set up the picker
+            const client = filestack.init('AIA0Qk3iTSGzr9dIsuPdgz');
+            const options = {
+                onUploadDone: updateForm,
+                maxSize: 10 * 1024 * 1024,
+                accept: 'image/*',
+                uploadInBackground: false,
+                fromSources: ['local_file_system', 'imagesearch', 'facebook', 'instagram', 'dropbox', 'picasa', 'url']
+            };
+            const picker = client.picker(options);
+
+            // Get references to the DOM elements
+
+            const form = document.getElementById('pick-form');
+            const fileInput = document.getElementById('fileupload');
+            const btn = document.getElementById('picker');
+            const nameBox = document.getElementById('nameBox');
+            const urlBox = document.getElementById('urlBox');
+
+            // Add our event listeners
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                picker.open();
+            });
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert('Submitting: ' + fileInput.value);
+            });
+
+            // Helper to overwrite the field input value
+
+            function updateForm(result) {
+                const fileData = result.filesUploaded[0];
+                fileInput.value = fileData.url;
+
+                // If file is resizable image, resize and embed it as a thumbnail preview
+                if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
+                    const container = document.getElementById('thumbnail-container');
+                    const thumbnail = document.getElementById('thumbnail') || new Image();
+                    thumbnail.id = 'thumbnail';
+                    thumbnail.src = client.transform(fileData.handle, {
+                        resize: {
+                            width: 200
+                        }
+                    });
+
+                    if (!container.contains(thumbnail)) {
+                        container.appendChild(thumbnail);
+                    }
+                }
+            };
         });
+
     </script>
 }
+
