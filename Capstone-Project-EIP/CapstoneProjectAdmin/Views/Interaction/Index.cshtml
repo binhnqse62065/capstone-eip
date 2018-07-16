@@ -4,8 +4,8 @@
 
 @{
     int sessionId = 1;
-    var listSession = Model.Sessions;
-    //sessionId = listSession.FirstOrDefault().SessionID;
+    //var listSession = Model.Sessions;
+    //sessionId = Model.Sessions.FirstOrDefault().SessionID;
     var votingItemList = Model.Votings;
     var qaItemList = Model.QAs;
     int eventId = ViewBag.EventId;
@@ -337,13 +337,13 @@
 
 
         $(document).ready(function () {
-
-            //if (listSession != null) {
-            //    InitDatatable(0, listSession[0]);
-            //}
-            //else {
-            //    InitDatatable(0, 0);
-            //}
+            @*var listSessions = @Html.Raw(Json.Encode(listSession))
+            if (listSessions != null) {
+                InitDatatable(0, listSessions[0]);
+            }
+            else {
+                InitDatatable(0, 0);
+            }*@
 
             $('#InteractionEditSelectBox').on('click', function () {
                 var SelectValue = $('#InteractionEditSelectBox').find(":selected").val();
