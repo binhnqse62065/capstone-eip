@@ -1,11 +1,11 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+@using HmsService.Models.Entities;
+@model Event
 
 @{
-    int sessionId = 1;
-    var listSession = Model.Sessions;
-    //sessionId = listSession.FirstOrDefault().SessionID;
+    
     var votingItemList = Model.Votings;
     var qaItemList = Model.QAs;
     int eventId = ViewBag.EventId;
@@ -85,87 +85,33 @@
             </div>
         </div>
 
-        @*<div class="ibox-content col-sm-6 col-md-6">
-                <div>
-                    <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Available</div>
-                    <table class="table table-hover table-bordered" id="tblInteraction">
-                        <thead>
-                            <tr>
-                                <th>Tên</th>
-                                <th>Loại</th>
-                                <th>Chức Năng</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+        <div class="ibox-content col-sm-6 col-md-6">
+            <div>
+                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Hiện Có</div>
+                <table class="table table-hover table-bordered" id="tblInteraction">
+                    <thead>
+                        <tr>
+                            <th>Tên</th>
+                            <th>Loại</th>
+                            <th>Chức Năng</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
-            <div class="ibox-content col-sm-6 col-md-6">
-                <div>
-                    <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Đang Chạy</div>
-                    <table class="table table-hover table-bordered" id="tblInteractionRunning">
-                        <thead>
-                            <tr>
-                                <th>Tên</th>
-                                <th>Loại</th>
-                                <th>Chức Năng</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>*@
-
-        <div class="ibox-content">
-            <!-- Custom Tabs -->
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    @{
-                        int i = 0;
-                        foreach (var item in listSession)
-                        {
-                            <li class="@(i == 0 ? "active" : "")" onclick="InitDatatable(@(i), @item.SessionID); ChangeTabIndex(@(i), @item.SessionID)"><a href="#tab_@(i)" data-toggle="tab">@Html.Raw(item.Name)</a></li>
-                            i++;
-                        }
-                    }
-                </ul>
+        </div>
+        <div class="ibox-content col-sm-6 col-md-6">
+            <div>
+                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Đang Chạy</div>
+                <table class="table table-hover table-bordered" id="tblInteractionRunning">
+                    <thead>
+                        <tr>
+                            <th>Tên</th>
+                            <th>Loại</th>
+                            <th>Chức Năng</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
-            <!--Tab content-->
-            <div class="tab-content">
-                @{
-                    int j = 0;
-                    foreach (var item in listSession)
-                    {
-                        <div class="tab-pane @(j == 0 ? "active" : "")" id="tab_@(j)">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Available</div>
-                                <table class="table table-hover table-bordered" id="tblInteraction@(j)">
-                                    <thead>
-                                        <tr>
-                                            <th>Tên</th>
-                                            <th>Loại</th>
-                                            <th>Chức Năng</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Đang Chạy</div>
-                                <table class="table table-hover table-bordered" id="tblInteractionRunning@(j)">
-                                    <thead>
-                                        <tr>
-                                            <th>Tên</th>
-                                            <th>Loại</th>
-                                            <th>Chức Năng</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                        j++;
-                    }
-                }
-                <!-- /.tab-pane -->
-            </div>
-
         </div>
     </div>
     <div class="modal fade" id="deleteModal" role="dialog">
@@ -286,11 +232,11 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                 </div>
             </div>
+
         </div>
     </div>
+
 </div>
-<input type="hidden" id="tab-index" value="0" />
-<input type="hidden" id="session-id" value="@(sessionId)" />
 
 @section scripts {
     <script>
@@ -337,14 +283,6 @@
 
 
         $(document).ready(function () {
-
-            //if (listSession != null) {
-            //    InitDatatable(0, listSession[0]);
-            //}
-            //else {
-            //    InitDatatable(0, 0);
-            //}
-
             $('#InteractionEditSelectBox').on('click', function () {
                 var SelectValue = $('#InteractionEditSelectBox').find(":selected").val();
                 if (SelectValue == 1) {
@@ -377,12 +315,9 @@
                 }
             });
 
-        });
-
-        function InitDatatable(index, sessionId) {
-            $('#tblInteraction' + index).DataTable({
+            $('#tblInteraction').DataTable({
                 ajax: {
-                    url: urlApi + "/api/interaction/getAllInteractionNotRunning/" + sessionId,
+                    url: urlApi + "api/interaction/getAllInteractionNotRunning",
                     dataSrc: ""
                 },
                 columns: [
@@ -412,26 +347,27 @@
                     }
                 ]
             });
-            $('#tblInteractionRunning' + index).DataTable({
+
+            $('#tblInteractionRunning').DataTable({
                 ajax: {
-                    url: urlApi + "/api/interaction/getIsRunningInteraction/" + sessionId,
+                    url: urlApi + "api/interaction/getIsRunningInteraction",
                     dataSrc: ""
                 },
                 columns: [
                     {
                         name: "Name",
                         render: function (data, type, row) {
-                            return row.interactionName;
+                                return row.interactionName;
                         }
                     },
                     {
                         name: "Type",
                         render: function (data, type, row) {
-                            if (row.votingId != null) {
-                                return '<p>Voting<p/>';
-                            } else if (row.qaId != null) {
-                                return '<p>QA<p/>';
-                            }
+                                if (row.votingId != null) {
+                                    return '<p>Voting<p/>';
+                                } else if (row.qaId != null) {
+                                    return '<p>QA<p/>';
+                                }
                         }
                     },
                     {
@@ -442,13 +378,8 @@
                     }
                 ]
             });
-        }
 
-        function ChangeTabIndex(index, sessionId) {
-            $('#tab-index').val(index);
-            $('#session-id').val(sessionId);
-
-        }
+        });
     </script>
 }
 <script src="~/Content/Interaction/Interaction.js"></script>
