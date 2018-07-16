@@ -383,7 +383,8 @@
             $('#tblInteraction' + index).DataTable({
                 ajax: {
                     url: urlApi + "/api/interaction/getAllInteractionNotRunning/" + sessionId,
-                    dataSrc: ""
+                    dataSrc: "",
+                    "bDestroy": true,
                 },
                 columns: [
                     {
@@ -415,7 +416,8 @@
             $('#tblInteractionRunning' + index).DataTable({
                 ajax: {
                     url: urlApi + "/api/interaction/getIsRunningInteraction/" + sessionId,
-                    dataSrc: ""
+                    dataSrc: "",
+                     "bDestroy": true,
                 },
                 columns: [
                     {
