@@ -186,7 +186,6 @@ E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Capst
 E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.dll
 E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\CapstoneProjectAdmin.pdb
 E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.dll
-E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\SkyWeb.DatVM.Mvc.dll
 E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\Autofac.Integration.Mvc.dll
 E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.pdb
 E:\Study\CapstoneProject\EIP\Capstone-Project-EIP\CapstoneProjectAdmin\bin\HmsService.dll.config
