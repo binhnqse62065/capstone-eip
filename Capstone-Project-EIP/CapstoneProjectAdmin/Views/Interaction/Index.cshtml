@@ -5,7 +5,9 @@
 @model Event
 
 @{
-    
+    int sessionId = 1;
+    //var listSession = Model.Sessions;
+    //sessionId = Model.Sessions.FirstOrDefault().SessionID;
     var votingItemList = Model.Votings;
     var qaItemList = Model.QAs;
     int eventId = ViewBag.EventId;
@@ -283,6 +285,14 @@
 
 
         $(document).ready(function () {
+            @*var listSessions = @Html.Raw(Json.Encode(listSession))
+            if (listSessions != null) {
+                InitDatatable(0, listSessions[0]);
+            }
+            else {
+                InitDatatable(0, 0);
+            }*@
+
             $('#InteractionEditSelectBox').on('click', function () {
                 var SelectValue = $('#InteractionEditSelectBox').find(":selected").val();
                 if (SelectValue == 1) {
@@ -317,8 +327,9 @@
 
             $('#tblInteraction').DataTable({
                 ajax: {
-                    url: urlApi + "api/interaction/getAllInteractionNotRunning",
-                    dataSrc: ""
+                    url: urlApi + "/api/interaction/getAllInteractionNotRunning/" + sessionId,
+                    dataSrc: "",
+                    "bDestroy": true,
                 },
                 columns: [
                     {
@@ -350,8 +361,9 @@
 
             $('#tblInteractionRunning').DataTable({
                 ajax: {
-                    url: urlApi + "api/interaction/getIsRunningInteraction",
-                    dataSrc: ""
+                    url: urlApi + "/api/interaction/getIsRunningInteraction/" + sessionId,
+                    dataSrc: "",
+                     "bDestroy": true,
                 },
                 columns: [
                     {
