@@ -21,10 +21,10 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <div class="row">
-                <h2 class="col-sm-10">Timeline</h2>
+                <h2 class="col-sm-10">Dòng Thời Gian</h2>
                 <div class="col-sm-2">
                     <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px" @(Model.Count() == 0 ? "disabled" : "")>
-                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Timeline
+                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
             </div>
@@ -37,31 +37,31 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Timeline</h4>
+                        <h4 class="modal-title">Thêm Dòng Thời Gian</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Title:</label>
+                            <label class="col-sm-3 form-control-label">Tiêu Đề:</label>
                             <div class="col-sm-9 input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                                 </div>
-                                <input type="text" class="form-control" id="addTitle" placeholder="Enter Timeline's title">
+                                <input type="text" class="form-control" id="addTitle" placeholder="Nhập tiêu đề dòng thời gian">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Timeline Detail:</label>
+                            <label class="col-sm-3 form-control-label">Chi Tiết:</label>
                             <div class="col-sm-9 input-group">
                                 <div class="input-group-addon">
                                     <i class="fa fa-info" aria-hidden="true"></i>
                                 </div>
-                                <input type="text" class="form-control" id="addTimelineDetail" placeholder="Enter detail">
+                                <input type="text" class="form-control" id="addTimelineDetail" placeholder="Nhập chi tiết dòng thời gian">
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="addTimeline" class="btn btn-primary" style="margin-top:5px" data-dismiss="modal">Add</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="addTimeline" class="btn btn-primary" style="margin-top:5px" data-dismiss="modal">Thêm</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                     </div>
                 </div>
 
@@ -84,10 +84,10 @@
                             <table class="table table-hover table-bordered" id="tblTimelineSession@(i)">
                                 <thead>
                                     <tr>
-                                        <th>Timeline Title</th>
-                                        <th>Timeline Detail</th>
-                                        <th>Start Time</th>
-                                        <th>Function</th>
+                                        <th>Tiêu Đề</th>
+                                        <th>Chi Tiết</th>
+                                        <th>Thời Gian</th>
+                                        <th>Chức Năng</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -110,33 +110,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Timeline</h4>
+                <h4 class="modal-title">Chỉnh Sửa Dòng Thời Gian</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Title<span class="required">*</span>
+                        Tiêu Đề<span class="required">*</span>
                     </label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="timelineTitle" type="text" class="form-control" placeholder="Enter Timeline's name">
+                        <input id="timelineTitle" type="text" class="form-control" placeholder="Nhập tiêu đề dòng thời gian">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Timeline Detail</label>
+                    <label class="col-sm-3 form-control-label">Chi Tiết</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <input id="editTimelineDetail" type="text" class="form-control" placeholder="Enter Description">
+                        <input id="editTimelineDetail" type="text" class="form-control" placeholder="Nhập chi tiết dòng thời gian">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btn-update-timeline" class="btn btn-primary" data-dismiss="modal">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="btn-update-timeline" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>
@@ -178,7 +178,7 @@
                     },
                     success: function (data) {
                         reloadTable();
-                        swal("Success!", "Timeline has been added successfully", "success");
+                        swal("Thành Công!", "Dòng thời gian đã được thêm thành công", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -197,7 +197,7 @@
                         TimelineDetail: $('#editTimelineDetail').val()
                     },
                     success: function (data) {
-                        swal("Success!", "Timeline has been updated successfully", "success");
+                        swal("Thành Công!", "Dòng thời gian đã được cập nhật thành công", "success");
                         $('#tblTimeline').DataTable().ajax.reload();
                     },
                     error: function (data) {
@@ -209,13 +209,13 @@
 
         function deleteTimeline(id) {
             swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
+                title: "Bạn có chắc không?",
+                text: "Bạn sẽ không thể phục hồi lại!",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-danger",
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel plx!",
+                confirmButtonText: "Xóa!",
+                cancelButtonText: "Không!",
                 closeOnConfirm: false
             },
                 function () {
@@ -227,11 +227,11 @@
                         },
                         success: function (data) {
                             reloadTable();
-                            swal("Deleted!", "Your timeline has been deleted successfully", "success");
+                            swal("Xóa Thành Công!", "Dòng thời gian đã được xóa thành công", "success");
                         },
                         error: function (data) {
                             console.log(data);
-                            swal("Error", "Some error occur", "error");
+                            swal("Lỗi", "Có gì đó không đúng", "error");
                         }
                     });
                 });

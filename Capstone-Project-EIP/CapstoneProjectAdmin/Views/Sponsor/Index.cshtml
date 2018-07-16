@@ -10,10 +10,10 @@
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <div class="row">
-                <h2 class="col-sm-10">Sponsor Management</h2>
+                <h2 class="col-sm-10">Quản Lý Nhà Tài Trợ</h2>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addSponsorModal" style="margin-top:20px">
-                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Add Sponsor
+                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
             </div>
@@ -24,10 +24,10 @@
             <table class="table table-hover table-bordered" id="tblSponsor">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Image</th>
-                        <th>Function</th>
+                        <th>Tên</th>
+                        <th>Miêu Tả</th>
+                        <th>Hình Ảnh</th>
+                        <th>Chức Năng</th>
                     </tr>
                 </thead>
             </table>
@@ -43,34 +43,34 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Sponsor</h4>
+                <h4 class="modal-title">Thêm Nhà tài trợ</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <label class="col-sm-3 form-control-label">Tên:</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="newName" type="text" class="form-control" placeholder="Enter Sponsor's name">
+                        <input id="newName" type="text" class="form-control" placeholder="Nhập tên nhà tài trợ">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Description:</label>
+                    <label class="col-sm-3 form-control-label">Miêu Tả:</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <textarea id="newDescription" type="text" class="form-control" placeholder="Enter Description"></textarea>
+                        <textarea id="newDescription" type="text" class="form-control" placeholder="Nhập miêu tả"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Image:</label>
+                    <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-link" aria-hidden="true"></i>
                         </div>
-                        <input id="newImageUrl" type="text" class="form-control" placeholder="Input image url">
+                        <input id="newImageUrl" type="text" class="form-control" placeholder="Nhập đường dẫn hình ảnh">
                     </div>
                     <div class="col-sm-3"></div>
                     <div class="row col-sm-9">
@@ -80,8 +80,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Add</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
 
@@ -94,11 +94,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Sponsor</h4>
+                <h4 class="modal-title">Chỉnh Sửa Nhà tài trợ</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Name:</label>
+                    <label class="col-sm-3 form-control-label">Tên:</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Descripstion:</label>
+                    <label class="col-sm-3 form-control-label">Miêu Tả:</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Image:</label>
+                    <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-link" aria-hidden="true"></i>
@@ -132,8 +132,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btn-save" type="submit" class="btn btn-primary sponsor-id" data-dismiss="modal" style="margin-top:5px">Save change</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="btn-save" type="submit" class="btn btn-primary sponsor-id" data-dismiss="modal" style="margin-top:5px">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>
