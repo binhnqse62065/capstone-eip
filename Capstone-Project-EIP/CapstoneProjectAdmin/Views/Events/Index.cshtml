@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutEvent.cshtml";
     var today = DateTime.Today;
     var listIsRunning = Model.Where(e => e.EndTime >= today && e.StartTime <= today).ToList();
-    var listUpComming = Model.Where(e => e.StartTime >= today).ToList();
+    var listUpComming = Model.Where(e => e.StartTime > today).ToList();
     var listHappened = Model.Where(e => e.EndTime < today).ToList();
 }
 
@@ -51,18 +51,18 @@
 </div>
 
 <div class="col-md-12">
-    <div class="box box-warning">
+    <div class="box box-warning collapsed-box">
         <div class="box-header with-border bg-yellow title-up-comming">
             <h3 class="box-title">Sắp diễn ra</h3>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse" id="btn-up-comming">
+                    <i class="fa fa-plus"></i>
                 </button>
             </div>
             <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->
-        <div class="box-body event-box-body">
+        <div class="box-body event-box-body box-body-up-comming collapse">
             @foreach (var upComming in listUpComming)
             {
                 <a class="event-link" href="@Url.Action("Index", "Home", new { id = upComming.EventID })">
@@ -88,18 +88,18 @@
 </div>
 
 <div class="col-md-12">
-    <div class="box box-warning box-happened">
+    <div class="box box-warning box-happened collapsed-box">
         <div class="box-header with-border bg-gray">
             <h3 class="box-title">Đã diễn ra</h3>
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
+                    <i class="fa fa-plus"></i>
                 </button>
             </div>
             <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->
-        <div class="box-body event-box-body">
+        <div class="box-body event-box-body box-body-happened collapse">
             @foreach (var happened in listHappened)
             {
                 <a class="event-link" href="@Url.Action("Index", "Home", new { id = happened.EventID })">
@@ -125,3 +125,12 @@
     </div>
     <!-- /.box -->
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            console.log("AAA");
+            $('#btn-up-comming').click();
+        });
+    </script>
+}
