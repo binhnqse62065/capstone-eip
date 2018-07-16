@@ -26,7 +26,8 @@
             method: "POST",
             data: interactionObject,
             success: function () {
-                $('#tblInteraction').DataTable().ajax.reload();
+                var index = $('#tab-index').val();
+                $('#tblInteraction' + index).DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -36,6 +37,7 @@
 
     $('#btn-add').on('click', function () {
         console.log(urlApi);
+        var sessionId = $('#session-id').val();
         var name = $('#newName').val();
         var selectValue = $('#InteractionSelectBox').find(":selected").val();
         var kindInteractionId = $('#KindOfInteractionSelectBox').find(":selected").val();
@@ -46,11 +48,12 @@
                 data: {
                     InteractionName: name,
                     VotingId: kindInteractionId,
-                    SessionId: 1,
+                    SessionId: sessionId,
                     IsRunning: false
                 },
                 success: function (data) {
-                    $('#tblInteraction').DataTable().ajax.reload();
+                    var index = $('#tab-index').val();
+                    $('#tblInteraction' + index).DataTable().ajax.reload();
                 },
                 error: function (data) {
                     console.log(data);
@@ -63,11 +66,12 @@
                 data: {
                     InteractionName: name,
                     QAId: kindInteractionId,
-                    SessionId: 1,
+                    SessionId: sessionId,
                     IsRunning: false
                 },
                 success: function (data) {
-                    $('#tblInteraction').DataTable().ajax.reload();
+                    var index = $('#tab-index').val();
+                    $('#tblInteraction' + index).DataTable().ajax.reload();
                 },
                 error: function (data) {
                     console.log(data);
@@ -87,7 +91,8 @@
                 InteractionId: id,
             },
             success: function (data) {
-                $('#tblInteraction').DataTable().ajax.reload();
+                var index = $('#tab-index').val();
+                $('#tblInteraction' + index).DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -104,8 +109,9 @@
                 InteractionId: id,
             },
             success: function (data) {
-                $('#tblInteraction').DataTable().ajax.reload();
-                $('#tblInteractionRunning').DataTable().ajax.reload();
+                var index = $('#tab-index').val();
+                $('#tblInteraction' + index).DataTable().ajax.reload();
+                $('#tblInteractionRunning' + index).DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -115,15 +121,18 @@
 
     $('#btn-play').on('click', function () {
         var id = $('#btn-play').val();
+        var sessionId = $('#session-id').val();
         $.ajax({
             url: urlApi + '/api/interaction/PlayInteraction',
             method: "POST",
             data: {
-                InteractionId: id
+                InteractionId: id,
+                SessionId: sessionId,
             },
             success: function (data) {
-                $('#tblInteraction').DataTable().ajax.reload();
-                $('#tblInteractionRunning').DataTable().ajax.reload();
+                var index = $('#tab-index').val();
+                $('#tblInteraction' + index).DataTable().ajax.reload();
+                $('#tblInteractionRunning' + index).DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);

@@ -10,11 +10,10 @@ namespace CapstoneProjectClient.Controllers
     public class SpeakerController : Controller
     {
         // GET: Speaker
-        [Route("Speaker/Index/{eventId}/{sessionId}")]
-        public ActionResult Index(int eventId, int sessionId)
+        [Route("Speaker/Index/{eventId}")]
+        public ActionResult Index(int eventId)
         {
             ViewBag.EventId = eventId;
-            ViewBag.SessionId = sessionId;
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listSpeaker = eventCollectionApi.GetSpeakerByEventId(eventId);
             return View(listSpeaker);

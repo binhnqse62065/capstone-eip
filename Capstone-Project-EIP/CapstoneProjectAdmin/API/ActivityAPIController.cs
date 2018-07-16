@@ -24,9 +24,10 @@ namespace CapstoneProjectAdmin.API
                 ActivityID = a.ActivityID,
                 Name = a.Name,
                 StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy") : "",
-                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy"): "",
+                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy") : "",
                 Description = a.Description,
-                SessionName = a.Session.Name
+                SessionName = a.Session.Name,
+                SpeakerName = a.ActivityItems.FirstOrDefault(e => e.ActivityId == a.ActivityID).CollectionItem.Name
             });
             return listActivity; 
         }

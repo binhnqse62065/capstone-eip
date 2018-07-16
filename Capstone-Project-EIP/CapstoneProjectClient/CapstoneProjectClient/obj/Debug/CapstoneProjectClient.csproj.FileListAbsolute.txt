@@ -130,7 +130,6 @@ E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClie
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Net.Http.Formatting.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Web.Http.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\System.Web.Http.WebHost.dll
-E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\SkyWeb.DatVM.Mvc.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\Autofac.Integration.Mvc.dll
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\HmsService.pdb
 E:\Study\GitClone\Capstone-Project-EIP\CapstoneProjectClient\CapstoneProjectClient\bin\HmsService.dll.config

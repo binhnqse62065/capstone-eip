@@ -74,6 +74,8 @@
                     },
                     success: function (data) {
                         $('#tblSponsor').DataTable().ajax.reload();
+                        swal("Thành công!", "Bạn đã xóa thông tin nhà tài trợ thành công", "success");
+
                     },
                     error: function (data) {
                         console.log(data);

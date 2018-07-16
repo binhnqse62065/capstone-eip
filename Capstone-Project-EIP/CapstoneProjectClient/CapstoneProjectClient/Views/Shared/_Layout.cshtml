@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     var eventId = ViewBag.EventId;
     var sessionId = ViewBag.SessionId;
 }
@@ -60,21 +60,32 @@
             </div>
             <div class="main-menu">
                 <ul id="side-main-menu" class="side-menu list-unstyled">
-                    <li class="active"><a href="@Url.Action("Index", "Home", new { eventId = eventId, sessionId = sessionId })"> <i class="icon-home"></i><span>Home</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Timeline", new { sessionId = sessionId})"><i class="icon-form"></i><span>Timeline</span></a></li>
-                    <li> <a href="@Url.Action("Index", "QA" , new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Q&A</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Voting" , new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Voting</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Livestream</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Speaker", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>Speaker</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Sponsor", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>Sponsor</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>
-                    <li> <a href="@Url.Action("Index", "Login")"> <i class="fa fa-sign-out"></i><span>Logout</span></a></li>
+                    @{
+                        if (sessionId == null)
+                        {
+                            <li class="active"><a href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Trang chủ</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Session", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Vào sự kiện</span></a></li>
+                            @*<li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>*@
+                            <li> <a href="@Url.Action("Index", "Logout")"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
+
+                        }
+                        else
+                        {
+                            <li> <a href="@Url.Action("Index", "Timeline", new { sessionId = sessionId})"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
+                            <li> <a href="@Url.Action("Index", "QA" , new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Voting" , new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
+
+                        }
+                    }
                     @*<li>
-            <a href="#">
-                <i class="icon-mail"></i><span>Demo</span>
-                <div class="badge badge-warning">6 New</div>
-            </a>
-        </li>*@
+                            <a href="#">
+                                <i class="icon-mail"></i><span>Demo</span>
+                                <div class="badge badge-warning">6 New</div>
+                            </a>
+                        </li>*@
                 </ul>
             </div>
             @*<div class="admin-menu">
@@ -108,82 +119,11 @@
     <div class="page home-page">
         <!-- navbar-->
         <header class="header">
-            <nav class="navbar">
+            <nav class="navbar" style="height: 64px;">
                 <div class="container-fluid">
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
-                        <div class="navbar-header">
-                            <a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a>
-                        </div>
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            @*<li class="nav-item dropdown">
-                                    <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
-                                    <ul aria-labelledby="notifications" class="dropdown-menu">
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
-                                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
-                                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item">
-                                                <div class="notification d-flex justify-content-between">
-                                                    <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
-                                                    <div class="notification-time"><small>10 minutes ago</small></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
-                                    <ul aria-labelledby="notifications" class="dropdown-menu">
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                                <div class="msg-profile"> <img src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                                <div class="msg-body">
-                                                    <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                                <div class="msg-profile"> <img src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                                <div class="msg-body">
-                                                    <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                                <div class="msg-profile"> <img src="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
-                                                <div class="msg-body">
-                                                    <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
-                                    </ul>
-                                </li>*@
-                            @*<li class="nav-item"><a href="login.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>*@
+                            <button style="position: fixed;right: 18px;top: 18px;background-color: gray;border: 0;"><a href="/Session/Index/@eventId">Quay về trang lựa chọn</a></button>
                         </ul>
                     </div>
                 </div>
@@ -192,22 +132,6 @@
         <!-- End navbar-->
 
         @RenderBody()
-
-        <!--Footer-->
-        <footer class="main-footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Your company &copy; 2017-2019</p>
-                    </div>
-                    <div class="col-sm-6 text-right">
-                        <p>Design by <a href="https://bootstrapious.com/" class="external">Bootstrapious</a></p>
-                        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!--End Footer-->
     </div>
 
     @Scripts.Render("~/bundles/jquery")

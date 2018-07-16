@@ -15,20 +15,20 @@ namespace CapstoneProjectAdmin.API
     {
         private HmsEntities db = new HmsEntities();
 
-        [Route("getAllInteractionNotRunning")]
+        [Route("getAllInteractionNotRunning/{id}")]
         [HttpGet]
-        public IEnumerable<Interaction> GetAllInteractionNotRunning()
+        public IEnumerable<Interaction> GetAllInteractionNotRunning(int id)
         {
-            var interaction = db.Interactions.Where(s => s.SessionId == 1).ToList();
+            var interaction = db.Interactions.Where(s => s.SessionId == id).ToList();
             var interactionIsNotRunning = interaction.Where(e => e.IsRunning == false).ToList();
             return interactionIsNotRunning;
         }
 
-        [Route("getIsRunningInteraction")]
+        [Route("getIsRunningInteraction/{id}")]
         [HttpGet]
-        public IEnumerable<Interaction> GetIsRunningInteraction()
+        public IEnumerable<Interaction> GetIsRunningInteraction(int id)
         {
-            var interaction = db.Interactions.Where(e => e.SessionId == 1).ToList();
+            var interaction = db.Interactions.Where(e => e.SessionId == id).ToList();
             var interactionIsRunning = interaction.Where(s => s.IsRunning == true).ToList();
             return interactionIsRunning;
         }
@@ -123,7 +123,7 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage PlayInteraction(Interaction interaction)
         {
-            var interactionAll = db.Interactions.Where(e => e.SessionId == 1).ToList();
+            var interactionAll = db.Interactions.Where(e => e.SessionId == interaction.SessionId).ToList();
             var interactionIsRunning = interactionAll.Where(s => s.IsRunning == true).ToList();
             var interactionPlayItem = db.Interactions.Find(interaction.InteractionId);
             foreach (var item in interactionIsRunning)
