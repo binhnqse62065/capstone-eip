@@ -34,6 +34,7 @@ namespace CapstoneProjectClient.API
                 Username = v.Username,
                 CreateTime = v.CreateTime,
                 NumberOfLike = v.NumberOfLike,
+                IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
                 Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
                 {
                     Username = s.Username,
@@ -67,6 +68,7 @@ namespace CapstoneProjectClient.API
                 Username = v.Username,
                 CreateTime = v.CreateTime,
                 NumberOfLike = v.NumberOfLike,
+                IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
                 Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
                 {
                     Username = s.Username,

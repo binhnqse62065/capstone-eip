@@ -1,11 +1,12 @@
 ﻿.btn-lastest-question {
-    margin-right:10px;
+    margin-right: 10px;
 }
 
 .list-qa {
-    width:100%;
-    margin-bottom:20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
+
 .list-answer {
     height: unset;
     /*background-color: wheat;*/
@@ -20,19 +21,29 @@
 }
 
 .like-rep {
-    color:unset;
+    color: unset;
 }
 
 .btn-reply {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .error-qa-title {
-    font-weight:bold;
-    margin-top:20px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 .btn-post-question {
     margin-bottom: 20px;
     margin-top: 20px;
+}
+
+.icon-answer-template {
+    display: none;
+}
+
+.icon-answer i {
+    float: right;
+    font-size: 27px;
+    color: dodgerblue;
 }
