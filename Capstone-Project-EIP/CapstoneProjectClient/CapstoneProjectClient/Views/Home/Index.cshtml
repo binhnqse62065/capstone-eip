@@ -19,25 +19,25 @@
             <div class="description p-10">
                 <h4 class="section-title">Thông tin sự kiện</h4>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6  custom-col">
                         <div class="row">
-                            <div class="col-sm-4 name-title">Event Name</div>
-                            <div class="col-sm-8 evtinfo">@Html.Raw(Model.Name)</div>
+                            <div class="col-sm-4 name-title custom-col">Tên sự kiện: &nbsp;</div>
+                            <div class="col-sm-8 evtinfo custom-col"> @Html.Raw(Model.Name)</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4 name-title">Time</div>
-                            <div class="col-sm-8 evtinfo">@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
+                            <div class="col-sm-4 name-title custom-col">Thời gian: &nbsp;</div>
+                            <div class="col-sm-8 evtinfo custom-col"> @Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4 name-title">Address</div>
-                            <div class="col-sm-8 evtinfo">@Html.Raw(Model.Address)</div>
+                            <div class="col-sm-4 name-title custom-col">Địa điểm: &nbsp;</div>
+                            <div class="col-sm-8 evtinfo custom-col"> @Html.Raw(Model.Address)</div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4 name-title">Description</div>
-                            <div class="col-sm-8 evtinfo">@Html.Raw(Model.EventDescription)</div>
+                            <div class="col-sm-4 name-title custom-col">Mô tả: &nbsp;</div>
+                            <div class="col-sm-8 evtinfo custom-col">@Html.Raw(Model.EventDescription)</div>
                         </div>
                     </div>
                 </div>
