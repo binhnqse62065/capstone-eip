@@ -73,9 +73,9 @@
                         }
                         else
                         {
-                            <li> <a href="@Url.Action("Index", "Timeline", new { sessionId = sessionId})"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
-                            <li> <a href="@Url.Action("Index", "QA" , new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
-                            <li> <a href="@Url.Action("Index", "Voting" , new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Timeline", new { sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
+                            <li> <a href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
                             <li> <a href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
 
                         }
@@ -123,7 +123,12 @@
                 <div class="container-fluid">
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            <button style="position: fixed;right: 18px;top: 18px;background-color: gray;border: 0;"><a href="/Session/Index/@eventId">Quay về trang lựa chọn</a></button>
+                            @{
+                                if (sessionId != null)
+                                {
+                                    <button style="position: fixed;right: 18px;top: 18px;background-color: gray;border: 0;"><a href="/Session/Index/@eventId">Quay về trang lựa chọn</a></button>
+                                }
+                            }
                         </ul>
                     </div>
                 </div>
