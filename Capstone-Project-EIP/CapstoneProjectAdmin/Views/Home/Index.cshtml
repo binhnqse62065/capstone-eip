@@ -32,14 +32,14 @@
                 <div class="col-sm-4 name-title">
                     <label>Thời Gian Bắt Đầu</label>
                 </div>
-                <div class="col-sm-8 evtinfo home-page-start-time">@Html.Raw(Model.StartTime)</div>
+                <div class="col-sm-8 evtinfo home-page-start-time">@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy"))</div>
             </div>
 
             <div class="row">
                 <div class="col-sm-4 name-title">
                     <label>Thời Gian Kết Thúc</label>
                 </div>
-                <div class="col-sm-8 evtinfo home-page-end-time">@Html.Raw(Model.EndTime)</div>
+                <div class="col-sm-8 evtinfo home-page-end-time">@Html.Raw(Model.EndTime.Value.ToString("dd/MM/yyyy"))</div>
             </div>
 
             <div class="row">

@@ -17,5 +17,14 @@ namespace HmsService.Sdk
         {
             return this.BaseService.GetQAById(id);
         }
+
+        public IEnumerable<QAViewModel> GetQAByEventId(int eventId)
+        {
+            return this.BaseService.Get(q => q.EventId == eventId).Select(q => new QAViewModel {
+                QAId = q.QAId,
+                QAName = q.QAName,
+                EventId = q.EventId
+            });
+        }
     }
 }

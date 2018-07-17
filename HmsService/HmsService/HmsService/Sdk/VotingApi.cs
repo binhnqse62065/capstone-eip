@@ -108,5 +108,14 @@ namespace HmsService.Sdk
         {
             return this.BaseService.GetVotingByEventId(eventId);
         }
+
+        public IEnumerable<VotingViewModel> GetVotingViewModelByEventId(int eventId)
+        {
+            return this.BaseService.GetVotingByEventId(eventId).Select(v => new VotingViewModel {
+                VotingId = v.VotingId,
+                VotingName = v.VotingName,
+                EventId = v.EventId
+            });
+        }
     }
 }

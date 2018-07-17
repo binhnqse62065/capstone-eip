@@ -24,10 +24,10 @@ namespace CapstoneProjectAdmin.API
             {
                 TimelineId = a.TimelineId,
                 TimelineTitle = a.TimelineTitle,
-                StartTime = a.StartTime != null ? a.StartTime.ToString() : "",
+                StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy hh:mm:ss tt") : "",
                 TimelineDetail = a.TimelineDetail,
                 SessionId = a.SessionId
-            });
+            }).OrderByDescending(t => t.StartTime);
             return listTimeline;
         }
 

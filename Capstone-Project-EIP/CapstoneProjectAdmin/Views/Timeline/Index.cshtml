@@ -23,7 +23,7 @@
             <div class="row">
                 <h2 class="col-sm-10">Dòng Thời Gian</h2>
                 <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px" @(Model.Count() == 0 ? "disabled" : "")>
+                    <button id="btn-open-modal-add" class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px" @(Model.Count() == 0 ? "disabled" : "")>
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
@@ -56,6 +56,13 @@
                                     <i class="fa fa-info" aria-hidden="true"></i>
                                 </div>
                                 <input type="text" class="form-control" id="addTimelineDetail" placeholder="Nhập chi tiết dòng thời gian">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 form-control-label">Loại hoạt động:</label>
+                            <div class="col-sm-9 input-group">
+                                <select class="form-control" id="cb-interaction">
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -205,6 +212,34 @@
                     }
                 });
             });
+
+
+            //Open modal add
+            $('#btn-open-modal-add').on('click', function () {
+                var sessionId = $('#session-id').val();
+                $.ajax({
+                    url: urlApi + 'api/interaction/GetAllInteractionBySessionId/' + sessionId,
+                    method: "GET",
+                    success: function (data) {
+                        console.log(data[0]);
+                        $('#cb-interaction').empty();
+                        $('#cb-interaction').append('<option>---Chọn---</option>');
+                        for (var i = 0; i < data.length; i++) {
+                            $('#cb-interaction').append('<option value="' + data[i].interactionId + '">' + data[i].interactionName +'</option>');
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        swal("Lỗi", "Có gì đó không đúng", "error");
+                    }
+                });
+            });
+
+
+            //Onchange select interaction
+            $('#cb-interaction').on('change', function () {
+                $('#addTitle').val($('#cb-interaction option:selected').text());
+            });
         });
 
         function deleteTimeline(id) {
@@ -259,6 +294,7 @@
                     {
                         name: "Title",
                         render: function (data, type, row) {
+                            console.log(row);
                             return row.timelineTitle;
                         }
                     },
@@ -274,7 +310,8 @@
                         render: function (data, type, row) {
                             if (row.startTime.length > 0)
                             {
-                                return row.startTime.split(' ')[1].split(':')[0] + ':' + row.startTime.split(' ')[1].split(':')[1];
+                                return row.startTime;
+                                //return row.startTime.split(' ')[1].split(':')[0] + ':' + row.startTime.split(' ')[1].split(':')[1];
                             }
                             else
                             {
@@ -298,6 +335,7 @@
             $('#session-id').val(sessionId);
 
         }
+
 </script>
 }
 
