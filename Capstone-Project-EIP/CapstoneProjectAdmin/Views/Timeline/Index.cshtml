@@ -9,7 +9,7 @@
     {
         listSessionsId[i] = Model.ElementAt(i).SessionID;
     }
-    if(Model.Count() > 0)
+    if (Model.Count() > 0)
     {
         sessionId = Model.FirstOrDefault().SessionID;
     }
@@ -23,7 +23,7 @@
             <div class="row">
                 <h2 class="col-sm-10">Dòng Thời Gian</h2>
                 <div class="col-sm-2">
-                    <button id="btn-open-modal-add" class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px" @(Model.Count() == 0 ? "disabled" : "")>
+                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px" @(Model.Count() == 0 ? "disabled" : "")>
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
@@ -40,31 +40,32 @@
                         <h4 class="modal-title">Thêm Dòng Thời Gian</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Tiêu Đề:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        <form>
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Tiêu Đề:</label>
+                                <div class="col-sm-9 input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                    </div>
+                                    <input type="text" class="form-control" id="addTitle" placeholder="Nhập tiêu đề dòng thời gian">
                                 </div>
-                                <input type="text" class="form-control" id="addTitle" placeholder="Nhập tiêu đề dòng thời gian">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Chi Tiết:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-info" aria-hidden="true"></i>
+                                <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" style="margin-bottom:10px">
+                                    <p style="color:red">Vui lòng nhập tiêu đề</p>
                                 </div>
-                                <input type="text" class="form-control" id="addTimelineDetail" placeholder="Nhập chi tiết dòng thời gian">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Loại hoạt động:</label>
-                            <div class="col-sm-9 input-group">
-                                <select class="form-control" id="cb-interaction">
-                                </select>
+                            <div class="form-group">
+                                <label class="col-sm-3 form-control-label">Chi Tiết:</label>
+                                <div class="col-sm-9 input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-info" aria-hidden="true"></i>
+                                    </div>
+                                    <input type="text" class="form-control" id="addTimelineDetail" placeholder="Nhập chi tiết dòng thời gian">
+                                </div>
+                                <div class="div-tldetail-error empty col-lg-offset-3 col-lg-9 div-name-error" style="margin-bottom:10px">
+                                    <p style="color:red">Vui lòng nhập chi tiết</p>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="addTimeline" class="btn btn-primary" style="margin-top:5px" data-dismiss="modal">Thêm</button>
@@ -104,7 +105,7 @@
                 </div>
                 <!-- /.tab-content -->
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -154,9 +155,9 @@
 <input type="hidden" id="session-id" value="@(sessionId)" />
 
 @section scripts{
-<script>
+    <script>
         var urlApi = '@path';
-        
+
         $(document).ready(function () {
             var listSessions = @Html.Raw(Json.Encode(listSessionsId));
             if (listSessions.length > 0)
@@ -171,26 +172,44 @@
 
             //Add timeline
             $('#addTimeline').on('click', function () {
-
-                var dt = new Date($.now());
-                var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-                $.ajax({
-                    url: urlApi + 'api/timeline/addTimeline',
-                    method: 'POST',
-                    data: {
-                        SessionId: $('#session-id').val(),
-                        TimelineTitle: $('#addTitle').val(),
-                        TimelineDetail: $('#addTimelineDetail').val(),
-                        StartTime: time,
-                    },
-                    success: function (data) {
-                        reloadTable();
-                        swal("Thành Công!", "Dòng thời gian đã được thêm thành công", "success");
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                $('.div-title-error').css('display', 'none');
+                $('.div-tldetail-error').css('display', 'none');
+                var isValid = true;
+                var title = $('#addTitle').val();
+                if (title.trim().length == 0) {
+                    $('.div-title-error').css('display', 'block');
+                    $('#addTimeline').attr('data-dismiss', null);
+                    isValid = false;
+                } if ($('#addTimelineDetail').val().trim().length == 0) {
+                    $('.div-tldetail-error').css('display', 'block');
+                    $('#addTimeline').attr('data-dismiss', null);
+                    isValid = false
+                }
+                if (isValid) {
+                    $('#addTimeline').attr('data-dismiss', 'modal');
+                    $('.div-title-error').attr('display', 'none');
+                    $('.div-tldetail-error').css('display', 'none');
+                    var dt = new Date($.now());
+                    var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                    $.ajax({
+                        url: urlApi + 'api/timeline/addTimeline',
+                        method: 'POST',
+                        data: {
+                            SessionId: $('#session-id').val(),
+                            TimelineTitle: $('#addTitle').val(),
+                            TimelineDetail: $('#addTimelineDetail').val(),
+                            StartTime: time,
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Thành Công!", "Dòng thời gian đã được thêm thành công", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                }
+                
             });
 
             //Save update timeline
@@ -211,34 +230,6 @@
                         console.log(data);
                     }
                 });
-            });
-
-
-            //Open modal add
-            $('#btn-open-modal-add').on('click', function () {
-                var sessionId = $('#session-id').val();
-                $.ajax({
-                    url: urlApi + 'api/interaction/GetAllInteractionBySessionId/' + sessionId,
-                    method: "GET",
-                    success: function (data) {
-                        console.log(data[0]);
-                        $('#cb-interaction').empty();
-                        $('#cb-interaction').append('<option>---Chọn---</option>');
-                        for (var i = 0; i < data.length; i++) {
-                            $('#cb-interaction').append('<option value="' + data[i].interactionId + '">' + data[i].interactionName +'</option>');
-                        }
-                    },
-                    error: function (data) {
-                        console.log(data);
-                        swal("Lỗi", "Có gì đó không đúng", "error");
-                    }
-                });
-            });
-
-
-            //Onchange select interaction
-            $('#cb-interaction').on('change', function () {
-                $('#addTitle').val($('#cb-interaction option:selected').text());
             });
         });
 
@@ -294,7 +285,6 @@
                     {
                         name: "Title",
                         render: function (data, type, row) {
-                            console.log(row);
                             return row.timelineTitle;
                         }
                     },
@@ -310,8 +300,8 @@
                         render: function (data, type, row) {
                             if (row.startTime.length > 0)
                             {
-                                return row.startTime;
                                 //return row.startTime.split(' ')[1].split(':')[0] + ':' + row.startTime.split(' ')[1].split(':')[1];
+                                return row.startTime;
                             }
                             else
                             {
@@ -335,7 +325,6 @@
             $('#session-id').val(sessionId);
 
         }
-
-</script>
+    </script>
 }
 
