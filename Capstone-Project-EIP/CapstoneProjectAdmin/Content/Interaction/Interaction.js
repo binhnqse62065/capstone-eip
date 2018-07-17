@@ -20,13 +20,14 @@
             interactionObject.votingId = null
 
         }
-        console.log(interactionObject);
+
         $.ajax({
             url: urlApi + '/api/interaction/UpdateInteractionData',
             method: "POST",
             data: interactionObject,
             success: function () {
                 var index = $('#tab-index').val();
+                swal("Thành công!", "Cập nhật tương tác thành công", "success");
                 $('#tblInteraction' + index).DataTable().ajax.reload();
             },
             error: function (data) {
@@ -36,7 +37,7 @@
     });
 
     $('#btn-add').on('click', function () {
-        console.log(urlApi);
+
         var sessionId = $('#session-id').val();
         var name = $('#newName').val();
         var selectValue = $('#InteractionSelectBox').find(":selected").val();
@@ -54,6 +55,7 @@
                 success: function (data) {
                     var index = $('#tab-index').val();
                     $('#tblInteraction' + index).DataTable().ajax.reload();
+                    swal("Thành công!", "Thêm mới tương tác thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);
@@ -72,6 +74,7 @@
                 success: function (data) {
                     var index = $('#tab-index').val();
                     $('#tblInteraction' + index).DataTable().ajax.reload();
+                    swal("Thành công!", "Thêm mới tương tác thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);
@@ -83,21 +86,34 @@
     });
 
     $('#btn-del').on('click', function () {
-        var id = $('#btn-del').val();
-        $.ajax({
-            url: urlApi + '/api/interaction/DeleteInteraction',
-            method: "POST",
-            data: {
-                InteractionId: id,
-            },
-            success: function (data) {
-                var index = $('#tab-index').val();
-                $('#tblInteraction' + index).DataTable().ajax.reload();
-            },
-            error: function (data) {
-                console.log(data);
-            }
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false
+        }, function () {
+            var id = $('#btn-del').val();
+            $.ajax({
+                url: urlApi + '/api/interaction/DeleteInteraction',
+                method: "POST",
+                data: {
+                    InteractionId: id,
+                },
+                success: function (data) {
+                    var index = $('#tab-index').val();
+                    $('#tblInteraction' + index).DataTable().ajax.reload();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
         });
+
     });
 
     $('#btn-stop').on('click', function () {
@@ -119,25 +135,5 @@
         });
     });
 
-    $('#btn-play').on('click', function () {
-        var id = $('#btn-play').val();
-        var sessionId = $('#session-id').val();
-        $.ajax({
-            url: urlApi + '/api/interaction/PlayInteraction',
-            method: "POST",
-            data: {
-                InteractionId: id,
-                SessionId: sessionId,
-            },
-            success: function (data) {
-                var index = $('#tab-index').val();
-                $('#tblInteraction' + index).DataTable().ajax.reload();
-                $('#tblInteractionRunning' + index).DataTable().ajax.reload();
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    });
-
 });
+

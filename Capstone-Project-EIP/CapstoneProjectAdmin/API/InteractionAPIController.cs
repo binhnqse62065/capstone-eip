@@ -33,6 +33,14 @@ namespace CapstoneProjectAdmin.API
             return interactionIsRunning;
         }
 
+
+        [Route("GetAllInteractionBySessionId/{id}")]
+        [HttpGet]
+        public IEnumerable<Interaction> GetAllInteractionBySessionId(int id)
+        {
+            var interaction = db.Interactions.Where(e => e.SessionId == id).ToList();
+            return interaction;
+        }
         [Route("UpdateInteractionData")]
         [HttpPost]
         public HttpResponseMessage UpdateInteractionData(Interaction interaction)

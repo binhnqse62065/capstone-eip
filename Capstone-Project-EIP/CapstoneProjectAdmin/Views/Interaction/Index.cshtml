@@ -1,18 +1,25 @@
 ﻿@{
     ViewBag.Title = "Index";
-}
-@using HmsService.Models.Entities;
-@model Event
-
-@{
     int sessionId = 1;
-    var listSession = Model.Sessions;
+    //var listSession = Model.Sessions;
     //sessionId = Model.Sessions.FirstOrDefault().SessionID;
-    var votingItemList = Model.Votings;
-    var qaItemList = Model.QAs;
+    //var votingItemList = Model.Votings;
+    //var qaItemList = Model.QAs;
+    int[] listSessionsId = new int[Model.Count()];
+    for (int index = 0; index < Model.Count(); index++)
+    {
+        listSessionsId[index] = Model.ElementAt(index).SessionID;
+    }
     int eventId = ViewBag.EventId;
     string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+
+    var listQa = ViewBag.ListQA;
+    var listVoting = ViewBag.ListVoting;
+
+
 }
+@using HmsService.ViewModels;
+@model IEnumerable<SessionViewModel>
 <div class="container">
     <div class="ibox float-e-margins">
         <div class="ibox-title">
@@ -93,7 +100,7 @@
                 <ul class="nav nav-tabs">
                     @{
                         int i = 0;
-                        foreach (var item in listSession)
+                        foreach (var item in Model)
                         {
                             <li class="@(i == 0 ? "active" : "")" onclick="InitDatatable(@(i), @item.SessionID); ChangeTabIndex(@(i), @item.SessionID)"><a href="#tab_@(i)" data-toggle="tab">@Html.Raw(item.Name)</a></li>
                             i++;
@@ -102,25 +109,26 @@
                 </ul>
             </div>
             <!--Tab content-->
-            <div class="tab-content">
+            <div class="tab-content" style="display:flex;">
                 @{
                     int j = 0;
-                    foreach (var item in listSession)
+                    foreach (var item in Model)
                     {
-                        <div class="tab-pane @(j == 0 ? "active" : "")" id="tab_@(j)">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Available</div>
+                        <div class="tab-pane @(j == 0 ? "active" : "")" id="tab_@(j)" style="width:100%;">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Hiện có</div>
                                 <table class="table table-hover table-bordered" id="tblInteraction@(j)">
                                     <thead>
                                         <tr>
                                             <th>Tên</th>
+                                            <th>Tên loại khảo sát/ hỏi đáp</th>
                                             <th>Loại</th>
                                             <th>Chức Năng</th>
                                         </tr>
                                     </thead>
                                 </table>
                             </div>
-                            <div class="col-sm-6 col-md-6">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
                                 <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Đang Chạy</div>
                                 <table class="table table-hover table-bordered" id="tblInteractionRunning@(j)">
                                     <thead>
@@ -154,7 +162,7 @@
                     <h3 class="interaction-del-title"></h3>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn-del" type="button" class="btn btn-default interaction-del-id" data-dismiss="modal">Xóa</button>
+                    <button id="btn-del" type="button" class="btn btn-default interaction-del-id" @*data-dismiss="modal"*@>Xóa</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                 </div>
             </div>
@@ -273,24 +281,22 @@
     <script>
         var urlApi = '@curPath';
         var eventId = @eventId;
+        var listQA = @Html.Raw(Json.Encode(listQa));
+        var listVoting = @Html.Raw(Json.Encode(listVoting));
 
-    function editInteractionModal(id, name, votingId, qaId) {
-        $('.interaction-name').val(name);
-        if (votingId != 'null') {
-            $('#InteractionEditSelectBox option[value="1"]').attr("selected", "selected");
-            $('#KindOfInteractionEditSelectBox').empty();
-            $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
-            $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in votingItemList){<option value='@item.VotingId'>@item.VotingName</option>}}");
-            $('#KindOfInteractionEditSelectBox option[value="' + votingId + '"]').attr("selected", "selected");
-        }
-        else if (qaId != 'null') {
-            $('#InteractionEditSelectBox option[value="2"]').attr("selected", "selected");
-            $('#KindOfInteractionEditSelectBox').empty();
-            $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
-            $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in qaItemList){<option value='@item.QAId'>@item.QAName</option>}}");
-            $('#KindOfInteractionEditSelectBox option[value="' + qaId + '"]').attr("selected", "selected");
-        }
-        $('.interaction-id').val(id);
+        function editInteractionModal(id, name, votingId, qaId) {
+            $('.interaction-name').val(name);
+            if (votingId != 'null') {
+                InitVotingSelectBoxInModalUpdate();
+                $('#InteractionEditSelectBox').val(1);
+                $('#KindOfInteractionEditSelectBox').val(votingId);
+            }
+            else if (qaId != 'null') {
+                InitQASelectBoxInModalUpdate();
+                $('#InteractionEditSelectBox').val(2);
+                $('#KindOfInteractionEditSelectBox').val(qaId);
+            }
+            $('.interaction-id').val(id);
 
         }
 
@@ -303,35 +309,43 @@
 
         function delInteraction(id, name) {
             $('.interaction-del-id').val(id);
-            $('.interaction-del-title').html("Delete Interaction " + name);
+            //$('.interaction-del-title').html("Delete Interaction " + name);
         }
 
 
         function playInteraction(id, name) {
             $('.interaction-play-id').val(id);
-            $('.interaction-play-title').html("Play Interaction " + name);
         }
 
 
         $(document).ready(function () {
-            @*var listSessions = @Html.Raw(Json.Encode(listSession))
+            var listSessions = @Html.Raw(Json.Encode(listSessionsId));
             if (listSessions != null) {
                 InitDatatable(0, listSessions[0]);
             }
             else {
                 InitDatatable(0, 0);
-            }*@
+            }
+
+
+
+
 
             $('#InteractionEditSelectBox').on('click', function () {
                 var SelectValue = $('#InteractionEditSelectBox').find(":selected").val();
                 if (SelectValue == 1) {
                     $('#KindOfInteractionEditSelectBox').empty();
                     $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
-                    $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in votingItemList){<option value='@item.VotingId'>@item.VotingName</option>}}");
+                    for (var i = 0; i < listVoting.length; i++) {
+                        $('#KindOfInteractionEditSelectBox').append('<option value="' + listVoting[i].VotingId + '">' + listVoting[i].VotingName +'</option>');
+                    }
+
                 } else if (SelectValue == 2) {
                     $('#KindOfInteractionEditSelectBox').empty();
                     $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
-                    $('#KindOfInteractionEditSelectBox').append("@{foreach (var item in qaItemList){<option value='@item.QAId'>@item.QAName</option>}}");
+                    for (var i = 0; i < listQA.length; i++) {
+                        $('#KindOfInteractionEditSelectBox').append('<option value="' + listQA[i].QAId + '">' + listQA[i].QAName +'</option>');
+                    }
                 } else {
                     $('#KindOfInteractionEditSelectBox').empty();
                     $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
@@ -343,18 +357,21 @@
                 if (SelectValue == 1) {
                     $('#KindOfInteractionSelectBox').empty();
                     $('#KindOfInteractionSelectBox').append("<option>---Choose---</option>");
-                    $('#KindOfInteractionSelectBox').append("@{foreach (var item in votingItemList){<option value='@item.VotingId'>@item.VotingName</option>}}");
+                    for (var i = 0; i < listVoting.length; i++) {
+                        $('#KindOfInteractionSelectBox').append('<option value="' + listVoting[i].VotingId + '">' + listVoting[i].VotingName +'</option>');
+                    }
+
                 } else if (SelectValue == 2) {
                     $('#KindOfInteractionSelectBox').empty();
                     $('#KindOfInteractionSelectBox').append("<option>---Choose---</option>");
-                    $('#KindOfInteractionSelectBox').append("@{foreach (var item in qaItemList){<option value='@item.QAId'>@item.QAName</option>}}");
+                    for (var i = 0; i < listQA.length; i++) {
+                        $('#KindOfInteractionSelectBox').append('<option value="' + listQA[i].QAId + '">' + listQA[i].QAName +'</option>');
+                    }
                 } else {
                     $('#KindOfInteractionSelectBox').empty();
                     $('#KindOfInteractionSelectBox').append("<option>---Choose---</option>");
                 }
             });
-
-            
 
         });
 
@@ -363,14 +380,26 @@
             $('#tblInteraction' + index).DataTable({
                 ajax: {
                     url: urlApi + "/api/interaction/getAllInteractionNotRunning/" + sessionId,
-                    dataSrc: "",
-                    "bDestroy": true,
+                    dataSrc: ""
                 },
+                "bDestroy": true,
                 columns: [
                     {
                         name: "Name",
                         render: function (data, type, row) {
                             return row.interactionName;
+                        }
+                    },
+                    {
+                        name: "NameOfInteraction",
+                        render: function (data, type, row) {
+                            if (row.voting != null) {
+                                return row.voting.votingName;
+                            }
+                            else {
+                                return row.qa.qaName;
+                            }
+                            
                         }
                     },
                     {
@@ -387,8 +416,8 @@
                         name: "Function",
                         render: function (data, type, row) {
                             return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editInteractionModal" onclick="editInteractionModal(' + row.interactionId + ',\'' + row.interactionName + '\', \'' + row.votingId + '\', \'' + row.qaId + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm speaker-id" data-toggle="modal" data-target="#deleteModal" onclick="delInteraction(' + row.interactionId + ',\'' + row.interactionName + '\')"><i class="fa fa-trash"></i></button>       ' +
-                                '<button class="btn btn-success btn-sm speaker-id" data-toggle="modal" data-target="#playModal" onclick="playInteraction(' + row.interactionId + ',\'' + row.interactionName + '\')"><i class="fa fa-play" aria-hidden="true"></i></button>';
+                                '<button class="btn btn-danger btn-sm speaker-id" onclick="delInteraction(' + row.interactionId + ')"><i class="fa fa-trash"></i></button>       ' +
+                                '<button class="btn btn-success btn-sm speaker-id" onclick="playInteraction(' + row.interactionId + ')"><i class="fa fa-play" aria-hidden="true"></i></button>';
                         }
                     }
                 ]
@@ -397,9 +426,9 @@
             $('#tblInteractionRunning' + index).DataTable({
                 ajax: {
                     url: urlApi + "/api/interaction/getIsRunningInteraction/" + sessionId,
-                    dataSrc: "",
-                    "bDestroy": true,
+                    dataSrc: ""
                 },
+                "bDestroy": true,
                 columns: [
                     {
                         name: "Name",
@@ -420,7 +449,7 @@
                     {
                         name: "Function",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#stopModal" onclick="stopInteraction(' + row.interactionId + ',\'' + row.interactionName + '\')"><i class="fa fa-stop" aria-hidden="true"></i></button>';
+                            return '<button class="btn btn-danger btn-sm" onclick="stopInteraction(' + row.interactionId + ')"><i class="fa fa-stop" aria-hidden="true"></i></button>';
                         }
                     }
                 ]
@@ -433,6 +462,94 @@
             $('#session-id').val(sessionId);
 
         }
+
+        function InitQASelectBoxInModalUpdate() {
+            $('#KindOfInteractionEditSelectBox').empty();
+            $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+            for (var i = 0; i < listQA.length; i++) {
+                $('#KindOfInteractionEditSelectBox').append('<option value="' + listQA[i].QAId + '">' + listQA[i].QAName + '</option>');
+            }
+        }
+
+        function InitVotingSelectBoxInModalUpdate() {
+            $('#KindOfInteractionEditSelectBox').empty();
+            $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+            for (var i = 0; i < listVoting.length; i++) {
+                $('#KindOfInteractionEditSelectBox').append('<option value="' + listVoting[i].VotingId + '">' + listVoting[i].VotingName + '</option>');
+            }
+        }
+
+        function delInteraction(interactionId) {
+            swal({
+                title: "Bạn có chắc không?",
+                text: "Bạn muốn xóa tương tác này!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Có!",
+                cancelButtonText: "Không!",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    url: urlApi + '/api/interaction/DeleteInteraction',
+                    method: "POST",
+                    data: {
+                        InteractionId: interactionId,
+                    },
+                    success: function (data) {
+                        var index = $('#tab-index').val();
+                        $('#tblInteraction' + index).DataTable().ajax.reload();
+                        swal("Thành công!", "Xóa tương tác thành công", "success");
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+
+            });
+        }
+
+
+        function playInteraction(interactionId) {
+            var sessionId = $('#session-id').val();
+            $.ajax({
+                url: urlApi + '/api/interaction/PlayInteraction',
+                method: "POST",
+                data: {
+                    InteractionId: interactionId,
+                    SessionId: sessionId,
+                },
+                success: function (data) {
+                    var index = $('#tab-index').val();
+                    $('#tblInteraction' + index).DataTable().ajax.reload();
+                    $('#tblInteractionRunning' + index).DataTable().ajax.reload();
+                    swal("Thành công!", "Tiến hành chạy tương tác thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function stopInteraction(interactionId) {
+            $.ajax({
+                url: urlApi + '/api/interaction/StopInteraction',
+                method: "POST",
+                data: {
+                    InteractionId: interactionId,
+                },
+                success: function (data) {
+                    var index = $('#tab-index').val();
+                    $('#tblInteraction' + index).DataTable().ajax.reload();
+                    $('#tblInteractionRunning' + index).DataTable().ajax.reload();
+                    swal("Thành công!", "Tắt chạy tương tác thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
     </script>
 }
 <script src="~/Content/Interaction/Interaction.js"></script>

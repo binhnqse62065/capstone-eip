@@ -18,9 +18,16 @@ namespace CapstoneProjectAdmin.Controllers
             var listVoting = votingApi.GetVotingByEventId(id);
             ViewBag.EventId = id;
             return View(listVoting);*/
-            HmsEntities db = new HmsEntities();
             ViewBag.EventId = id;
-            return View(db.Events.Find(id));
+            SessionApi sessionApi = new SessionApi();
+            QAApi qAApi = new QAApi();
+            VotingApi votingApi = new VotingApi();
+            var listSession = sessionApi.GetSessionsByEventId(id);
+            var listQa = qAApi.GetQAByEventId(id).ToList();
+            var listVoting = votingApi.GetVotingViewModelByEventId(id).ToList();
+            ViewBag.ListQA = listQa;
+            ViewBag.ListVoting = listVoting;
+            return View(listSession);
         }
     }
 }
