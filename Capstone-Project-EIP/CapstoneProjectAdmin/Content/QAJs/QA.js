@@ -37,24 +37,31 @@
         });
     });
 
-    $('#btn-add').on('click', function () {
+    $('#btn-add').on('click', function (e) {
         var name = $('#newName').val();
-        console.log(name);
-        $.ajax({
-            url: urlApi + '/api/QA/AddQA',
-            method: "POST",
-            data: {
-                QAName: name,
-                EventId: 1,
-            },
-            success: function (data) {
-                console.log('Success');
-                $('#tblQA').DataTable().ajax.reload();
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+        if ($('#newName').val().length == 0) {
+            $('#emptyWarning').css('display', 'block');
+            $('#btn-add').attr('data-dismiss',null);
+        } else {
+            $('#btn-add').attr('data-dismiss', 'modal');
+            $('#emptyWarning').css('display', 'none');
+            console.log(name);
+            $.ajax({
+                url: urlApi + '/api/QA/AddQA',
+                method: "POST",
+                data: {
+                    QAName: name,
+                    EventId: 1,
+                },
+                success: function (data) {
+                    console.log('Success');
+                    $('#tblQA').DataTable().ajax.reload();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
     });
 
     $('#btn-del').on('click', function () {
