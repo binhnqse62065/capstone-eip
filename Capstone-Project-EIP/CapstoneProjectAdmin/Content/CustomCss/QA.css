@@ -26,3 +26,8 @@
 .btn-reply {
     cursor:pointer;
 }
+
+.div-name-error {
+    padding-left:unset !important;
+    /*display:none;*/
+}

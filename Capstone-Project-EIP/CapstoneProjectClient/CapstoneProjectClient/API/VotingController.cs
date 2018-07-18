@@ -23,9 +23,12 @@ namespace CapstoneProjectClient.API
             var votingOption = db.VotingOptions.Find(option.VotingOptionId);
             //var votingOption = db.VotingOptions.Find(requestObj.SelectToken("votingOptionId").ToObject<Int32>());
             votingOption.NumberOfVoting += 1;
+            db.SaveChanges();
+
+
             VotingOptionApi votingOptionApi = new VotingOptionApi();
             List<double> listPercentOption = votingOptionApi.GetNewResultVoting(option.VotingId);
-            db.SaveChanges();
+            
             
             return new HttpResponseMessage()
             {

@@ -21,18 +21,29 @@
         <div class="col-md-12 col-xs-12">
             <div class="row">
                 <button type="button" class="btn btn-default btn-sm btn-lastest-question" style="background-color:darkgray;" onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</button> &nbsp;
-                <button type="button" class="btn btn-default btn-sm btn-hotest-question"  onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</button>
+                <button type="button" class="btn btn-default btn-sm btn-hotest-question" onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</button>
             </div>
         </div>
         <div class="col-md-12 col-xs-12">
             <div class="row qa-container" id="qa-container">
                 @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
                 {
+
                     <div class="card list-qa" id="list-qa-@(item.QuestionId)">
+
+                        @if (item.IsAnswer != null)
+                        {
+                            if (item.IsAnswer == true)
+                            {
+                                <div class="icon-answer">
+                                    <i class="fa fa-check-circle " aria-hidden="true"></i>
+                                </div>
+                            }
+                        }
                         <div class="card main-qa">
                             <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
                             <p class="like-rep">
-                                <button class="btn btn-primary btn-sm"><i  id="btn-like-question-@(item.QuestionId)" class="fa fa-thumbs-o-up  btn-like-question" aria-hidden="true" value="@(item.QuestionId)"> @(item.NumberOfLike)</i></button>
+                                <button class="btn btn-primary btn-sm"><i id="btn-like-question-@(item.QuestionId)" class="fa fa-thumbs-o-up  btn-like-question" aria-hidden="true" value="@(item.QuestionId)"> @(item.NumberOfLike)</i></button>
                                 <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>
                             </p>
                             <span class="create-time">@(item.CreateTime)</span>
@@ -45,7 +56,7 @@
                                 <span id="username-reply">@(subItem.Username): </span>
                                 <span id="reply-content">@(subItem.CommentContent)</span>
                                 <p class="like-rep">
-                                    <button class="btn btn-primary btn-sm"><i id="btn-like-reply-@(subItem.CommentId)" class="fa fa-thumbs-o-up  btn-like-reply" aria-hidden="true"  value="@(subItem.CommentId)"> @(subItem.NumberOfLike)</i></button>
+                                    <button class="btn btn-primary btn-sm"><i id="btn-like-reply-@(subItem.CommentId)" class="fa fa-thumbs-o-up  btn-like-reply" aria-hidden="true" value="@(subItem.CommentId)"> @(subItem.NumberOfLike)</i></button>
                                     @*<button value="@(item.QuestionId)" id="btn-reply-@(subItem.CommentId)" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>*@
                                 </p>
                                 @{
@@ -68,6 +79,9 @@
 <!--Template list QA-->
 <div style="display:none;" id="list-qa">
     <div class="card list-qa">
+        <div class="icon-answer icon-answer-template">
+            <i class="fa fa-check-circle " aria-hidden="true"></i>
+        </div>
         <div class="card main-qa">
             <span class="username-content"></span>
             <p class="like-rep">
@@ -387,10 +401,16 @@
                     QAId: id
                 },
                 success: function (data) {
-                    console.log(data);
                     $('#qa-container').empty();
                     for (var i = 0; i < data.data.length; i++) {
                         var templateQuestion = $('#list-qa').clone();
+                        if (data.data[i].IsAnswer != null) {
+                            console.log(data.data[i].IsAnswer);
+                            if (data.data[i].IsAnswer == true) {
+                                
+                                templateQuestion.find('.icon-answer').css('display', 'block');
+                            }
+                        }
                         templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
@@ -428,10 +448,15 @@
                     QAId: id
                 },
                 success: function (data) {
-                    console.log(data);
                     $('#qa-container').empty();
                     for (var i = 0; i < data.data.length; i++) {
                         var templateQuestion = $('#list-qa').clone();
+                        if (data.data[i].IsAnswer != null) {
+                            console.log(data.data[i].IsAnswer);
+                            if (data.data[i].IsAnswer == true) {
+                                templateQuestion.find('.icon-answer').css('display', 'block');
+                            }
+                        }
                         templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');

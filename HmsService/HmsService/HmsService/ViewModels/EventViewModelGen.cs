@@ -25,6 +25,7 @@ namespace HmsService.ViewModels
     			public virtual Nullable<int> TemplateId { get; set; }
     			public virtual Nullable<int> CodeLogin { get; set; }
     			public virtual string ImageURL { get; set; }
+    			public virtual Nullable<bool> IsActive { get; set; }
     	
     	public EventViewModel() : base() { }
     	public EventViewModel(HmsService.Models.Entities.Event entity) : base(entity) { }

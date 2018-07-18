@@ -123,6 +123,7 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="HmsEntities.Event">
         <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
           <ScalarProperty Name="CodeLogin" ColumnName="CodeLogin" />
           <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
@@ -170,6 +171,7 @@
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="HmsEntities.Question">
         <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="IsAnswer" ColumnName="IsAnswer" />
           <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="Username" ColumnName="Username" />

@@ -119,3 +119,9 @@
 /*.box-body-up-comming, .box-body-happened {
     display:none;
 }*/
+
+.empty{
+    color:red;
+    display:none;
+}
+
