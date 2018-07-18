@@ -68,7 +68,7 @@
                             <li> <a href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
                             <li> <a href="@Url.Action("Index", "Session", new { eventId = eventId })"> <i class="fa fa-bars"></i><span>Vào sự kiện</span></a></li>
                             @*<li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>*@
-                            <li> <a href="@Url.Action("Index", "Logout")"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
+                            <li> <a href="/"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
 
                         }
                         else
@@ -78,7 +78,7 @@
                             <li> <a href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
                             <li> <a href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
                             
-                            <li> <a href="/Home/Index/@eventId"> <i class="fa fa-sign-out"></i><span>Quay lại</span></a></li>
+                            <li> <a href="/Home/Index/@eventId"><i class="fa fa-sign-out"></i><span>Quay lại</span></a></li>
 
                         }
                     }
