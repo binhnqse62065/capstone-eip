@@ -12,6 +12,7 @@ using System.Web.Http.Results;
 using CapstoneProjectAdmin.ViewModel;
 using CapstoneProjectClient.Models;
 using HmsService.Models.Entities;
+using HmsService.Sdk;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -26,13 +27,14 @@ namespace CapstoneProjectClient.API
         [HttpPost]
         public HttpResponseMessage getAllQuestionCommentByCreateTime(Question qa)
         {
-            var listQA = db.Questions.Where(a => a.QAId == qa.QAId).OrderByDescending(s => s.CreateTime).Select(v => new QuestionViewModel
+            QuestionApi questionApi = new QuestionApi();
+            var listQas = questionApi.BaseService.GetQuestionsByQaId(qa.QAId).OrderByDescending(q => q.CreateTime).Select(v => new QuestionViewModel
             {
                 QuestionId = v.QuestionId,
                 QAId = v.QAId,
                 QuestionContent = v.QuestionContent,
                 Username = v.Username,
-                CreateTime = v.CreateTime,
+                CreateTime = v.CreateTime.Value.ToString("hh:mm tt"),
                 NumberOfLike = v.NumberOfLike,
                 IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
                 Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
@@ -41,7 +43,7 @@ namespace CapstoneProjectClient.API
                     CommentId = s.CommentId,
                     CommentContent = s.CommentContent,
                     QuestionId = s.QuestionId,
-                    CreateTime = s.CreateTime,
+                    CreateTime = s.CreateTime.Value.ToString("hh:mm tt"),
                     NumberOfLike = s.NumberOfLike
                 }),
             });
@@ -51,7 +53,7 @@ namespace CapstoneProjectClient.API
                 Content = new JsonContent(new
                 {
                     success = true,
-                    data = listQA
+                    data = listQas
                 })
             };
         }
@@ -60,13 +62,14 @@ namespace CapstoneProjectClient.API
         [HttpPost]
         public HttpResponseMessage getAllQuestionCommentByLike(Question qa)
         {
-            var listQA = db.Questions.Where(a => a.QAId == qa.QAId).OrderByDescending(s => s.NumberOfLike).Select(v => new QuestionViewModel
+            QuestionApi questionApi = new QuestionApi();
+            var listQA = questionApi.BaseService.GetQuestionsByQaId(qa.QAId).OrderByDescending(s => s.NumberOfLike).Select(v => new QuestionViewModel
             {
                 QuestionId = v.QuestionId,
                 QAId = v.QAId,
                 QuestionContent = v.QuestionContent,
                 Username = v.Username,
-                CreateTime = v.CreateTime,
+                CreateTime = v.CreateTime.Value.ToString("hh:mm tt"),
                 NumberOfLike = v.NumberOfLike,
                 IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
                 Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
@@ -75,7 +78,7 @@ namespace CapstoneProjectClient.API
                     CommentId = s.CommentId,
                     CommentContent = s.CommentContent,
                     QuestionId = s.QuestionId,
-                    CreateTime = s.CreateTime,
+                    CreateTime = s.CreateTime.Value.ToString("hh:mm tt"),
                     NumberOfLike = s.NumberOfLike
                 }),
             });

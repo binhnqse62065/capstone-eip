@@ -21,7 +21,7 @@ namespace HmsService.Models.Entities
         }
     
         public int QuestionId { get; set; }
-        public Nullable<int> QAId { get; set; }
+        public int QAId { get; set; }
         public string QuestionContent { get; set; }
         public string Username { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }

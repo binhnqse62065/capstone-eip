@@ -24,11 +24,11 @@
         @*<button type="button" class="btn btn-info btn-post-question" data-toggle="modal" data-target="#myModal">Đặt câu hỏi</button>*@
         <div class="col-md-12 col-xs-12">
             <div class="input-group-btn group-button-filter-question">
-                <button class="btn btn-success dropdown-toggle btn-filter-question" data-toggle="dropdown" aria-expanded="false">Sắp xếp câu hỏi</button>
+                <button class="btn btn-success dropdown-toggle btn-filter-question" data-toggle="dropdown" aria-expanded="false" id="cbSortQuestion">Sắp xếp câu hỏi</button>
                 <ul class="dropdown-menu dropdown-filter-option">
-                    <li>Câu hỏi mới nhất</li>
+                    <li onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</li>
                     <hr />
-                    <li>Câu hỏi nổi bật</li>
+                    <li onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</li>
                 </ul>
             </div>
 
@@ -44,16 +44,17 @@
 
                     <div class="card list-qa" id="list-qa-@(item.QuestionId)">
 
-                        @if (item.IsAnswer != null)
-                        {
-                            if (item.IsAnswer == true)
-                            {
-                                <div class="icon-answer">
-                                    <i class="fa fa-check-circle " aria-hidden="true"></i>
-                                </div>
-                            }
-                        }
+                        
                         <div class="card main-qa">
+                            @if (item.IsAnswer != null)
+                            {
+                                if (item.IsAnswer == true)
+                                {
+                                    <div class="icon-answer">
+                                        <i class="fa fa-check-circle " aria-hidden="true"></i>
+                                    </div>
+                                }
+                            }
                             <div class="question-item__header">
                                 <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
                                 <div class="question-item__header-center">
@@ -64,7 +65,7 @@
 
                                     </div>
                                 </div>
-                                
+
                                 <div class="question-item__action-zone">
                                     <div class="score score--card">
                                         <button class="score__btn minus btn-plain btn-reply btn-reply-question-template" value="@(item.QuestionId)" data-toggle="modal" data-target="#modalReply">
@@ -77,20 +78,20 @@
                                     </div>
                                 </div>
                                 @*<div class="question-item-date">
-                                    
-                                </div>*@
-                                
+
+            </div>*@
+
 
                             </div>
                             <div class="question-item__body">
                                 @(item.QuestionContent)
                             </div>
                             @*<span class="username-content">@(item.Username): @(item.QuestionContent)</span>
-                            <p class="like-rep">
-                                <button class="btn btn-primary btn-sm"><i id="btn-like-question-@(item.QuestionId)" class="fa fa-thumbs-o-up  btn-like-question" aria-hidden="true" value="@(item.QuestionId)"> @(item.NumberOfLike)</i></button>
-                                <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>
-                            </p>
-                            <span class="create-time">@(item.CreateTime.Value.ToString("hh:mm tt"))</span>*@
+        <p class="like-rep">
+            <button class="btn btn-primary btn-sm"><i id="btn-like-question-@(item.QuestionId)" class="fa fa-thumbs-o-up  btn-like-question" aria-hidden="true" value="@(item.QuestionId)"> @(item.NumberOfLike)</i></button>
+            <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>
+        </p>
+        <span class="create-time">@(item.CreateTime.Value.ToString("hh:mm tt"))</span>*@
 
                         </div>
 
@@ -150,10 +151,11 @@
 <!--Template list QA-->
 <div style="display:none;" id="list-qa">
     <div class="card list-qa">
-        <div class="icon-answer icon-answer-template">
-            <i class="fa fa-check-circle " aria-hidden="true"></i>
-        </div>
+        
         <div class="card main-qa">
+            <div class="icon-answer icon-answer-template">
+                <i class="fa fa-check-circle " aria-hidden="true"></i>
+            </div>
             <div class="question-item__header">
                 <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
                 <div class="question-item__header-center">
@@ -179,7 +181,7 @@
 
             </div>
             <div class="question-item__body question-content-template">
-                
+
             </div>
 
         </div>
@@ -451,7 +453,6 @@
             chat.client.addNewMessageToPage = function (name, message, newQuestionId) {
                 // Add the message to the page.
                 if (message.length != 0) {
-                    console.log("ID: " + newQuestionId);
                     var listQa = $('#list-qa').clone();
                     listQa.find('.username-content').html(name);
                     listQa.find('.question-content-template').html(message);
@@ -518,16 +519,18 @@
 
 
 
-
+            //Change questionId when click button reply to know what question will be reply
             $(document).on('click', '.btn-reply', function () {
                 $('#questionId').val($(this).attr('value'));
             });
 
+
         });
 
         function getAllQuestionCommentLastest(id) {
-            $('.btn-lastest-question').css('background-color', 'darkgray');
-            $('.btn-hotest-question').css('background-color', 'lightgray');
+            $('#cbSortQuestion').text('Câu hỏi mới nhất');
+            //$('.btn-lastest-question').css('background-color', 'darkgray');
+            //$('.btn-hotest-question').css('background-color', 'lightgray');
 
             $.ajax({
                 url: urlApi + '/api/question/getAllQuestionCommentByCreateTime',
@@ -540,19 +543,32 @@
                     for (var i = 0; i < data.data.length; i++) {
                         var templateQuestion = $('#list-qa').clone();
                         if (data.data[i].IsAnswer != null) {
-                            console.log(data.data[i].IsAnswer);
                             if (data.data[i].IsAnswer == true) {
 
                                 templateQuestion.find('.icon-answer').css('display', 'block');
                             }
                         }
+
+                        /*listQa.find('.username-content').html(name);
+                        listQa.find('.question-content-template').html(message);
+                        listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+                        listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                        listQa.find('.btn-reply').attr('value', newQuestionId);
+                        listQa.find('.btn-like-question').attr('value', newQuestionId);
+                        listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
+                        listQa.find('.btn-like-question').attr('id', 'btn-like-question-' + newQuestionId);*/
+                        var dateTmp = data.data[i].CreateTime.toString("dd/MM/yyyy");
+                        console.log(dateTmp);
+                        
+                        templateQuestion.find('.username-content').html(data.data[i].Username);
+                        templateQuestion.find('.question-content-template').html(data.data[i].QuestionContent);
+                        templateQuestion.find('.create-time').html('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
                         templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
                         templateQuestion.find('#btn-reply').attr('value', '' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.username-content').text('' + data.data[i].Username + ' : ' + data.data[i].QuestionContent + '');
-                        templateQuestion.find('.create-time').text('' + data.data[i].CreateTime + '');
-                        templateQuestion.find('.btn-like-question').text(' ' + data.data[i].NumberOfLike + '');
+
+                        templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                         $('#qa-container').append(templateQuestion.html());
                         for (var j = 0; j < data.data[i].Comments.length; j++) {
                             var templateComment = $('#list-reply-template').clone();
@@ -561,8 +577,8 @@
                             templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
                             templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
-                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime + '');
-                            templateComment.find('.btn-like-reply').text(' ' + data.data[i].Comments[j].NumberOfLike + '');
+                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
+                            templateComment.find('.btn-like-reply').html(data.data[i].Comments[j].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                             $('#list-qa-' + data.data[i].QuestionId + '').append(templateComment.html());
                         }
                     }
@@ -574,8 +590,9 @@
         }
 
         function getAllQuestionCommentHotest(id) {
-            $('.btn-lastest-question').css('background-color', 'lightgray');
-            $('.btn-hotest-question').css('background-color', 'darkgray');
+            $('#cbSortQuestion').text('Câu hỏi nổi bật');
+            //$('.btn-lastest-question').css('background-color', 'lightgray');
+            //$('.btn-hotest-question').css('background-color', 'darkgray');
             $.ajax({
                 url: urlApi + '/api/question/getAllQuestionCommentByLike',
                 method: "POST",
@@ -587,7 +604,6 @@
                     for (var i = 0; i < data.data.length; i++) {
                         var templateQuestion = $('#list-qa').clone();
                         if (data.data[i].IsAnswer != null) {
-                            console.log(data.data[i].IsAnswer);
                             if (data.data[i].IsAnswer == true) {
                                 templateQuestion.find('.icon-answer').css('display', 'block');
                             }
@@ -597,8 +613,8 @@
                         templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
                         templateQuestion.find('#btn-reply').attr('value', '' + data.data[i].QuestionId + '');
                         templateQuestion.find('.username-content').text('' + data.data[i].Username + ' : ' + data.data[i].QuestionContent + '');
-                        templateQuestion.find('.create-time').text('' + data.data[i].CreateTime + '');
-                        templateQuestion.find('.btn-like-question').text(' ' + data.data[i].NumberOfLike + '');
+                        templateQuestion.find('.create-time').text('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
+                        templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                         $('#qa-container').append(templateQuestion.html());
                         for (var j = 0; j < data.data[i].Comments.length; j++) {
                             var templateComment = $('#list-reply-template').clone();
@@ -607,8 +623,8 @@
                             templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
                             templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
-                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime + '');
-                            templateComment.find('.btn-like-reply').text(' ' + data.data[i].Comments[j].NumberOfLike + '');
+                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
+                            templateComment.find('.btn-like-reply').html(data.data[i].Comments[j].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                             $('#list-qa-' + data.data[i].QuestionId + '').append(templateComment.html());
                         }
                     }
