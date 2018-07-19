@@ -21,15 +21,15 @@ namespace CapstoneProjectClient
             Clients.All.addNewReplyToPage(name, message, questionId, commentId);
         }
 
-        public void LikeQuestion(int questionId, int newNumberOfLike)
+        public void LikeQuestion(int questionId, int newNumberOfLike, bool isLike)
         {
-            Clients.All.updateNewLikeOfQuestion(questionId, newNumberOfLike);
+            Clients.All.updateNewLikeOfQuestion(questionId, newNumberOfLike, isLike);
         }
 
 
-        public void LikeComment(int commentId, int newNumberOfLike)
+        public void LikeComment(int commentId, int newNumberOfLike, bool isLike)
         {
-            Clients.All.updateNewLikeOfComment(commentId, newNumberOfLike);
+            Clients.All.updateNewLikeOfComment(commentId, newNumberOfLike, isLike);
         }
         public ChatHub() : this(GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients) { }
 

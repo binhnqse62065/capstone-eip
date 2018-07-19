@@ -11,18 +11,31 @@
 
     @if (Model == null)
     {
-        <h2 >Hiện chưa có câu hỏi nào</h2>
+        <h2>Hiện chưa có câu hỏi nào</h2>
 
     }
     else
     {
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-post-question" data-toggle="modal" data-target="#myModal">Đặt câu hỏi</button>
+        <div class="form-post-question input-group col-md-12 col-sm-12 col-lg-12">
+            <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+            <input type="text" data-toggle="modal" data-target="#postQuestionModal" class="form-control question-content" placeholder="Nhập câu hỏi của bạn ở đây"></input>
+        </div>
+        @*<button type="button" class="btn btn-info btn-post-question" data-toggle="modal" data-target="#myModal">Đặt câu hỏi</button>*@
         <div class="col-md-12 col-xs-12">
-            <div class="row">
-                <button type="button" class="btn btn-default btn-sm btn-lastest-question" style="background-color:darkgray;" onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</button> &nbsp;
-                <button type="button" class="btn btn-default btn-sm btn-hotest-question" onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</button>
+            <div class="input-group-btn group-button-filter-question">
+                <button class="btn btn-success dropdown-toggle btn-filter-question" data-toggle="dropdown" aria-expanded="false">Sắp xếp câu hỏi</button>
+                <ul class="dropdown-menu dropdown-filter-option">
+                    <li>Câu hỏi mới nhất</li>
+                    <hr />
+                    <li>Câu hỏi nổi bật</li>
+                </ul>
             </div>
+
+            @*<div class="row">
+                    <button type="button" class="btn btn-default btn-sm btn-lastest-question" style="background-color:darkgray;" onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</button> &nbsp;
+                    <button type="button" class="btn btn-default btn-sm btn-hotest-question" onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</button>
+                </div>*@
         </div>
         <div class="col-md-12 col-xs-12">
             <div class="row qa-container" id="qa-container">
@@ -41,30 +54,88 @@
                             }
                         }
                         <div class="card main-qa">
-                            <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
+                            <div class="question-item__header">
+                                <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+                                <div class="question-item__header-center">
+                                    <div class="question-item__author truncate">
+                                        <span class="author__name">@(item.Username)</span>
+                                        <br />
+                                        <span class="question-item-date">@(item.CreateTime.Value.ToString("hh:mm tt"))</span>
+
+                                    </div>
+                                </div>
+                                
+                                <div class="question-item__action-zone">
+                                    <div class="score score--card">
+                                        <button class="score__btn minus btn-plain btn-reply btn-reply-question-template" value="@(item.QuestionId)" data-toggle="modal" data-target="#modalReply">
+                                            <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                                        </button>
+                                        <button class="score__btn plus btn-plain btn-like-question-template btn-like-question" id="btn-like-question-@(item.QuestionId)" value="@(item.QuestionId)">
+                                            @(item.NumberOfLike)
+                                            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                @*<div class="question-item-date">
+                                    
+                                </div>*@
+                                
+
+                            </div>
+                            <div class="question-item__body">
+                                @(item.QuestionContent)
+                            </div>
+                            @*<span class="username-content">@(item.Username): @(item.QuestionContent)</span>
                             <p class="like-rep">
                                 <button class="btn btn-primary btn-sm"><i id="btn-like-question-@(item.QuestionId)" class="fa fa-thumbs-o-up  btn-like-question" aria-hidden="true" value="@(item.QuestionId)"> @(item.NumberOfLike)</i></button>
                                 <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>
                             </p>
-                            <span class="create-time">@(item.CreateTime)</span>
+                            <span class="create-time">@(item.CreateTime.Value.ToString("hh:mm tt"))</span>*@
 
                         </div>
 
                         @foreach (var subItem in item.Comments)
                         {
-                            <div class="card-header list-answer">
-                                <span id="username-reply">@(subItem.Username): </span>
-                                <span id="reply-content">@(subItem.CommentContent)</span>
-                                <p class="like-rep">
-                                    <button class="btn btn-primary btn-sm"><i id="btn-like-reply-@(subItem.CommentId)" class="fa fa-thumbs-o-up  btn-like-reply" aria-hidden="true" value="@(subItem.CommentId)"> @(subItem.NumberOfLike)</i></button>
-                                    @*<button value="@(item.QuestionId)" id="btn-reply-@(subItem.CommentId)" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>*@
-                                </p>
-                                @{
-                                    var createTimeTmp = (DateTime)subItem.CreateTime;
-                                    var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                                }
-                                <span id="reply-time">@(createTime)</span>
+                        <div class="card-header list-answer">
+                            <div class="question-item__header">
+                                <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+                                <div class="question-item__header-center">
+                                    <div class="question-item__author truncate">
+                                        <span class="author__name">@(subItem.Username)</span>
+                                        <br />
+                                        <span class="question-item-date">@(subItem.CreateTime.Value.ToString("hh:mm tt"))</span>
+
+                                    </div>
+                                </div>
+
+                                <div class="question-item__action-zone">
+                                    <div class="score score--card">
+                                        @*<button class="score__btn minus btn-plain">
+                                            <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                                        </button>*@
+                                        <button class="score__btn plus btn-plain btn-like-reply-template btn-like-reply" id="btn-like-reply-@(subItem.CommentId)" value="@(subItem.CommentId)">
+                                            @(subItem.NumberOfLike)
+                                            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+
                             </div>
+                            <div class="question-item__body">
+                                @(subItem.CommentContent)
+                            </div>
+                            @*<span id="username-reply">@(subItem.Username): </span>
+                            <span id="reply-content">@(subItem.CommentContent)</span>
+                            <p class="like-rep">
+                                <button class="btn btn-primary btn-sm"><i id="btn-like-reply-@(subItem.CommentId)" class="fa fa-thumbs-o-up  btn-like-reply" aria-hidden="true" value="@(subItem.CommentId)"> @(subItem.NumberOfLike)</i></button>
+                            </p>*@
+                            @*@{
+                                var createTimeTmp = (DateTime)subItem.CreateTime;
+                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                            }
+                            <span id="reply-time">@(createTime)</span>*@
+                        </div>
                         }
 
                     </div>
@@ -83,12 +154,34 @@
             <i class="fa fa-check-circle " aria-hidden="true"></i>
         </div>
         <div class="card main-qa">
-            <span class="username-content"></span>
-            <p class="like-rep">
-                <button class="btn btn-primary btn-sm" value=""><i class="fa fa-thumbs-o-up btn-like-question" aria-hidden="true"> 0</i></button>
-                <button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>
-            </p>
-            <span class="create-time"></span>
+            <div class="question-item__header">
+                <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+                <div class="question-item__header-center">
+                    <div class="question-item__author truncate">
+                        <span class="author__name username-content"></span>
+                        <br />
+                        <span class="question-item-date create-time"></span>
+
+                    </div>
+                </div>
+
+                <div class="question-item__action-zone">
+                    <div class="score score--card">
+                        <button data-toggle="modal" data-target="#modalReply" class="score__btn minus btn-plain btn-reply btn-reply-question-template" id="btn-reply" value="">
+                            <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                        </button>
+                        <button class="score__btn plus btn-plain number-of-like btn-like-question-template btn-like-question" value="">
+                            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i>0</span>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="question-item__body question-content-template">
+                
+            </div>
+
         </div>
     </div>
 </div>
@@ -96,13 +189,45 @@
 <!--Template Reply-->
 <div id="list-reply-template" style="display:none;">
     <div class="card-header list-answer">
-        <span id="username-reply"></span>
+
+        <div class="question-item__header">
+            <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+            <div class="question-item__header-center">
+                <div class="question-item__author truncate">
+                    <span class="author__name"  id="username-reply"></span>
+                    <br />
+                    <span class="question-item-date" id="reply-time"></span>
+
+                </div>
+            </div>
+
+            <div class="question-item__action-zone">
+                <div class="score score--card">
+                    @*<button class="score__btn minus btn-plain">
+                        <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                    </button>*@
+                    <button class="score__btn plus btn-plain  btn-like-reply-template btn-like-reply" value="">
+                        0
+                        <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="question-item__body" id="reply-content">
+           
+        </div>
+
+
+
+        @*<span id="username-reply"></span>
         <span id="reply-content"></span>
         <p class="like-rep">
             <button class="btn btn-primary btn-sm" value=""><i class="fa fa-thumbs-o-up btn-like-reply" aria-hidden="true"> 0</i></button>
             @*<button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>*@
-        </p>
-        <span id="reply-time"></span>
+        @*</p>*@
+        @*<span id="reply-time"></span>*@
         <br />
     </div>
 </div>
@@ -110,31 +235,24 @@
 
 <input type="hidden" id="questionId" value="" />
 
-<!-- Modal Post New Question -->
-<div class="modal fade" id="myModal" role="dialog">
+<!-- Modal Post New Question  -->
+<div class="modal fade" id="postQuestionModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Đặt câu hỏi</h4>
+            <div class="modal-header post-question-modal-header">
+                <i class="fa fa-arrow-left" aria-hidden="true" data-dismiss="modal"></i>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Tên người hỏi</label>
-                    <input type="text" id="txtUsername" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Nội dung</label>
-                    <textarea class="form-control" id="txtContent"></textarea>
-                    <input type="hidden" id="new-question-id" />
-                </div>
-
+                <textarea id="txtContent" class="question-content-modal" placeholder="Nhập câu hỏi của bạn ở đây"></textarea>
             </div>
             <div class="modal-footer">
-                <button id="btnSendQuestion" type="button" class="btn btn-primary" data-dismiss="modal">Gửi</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <div class="input-group flex-auto">
+                    <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+                    <input id="txtUsername" type="text" class="question-input-content" placeholder="Nhập tên của bạn ở đây (tùy ý)" />
+                </div>
+                <button id="btnSendQuestion" type="button" class="btn btn-primary btn-send-question" data-dismiss="modal">Gửi</button>
             </div>
         </div>
 
@@ -147,30 +265,27 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Trả lời</h4>
+            <div class="modal-header post-question-modal-header">
+                <i class="fa fa-arrow-left" aria-hidden="true" data-dismiss="modal"></i>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label>Tên người trả lời</label>
-                    <input type="text" id="txtUsernameReply" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Nội dung</label>
-                    <textarea class="form-control" id="txtContentReply"></textarea>
-                    <input type="hidden" id="questionId" value="" />
-                </div>
-
+                <textarea id="txtContentReply" class="question-content-modal" placeholder="Nhập phần trả lời của bạn ở đây"></textarea>
+                @*<input type="hidden" id="questionId" value="" />*@
             </div>
             <div class="modal-footer">
-                <button id="btnSendReply" type="button" class="btn btn-primary" data-dismiss="modal">Gửi</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <div class="input-group flex-auto">
+                    <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+                    <input id="txtUsernameReply" type="text" class="question-input-content" placeholder="Nhập tên của bạn ở đây (tùy ý)" />
+                </div>
+                <button id="btnSendReply" type="button" class="btn btn-primary btn-send-question" data-dismiss="modal">Gửi</button>
             </div>
         </div>
 
     </div>
 </div>
+
+
+
 
 <input type="hidden" value="@(Model != null ? Model.QAId : 0)" id="txt-qa-id" />
 @section scripts {
@@ -267,10 +382,11 @@
                         }
                     }
                     if (localStorage.getItem("" + questionId) == 'true') {
-                        chat.server.likeQuestion(questionId, parseInt($(this).text()) + 1);
+                        //true là like, false là dislike
+                        chat.server.likeQuestion(questionId, parseInt($(this).text()) + 1,true);
                     }
                     else {
-                        chat.server.likeQuestion(questionId, parseInt($(this).text()) - 1);
+                        chat.server.likeQuestion(questionId, parseInt($(this).text()) - 1,false);
                     }
                     $.ajax({
                         url: urlApi + urlApiAjax,
@@ -307,10 +423,10 @@
 
                     isLikedComment = localStorage.getItem("CommentID" + commentId) == "true";
                     if (isLikedComment == true) {
-                        chat.server.likeComment(commentId, parseInt($(this).text()) + 1);
+                        chat.server.likeComment(commentId, parseInt($(this).text()) + 1, true);
                     }
                     else {
-                        chat.server.likeComment(commentId, parseInt($(this).text()) - 1);
+                        chat.server.likeComment(commentId, parseInt($(this).text()) - 1, false);
                     }
                     $.ajax({
                         url: urlApi + urlApiAjax,
@@ -335,10 +451,12 @@
             chat.client.addNewMessageToPage = function (name, message, newQuestionId) {
                 // Add the message to the page.
                 if (message.length != 0) {
+                    console.log("ID: " + newQuestionId);
                     var listQa = $('#list-qa').clone();
-                    listQa.find('.username-content').html(name + ": " + message);
-                    listQa.find('.create-time').html(new Date().toLocaleString("en-GB"));
-                    listQa.find('.number-of-like').html('0');
+                    listQa.find('.username-content').html(name);
+                    listQa.find('.question-content-template').html(message);
+                    listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+                    listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                     listQa.find('.btn-reply').attr('value', newQuestionId);
                     listQa.find('.btn-like-question').attr('value', newQuestionId);
                     listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
@@ -354,9 +472,9 @@
                 // Add the message to the page.
                 if (message.length != 0) {
                     var listReply = $('#list-reply-template').clone();
-                    listReply.find('#username-reply').html(name + ": ");
+                    listReply.find('#username-reply').html(name);
                     listReply.find('#reply-content').html(message);
-                    listReply.find('#reply-time').html(new Date().toLocaleString("en-GB"));
+                    listReply.find('#reply-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
                     listReply.find('.btn-like-reply').attr('id', 'btn-like-reply-' + commentId);
                     listReply.find('.btn-like-reply').attr('value', commentId);
                     var listQaContainer = '#list-qa-' + questionId;
@@ -366,20 +484,37 @@
 
             };
 
+
+            //Create a function that hub call back to update new like of question
+            chat.client.updateNewLikeOfQuestion = function (questionId, newNumberOfLike, isLike) {
+                var str = newNumberOfLike + ' <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>';
+                $('#btn-like-question-' + questionId).empty();
+                $('#btn-like-question-' + questionId).append(str);
+                if (isLike) {
+                    $('#btn-like-question-' + questionId + ' i').css('color', '#365899');
+                }
+                else {
+                    $('#btn-like-question-' + questionId + ' i').css('color', 'none');
+                }
+            };
+
+
             //Create a function that hub call back to update new like of comment
-            chat.client.updateNewLikeOfComment = function (commentId, newNumberOfLike) {
-                var str = ' ' + newNumberOfLike;
+            chat.client.updateNewLikeOfComment = function (commentId, newNumberOfLike, isLike) {
+                var str = newNumberOfLike + ' <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>';
                 $('#btn-like-reply-' + commentId).empty();
                 $('#btn-like-reply-' + commentId).append(str);
 
+                if (isLike) {
+                    $('#btn-like-reply-' + commentId + ' i').css('color', '#365899');
+                }
+                else {
+                    $('#btn-like-reply-' + commentId + ' i').css('color', 'none');
+                }
+
             };
 
-            //Create a function that hub call back to update new like of question
-            chat.client.updateNewLikeOfQuestion = function (questionId, newNumberOfLike) {
-                var str = ' ' + newNumberOfLike;
-                $('#btn-like-question-' + questionId).empty();
-                $('#btn-like-question-' + questionId).append(str);
-            };
+            
 
 
 
@@ -407,7 +542,7 @@
                         if (data.data[i].IsAnswer != null) {
                             console.log(data.data[i].IsAnswer);
                             if (data.data[i].IsAnswer == true) {
-                                
+
                                 templateQuestion.find('.icon-answer').css('display', 'block');
                             }
                         }
