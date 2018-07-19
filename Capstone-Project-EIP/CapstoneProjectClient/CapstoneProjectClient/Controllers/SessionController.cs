@@ -18,8 +18,8 @@ namespace CapstoneProjectClient.Controllers
             var listSession = sessionApi.GetSessionsByEventId(eventId);
             if(listSession.Count() == 1)
             {
-                return RedirectToAction("Index", "Timeline", new { eventId = ViewBag.EventId, sessionId = listSession.ElementAt(0).SessionID });
-                //return View();
+                ViewBag.SessionNumber = 1;
+                return RedirectToAction("Index", "Home", new { eventId = ViewBag.EventId });
             }
             return View(listSession);
         }

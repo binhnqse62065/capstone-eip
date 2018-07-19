@@ -18,7 +18,7 @@ else
         @{
             foreach (var sponsor in Model.CollectionItems)
             {
-                <div class="col-md-4 col-sm-6 col-12" onclick="showModalSponsor('@(sponsor.Name)', '@(sponsor.Description)')">
+                <div class="col-md-4 col-sm-6 col-12" onclick="showModalSponsor('@(sponsor.Name)', '@(sponsor.Description)', '@(sponsor.ImageUrl)')">
                     <div class="box-sponsor-shadow">
                         <a href="" id="speaker-modal" data-toggle="modal" data-target="#sponsorModal">
                             <img src="@(sponsor.ImageUrl)" alt="brand" class="img-fluid image-sponsor-custom">
@@ -41,6 +41,7 @@ else
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
+                <img class="sponsor-img image-sponsor-custom"/>
                 <p class="sponsor-description"></p>
             </div>
             <div class="modal-footer">
@@ -52,9 +53,11 @@ else
 
 @section scripts {
     <script>
-        function showModalSponsor(name, description) {
+        function showModalSponsor(name, description, imgUrl) {
             $('.sponsor-name').html(name);
             $('.sponsor-description').html(description);
+            $('.sponsor-img').attr('src', imgUrl);
+
         }
     </script>
 }

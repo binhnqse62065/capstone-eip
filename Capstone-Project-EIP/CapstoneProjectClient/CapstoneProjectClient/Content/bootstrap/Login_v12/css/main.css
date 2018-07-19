@@ -168,7 +168,7 @@ iframe {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  
+  padding-top:74px;
   position: relative;
   z-index: 1;
 }
@@ -342,7 +342,7 @@ iframe {
     width: 100%;
     height: 50px;
     border-radius: 25px;
-    background: #999999;
+    background: #6b6b6b;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -518,9 +518,10 @@ iframe {
 
 @media (max-width: 576px) {
   .wrap-login100 {
-    padding-top: 80px;
+    padding-top: 60px;
     padding-left: 15px;
     padding-right: 15px;
+    width: 100%;
   }
 }
 

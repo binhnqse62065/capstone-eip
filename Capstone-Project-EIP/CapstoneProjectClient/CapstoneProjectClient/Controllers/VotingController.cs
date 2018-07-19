@@ -19,7 +19,13 @@ namespace CapstoneProjectClient.Controllers
             VotingApi votingApi = new VotingApi();
             InteractionApi interactionApi = new InteractionApi();
             int votingId = (int)interactionApi.GetVotingIdBySessionId(sessionId);
-            Voting voting = votingApi.GetVotingById(votingId); 
+            Voting voting = votingApi.GetVotingById(votingId);
+            SessionApi sessionApi = new SessionApi();
+            var listSession = sessionApi.GetSessionsByEventId(eventId);
+            if (listSession.Count() == 1)
+            {
+                ViewBag.SessionNumber = 1;
+            }
             return View(voting);
         }
 

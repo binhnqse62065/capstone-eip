@@ -26,7 +26,12 @@ namespace CapstoneProjectClient.Controllers
 
             int qaId = interactionApi.GetQaIdBySessionId(sessionId);
             QA qa = qAApi.GetQaById(qaId);
-
+            SessionApi sessionApi = new SessionApi();
+            var listSession = sessionApi.GetSessionsByEventId(eventId);
+            if (listSession.Count() == 1)
+            {
+                ViewBag.SessionNumber = 1;
+            }
             /*
              * jObject là message lấy từ người dùng( gọi API)
              * notify là hàm để thông báo message đến toàn bộ người dùng khác

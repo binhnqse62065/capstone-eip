@@ -17,6 +17,11 @@ namespace CapstoneProjectClient.Controllers
             ViewBag.SessionId = sessionId;
             SessionApi sessionApi = new SessionApi();
             var curSession = sessionApi.GetSessionById(sessionId);
+            var listSession = sessionApi.GetSessionsByEventId(eventId);
+            if (listSession.Count() == 1)
+            {
+                ViewBag.SessionNumber = 1;
+            }
             return View(curSession);
         }
     }
