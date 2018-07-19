@@ -16,6 +16,13 @@ namespace CapstoneProjectClient.Controllers
             ViewBag.EventId = eventId;
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listSpeaker = eventCollectionApi.GetSpeakerByEventId(eventId);
+            SessionApi sessionApi = new SessionApi();
+            var listSession = sessionApi.GetSessionsByEventId(eventId);
+            if (listSession.Count() == 1)
+            {
+                ViewBag.SessionNumber = 1;
+                ViewBag.SessionId = listSession.ElementAt(0).SessionID;
+            }
             return View(listSpeaker);
         }
     }

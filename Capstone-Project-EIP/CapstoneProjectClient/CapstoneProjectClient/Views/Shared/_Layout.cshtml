@@ -1,6 +1,7 @@
 ﻿@{
     var eventId = ViewBag.EventId;
     var sessionId = ViewBag.SessionId;
+    var sessionNumber = ViewBag.SessionNumber;
 }
 
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Event Interaction</title>
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="~/Content/bootstrap/Dashboard/demo.bootstrapious.com/dashboard/css/bootstrap.min.css">
     <!-- Google fonts - Roboto -->
@@ -43,6 +44,7 @@
 
 
 
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -61,33 +63,45 @@
             <div class="main-menu">
                 <ul id="side-main-menu" class="side-menu list-unstyled">
                     @{
-                        if (sessionId == null)
+                        if (sessionNumber != 1)
                         {
-                            <li class="active"><a href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Trang chủ</span></a></li>
-                            <li> <a href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
-                            <li> <a href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
-                            <li> <a href="@Url.Action("Index", "Session", new { eventId = eventId })"> <i class="fa fa-bars"></i><span>Vào sự kiện</span></a></li>
-                            @*<li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>*@
-                            <li> <a href="/"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
-
+                            if (sessionId == null)
+                            {
+                                <li> <a href="@Url.Action("Index", "Session", new { eventId = eventId })"> <i class="fa fa-bars"></i><span>Các hoạt động</span></a></li>
+                                <li> <a href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Thông tin sự kiện</span></a></li>
+                                <li> <a href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
+                                <li> <a href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
+                                @*<li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>*@
+                                <li> <a href="/"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
+                            }
+                            else
+                            {
+                                <li> <a href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
+                                <li> <a href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
+                                <li> <a href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
+                                <li> <a href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
+                                <li> <a href="/Session/Index/@eventId"><i class="fa fa-sign-out"></i><span>Quay lại</span></a></li>
+                            }
                         }
                         else
                         {
-                            <li> <a href="@Url.Action("Index", "Timeline", new { sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Thông tin sự kiện</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
+                            <li> <a href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
                             <li> <a href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
                             <li> <a href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
                             <li> <a href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
-                            
-                            <li> <a href="/Home/Index/@eventId"><i class="fa fa-sign-out"></i><span>Quay lại</span></a></li>
+                            <li> <a href="/"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
 
                         }
                     }
                     @*<li>
-            <a href="#">
-                <i class="icon-mail"></i><span>Demo</span>
-                <div class="badge badge-warning">6 New</div>
-            </a>
-        </li>*@
+                            <a href="#">
+                                <i class="icon-mail"></i><span>Demo</span>
+                                <div class="badge badge-warning">6 New</div>
+                            </a>
+                        </li>*@
                 </ul>
             </div>
             @*<div class="admin-menu">
@@ -126,11 +140,11 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                             @*@{
-                                if (sessionId != null)
-                                {
-                                    <button style="position: fixed;right: 18px;top: 18px;background-color: gray;border: 0;"><a href="/Session/Index/@eventId">Quay về trang lựa chọn</a></button>
-                                }
-                            }*@
+                                    if (sessionId != null)
+                                    {
+                                        <button style="position: fixed;right: 18px;top: 18px;background-color: gray;border: 0;"><a href="/Session/Index/@eventId">Quay về trang lựa chọn</a></button>
+                                    }
+                                }*@
                         </ul>
                     </div>
                 </div>

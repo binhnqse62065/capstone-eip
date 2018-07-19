@@ -18,6 +18,14 @@
     }
 
     .modal-sponsor {
-        margin-right:25px;
     }
+}
+
+.sponsor-description {
+    padding-top: 25px;
+    font-size: 16px;
+}
+
+.sponsor-name {
+    font-size: 20px;
 }
