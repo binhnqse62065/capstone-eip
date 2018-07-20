@@ -57,10 +57,17 @@
 
 .sidenav-header-custom {
     background: #458ca4 !important;
+    padding:7px !important;
 }
 
 .btn-custom-defaul {
     background-color: #fecb24;
     color:black;
     font-weight:bold;
+}
+
+.login-form-container {
+    background-color: #fecb24;
+    color: black;
+    opacity:1;
 }
