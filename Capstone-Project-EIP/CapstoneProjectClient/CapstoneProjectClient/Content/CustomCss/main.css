@@ -46,3 +46,21 @@
     text-align: center;
     margin-top: 20px;
 }
+
+.narbar-custom {
+    background: #005f75 !important;
+}
+
+.side-navbar-custom {
+    background: #005f75 !important;
+}
+
+.sidenav-header-custom {
+    background: #458ca4 !important;
+}
+
+.btn-custom-defaul {
+    background-color: #fecb24;
+    color:black;
+    font-weight:bold;
+}

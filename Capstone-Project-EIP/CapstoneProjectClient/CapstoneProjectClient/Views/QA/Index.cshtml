@@ -22,9 +22,11 @@
             <input type="text" data-toggle="modal" data-target="#postQuestionModal" class="form-control question-content" placeholder="Nhập câu hỏi của bạn ở đây"></input>
         </div>
         @*<button type="button" class="btn btn-info btn-post-question" data-toggle="modal" data-target="#myModal">Đặt câu hỏi</button>*@
-        <div class="col-md-12 col-xs-12">
+        <div class="col-md-12 col-xs-12 container-sort-question">
+
             <div class="input-group-btn group-button-filter-question">
-                <button class="btn btn-success dropdown-toggle btn-filter-question" data-toggle="dropdown" aria-expanded="false" id="cbSortQuestion">Sắp xếp câu hỏi</button>
+
+                <button class="btn dropdown-toggle btn-filter-question float-right" data-toggle="dropdown" aria-expanded="false" id="cbSortQuestion">Sắp xếp câu hỏi</button>
                 <ul class="dropdown-menu dropdown-filter-option">
                     <li onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</li>
                     <hr />
@@ -32,10 +34,7 @@
                 </ul>
             </div>
 
-            @*<div class="row">
-                    <button type="button" class="btn btn-default btn-sm btn-lastest-question" style="background-color:darkgray;" onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</button> &nbsp;
-                    <button type="button" class="btn btn-default btn-sm btn-hotest-question" onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</button>
-                </div>*@
+       
         </div>
         <div class="col-md-12 col-xs-12">
             <div class="row qa-container" id="qa-container">
@@ -45,17 +44,11 @@
                     <div class="card list-qa" id="list-qa-@(item.QuestionId)">
 
                         
-                        <div class="card main-qa">
-                            @if (item.IsAnswer != null)
-                            {
-                                if (item.IsAnswer == true)
-                                {
-                                    <div class="icon-answer">
-                                        <i class="fa fa-check-circle " aria-hidden="true"></i>
-                                    </div>
-                                }
-                            }
+                        <div class="card main-qa @((bool)item.IsAnswer ? "answered-question" : "")">
                             <div class="question-item__header">
+                                @*<div >
+                                    <span>B</span>
+                                </div>*@
                                 <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
                                 <div class="question-item__header-center">
                                     <div class="question-item__author truncate">
@@ -77,22 +70,14 @@
                                         </button>
                                     </div>
                                 </div>
-                                @*<div class="question-item-date">
 
-            </div>*@
 
 
                             </div>
                             <div class="question-item__body">
                                 @(item.QuestionContent)
                             </div>
-                            @*<span class="username-content">@(item.Username): @(item.QuestionContent)</span>
-        <p class="like-rep">
-            <button class="btn btn-primary btn-sm"><i id="btn-like-question-@(item.QuestionId)" class="fa fa-thumbs-o-up  btn-like-question" aria-hidden="true" value="@(item.QuestionId)"> @(item.NumberOfLike)</i></button>
-            <button value="@(item.QuestionId)" id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Trả lời</button>
-        </p>
-        <span class="create-time">@(item.CreateTime.Value.ToString("hh:mm tt"))</span>*@
-
+                          
                         </div>
 
                         @foreach (var subItem in item.Comments)
@@ -245,6 +230,7 @@
         <div class="modal-content">
             <div class="modal-header post-question-modal-header">
                 <i class="fa fa-arrow-left" aria-hidden="true" data-dismiss="modal"></i>
+                <h4 class="modal-title">Đặt câu hỏi</h4>
             </div>
             <div class="modal-body">
                 <textarea id="txtContent" class="question-content-modal" placeholder="Nhập câu hỏi của bạn ở đây"></textarea>
@@ -254,14 +240,14 @@
                     <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
                     <input id="txtUsername" type="text" class="question-input-content" placeholder="Nhập tên của bạn ở đây (tùy ý)" />
                 </div>
-                <button id="btnSendQuestion" type="button" class="btn btn-primary btn-send-question" data-dismiss="modal">Gửi</button>
+                <button id="btnSendQuestion" type="button" class="btn btn-custom-defaul btn-send-question" data-dismiss="modal">Gửi</button>
             </div>
         </div>
 
     </div>
 </div>
 
-<!-- Modal Post New Question -->
+<!-- Modal Post Reply Question -->
 <div class="modal fade" id="modalReply" role="dialog">
     <div class="modal-dialog">
 
@@ -269,6 +255,7 @@
         <div class="modal-content">
             <div class="modal-header post-question-modal-header">
                 <i class="fa fa-arrow-left" aria-hidden="true" data-dismiss="modal"></i>
+                <h4>Trả lời câu hỏi</h4>
             </div>
             <div class="modal-body">
                 <textarea id="txtContentReply" class="question-content-modal" placeholder="Nhập phần trả lời của bạn ở đây"></textarea>
@@ -279,7 +266,7 @@
                     <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
                     <input id="txtUsernameReply" type="text" class="question-input-content" placeholder="Nhập tên của bạn ở đây (tùy ý)" />
                 </div>
-                <button id="btnSendReply" type="button" class="btn btn-primary btn-send-question" data-dismiss="modal">Gửi</button>
+                <button id="btnSendReply" type="button" class="btn btn-custom-defaul btn-send-question" data-dismiss="modal">Gửi</button>
             </div>
         </div>
 

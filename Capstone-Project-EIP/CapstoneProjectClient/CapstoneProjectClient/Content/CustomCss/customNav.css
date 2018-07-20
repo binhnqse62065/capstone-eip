@@ -138,6 +138,8 @@
 }
 .custom-button {
     height: 80px;
+    background-color: #fecb24;
+    color:black;
 }
 @media screen and (max-width: 768px) {
     .nav-tabs-custom {
