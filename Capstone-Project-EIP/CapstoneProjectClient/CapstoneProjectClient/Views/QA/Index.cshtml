@@ -9,10 +9,14 @@
 }
 
 <div class="container" style="padding-top: 74px;">
-
+    <div class="row">
+        <div class="col-md-12 text-center voting-title">
+            <h3>Hỏi đáp</h3>
+        </div>
+    </div>
     @if (Model == null)
     {
-        <h2>Hiện chưa có câu hỏi nào</h2>
+        <h3 class="text-center">Hiện chưa có câu hỏi nào</h3>
 
     }
     else
@@ -35,7 +39,7 @@
                 </ul>
             </div>
 
-       
+
         </div>
         <div class="col-md-12 col-xs-12">
             <div class="row qa-container" id="qa-container">
@@ -44,7 +48,7 @@
 
                     <div class="card list-qa" id="list-qa-@(item.QuestionId)">
 
-                        
+
                         <div class="card main-qa @((bool)item.IsAnswer ? "answered-question" : "")">
                             <div class="question-item__header">
                                 @{
@@ -84,56 +88,56 @@
                             <div class="question-item__body">
                                 @(item.QuestionContent)
                             </div>
-                          
+
                         </div>
 
                         @foreach (var subItem in item.Comments)
                         {
-                        <div class="card-header list-answer">
-                            <div class="question-item__header">
-                                @{
-                                    string[] userCommentSplit = subItem.Username.Split();
-                                    char firstCharacterUserComment = userCommentSplit[userCommentSplit.Length - 1][0];
-                                    var backgroundColor = String.Format("#{0:X6}", random.Next(0x1000000));
-                                    <div class="logo-name" style="background-color:@(backgroundColor)">
-                                        <span>@firstCharacterUserComment.ToString().ToUpper()</span>
-                                    </div>
-                                }
-                                @*<span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>*@
-                                <div class="question-item__header-center">
-                                    <div class="question-item__author truncate">
-                                        <span class="author__name">@(subItem.Username)</span>
-                                        <br />
-                                        <span class="question-item-date">@(subItem.CreateTime.Value.ToString("hh:mm tt"))</span>
+                            <div class="card-header list-answer">
+                                <div class="question-item__header">
+                                    @{
+                                        string[] userCommentSplit = subItem.Username.Split();
+                                        char firstCharacterUserComment = userCommentSplit[userCommentSplit.Length - 1][0];
+                                        var backgroundColor = String.Format("#{0:X6}", random.Next(0x1000000));
+                                        <div class="logo-name" style="background-color:@(backgroundColor)">
+                                            <span>@firstCharacterUserComment.ToString().ToUpper()</span>
+                                        </div>
+                                    }
+                                    @*<span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>*@
+                                    <div class="question-item__header-center">
+                                        <div class="question-item__author truncate">
+                                            <span class="author__name">@(subItem.Username)</span>
+                                            <br />
+                                            <span class="question-item-date">@(subItem.CreateTime.Value.ToString("hh:mm tt"))</span>
 
+                                        </div>
                                     </div>
+
+                                    <div class="question-item__action-zone">
+                                        <div class="score score--card">
+                                            <button class="score__btn plus btn-plain btn-like-reply-template btn-like-reply" id="btn-like-reply-@(subItem.CommentId)" value="@(subItem.CommentId)">
+                                                @(subItem.NumberOfLike)
+                                                <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-
-                                <div class="question-item__action-zone">
-                                    <div class="score score--card">
-                                        <button class="score__btn plus btn-plain btn-like-reply-template btn-like-reply" id="btn-like-reply-@(subItem.CommentId)" value="@(subItem.CommentId)">
-                                            @(subItem.NumberOfLike)
-                                            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
-                                        </button>
-                                    </div>
+                                <div class="question-item__body">
+                                    @(subItem.CommentContent)
                                 </div>
-
-
+                                @*<span id="username-reply">@(subItem.Username): </span>
+                                    <span id="reply-content">@(subItem.CommentContent)</span>
+                                    <p class="like-rep">
+                                        <button class="btn btn-primary btn-sm"><i id="btn-like-reply-@(subItem.CommentId)" class="fa fa-thumbs-o-up  btn-like-reply" aria-hidden="true" value="@(subItem.CommentId)"> @(subItem.NumberOfLike)</i></button>
+                                    </p>*@
+                                @*@{
+                                        var createTimeTmp = (DateTime)subItem.CreateTime;
+                                        var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                    }
+                                    <span id="reply-time">@(createTime)</span>*@
                             </div>
-                            <div class="question-item__body">
-                                @(subItem.CommentContent)
-                            </div>
-                            @*<span id="username-reply">@(subItem.Username): </span>
-                            <span id="reply-content">@(subItem.CommentContent)</span>
-                            <p class="like-rep">
-                                <button class="btn btn-primary btn-sm"><i id="btn-like-reply-@(subItem.CommentId)" class="fa fa-thumbs-o-up  btn-like-reply" aria-hidden="true" value="@(subItem.CommentId)"> @(subItem.NumberOfLike)</i></button>
-                            </p>*@
-                            @*@{
-                                var createTimeTmp = (DateTime)subItem.CreateTime;
-                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                            }
-                            <span id="reply-time">@(createTime)</span>*@
-                        </div>
                         }
 
                     </div>
