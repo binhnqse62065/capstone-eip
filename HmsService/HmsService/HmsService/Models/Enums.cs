@@ -18,7 +18,9 @@ namespace HmsService.Models
             Speaker = 2
 
         }
+
     }
+
     
 }
 

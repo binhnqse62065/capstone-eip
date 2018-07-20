@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Q&A";
     string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+    var random = new Random();
 }
 
 <div class="container" style="padding-top: 74px;">
@@ -46,10 +47,16 @@
                         
                         <div class="card main-qa @((bool)item.IsAnswer ? "answered-question" : "")">
                             <div class="question-item__header">
-                                @*<div >
-                                    <span>B</span>
-                                </div>*@
-                                <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+                                @{
+                                    string[] userNameSplit = item.Username.Split();
+                                    char firstCharacterName = userNameSplit[userNameSplit.Length - 1][0];
+                                    var color = String.Format("#{0:X6}", random.Next(0x1000000));
+                                    <div class="logo-name" style="background-color:@(color)">
+                                        <span>@firstCharacterName.ToString().ToUpper()</span>
+                                    </div>
+                                }
+
+                                @*<span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>*@
                                 <div class="question-item__header-center">
                                     <div class="question-item__author truncate">
                                         <span class="author__name">@(item.Username)</span>
@@ -84,7 +91,15 @@
                         {
                         <div class="card-header list-answer">
                             <div class="question-item__header">
-                                <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+                                @{
+                                    string[] userCommentSplit = subItem.Username.Split();
+                                    char firstCharacterUserComment = userCommentSplit[userCommentSplit.Length - 1][0];
+                                    var backgroundColor = String.Format("#{0:X6}", random.Next(0x1000000));
+                                    <div class="logo-name" style="background-color:@(backgroundColor)">
+                                        <span>@firstCharacterUserComment.ToString().ToUpper()</span>
+                                    </div>
+                                }
+                                @*<span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>*@
                                 <div class="question-item__header-center">
                                     <div class="question-item__author truncate">
                                         <span class="author__name">@(subItem.Username)</span>
@@ -96,9 +111,6 @@
 
                                 <div class="question-item__action-zone">
                                     <div class="score score--card">
-                                        @*<button class="score__btn minus btn-plain">
-                                            <span><i class="fa fa-reply" aria-hidden="true"></i></span>
-                                        </button>*@
                                         <button class="score__btn plus btn-plain btn-like-reply-template btn-like-reply" id="btn-like-reply-@(subItem.CommentId)" value="@(subItem.CommentId)">
                                             @(subItem.NumberOfLike)
                                             <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
@@ -142,7 +154,10 @@
                 <i class="fa fa-check-circle " aria-hidden="true"></i>
             </div>
             <div class="question-item__header">
-                <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+                <div class="logo-name">
+                    <span></span>
+                </div>
+                @*<span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>*@
                 <div class="question-item__header-center">
                     <div class="question-item__author truncate">
                         <span class="author__name username-content"></span>
@@ -178,10 +193,13 @@
     <div class="card-header list-answer">
 
         <div class="question-item__header">
-            <span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>
+            <div class="logo-name">
+                <span></span>
+            </div>
+            @*<span><i class="fa fa-user-circle-o fa-3x" aria-hidden="true"></i></span>*@
             <div class="question-item__header-center">
                 <div class="question-item__author truncate">
-                    <span class="author__name"  id="username-reply"></span>
+                    <span class="author__name" id="username-reply"></span>
                     <br />
                     <span class="question-item-date" id="reply-time"></span>
 
@@ -191,8 +209,8 @@
             <div class="question-item__action-zone">
                 <div class="score score--card">
                     @*<button class="score__btn minus btn-plain">
-                        <span><i class="fa fa-reply" aria-hidden="true"></i></span>
-                    </button>*@
+                    <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                </button>*@
                     <button class="score__btn plus btn-plain  btn-like-reply-template btn-like-reply" value="">
                         0
                         <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
@@ -205,16 +223,6 @@
         <div class="question-item__body" id="reply-content">
            
         </div>
-
-
-
-        @*<span id="username-reply"></span>
-        <span id="reply-content"></span>
-        <p class="like-rep">
-            <button class="btn btn-primary btn-sm" value=""><i class="fa fa-thumbs-o-up btn-like-reply" aria-hidden="true"> 0</i></button>
-            @*<button id="btn-reply" class="btn btn-success btn-sm btn-reply" data-toggle="modal" data-target="#modalReply"><i class="fa fa-reply" aria-hidden="true"></i> Reply</button>*@
-        @*</p>*@
-        @*<span id="reply-time"></span>*@
         <br />
     </div>
 </div>
@@ -532,21 +540,14 @@
                         if (data.data[i].IsAnswer != null) {
                             if (data.data[i].IsAnswer == true) {
 
-                                templateQuestion.find('.icon-answer').css('display', 'block');
+                                templateQuestion.find('.main-qa').addClass('answered-question');
                             }
                         }
 
-                        /*listQa.find('.username-content').html(name);
-                        listQa.find('.question-content-template').html(message);
-                        listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
-                        listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                        listQa.find('.btn-reply').attr('value', newQuestionId);
-                        listQa.find('.btn-like-question').attr('value', newQuestionId);
-                        listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
-                        listQa.find('.btn-like-question').attr('id', 'btn-like-question-' + newQuestionId);*/
-                        var dateTmp = data.data[i].CreateTime.toString("dd/MM/yyyy");
-                        console.log(dateTmp);
-                        
+                        var usernamePostQuestionSplit = data.data[i].Username.split(' ');
+                        var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
+                        templateQuestion.find('.logo-name span').html(firstCharacterName.toUpperCase());
+                        templateQuestion.find('.logo-name').css('background-color', getRandomColor());
                         templateQuestion.find('.username-content').html(data.data[i].Username);
                         templateQuestion.find('.question-content-template').html(data.data[i].QuestionContent);
                         templateQuestion.find('.create-time').html('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
@@ -559,6 +560,10 @@
                         $('#qa-container').append(templateQuestion.html());
                         for (var j = 0; j < data.data[i].Comments.length; j++) {
                             var templateComment = $('#list-reply-template').clone();
+                            var usernamePostQuestionSplit = data.data[i].Comments[j].Username.split(' ');
+                            var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
+                            templateComment.find('.logo-name span').html(firstCharacterName.toUpperCase());
+                            templateComment.find('.logo-name').css('background-color', getRandomColor());
                             templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-like-reply').attr('id', 'btn-like-reply-' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
@@ -592,9 +597,13 @@
                         var templateQuestion = $('#list-qa').clone();
                         if (data.data[i].IsAnswer != null) {
                             if (data.data[i].IsAnswer == true) {
-                                templateQuestion.find('.icon-answer').css('display', 'block');
+                                templateQuestion.find('.main-qa').addClass('answered-question');
                             }
                         }
+                        var usernamePostQuestionSplit = data.data[i].Username.split(' ');
+                        var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
+                        templateQuestion.find('.logo-name span').html(firstCharacterName.toUpperCase());
+                        templateQuestion.find('.logo-name').css('background-color', getRandomColor());
                         templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
@@ -605,6 +614,10 @@
                         $('#qa-container').append(templateQuestion.html());
                         for (var j = 0; j < data.data[i].Comments.length; j++) {
                             var templateComment = $('#list-reply-template').clone();
+                            var usernamePostQuestionSplit = data.data[i].Comments[j].Username.split(' ');
+                            var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
+                            templateComment.find('.logo-name span').html(firstCharacterName.toUpperCase());
+                            templateComment.find('.logo-name').css('background-color', getRandomColor());
                             templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-like-reply').attr('id', 'btn-like-reply-' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
@@ -620,6 +633,18 @@
                     console.log(data);
                 }
             });
+
+
+            
+        }
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
         }
 
     </script>
