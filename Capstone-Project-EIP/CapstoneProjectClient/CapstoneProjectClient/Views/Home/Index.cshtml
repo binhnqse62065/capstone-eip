@@ -21,23 +21,23 @@
                 <div class="row">
                     <div class="col-sm-6  custom-col">
                         <div class="row">
-                            <div class="col-sm-4 name-title custom-col">Tên sự kiện: &nbsp;</div>
-                            <div class="col-sm-8 evtinfo custom-col"> @Html.Raw(Model.Name)</div>
+                            <div class="name-title custom-col"><i class="fa fa-flag custom-icon"></i> &nbsp;@Html.Raw(Model.Name)</div>
+                            @*<div class="evtinfo custom-col"><span>@Html.Raw(Model.Name)</span></div>*@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4 name-title custom-col">Thời gian: &nbsp;</div>
-                            <div class="col-sm-8 evtinfo custom-col"> @Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
+                            <div class="name-title custom-col"><i class="fa fa-clock-o custom-icon"></i> &nbsp;@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
+                            @*<div class="col-sm-8 evtinfo custom-col">@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>*@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4 name-title custom-col">Địa điểm: &nbsp;</div>
-                            <div class="col-sm-8 evtinfo custom-col"> @Html.Raw(Model.Address)</div>
+                            <div class="name-title custom-col"><i class="fa fa-map-marker custom-icon"></i> &nbsp;@Html.Raw(Model.Address)</div>
+                            @*<div class="col-sm-8 evtinfo custom-col">@Html.Raw(Model.Address)</div>*@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-4 name-title custom-col">Mô tả: &nbsp;</div>
-                            <div class="col-sm-8 evtinfo custom-col">@Html.Raw(Model.EventDescription)</div>
+                            <div class="name-title custom-col"><i class="fa fa-pencil-square-o custom-icon"></i> &nbsp;@Html.Raw(Model.EventDescription)</div>
+                            @*<div class="col-sm-8 evtinfo custom-col">@Html.Raw(Model.EventDescription)</div>*@
                         </div>
                     </div>
                 </div>

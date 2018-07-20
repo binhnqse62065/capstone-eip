@@ -1,6 +1,23 @@
 /* your styles go here */
-.custom-col{
+.custom-col {
     padding-right: 0px;
     padding-left: 0px;
     width: auto
+}
+
+.custom-menu {
+    font-family: Montserrat-Regular !important;
+    padding-top: 20px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+}
+
+.custom-icon {
+    width: 16px;
+    height: 16px;
+}
+
+@font-face {
+    font-family: Montserrat-Regular;
+    src: url('../../../../Login_v12/fonts/montserrat/Montserrat-Regular.ttf');
 }
