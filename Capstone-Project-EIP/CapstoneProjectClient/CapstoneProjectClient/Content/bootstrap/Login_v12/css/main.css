@@ -40,7 +40,6 @@ body, html {
 a {
 	font-family: Montserrat-Regular;
 	font-size: 14px;
-	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
 	transition: all 0.4s;
@@ -370,11 +369,11 @@ iframe {
         border-radius: 25px;
         top: 0;
         left: 0;
-        background: #005bea;
-        background: -webkit-linear-gradient(left, #ea0000, #fb000042);
-        background: -o-linear-gradient(left, #ea0000, #fb000042);
-        background: -moz-linear-gradient(left, #ea0000, #fb000042);
-        background: linear-gradient(left, #ea0000, #fb000042);
+        background: #005f75;
+        background: -webkit-linear-gradient(left, #005f75, #005f7542);
+        background: -o-linear-gradient(left, #005f75, #005f7542);
+        background: -moz-linear-gradient(left, #005f75, #005f7542);
+        background: linear-gradient(left, #005f75, #005f7542);
         -webkit-transition: all 0.4s;
         -o-transition: all 0.4s;
         -moz-transition: all 0.4s;
