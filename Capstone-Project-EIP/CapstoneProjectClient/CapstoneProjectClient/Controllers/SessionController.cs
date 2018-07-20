@@ -19,7 +19,8 @@ namespace CapstoneProjectClient.Controllers
             if(listSession.Count() == 1)
             {
                 ViewBag.SessionNumber = 1;
-                return RedirectToAction("Index", "Home", new { eventId = ViewBag.EventId });
+                ViewBag.SessionId = listSession.ElementAt(0).SessionID;
+                return RedirectToAction("Index", "Timeline", new { eventId = ViewBag.EventId, sessionId = ViewBag.SessionId });
             }
             return View(listSession);
         }
