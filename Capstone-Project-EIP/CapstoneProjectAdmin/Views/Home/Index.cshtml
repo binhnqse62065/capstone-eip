@@ -8,158 +8,90 @@
 @model EventViewModel
 
 <div class="container">
-    <div class="row" style="height:100px">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row ">
+                <div class="col-sm-10 name-title" style="text-align:center">
+                    <h1 class="home-page-title">@Html.Raw(Model.Name)</h1>
+                </div>
+                <div class="col-sm-2">
+                    <center>
+                        <a href="@Url.Action("Edit", "Home", new { id = Model.EventID })" class="btn btn-primary" style="margin-top:35px">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh Sửa
+                        </a>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @*<div class="row" style="height:100px">
         <div class="col-sm-8 name-title" style="text-align:center"><h1 class="home-page-title">@Html.Raw(Model.Name)</h1></div>
         <div class="col-sm-4">
             <div class="row down pull-left">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdateEvent" onclick="showEditModal(@Html.Raw(Model.EventID), '@Html.Raw(Model.Name)', @Html.Raw(Model.CodeLogin), '@Html.Raw(Model.StartTime)', '@Html.Raw(Model.EndTime)', '@Html.Raw(Model.Address)', '@Html.Raw(Model.EventDescription)', @Html.Raw(Model.TemplateId), '@Html.Raw(Model.ImageURL)')" style="margin-top:20px">
                     <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh Sửa
                 </button>
+                <a href="@Url.Action("Edit", "Home")" class="btn btn-primary">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh 
+                 </a>
             </div>
 
         </div>
 
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Mã Đăng Nhập</label>
+    </div>*@
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Mã Đăng Nhập</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-code-login">@Html.Raw(Model.CodeLogin)</div>
                 </div>
-                <div class="col-sm-8 evtinfo home-page-code-login">@Html.Raw(Model.CodeLogin)</div>
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Thời Gian Bắt Đầu</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-start-time">@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Thời Gian Kết Thúc</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-end-time">@Html.Raw(Model.EndTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Địa Điểm</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-address">@Html.Raw(Model.Address)</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Miêu Tả</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-description">@Html.Raw(Model.EventDescription)</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Trang Nội Dung</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-template">@Html.Raw(Model.TemplateId)</div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Thời Gian Bắt Đầu</label>
-                </div>
-                <div class="col-sm-8 evtinfo home-page-start-time">@Html.Raw(Model.StartTime)</div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Thời Gian Kết Thúc</label>
-                </div>
-                <div class="col-sm-8 evtinfo home-page-end-time">@Html.Raw(Model.EndTime)</div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Địa Điểm</label>
-                </div>
-                <div class="col-sm-8 evtinfo home-page-address">@Html.Raw(Model.Address)</div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Miêu Tả</label>
-                </div>
-                <div class="col-sm-8 evtinfo home-page-description">@Html.Raw(Model.EventDescription)</div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Trang Chủ</label>
-                </div>
-                <div class="col-sm-8 evtinfo home-page-template">@Html.Raw(Model.TemplateId)</div>
-            </div>
-        </div>
-
-        <div class="col-sm-6">
-            <img src="@Html.Raw(Model.ImageURL)" class="img-responsive home-page-image">
-        </div>
-    </div>
-    <!-- Modal -->
-    <div id="modalUpdateEvent" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-sm-3 form-control-label">
-                            Name<span class="required">*</span>
-                        </label>
-                        <div class="col-sm-9 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-briefcase" aria-hidden="true"></i>
-                            </div>
-                            <input type="text" class="form-control home-title">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 form-control-label">Code Login</label>
-                        <div class="col-sm-9 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-sign-in" aria-hidden="true"></i>
-                            </div>
-                            <input type="text" class="form-control home-code-login">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 form-control-label">
-                            Start Time - End Time<span class="required"></span>
-                        </label>
-                        <div class="col-sm-9 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                            </div>
-                            <input id="startEndTime" type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 form-control-label">Description</label>
-                        <div class="col-sm-9 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-info" aria-hidden="true"></i>
-                            </div>
-                            <textarea type="text" class="form-control home-description"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 form-control-label">Address</label>
-                        <div class="col-sm-9 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                            </div>
-                            <input type="text" class="form-control home-address">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 form-control-label">Landing Page Id</label>
-                        <div class="col-sm-9 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-location-arrow" aria-hidden="true"></i>
-                            </div>
-                            <input type="text" class="form-control home-template    ">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 form-control-label">Image:</label>
-                        <div class="col-sm-9 input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-link" aria-hidden="true"></i>
-                            </div>
-                            <textarea type="text" class="form-control home-image"></textarea>
-                        </div>
-                        <div class="col-sm-3"></div>
-                        <div class="row col-sm-9">
-                            <label>or</label>
-                            <input type="file" id="myFile">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btn-save" class="btn btn-primary home-id" data-dismiss="modal">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            <div class="col-sm-6">
+                <img src="@Html.Raw(Model.ImageURL)" class="img-responsive home-page-image">
             </div>
         </div>
     </div>
+    
+    
 </div>
 @section scripts {
     <script>

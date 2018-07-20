@@ -23,6 +23,7 @@ namespace CapstoneProjectAdmin.Controllers
         public ActionResult Edit(int id)
         {
             var currentEvent = db.Events.Find(id);
+            ViewBag.EventId = id;
             return View(currentEvent);
         }
 

@@ -6,71 +6,103 @@
     ViewBag.Title = "Edit";
 }
 
+<div class="container">
+    <img src="@Html.Raw(Model.ImageURL)" class="img-responsive home-page-image">
+    <div class="clearfix"></div>
 
-<img src="~/Content/img/background-wifi-2.png" class="img-responsive">
-<div class="clearfix"></div>
+    <div class="box">
+        <div class="box-header d-flex align-items-center">
+            <h2 class="h5 display">Edit event information</h2>
+        </div>
 
-<div class="box">
-    <div class="box-header d-flex align-items-center">
-        <h2 class="h5 display">Edit event information</h2>
-    </div>
-
-    <div class="box-body">
-        @*<form class="form-horizontal">*@
+        <div class="box-body">
+            @*<form class="form-horizontal">*@
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Name:</label>
-                <div class="col-sm-10 input-group">
+                <label class="col-sm-3 form-control-label">Tên sự kiện:</label>
+                <div class="col-sm-9 input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                     </div>
-                    <input type="text" id="txtName" class="form-control" placeholder="Enter event's name" value="@Html.Raw(Model.Name)">
+                    <input type="text" id="txtName" class="form-control" placeholder="" value="@Html.Raw(Model.Name)">
+            
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Date and time range:</label>
+                <label class="col-sm-3 form-control-label">Mã đăng nhập:</label>
+                <div class="col-sm-9 input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                    </div>
+                    <input type="text" id="txtName" class="form-control" placeholder="" value="@Html.Raw(Model.CodeLogin)">
+                </div>
+            </div>
 
-                <div class="input-group col-sm-10">
+            <div class="form-group">
+                <label class="col-sm-3 form-control-label">Thời gian diễn ra sự kiện:</label>
+
+                <div class="input-group col-sm-9">
                     <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="reservation" placeholder="Pick time's event" value="@Html.Raw(Model.StartTime)">
+                    <input type="text" class="form-control pull-right" id="reservation" placeholder="" value="@Html.Raw(Model.StartTime)">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Address:</label>
-                <div class="col-sm-10 input-group">
+                <label class="col-sm-3 form-control-label">Địa điểm:</label>
+                <div class="col-sm-9 input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-location-arrow" aria-hidden="true"></i>
                     </div>
-                    <input type="text" id="txtAddress" class="form-control" placeholder="Enter address where you take place the event" value="@Html.Raw(Model.Address)">
+                    <input type="text" id="txtAddress" class="form-control" placeholder="" value="@Html.Raw(Model.Address)">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Description:</label>
-                <div class="col-sm-10 input-group">
+                <label class="col-sm-3 form-control-label">Miêu tả:</label>
+                <div class="col-sm-9 input-group">
                     <textarea id="txtDescription" name="editor1" rows="10" cols="80">
                         @Html.Raw(Model.EventDescription)
                     </textarea>
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-3 form-control-label">Mã trang nội dung:</label>
+                <div class="col-sm-9 input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    </div>
+                    <input type="text" id="txtAddress" class="form-control" placeholder="" value="@Html.Raw(Model.TemplateId)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 form-control-label">Đường dẫn hình ảnh:</label>
+                <div class="col-sm-9 input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                    </div>
+                    <input type="text" id="txtAddress" class="form-control" placeholder="" value="@Html.Raw(Model.ImageURL)">
+                </div>
+            </div>
+
             <div class="line"></div>
             <div class="col-sm-8">
-
             </div>
             <div class="col-sm-4">
-                <button class="btn btn-primary" id="btnUpdate">Save changes</button>
-                <button type="submit" class="btn btn-secondary">Cancel</button>
+                <button class="btn btn-primary" id="btnUpdate">Lưu</button>
+                <button type="submit" class="btn btn-secondary">Hủy</button>
             </div>
 
-        @*</form>*@
+            @*</form>*@
+        </div>
     </div>
 </div>
 
+<input type="hidden" value="@Model.EventID" id="event-id" />
 
 
 
@@ -85,7 +117,7 @@
                     url: @Url.Action("Update","Home"),
                     method: "POST",
                     data: {
-                        EventID: 1,
+                        EventID: $('#event-id').val(),
                         Name: $('#txtName').val(),
                         Address: $('#txtAddress'),
                         EventDescription: $('#txtDescription')
@@ -99,8 +131,8 @@
                     }
                 });
             });
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
+            //Replace the <textarea id="editor1"> with a CKEditor
+            //instance, using default configuration.
             CKEDITOR.replace('editor1');
 
             //Date range picker

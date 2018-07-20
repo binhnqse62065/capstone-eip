@@ -47,7 +47,7 @@ namespace CapstoneProjectAdmin.API
                         StartTime = eventUpdate.StartTime.ToString(),
                         EndTime = eventUpdate.EndTime.ToString()
                     },
-                    message = "Edit successful!"
+                    message = "Cập nhật thông tin thành công!"
                 })
             };
 
