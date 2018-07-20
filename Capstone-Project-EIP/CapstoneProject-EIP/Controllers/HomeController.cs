@@ -12,11 +12,11 @@ namespace CapstoneProject_EIP.Controllers
     {
         public ActionResult Index()
         {
-            /*EventApi eventApi = new EventApi();
-            var currEvent = eventApi.BaseService.GetEventById(1);*/
+        //    EventApi eventApi = new EventApi();
+        //    var currEvent = eventApi.BaseService.GetEventById(1);
             HmsEntities db = new HmsEntities();
             var currEvent = db.Events.Find(1);
-            if(currEvent.TemplateId == 1)
+            if (currEvent.TemplateId == 1)
             {
                 return View("Index", currEvent);
             }

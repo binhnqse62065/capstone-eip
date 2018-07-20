@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+    //Layout = null;
     //string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
     int eventId = ViewBag.EventId;
 }
@@ -28,45 +28,56 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/main.css">
+    <link rel="stylesheet" href="~/Content/CustomCss/customNav.css">
 
     <!--===============================================================================================-->
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="~/Content/CustomCss/main.css">
 </head>
 <body>
-    <div class="container-loader">
-        <div class="loader">
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-            <span class="loader-block"></span>
-        </div>
-    </div>
-
-    <div class="limiter">
-        <div class="container-login100 bubbles" style="background-image: url('../../Content/img/Pi5sTPQ.jpg');">
-            <div class="wrap-login100 p-t-190 p-b-30">
-                <div class="login100-form validate-form" id="div-section">
-                    @{
-                        foreach (var session in Model)
-                        {
-                            <div class="container-login100-form-btn p-t-10">
-                                <a href="/Timeline/Index/@session.EventId/@session.SessionID" class="login100-form-btn" id="btn-session">@session.Name</a>
-                            </div>
-                        }
-                        <div class="container-login100-form-btn p-t-10">
-                            <a href="/Home/Index/@eventId" class="login100-form-btn" id="btn-session">Quay lại trang chủ</a>
+        <div class="container-login100">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">Đang diễn ra</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab">Tất cả</a></li>
+                </ul>
+            </div>
+            <!--Tab content-->
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="wrap-login100 p-t-190 p-b-30">
+                        <div class="login100-form validate-form" id="div-section">
+                            @{
+                                foreach (var session in Model)
+                                {
+                                    if (DateTime.Now <= session.EndTime && DateTime.Now >= session.StartTime)
+                                    {
+                                        <div class="container-login100-form-btn p-t-10">
+                                            <a href="/Timeline/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">@session.Name</a>
+                                        </div>
+                                    }
+                                }
+                            }
                         </div>
-                    }
+                    </div>
                 </div>
+                <div class="tab-pane" id="tab_2">
+                    <div class="wrap-login100 p-t-190 p-b-30">
+                        <div class="login100-form validate-form" id="div-section">
+                            @{
+                                foreach (var session in Model)
+                                {
+                                        <div class="container-login100-form-btn p-t-10">
+                                            <a href="/Timeline/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">@session.Name</a>
+                                        </div>
+                                    }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
             </div>
         </div>
-    </div>
 
     <div id="session-template" style="display:none">
         <div class="container-login100-form-btn p-t-10">
@@ -88,48 +99,3 @@
 
 </body>
 </html>
-@*<script>
-        $(document).ready(function () {
-            var urlApi = '@curPath';
-
-            //Check Code
-            $('#btn-check-code').on('click', function () {
-                $('.container-loader').css('display', 'block');
-                var code = $('#txt-code-login').val();
-                if (code.length != 0) {
-                    $.ajax({
-                        url: urlApi + 'api/login/CheckCodeLogin/' + code,
-                        method: "POST",
-                        success: function (data) {
-                            console.log(data);
-                            if (data.data != null) {
-                                $('.message-error').css('display', 'none');
-                                $('.container-loader').css('display', 'none');
-                                $('#txt-code-login').val("");
-                                $('#div-section').empty();
-                                for (var i = 0; i < data.data.length; i++) {
-                                    var sectionTemplate = $('#session-template').clone();
-                                    sectionTemplate.find('#btn-session').html(data.data[i].Name);
-                                    sectionTemplate.find('#btn-session').attr('href', '/Timeline/Index/' + data.data[i].EventId + '/' + data.data[i].SessionID);
-                                    $('#div-section').append(sectionTemplate.html());
-                                }
-                            }
-                            else {
-                                $('.message-error').css('display', 'block');
-                                $('#txt-code-login').val("");
-                                $('.container-loader').css('display', 'none');
-                            }
-                        },
-                        error: function (data) {
-                            $('.message-error').css('display', 'block');
-                            $('#txt-code-login').val("");
-                            $('.container-loader').css('display', 'none');
-                            console.log(data);
-                        }
-                    });
-                }
-
-            });
-
-        });
-    </script>*@

@@ -9,8 +9,10 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
+using CapstoneProjectAdmin.ViewModel;
 using CapstoneProjectClient.Models;
 using HmsService.Models.Entities;
+using HmsService.Sdk;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -20,6 +22,76 @@ namespace CapstoneProjectClient.API
     public class QuestionsController : ApiController
     {
         private HmsEntities db = new HmsEntities();
+
+        [Route("getAllQuestionCommentByCreateTime")]
+        [HttpPost]
+        public HttpResponseMessage getAllQuestionCommentByCreateTime(Question qa)
+        {
+            QuestionApi questionApi = new QuestionApi();
+            var listQas = questionApi.BaseService.GetQuestionsByQaId(qa.QAId).OrderByDescending(q => q.CreateTime).Select(v => new QuestionViewModel
+            {
+                QuestionId = v.QuestionId,
+                QAId = v.QAId,
+                QuestionContent = v.QuestionContent,
+                Username = v.Username,
+                CreateTime = v.CreateTime.Value.ToString("hh:mm tt"),
+                NumberOfLike = v.NumberOfLike,
+                IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
+                Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
+                {
+                    Username = s.Username,
+                    CommentId = s.CommentId,
+                    CommentContent = s.CommentContent,
+                    QuestionId = s.QuestionId,
+                    CreateTime = s.CreateTime.Value.ToString("hh:mm tt"),
+                    NumberOfLike = s.NumberOfLike
+                }),
+            });
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    data = listQas
+                })
+            };
+        }
+
+        [Route("getAllQuestionCommentByLike")]
+        [HttpPost]
+        public HttpResponseMessage getAllQuestionCommentByLike(Question qa)
+        {
+            QuestionApi questionApi = new QuestionApi();
+            var listQA = questionApi.BaseService.GetQuestionsByQaId(qa.QAId).OrderByDescending(s => s.NumberOfLike).Select(v => new QuestionViewModel
+            {
+                QuestionId = v.QuestionId,
+                QAId = v.QAId,
+                QuestionContent = v.QuestionContent,
+                Username = v.Username,
+                CreateTime = v.CreateTime.Value.ToString("hh:mm tt"),
+                NumberOfLike = v.NumberOfLike,
+                IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
+                Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
+                {
+                    Username = s.Username,
+                    CommentId = s.CommentId,
+                    CommentContent = s.CommentContent,
+                    QuestionId = s.QuestionId,
+                    CreateTime = s.CreateTime.Value.ToString("hh:mm tt"),
+                    NumberOfLike = s.NumberOfLike
+                }),
+            });
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    data = listQA
+                })
+            };
+        }
 
         [Route("getAllQuestion")]
         [HttpGet]

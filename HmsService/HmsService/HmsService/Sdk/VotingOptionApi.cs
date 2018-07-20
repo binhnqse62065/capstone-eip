@@ -53,10 +53,10 @@ namespace HmsService.Sdk
                 }
                 //calculate percent each option
                 List<double> listPercentOption = new List<double>();
-                double percentTmp = 0;
+                Double percentTmp = 0;
                 foreach(var option in listOption)
                 {
-                    percentTmp = Math.Round(((double)option.NumberOfVoting / totalVote) * 100);
+                    percentTmp = Math.Round(((double)option.NumberOfVoting / totalVote) * 100); 
                     listPercentOption.Add(percentTmp);
                 }
                 return listPercentOption;

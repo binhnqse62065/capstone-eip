@@ -243,6 +243,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\CommentsViewModel.cs" />
+    <Compile Include="ViewModel\QuestionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -442,6 +444,7 @@
     <Content Include="Content\bootstrap\Poll\js\bootstrap.js" />
     <Content Include="Content\bootstrap\Poll\js\jquery-1.11.1.js" />
     <Content Include="Content\bootstrap\Poll\js\processBar.js" />
+    <Content Include="Content\CustomCss\customNav.css" />
     <Content Include="Content\CustomCss\home.css" />
     <Content Include="Content\CustomCss\main.css" />
     <Content Include="Content\CustomCss\QA.css" />

@@ -277,6 +277,19 @@
         function InitDatatable(index, sessionId) {
             $('#tblTimelineSession' + index).DataTable({
                 "bDestroy": true,
+                "oLanguage": {
+                    "sSearch": "Tìm kiếm",
+                    "oPaginate": {
+                        "sFirst": "Trang đầu",
+                        "sLast": "Trang cuối",
+                        "sNext": "Trang kế",
+                        "sPrevious": "Trang trước"
+                    },
+                    "sInfoEmpty": "",
+                    "sInfo": "Hiển thị từ dòng _START_ tới _END_ trong tổng số _TOTAL_ dòng",
+                    "sZeroRecords": "Không có dữ liệu",
+                    "sLengthMenu": "Hiển thị _MENU_ dòng"
+                },
                 ajax: {
                     url: urlApi + 'api/timeline/GetAllTimelineBySessionId/' + sessionId,
                     dataSrc: ""

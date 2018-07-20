@@ -21,11 +21,12 @@ namespace HmsService.Models.Entities
         }
     
         public int QuestionId { get; set; }
-        public Nullable<int> QAId { get; set; }
+        public int QAId { get; set; }
         public string QuestionContent { get; set; }
         public string Username { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<int> NumberOfLike { get; set; }
+        public Nullable<bool> IsAnswer { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

@@ -56,6 +56,7 @@
                 success: function (data) {
                     console.log('Success');
                     $('#tblQA').DataTable().ajax.reload();
+                    swal("Thành công!", "Thêm hỏi đáp thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);
