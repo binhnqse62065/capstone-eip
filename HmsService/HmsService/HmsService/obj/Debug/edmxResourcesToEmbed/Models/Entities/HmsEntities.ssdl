@@ -124,6 +124,8 @@
     <Property Name="CodeLogin" Type="int" />
     <Property Name="ImageURL" Type="varchar(max)" />
     <Property Name="IsActive" Type="bit" />
+    <Property Name="Longitude" Type="float" />
+    <Property Name="Latitude" Type="float" />
   </EntityType>
   <EntityType Name="EventCollection">
     <Key>

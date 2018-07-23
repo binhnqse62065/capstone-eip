@@ -7,7 +7,7 @@
 }
 
 <div class="container">
-    <img src="@Html.Raw(Model.ImageURL)" class="img-responsive home-page-image">
+
     <div class="clearfix"></div>
 
     <div class="box">
@@ -34,7 +34,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-key" aria-hidden="true"></i>
                     </div>
-                    <input type="text" id="txtName" class="form-control" placeholder="" value="@Html.Raw(Model.CodeLogin)">
+                    <input type="text" id="txtLoginCode" class="form-control" placeholder="" value="@Html.Raw(Model.CodeLogin)">
                 </div>
             </div>
 
@@ -45,7 +45,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="reservation" placeholder="" value="@Html.Raw(Model.StartTime)">
+                    <input type="text" class="form-control pull-right" id="txtStartEndTime" placeholder="" value="@Html.Raw(Model.StartTime) - @Html.Raw(Model.EndTime)">
                 </div>
             </div>
 
@@ -56,8 +56,8 @@
                         <i class="fa fa-location-arrow" aria-hidden="true"></i>
                     </div>
                     <input type="text" id="txtAddress" class="form-control" placeholder="Vui lòng nhập địa chỉ" value="@Html.Raw(Model.Address)">
-                    <input type="text" id="txtLng" class="form-control" placeholder="Vui lòng nhập kinh độ hoặc nhấn vào bản đồ để lấy" value="">
-                    <input type="text" id="txtLat" class="form-control" placeholder="Vui lòng nhập vĩ độ hoặc nhấn vào bản đồ để lấy" value="">
+                    <input type="text" id="txtLng" class="form-control" placeholder="Vui lòng nhập kinh độ hoặc nhấn vào bản đồ để lấy" value="@(Model.Longitude)">
+                    <input type="text" id="txtLat" class="form-control" placeholder="Vui lòng nhập vĩ độ hoặc nhấn vào bản đồ để lấy" value="@(Model.Latitude)">
                 </div>
                 <div id="map-canvas" style="width:100%; height:500px;"></div>
             </div>
@@ -77,7 +77,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-picture-o" aria-hidden="true"></i>
                     </div>
-                    <input type="text" id="txtAddress" class="form-control" placeholder="" value="@Html.Raw(Model.TemplateId)">
+                    <input type="text" id="txtTemplateId" class="form-control" placeholder="" value="@Html.Raw(Model.TemplateId)">
                 </div>
             </div>
 
@@ -92,11 +92,11 @@
                             </div>
                         </div>
                         <div id="thumbnail-container">
-                            <img src="@(Model.ImageURL)" />
+                            <img id="txtBannerImage" src="@(Model.ImageURL)" class="img-responsive home-page-image" />
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="line"></div>
@@ -127,18 +127,40 @@
     <script>
         $(document).ready(function () {
             $('#btnUpdate').click(function () {
+                var time = $('#txtStartEndTime').val();
+                var timeSplit = time.split('-');
+                var startTimeTmp = timeSplit[0].trim();
+                var endTimeTmp = timeSplit[1].trim();
+
+                var startTime = startTimeTmp.split("/").reverse().join("-");
+                var endTime = endTimeTmp.split("/").reverse().join("-");
+
                 $.ajax({
                     url: '@Url.Action("Update","Home")',
                     method: "POST",
                     data: {
                         EventID: $('#event-id').val(),
                         Name: $('#txtName').val(),
-                        Address: $('#txtAddress'),
-                        EventDescription: $('#txtDescription')
+                        Address: $('#txtAddress').val(),
+                        EventDescription: $('#txtDescription').val().trim(),
+                        CodeLogin: $('#txtLoginCode').val(),
+                        StartTime: startTime,
+                        EndTime: endTime,
+                        ImageURL: $('#txtBannerImage').val(),
+                        Longitude: $('#txtLng').val(),
+                        Latitude: $('#txtLat').val()
 
                     },
                     success: function (data) {
-
+                        if (data.success) {
+                            swal({
+                                title: "Thành công!",
+                                text: "Cập nhật thông tin sự kiện thành công",
+                                type: "success",
+                            }, function () {
+                                window.location.href = "/Home/Index/" + data.eventId;
+                                });
+                        }
                     },
                     error: function (data) {
                         console.log(data);
@@ -150,13 +172,15 @@
             CKEDITOR.replace('editor1');
 
             //Date range picker
-            $('#reservation').daterangepicker();
+            $('#txtStartEndTime').daterangepicker();
 
 
 
 
 
         });
+
+
         // Initialize and add the map
         function initMap() {
             var map;
@@ -246,15 +270,60 @@
             //});
         }
 
+        //Filestack dùng để up hình
+        // Set up the picker
+        const client = filestack.init('AIA0Qk3iTSGzr9dIsuPdgz');
+        const options = {
+            onUploadDone: updateForm,
+            maxSize: 10 * 1024 * 1024,
+            accept: 'image/*',
+            uploadInBackground: false,
+            fromSources: ['local_file_system', 'imagesearch', 'facebook', 'instagram', 'dropbox', 'picasa', 'url']
+        };
+        const picker = client.picker(options);
+
+        // Get references to the DOM elements
+
+        const fileInput = document.getElementById('fileupload');
+        const btn = document.getElementById('picker');
+        const nameBox = document.getElementById('nameBox');
+        const urlBox = document.getElementById('urlBox');
+
+        // Add our event listeners
+
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            picker.open();
+        });
+
+
+
+        // Helper to overwrite the field input value
+
+        function updateForm(result) {
+            const fileData = result.filesUploaded[0];
+            fileInput.value = fileData.url;
+
+            // If file is resizable image, resize and embed it as a thumbnail preview
+            if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
+                if (fileInput.value != null) {
+                    $('#txtBannerImage').attr('src', fileInput.value);
+                }
+
+                //const container = document.getElementById('thumbnail-container');
+                //const thumbnail = document.getElementById('thumbnail') || new Image();
+                //thumbnail.id = 'thumbnail';
+                //thumbnail.src = client.transform(fileData.handle, {
+
+                //});
+
+                //if (!container.contains(thumbnail)) {
+                //    container.appendChild(thumbnail);
+                //}
+            }
+        };
+
     </script>
 }
-<style>
-    .line {
-        width: 100%;
-        height: 1px;
-        border-bottom: 2px dashed #eee;
-        margin: 20px 0 30px;
-    }
-</style>
 
 

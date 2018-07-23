@@ -31,18 +31,17 @@ namespace CapstoneProjectAdmin.Controllers
         [HttpPost]
         public ActionResult Update(Event eventUpdate)
         {
-            var eventUp = db.Events.Find(1);
-            eventUp.Name = eventUp.Name;
             try
             {
-                db.SaveChanges();
+                EventApi eventApi = new EventApi();
+                eventApi.UpdateEvent(eventUpdate);
+                return Json(new { success = true, eventId = eventUpdate.EventID });
             }
             catch(Exception e)
             {
-                var err = e.Message;
+                return Json(new { success = false });
             }
             
-            return View("Index");
         }
 
 

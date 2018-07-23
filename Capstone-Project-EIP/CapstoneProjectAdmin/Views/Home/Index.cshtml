@@ -40,21 +40,30 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4 name-title">
-                            <label>Thời Gian Bắt Đầu</label>
+                            <label>Thời gian diễn ra</label>
                         </div>
-                        <div class="col-sm-8 evtinfo home-page-start-time">@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4 name-title">
-                            <label>Thời Gian Kết Thúc</label>
+                        <div class="col-sm-8 evtinfo home-page-start-time">
+                            @Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy")) -
+                            @Html.Raw(Model.EndTime.Value.ToString("dd/MM/yyyy"))
                         </div>
-                        <div class="col-sm-8 evtinfo home-page-end-time">@Html.Raw(Model.EndTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4 name-title">
                             <label>Địa Điểm</label>
                         </div>
                         <div class="col-sm-8 evtinfo home-page-address">@Html.Raw(Model.Address)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 name-title">
+                            <label>Kinh độ</label>
+                        </div>
+                        <div class="col-sm-8 evtinfo home-page-address">@Html.Raw(Model.Longitude)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 name-title">
+                            <label>Vĩ độ</label>
+                        </div>
+                        <div class="col-sm-8 evtinfo home-page-address">@Html.Raw(Model.Latitude)</div>
                     </div>
 
                     <div class="row">
@@ -74,7 +83,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <img src="@Html.Raw(Model.ImageURL)" class="img-responsive home-page-image">
+                    <img src="@Model.ImageURL" class="img-responsive home-page-image">
                 </div>
             </div>
 
