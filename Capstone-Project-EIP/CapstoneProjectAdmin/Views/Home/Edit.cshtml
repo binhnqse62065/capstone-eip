@@ -1,76 +1,118 @@
-﻿@using HmsService.Models.Entities;
-@model Event
+﻿@using HmsService.ViewModels;
+@model EventViewModel
 @{
     /**/
 
     ViewBag.Title = "Edit";
 }
 
+<div class="container">
+    <img src="@Html.Raw(Model.ImageURL)" class="img-responsive home-page-image">
+    <div class="clearfix"></div>
 
-<img src="~/Content/img/background-wifi-2.png" class="img-responsive">
-<div class="clearfix"></div>
+    <div class="box">
+        <div class="box-header d-flex align-items-center">
+            <h2 class="h5 display">Edit event information</h2>
+        </div>
 
-<div class="box">
-    <div class="box-header d-flex align-items-center">
-        <h2 class="h5 display">Edit event information</h2>
-    </div>
-
-    <div class="box-body">
-        @*<form class="form-horizontal">*@
+        <div class="box-body">
+            @*<form class="form-horizontal">*@
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Name:</label>
-                <div class="col-sm-10 input-group">
+                <label class="col-sm-3 form-control-label">Tên sự kiện:</label>
+                <div class="col-sm-9 input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                     </div>
-                    <input type="text" id="txtName" class="form-control" placeholder="Enter event's name" value="@Html.Raw(Model.Name)">
+                    <input type="text" id="txtName" class="form-control" placeholder="Enter event's name" value="@(Model.Name)">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Date and time range:</label>
+                <label class="col-sm-3 form-control-label">Mã đăng nhập:</label>
+                <div class="col-sm-9 input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                    </div>
+                    <input type="text" id="txtName" class="form-control" placeholder="" value="@Html.Raw(Model.CodeLogin)">
+                </div>
+            </div>
 
-                <div class="input-group col-sm-10">
+            <div class="form-group">
+                <label class="col-sm-3 form-control-label">Thời gian diễn ra sự kiện:</label>
+
+                <div class="input-group col-sm-9">
                     <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="reservation" placeholder="Pick time's event" value="@Html.Raw(Model.StartTime)">
+                    <input type="text" class="form-control pull-right" id="reservation" placeholder="" value="@Html.Raw(Model.StartTime)">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Address:</label>
-                <div class="col-sm-10 input-group">
+                <label class="col-sm-3 form-control-label">Địa điểm:</label>
+                <div class="col-sm-9 input-group">
                     <div class="input-group-addon">
                         <i class="fa fa-location-arrow" aria-hidden="true"></i>
                     </div>
-                    <input type="text" id="txtAddress" class="form-control" placeholder="Enter address where you take place the event" value="@Html.Raw(Model.Address)">
+                    <input type="text" id="txtAddress" class="form-control" placeholder="Vui lòng nhập địa chỉ" value="@Html.Raw(Model.Address)">
+                    <input type="text" id="txtLng" class="form-control" placeholder="Vui lòng nhập kinh độ hoặc nhấn vào bản đồ để lấy" value="">
+                    <input type="text" id="txtLat" class="form-control" placeholder="Vui lòng nhập vĩ độ hoặc nhấn vào bản đồ để lấy" value="">
                 </div>
+                <div id="map-canvas" style="width:100%; height:500px;"></div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 form-control-label">Description:</label>
-                <div class="col-sm-10 input-group">
+                <label class="col-sm-3 form-control-label">Miêu tả:</label>
+                <div class="col-sm-9 input-group">
                     <textarea id="txtDescription" name="editor1" rows="10" cols="80">
                         @Html.Raw(Model.EventDescription)
                     </textarea>
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-3 form-control-label">Mã trang nội dung:</label>
+                <div class="col-sm-9 input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    </div>
+                    <input type="text" id="txtAddress" class="form-control" placeholder="" value="@Html.Raw(Model.TemplateId)">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row" style="padding:0 15px 0 15px">
+                    <label class="col-lg-3 control-label">Hình đại diện</label>
+                    <div class="col-lg-9" style="padding-left:0">
+                        <div class="field">
+                            <div class="control">
+                                <button class="button" type="button" id="picker">Chọn file</button>
+                                <input type="hidden" id="fileupload">
+                            </div>
+                        </div>
+                        <div id="thumbnail-container">
+                            <img src="@(Model.ImageURL)" />
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
             <div class="line"></div>
             <div class="col-sm-8">
-
             </div>
             <div class="col-sm-4">
-                <button class="btn btn-primary" id="btnUpdate">Save changes</button>
-                <button type="submit" class="btn btn-secondary">Cancel</button>
+                <button class="btn btn-primary" id="btnUpdate">Lưu</button>
+                <button type="submit" class="btn btn-secondary">Hủy</button>
             </div>
 
-        @*</form>*@
+            @*</form>*@
+        </div>
     </div>
 </div>
 
+<input type="hidden" value="@Model.EventID" id="event-id" />
 
 
 
@@ -78,14 +120,18 @@
 
 
 @section scripts {
+    <!--Google Map-->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Meb98e_PppAWoqobk4Ml1rFygPl9eUI&callback=initMap">
+    </script>
     <script>
         $(document).ready(function () {
             $('#btnUpdate').click(function () {
                 $.ajax({
-                    url: @Url.Action("Update","Home"),
+                    url: '@Url.Action("Update","Home")',
                     method: "POST",
                     data: {
-                        EventID: 1,
+                        EventID: $('#event-id').val(),
                         Name: $('#txtName').val(),
                         Address: $('#txtAddress'),
                         EventDescription: $('#txtDescription')
@@ -99,16 +145,106 @@
                     }
                 });
             });
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
+            //Replace the <textarea id="editor1"> with a CKEditor
+            //instance, using default configuration.
             CKEDITOR.replace('editor1');
 
             //Date range picker
             $('#reservation').daterangepicker();
 
-            
-        });
 
+
+
+
+        });
+        // Initialize and add the map
+        function initMap() {
+            var map;
+            var myLatlng = { lat: 10.8528727, lng: 106.629381 };
+
+            var myOptions = {
+                zoom: 13,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+            var marker = new google.maps.Marker({
+                draggable: true,
+                position: myLatlng,
+                map: map,
+                title: "Your location"
+            });
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                var lat = event.latLng.lat();
+                var lgn = event.latLng.lng();
+                //var split = latLgn.split(',');
+                $('#txtLat').val(lat);
+                $('#txtLng').val(lgn);
+                //alert(latLgn);
+            });
+
+
+            // Create the search box and link it to the UI element.
+            //var input = document.getElementById('txtAddress');
+            //var searchBox = new google.maps.places.SearchBox(input);
+            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            //// Bias the SearchBox results towards current map's viewport.
+            //map.addListener('bounds_changed', function () {
+            //    searchBox.setBounds(map.getBounds());
+            //});
+
+            //var markers = [];
+            //// Listen for the event fired when the user selects a prediction and retrieve
+            //// more details for that place.
+            //searchBox.addListener('places_changed', function () {
+            //    var places = searchBox.getPlaces();
+
+            //    if (places.length == 0) {
+            //        return;
+            //    }
+
+            //    // Clear out the old markers.
+            //    markers.forEach(function (marker) {
+            //        marker.setMap(null);
+            //    });
+            //    markers = [];
+
+            //    // For each place, get the icon, name and location.
+            //    var bounds = new google.maps.LatLngBounds();
+            //    places.forEach(function (place) {
+            //        if (!place.geometry) {
+            //            console.log("Returned place contains no geometry");
+            //            return;
+            //        }
+            //        var icon = {
+            //            url: place.icon,
+            //            size: new google.maps.Size(71, 71),
+            //            origin: new google.maps.Point(0, 0),
+            //            anchor: new google.maps.Point(17, 34),
+            //            scaledSize: new google.maps.Size(25, 25)
+            //        };
+
+            //        // Create a marker for each place.
+            //        markers.push(new google.maps.Marker({
+            //            map: map,
+            //            icon: icon,
+            //            title: place.name,
+            //            position: place.geometry.location
+            //        }));
+
+            //        if (place.geometry.viewport) {
+            //            // Only geocodes have viewport.
+            //            bounds.union(place.geometry.viewport);
+            //        } else {
+            //            bounds.extend(place.geometry.location);
+            //        }
+            //    });
+            //    map.fitBounds(bounds);
+            //});
+        }
 
     </script>
 }

@@ -1,5 +1,7 @@
 ﻿using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
+using HmsService.Sdk;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -17,20 +19,46 @@ namespace CapstoneProjectAdmin.API
 
         [Route("getAllInteractionNotRunning/{id}")]
         [HttpGet]
-        public IEnumerable<Interaction> GetAllInteractionNotRunning(int id)
+        public IEnumerable<InteractionViewModel> GetAllInteractionNotRunning(int id)
         {
-            var interaction = db.Interactions.Where(s => s.SessionId == id).ToList();
-            var interactionIsNotRunning = interaction.Where(e => e.IsRunning == false).ToList();
-            return interactionIsNotRunning;
+            InteractionApi interactionApi = new InteractionApi();
+            var listInteractionNotRunngning = interactionApi.GetInteractionNotRunningBySessionId(id);
+            var result = listInteractionNotRunngning.Select(i => new InteractionViewModel
+            {
+                InteractionId = i.InteractionId,
+                InteractionName = i.InteractionName,
+                SessionId = i.SessionId,
+                IsRunning = i.IsRunning,
+                QAId = i.QAId,
+                VotingId = i.VotingId,
+                QA = i.QA != null ? new QAViewModel { Name = i.QA.QAName } : null,
+                Voting = i.Voting != null ? new VotingViewModel { Name = i.Voting.VotingName } : null,
+
+            }).ToList();
+            //var interaction = db.Interactions.Where(s => s.SessionId == id).ToList();
+            //var interactionIsNotRunning = interaction.Where(e => e.IsRunning == false).ToList();
+            return result;
         }
 
         [Route("getIsRunningInteraction/{id}")]
         [HttpGet]
-        public IEnumerable<Interaction> GetIsRunningInteraction(int id)
+        public IEnumerable<InteractionViewModel> GetIsRunningInteraction(int id)
         {
-            var interaction = db.Interactions.Where(e => e.SessionId == id).ToList();
-            var interactionIsRunning = interaction.Where(s => s.IsRunning == true).ToList();
-            return interactionIsRunning;
+            InteractionApi interactionApi = new InteractionApi();
+            var listInteractionNotRunngning = interactionApi.GetInteractionRunningBySessionId(id);
+            var result = listInteractionNotRunngning.Select(i => new InteractionViewModel
+            {
+                InteractionId = i.InteractionId,
+                InteractionName = i.InteractionName,
+                SessionId = i.SessionId,
+                IsRunning = i.IsRunning,
+                QAId = i.QAId,
+                VotingId = i.VotingId,
+                QA = i.QA != null ? new QAViewModel { Name = i.QA.QAName } : null,
+                Voting = i.Voting != null ? new VotingViewModel { Name = i.Voting.VotingName } : null,
+
+            }).ToList();
+            return result;
         }
 
 

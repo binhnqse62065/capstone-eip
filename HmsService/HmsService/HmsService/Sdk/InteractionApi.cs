@@ -23,5 +23,15 @@ namespace HmsService.Sdk
         {
             return (int)this.BaseService.GetQaBySessionId(sessionId);
         }
+
+        public IEnumerable<Interaction> GetInteractionNotRunningBySessionId(int sessionId)
+        {
+            return this.BaseService.Get(i => i.SessionId == sessionId && i.IsRunning == false).ToList();
+        }
+
+        public IEnumerable<Interaction> GetInteractionRunningBySessionId(int sessionId)
+        {
+            return this.BaseService.Get(i => i.SessionId == sessionId && i.IsRunning == true).ToList();
+        }
     }
 }

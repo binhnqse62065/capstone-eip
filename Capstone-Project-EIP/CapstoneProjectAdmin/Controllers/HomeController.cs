@@ -22,7 +22,9 @@ namespace CapstoneProjectAdmin.Controllers
 
         public ActionResult Edit(int id)
         {
-            var currentEvent = db.Events.Find(id);
+            EventApi eventApi = new EventApi();
+            var currentEvent = eventApi.BaseService.GetEventById(id);
+            ViewBag.EventId = id;
             return View(currentEvent);
         }
 
@@ -52,13 +54,15 @@ namespace CapstoneProjectAdmin.Controllers
             try
             {
                 db.SaveChanges();
+                return Json(new { success = true });
             }
             catch (Exception e)
             {
                 var err = e.Message;
+                return Json(new { success = false });
             }
 
-            return View("Index");
+            
         }
 
     }

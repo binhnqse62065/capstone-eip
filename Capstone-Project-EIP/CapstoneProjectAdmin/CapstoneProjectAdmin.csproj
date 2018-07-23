@@ -222,6 +222,7 @@
     <Compile Include="Controllers\LivestreamController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageSessionController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
@@ -240,6 +241,8 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ActivityViewModel.cs" />
     <Compile Include="ViewModel\CommentsViewModel.cs" />
+    <Compile Include="ViewModel\EventViewModel.cs" />
+    <Compile Include="ViewModel\InteractionViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
     <Compile Include="ViewModel\QuestionViewModel.cs" />
     <Compile Include="ViewModel\SessionViewModel.cs" />
@@ -7135,6 +7138,7 @@
     <Content Include="Content\fonts\Gotham\GothamRnd-Light.otf" />
     <Content Include="Content\fonts\Gotham\GothamRnd-Medium.otf" />
     <Content Include="Content\Filestack\filestack.min.js" />
+    <Content Include="Content\CustomJs\manage.session.js" />
     <None Include="packages\jQuery.1.10.2\Content\Scripts\jquery-1.10.2-vsdoc.js" />
     <Content Include="packages\jQuery.1.10.2\Content\Scripts\jquery-1.10.2.js" />
     <Content Include="packages\jQuery.1.10.2\Content\Scripts\jquery-1.10.2.min.js" />
@@ -8596,6 +8600,7 @@
     <Content Include="Views\Login\index.cshtml" />
     <Content Include="Views\Shared\_LayoutEvent.cshtml" />
     <Content Include="Views\Events\Add.cshtml" />
+    <Content Include="Views\ManageSession\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

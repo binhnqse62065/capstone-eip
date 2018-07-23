@@ -15,12 +15,13 @@ namespace HmsService.Sdk
     {
         public IEnumerable<Event> GetAllEvent()
         {
-            return this.BaseService.Get();
+            return this.BaseService.Get(e => e.IsActive == true);
         }
 
         public Event CheckLoginCode(int code)
         {
             return this.BaseService.CheckLoginCode(code);
         }
+
     }
 }

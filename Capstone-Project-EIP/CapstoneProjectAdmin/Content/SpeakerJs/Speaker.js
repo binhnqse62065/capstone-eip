@@ -28,21 +28,29 @@
         var name = $('#newName').val();
         var description = $('#newDescription').val();
         var imageUrl = $('#newImageUrl').val();
-        $.ajax({
-            url: urlApi + '/api/speaker/AddSpeaker',
-            method: "POST",
-            data: {
-                Name: name,
-                Description: description,
-                ImageUrl: imageUrl,
-            },
-            success: function (data) {
-                $('#tblSpeaker').DataTable().ajax.reload();
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+        if ($('#newName').val().trim().length == 0) {
+            $('#speaker-name-error').css('display', 'block');
+            $('#btn-add').attr('data-dismiss', null);
+        } else {
+            $('#speaker-name-error').css('display', 'none');
+            $('#btn-add').attr('data-dismiss', 'modal');
+            $.ajax({
+                url: urlApi + '/api/speaker/AddSpeaker',
+                method: "POST",
+                data: {
+                    Name: name,
+                    Description: description,
+                    ImageUrl: imageUrl,
+                },
+                success: function (data) {
+                    $('#tblSpeaker').DataTable().ajax.reload();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        
     });
 
     $('#btn-del').on('click', function () {

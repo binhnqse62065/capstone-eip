@@ -1,0 +1,497 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    String urlApi = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+    int sessionId = 0;
+    if (Model.Count() > 0)
+    {
+        sessionId = Model.FirstOrDefault().SessionID;
+    }
+    IEnumerable<QAViewModel> listQa = ViewBag.ListQA;
+    IEnumerable<VotingViewModel> listVoting = ViewBag.ListVoting;
+}
+@using HmsService.ViewModels;
+@model IEnumerable<SessionViewModel>
+<div class="container">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row">
+                <h2 class="col-sm-12 col-lg-12">Trung tâm điểu khiển phiên làm việc</h2>
+                <div class="col-lg-4">
+                    <select class="form-control" id="cb-session-id">
+                        <option value="0">Vui lòng chọn phiên làm việc muốn điều khiển</option>
+                        @foreach (var session in Model)
+                        {
+                            <option value="@(session.SessionID)">@(session.Name)</option>
+                        }
+                    </select>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="ibox-content">
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Quản lý tương tác</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Quản lý hoạt động</a></li>
+                    <li><a href="#tab3" data-toggle="tab">Quản lý dòng thời gian</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!--Tab Manage Interaction-->
+                    <div class="tab-pane active" id="tab1">
+                        <div class="row ">
+                            <div class="col-lg-12">
+                                <button class="btn btn-custom pull-right " data-toggle="modal" data-target="#addInteractionModal">
+                                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Hiện có</div>
+                                <table class="table table-hover table-bordered" id="tblInteraction" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên</th>
+                                            <th>Tên loại khảo sát/ hỏi đáp</th>
+                                            <th>Loại</th>
+                                            <th>Chức Năng</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="tableHeadText" style="text-align:center; margin-bottom:10px; border-bottom:1px solid">Đang Chạy</div>
+                                <table class="table table-hover table-bordered" id="tblInteractionRunning" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Tên</th>
+                                            <th>Loại</th>
+                                            <th>Chức Năng</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--Tab Manage Activity-->
+                    <div class="tab-pane" id="tab2">
+                        <div class="row margin-bottom-10">
+                            <div class="col-lg-12">
+                                <button class="btn btn-custom pull-right" data-toggle="modal" data-target="#addActivityModal">
+                                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
+                                </button>
+                            </div>
+
+                        </div>
+                        <table class="table table-hover table-bordered" id="tblActivity" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Tên Hoạt Động</th>
+                                    <th>Thời Gian Bắt đầu - Kết thúc</th>
+                                    <th>Miêu Tả</th>
+                                    <th>Tên phiên làm việc</th>
+                                    <th>Chức Năng</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <!--Tab Manage Timeline-->
+                    <div class="tab-pane" id="tab3">
+                        <div class="row margin-bottom-10">
+                            <div class="col-lg-12">
+                                <button class="btn btn-custom pull-right" data-toggle="modal" data-target="#addTimelineModal">
+                                    <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
+                                </button>
+                            </div>
+
+                        </div>
+                        <table class="table table-hover table-bordered" id="tblTimeline" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>Tiêu Đề</th>
+                                    <th>Chi Tiết</th>
+                                    <th>Thời Gian</th>
+                                    <th>Chức Năng</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" value="@(sessionId)" id="session-id" />
+
+<!----------------- Add Interaction Modal ----------------->
+<div class="modal fade" id="addInteractionModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm Tương Tác</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Tên<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" id="newName" class="form-control" placeholder="Enter Interaction's name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Lựa chọn Tương tác
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </div>
+                        <select id="InteractionSelectBox" class="form-control">
+                            <option>---Chọn---</option>
+                            <option value="1">Bỏ Phiếu</option>
+                            <option value="2">Hỏi Đáp</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Loại Tương tác
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        </div>
+                        <select Id="KindOfInteractionSelectBox" class="form-control">
+                            <option>---Chọn---</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-add-interaction" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!----------------- Edit Interaction Modal ----------------->
+<div class="modal fade" id="editInteractionModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chỉnh Sửa Tương Tác</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Tên<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control interaction-name" placeholder="Enter Interaction's name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Chọn Tương tác
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </div>
+                        <select id="InteractionEditSelectBox" class="form-control">
+                            <option>---Chọn---</option>
+                            <option value="1">Bỏ Phiếu</option>
+                            <option value="2">Hỏi Đáp</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Kind Interaction
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        </div>
+                        <select Id="KindOfInteractionEditSelectBox" class="form-control">
+                            <option>---Chọn---</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-update-interaction" class="btn btn-primary interaction-id" data-dismiss="modal" style="margin-top:5px">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!----------------- Add Activity Modal ----------------->
+<div class="modal fade" id="addActivityModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm Hoạt Động</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Tên Hoạt Động:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control" id="addName" placeholder="Nhập tên hoạt động">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Ngày Giờ:</label>
+
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="AddStartEndTime" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Miêu Tả:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input type="text" class="form-control" id="addDescription" placeholder="Nhập miêu tả hoạt động">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!----------------- Update Activity Modal ----------------->
+<div id="modalUpdateActivity" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chỉnh Sửa Hoạt Động</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Tên<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="activityName" type="text" class="form-control" placeholder="Nhập tên hoạt động">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Thời gian Bắt đầu - Kết thúc<span class="required"></span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="startEndTime" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Miêu tả</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input id="activityDescription" type="text" class="form-control" placeholder="Nhập miêu tả">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="txtActivityId" value="" />
+                <button type="button" id="btn-update-activity" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----------------- Add Timeline Modal----------------->
+<div class="modal fade" id="addTimelineModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm Dòng Thời Gian</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">Tiêu Đề:</label>
+                        <div class="col-sm-9 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-briefcase" aria-hidden="true"></i>
+                            </div>
+                            <input type="text" class="form-control" id="addTitle" placeholder="Nhập tiêu đề dòng thời gian">
+                        </div>
+                        <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" style="margin-bottom:10px">
+                            <p style="color:red">Vui lòng nhập tiêu đề</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">Chi Tiết:</label>
+                        <div class="col-sm-9 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-info" aria-hidden="true"></i>
+                            </div>
+                            <input type="text" class="form-control" id="addTimelineDetail" placeholder="Nhập chi tiết dòng thời gian">
+                        </div>
+                        <div class="div-tldetail-error empty col-lg-offset-3 col-lg-9 div-name-error" style="margin-bottom:10px">
+                            <p style="color:red">Vui lòng nhập chi tiết</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="addTimeline" class="btn btn-primary" style="margin-top:5px" data-dismiss="modal">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!----------------- Edit Timeline Modal ----------------->
+<div id="modalUpdateTimeline" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chỉnh Sửa Dòng Thời Gian</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Tiêu Đề<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="timelineTitle" type="text" class="form-control" placeholder="Nhập tiêu đề dòng thời gian">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Chi Tiết</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input id="editTimelineDetail" type="text" class="form-control" placeholder="Nhập chi tiết dòng thời gian">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="txtTimelineId" value="" />
+                <button type="button" id="btn-update-timeline" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----------------- List QA Template ----------------->
+<div style="display:none;">
+    <select id="cbQATemplate">
+        <option>---Lựa chọn---</option>
+        @foreach (var qa in listQa)
+        {
+            <option value="@(qa.QAId)">@(qa.QAName)</option>
+        }
+    </select>
+</div>
+
+<!----------------- List Voting Template ----------------->
+<div style="display:none;">
+    <select id="cbVotingTemplate">
+        <option>---Lựa chọn---</option>
+        @foreach (var voting in listVoting)
+        {
+            <option value="@(voting.VotingId)">@(voting.VotingName)</option>
+        }
+    </select>
+</div>
+
+
+@section scripts {
+    <script>
+        var initSessionId = @(sessionId);
+
+        $(document).ready(function () {
+            if (initSessionId != 0) {
+                InitActivityDatatable(initSessionId);
+                InitTimelineDatatable(initSessionId);
+                InitInteractionDatatable(initSessionId);
+            }
+        });
+    </script>
+    <script src="~/Content/CustomJs/manage.session.js"></script>
+}
+

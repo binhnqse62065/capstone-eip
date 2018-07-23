@@ -15,7 +15,7 @@ namespace HmsService.Sdk
     {
         public IEnumerable<Activity> GetActivitiesBySessionId(int sessionId)
         {
-            return this.BaseService.GetActivitiesBySessionId(sessionId);
+            return this.BaseService.GetActivitiesBySessionId(sessionId).ToList();
         }
     }
 }

@@ -2,8 +2,8 @@
 
     var urlApi = $(location).attr('origin');
 
-    $('#btn-save').on('click', function () {
-        var id = $('#btn-save').val();
+    $('#btn-update-interaction').on('click', function () {
+        var id = $('#btn-update-interaction').val();
         var name = $('.interaction-name').val();
         var selectValue = $('#InteractionEditSelectBox').find(":selected").val();
         var kindInteractionId = $('#KindOfInteractionEditSelectBox').find(":selected").val();
@@ -26,9 +26,8 @@
             method: "POST",
             data: interactionObject,
             success: function () {
-                var index = $('#tab-index').val();
                 swal("Thành công!", "Cập nhật tương tác thành công", "success");
-                $('#tblInteraction' + index).DataTable().ajax.reload();
+                $('#tblInteraction').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -36,7 +35,7 @@
         });
     });
 
-    $('#btn-add').on('click', function () {
+    $('#btn-add-interaction').on('click', function () {
 
         var sessionId = $('#session-id').val();
         var name = $('#newName').val();
@@ -53,8 +52,7 @@
                     IsRunning: false
                 },
                 success: function (data) {
-                    var index = $('#tab-index').val();
-                    $('#tblInteraction' + index).DataTable().ajax.reload();
+                    $('#tblInteraction').DataTable().ajax.reload();
                     swal("Thành công!", "Thêm mới tương tác thành công", "success");
                 },
                 error: function (data) {
@@ -72,8 +70,7 @@
                     IsRunning: false
                 },
                 success: function (data) {
-                    var index = $('#tab-index').val();
-                    $('#tblInteraction' + index).DataTable().ajax.reload();
+                    $('#tblInteraction').DataTable().ajax.reload();
                     swal("Thành công!", "Thêm mới tương tác thành công", "success");
                 },
                 error: function (data) {
@@ -104,8 +101,7 @@
                     InteractionId: id,
                 },
                 success: function (data) {
-                    var index = $('#tab-index').val();
-                    $('#tblInteraction' + index).DataTable().ajax.reload();
+                    $('#tblInteraction').DataTable().ajax.reload();
                 },
                 error: function (data) {
                     console.log(data);
@@ -125,9 +121,8 @@
                 InteractionId: id,
             },
             success: function (data) {
-                var index = $('#tab-index').val();
-                $('#tblInteraction' + index).DataTable().ajax.reload();
-                $('#tblInteractionRunning' + index).DataTable().ajax.reload();
+                $('#tblInteraction').DataTable().ajax.reload();
+                $('#tblInteractionRunning').DataTable().ajax.reload();
             },
             error: function (data) {
                 console.log(data);
@@ -136,4 +131,7 @@
     });
 
 });
+
+
+
 

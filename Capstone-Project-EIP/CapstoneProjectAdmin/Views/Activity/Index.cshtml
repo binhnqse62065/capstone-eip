@@ -86,6 +86,9 @@
                         </div>
                         <input type="text" class="form-control" id="addName" placeholder="Nhập tên hoạt động">
                     </div>
+                    <div class="col-lg-offset-3 col-lg-9 div-name-error">
+                        <p class="empty" id="act-name-error">Vui lòng nhập tên hoạt động</p>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -212,9 +215,6 @@
 
             //Save update activity
             $('#btn-update-activity').on('click', function () {
-                console.log($('#txtActivityId').val());
-                console.log($('#activityName').val());
-                console.log($('#activityDescription').val());
                 $.ajax({
                     url: urlApi + 'api/activity/UpdateActivity',
                     method: "POST",
@@ -240,27 +240,32 @@
                 var startTime = timeSplit[0].trim();
                 var endTime = timeSplit[1].trim();
 
-                $.ajax({
-                    url: urlApi + 'api/activity/AddActivity',
-                    method: 'POST',
-                    data: {
-                        SessionId: $('#session-id').val(),
-                        Name: $('#addName').val(),
-                        Description: $('#addDescription').val(),
-                        StartTime: startTime,
-                        EndTime: endTime
-                    },
-                    success: function (data) {
-                        reloadTable();
-                        swal("Success!", "Activity has been added successfully", "success");
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                if (('#addName').val().trim().length == 0) {
+                    $('#act-name-error').css('display', 'block');
+                    $('#addActivity').attr('data-dismiss', null);
+                } else {
+                    $('#act-name-error').css('display', 'none');
+                    $('#addActivity').attr('data-dismiss', 'modal');
+                    $.ajax({
+                        url: urlApi + 'api/activity/AddActivity',
+                        method: 'POST',
+                        data: {
+                            SessionId: $('#session-id').val(),
+                            Name: $('#addName').val(),
+                            Description: $('#addDescription').val(),
+                            StartTime: startTime,
+                            EndTime: endTime
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Success!", "Activity has been added successfully", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                }
             });
-
-
         });
 
         function openModelUpdate(id,name, startTime, endTime, description) {

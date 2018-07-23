@@ -51,6 +51,9 @@
                         </div>
                         <input id="txt-voting-name" type="text" class="form-control" placeholder="Nhập tên bình chọn">
                     </div>
+                    <div class="col-lg-offset-3 col-lg-9 div-name-error">
+                        <p class="empty" id="vote-name-error">Vui lòng nhập tên</p>
+                    </div>
                 </div>
                 <div class="form-group form-option">
                     <label class="col-sm-3 form-control-label">Lựa Chọn:</label>
@@ -78,7 +81,7 @@
 
             </div>
             <div class="modal-footer">
-                <button id="btn-add-voting" type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                <button id="btn-add-voting" type="button" class="btn btn-primary"  >Thêm</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -210,47 +213,54 @@
 
             //Add Voting
             $(document).on('click', '#btn-add-voting', function () {
+                $('#btn-add-voting').attr('data-dismiss', 'modal');
+                $('#vote-name-error').css('display', 'none');
                 var isValid = true;
                 var votingName = $('#txt-voting-name').val();
                 if (votingName.length == 0) {
-                    isValid = false;
-                }
-                var votingOptions = $('.voting-option-value');
-                if (votingOptions.length == 0) {
-                    isValid = false;
-                }
-                var votingOptionsArr = [];
-                // length - 1 do có 1 input là template nên không sử dụng
-                for (var i = 0; i < votingOptions.length - 1; i++) {
-                    var optionObj = {};
-                    if ($(votingOptions[i]).val().length == 0) {
+                    $('#btn-add-voting').attr('data-dismiss', null);
+                    $('#vote-name-error').css('display', 'block');
+                } else {
+                    $('#btn-add-voting').attr('data-dismiss', 'modal');
+                    if (votingName.length == 0) {
+                        isValid = false;
+
+                    }
+                    var votingOptions = $('.voting-option-value');
+                    if (votingOptions.length == 0) {
                         isValid = false;
                     }
-                    optionObj.VotingOptionContent = $(votingOptions[i]).val();
-                    optionObj.NumberOfVoting = 0;
-                    votingOptionsArr.push(optionObj);
-                }
-
-                $.ajax({
-                    url: urlApi + 'api/voting/AddVoting',
-                    method: "POST",
-                    data: {
-                        VotingName: votingName,
-                        EventId: eventId,
-                        VotingOptions: votingOptionsArr
-                    },
-                    success: function (data) {
-                        reloadTable();
-                        swal("Thành Công!", "Bình chọn đã được thêm thành công", "success");
-
-                    },
-                    error: function (data) {
-                        console.log(data);
+                    var votingOptionsArr = [];
+                    // length - 1 do có 1 input là template nên không sử dụng
+                    for (var i = 0; i < votingOptions.length - 1; i++) {
+                        var optionObj = {};
+                        if ($(votingOptions[i]).val().length == 0) {
+                            isValid = false;
+                        }
+                        optionObj.VotingOptionContent = $(votingOptions[i]).val();
+                        optionObj.NumberOfVoting = 0;
+                        votingOptionsArr.push(optionObj);
                     }
-                });
-
-
-
+                    
+                    $.ajax({
+                        
+                        url: urlApi + 'api/voting/AddVoting',
+                        method: "POST",
+                        data: {
+                            VotingName: votingName,
+                            EventId: eventId,
+                            VotingOptions: votingOptionsArr
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Thành Công!", "Bình chọn đã được thêm thành công", "success");
+                            
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                }
             });
 
 
