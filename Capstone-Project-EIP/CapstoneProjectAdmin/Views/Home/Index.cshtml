@@ -8,6 +8,23 @@
 @model EventViewModel
 
 <div class="container">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row ">
+                <div class="col-sm-10 name-title" style="text-align:center">
+                    <h1 class="home-page-title">@Html.Raw(Model.Name)</h1>
+                </div>
+                <div class="col-sm-2">
+                    <center>
+                        <a href="@Url.Action("Edit", "Home", new { id = Model.EventID })" class="btn btn-primary" style="margin-top:35px">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh Sửa
+                        </a>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="row" style="height:100px">
         <div class="col-sm-8 name-title" style="text-align:center"><h1 class="home-page-title">@Html.Raw(Model.Name)</h1></div>
         <div class="col-sm-4">
@@ -18,47 +35,69 @@
                 <button class="btn btn-danger" onclick="deleteEvent(@(Model.EventID))" style="margin-top:20px">
                     <i class="fa fa-pencil" aria-hidden="true"></i> Xóa
                 </button>
+
+
             </div>
 
         </div>
 
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Mã Đăng Nhập</label>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Mã Đăng Nhập</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-code-login">@Html.Raw(Model.CodeLogin)</div>
                 </div>
-                <div class="col-sm-8 evtinfo home-page-code-login">@Html.Raw(Model.CodeLogin)</div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Thời Gian Bắt Đầu</label>
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Thời Gian Bắt Đầu</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-start-time">@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
                 </div>
+<<<<<<< HEAD
+=======
                 <div class="col-sm-8 evtinfo home-page-start-time">@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy"))</div>
             </div>
+>>>>>>> origin/binhnq
 
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Thời Gian Kết Thúc</label>
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Thời Gian Kết Thúc</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-end-time">@Html.Raw(Model.EndTime.Value.ToString("dd/MM/yyyy hh:mm tt"))</div>
                 </div>
+<<<<<<< HEAD
+=======
                 <div class="col-sm-8 evtinfo home-page-end-time">@Html.Raw(Model.EndTime.Value.ToString("dd/MM/yyyy"))</div>
             </div>
+>>>>>>> origin/binhnq
 
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Địa Điểm</label>
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Địa Điểm</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-address">@Html.Raw(Model.Address)</div>
                 </div>
-                <div class="col-sm-8 evtinfo home-page-address">@Html.Raw(Model.Address)</div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-4 name-title">
-                    <label>Miêu Tả</label>
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Miêu Tả</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-description">@Html.Raw(Model.EventDescription)</div>
                 </div>
-                <div class="col-sm-8 evtinfo home-page-description">@Html.Raw(Model.EventDescription)</div>
-            </div>
 
+<<<<<<< HEAD
+                <div class="row">
+                    <div class="col-sm-4 name-title">
+                        <label>Trang Nội Dung</label>
+                    </div>
+                    <div class="col-sm-8 evtinfo home-page-template">@Html.Raw(Model.TemplateId)</div>
+                </div>
+            </div>
+=======
             @*<div class="row">
                     <div class="col-sm-4 name-title">
                         <label>Trang Chủ</label>
@@ -154,15 +193,15 @@
                             <input type="file" id="myFile">
                         </div>
                     </div>
+>>>>>>> origin/binhnq
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btn-save" class="btn btn-primary home-id" data-dismiss="modal">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            <div class="col-sm-6">
+                <img src="@Html.Raw(Model.ImageURL)" class="img-responsive home-page-image">
             </div>
         </div>
     </div>
+    
+    
 </div>
 @section scripts {
     <script>
