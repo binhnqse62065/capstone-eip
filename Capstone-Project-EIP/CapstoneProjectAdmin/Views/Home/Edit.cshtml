@@ -1,5 +1,5 @@
-﻿@using HmsService.Models.Entities;
-@model Event
+﻿@using HmsService.ViewModels;
+@model EventViewModel
 @{
     /**/
 
@@ -24,7 +24,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                     </div>
-                    <input type="text" id="txtName" class="form-control" placeholder="Enter event's name" value="@Html.Raw(Model.Name)">
+                    <input type="text" id="txtName" class="form-control" placeholder="Enter event's name" value="@(Model.Name)">
                 </div>
             </div>
 
@@ -46,6 +46,12 @@
                         <i class="fa fa-location-arrow" aria-hidden="true"></i>
                     </div>
                     <input type="text" id="txtAddress" class="form-control" placeholder="Enter address where you take place the event" value="@Html.Raw(Model.Address)">
+                    <input type="text" id="txtLng" class="form-control" placeholder="Vui lòng nhập kinh độ hoặc nhấn vào bản đồ để lấy" value="">
+                    <input type="text" id="txtLat" class="form-control" placeholder="Vui lòng nhập vĩ độ hoặc nhấn vào bản đồ để lấy" value="">
+                </div>
+                <div class="row">
+                    <div id="map-canvas" style="width:100%; height:200px;"></div>
+
                 </div>
             </div>
 
@@ -82,7 +88,7 @@
         $(document).ready(function () {
             $('#btnUpdate').click(function () {
                 $.ajax({
-                    url: @Url.Action("Update","Home"),
+                    url: '@Url.Action("Update","Home")',
                     method: "POST",
                     data: {
                         EventID: 1,
@@ -106,9 +112,43 @@
             //Date range picker
             $('#reservation').daterangepicker();
 
-            
-        });
+  
 
+
+           
+        });
+        // Initialize and add the map
+        
+
+        
+
+        function initMap() {
+            var map;
+            var myLatlng = { lat: 10.8528727, lng: 106.629381 };
+
+            var myOptions = {
+                zoom: 13,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+            var marker = new google.maps.Marker({
+                draggable: true,
+                position: myLatlng,
+                map: map,
+                title: "Your location"
+            });
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                var lat = event.latLng.lat();
+                var lgn = event.latLng.lng();
+                //var split = latLgn.split(',');
+                $('#txtLat').val(lat);
+                $('#txtLng').val(lgn);
+                //alert(latLgn);
+            });
+        }
 
     </script>
 }

@@ -27,6 +27,7 @@ namespace HmsService.Models.Entities.Services
             var currentEvent = this.FirstOrDefault(e => e.EventID == id);
             return new EventViewModel
             {
+                EventID = currentEvent.EventID,
                 Name = currentEvent.Name,
                 EventDescription = currentEvent.EventDescription,
                 Address = currentEvent.Address,

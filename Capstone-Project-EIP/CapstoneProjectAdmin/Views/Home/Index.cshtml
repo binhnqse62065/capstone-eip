@@ -12,11 +12,11 @@
         <div class="col-sm-8 name-title" style="text-align:center"><h1 class="home-page-title">@Html.Raw(Model.Name)</h1></div>
         <div class="col-sm-4">
             <div class="row down pull-left">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#modalUpdateEvent" onclick="showEditModal(@Html.Raw(Model.EventID), '@Html.Raw(Model.Name)', @Html.Raw(Model.CodeLogin), '@Html.Raw(Model.StartTime)', '@Html.Raw(Model.EndTime)', '@Html.Raw(Model.Address)', '@Html.Raw(Model.EventDescription)', @Html.Raw(Model.TemplateId), '@Html.Raw(Model.ImageURL)')" style="margin-top:20px">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>Chỉnh Sửa
-                </button>
-                <button class="btn btn-primary" onclick="deleteEvent(@(Model.EventID))" style="margin-top:20px">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>Xóa
+                <a class="btn btn-primary" href="@Url.Action("Edit", "Home", new { id = Model.EventID })"   @*data-toggle="modal" data-target="#modalUpdateEvent" onclick="showEditModal(@Html.Raw(Model.EventID), '@Html.Raw(Model.Name)', @Html.Raw(Model.CodeLogin), '@Html.Raw(Model.StartTime)', '@Html.Raw(Model.EndTime)', '@Html.Raw(Model.Address)', '@Html.Raw(Model.EventDescription)', @Html.Raw(Model.TemplateId), '@Html.Raw(Model.ImageURL)')"*@ style="margin-top:20px">
+                    <i class="fa fa-pencil" aria-hidden="true"></i> Sửa
+                </a>
+                <button class="btn btn-danger" onclick="deleteEvent(@(Model.EventID))" style="margin-top:20px">
+                    <i class="fa fa-pencil" aria-hidden="true"></i> Xóa
                 </button>
             </div>
 
@@ -190,7 +190,7 @@
         function deleteEvent(eventId) {
             swal({
                 title: "Bạn có chắc?",
-                text: "Cuộc bình chọn sẽ bị xóa",
+                text: "Bạn có chắc chắn, bạn sẽ không thể khôi phục!",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-danger",
@@ -206,7 +206,21 @@
                             EventID: eventId
                         },
                         success: function (data) {
-                            swal("Xóa!", "Cuộc bình chọn đã được xóa thành công", "success");
+                            console.log(data);
+                            if (data.success) {
+                                
+                                swal({
+                                    title: "Xóa!",
+                                    text: "Cuộc bình chọn đã được xóa thành công",
+                                    type: "success",
+                                    confirmButtonText: "OK"
+                                }, function () {
+                                    window.location.href = "http://localhost:61628/";
+                                });
+                            }
+                            else {
+                                swal("Lỗi", "Không thể xóa", "error");
+                            }
                         },
                         error: function (data) {
                             console.log(data);
