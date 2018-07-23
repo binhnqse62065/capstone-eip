@@ -453,17 +453,9 @@
     <Content Include="Content\CustomCss\sponsor.css" />
     <Content Include="Content\CustomCss\timeline.css" />
     <Content Include="Content\CustomCss\voting.css" />
-    <Content Include="Content\img\Logo.png" />
-    <Content Include="Content\img\LogoMakr_23iEB9.png" />
-    <Content Include="Content\img\LogoMakr_34r7j2.png" />
     <Content Include="Content\img\LogoMakr_6CVPn5.png" />
     <Content Include="Content\img\LogoMakr_7clv31.png" />
-    <Content Include="Content\img\LogoMakr_7jOe4I.png" />
-    <Content Include="Content\img\LogoMakr_7LeOSB.png" />
-    <Content Include="Content\img\LogoMakr_9g94rT.png" />
-    <Content Include="Content\img\LogoMakr_9rkryW.png" />
     <Content Include="Content\img\new_statesman_events.jpg" />
-    <Content Include="Content\img\Pi5sTPQ.jpg" />
     <Content Include="Content\ProgressBar\bootstrap-progressbar.js" />
     <Content Include="Content\ProgressBar\bootstrap-progressbar.min.js" />
     <Content Include="Content\ProgressBar\css\bootstrap-progressbar-2.0.0.css" />
