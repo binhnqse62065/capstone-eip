@@ -212,9 +212,6 @@
 
             //Save update activity
             $('#btn-update-activity').on('click', function () {
-                console.log($('#txtActivityId').val());
-                console.log($('#activityName').val());
-                console.log($('#activityDescription').val());
                 $.ajax({
                     url: urlApi + 'api/activity/UpdateActivity',
                     method: "POST",

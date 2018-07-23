@@ -7,7 +7,7 @@ using System.Web.Http;
 using HmsService.Models.Entities;
 using CapstoneProjectAdmin.Models;
 using CapstoneProjectAdmin.ViewModel;
-
+using HmsService.Sdk;
 
 namespace CapstoneProjectAdmin.API
 {
@@ -20,14 +20,16 @@ namespace CapstoneProjectAdmin.API
         [HttpGet]
         public IEnumerable<ActivityViewModel> GetActivitiesBySessionId(int id)
         {
-            var listActivity = db.Activities.Where(a => a.SessionId == id).ToList().Select(a => new ActivityViewModel {
+            ActivityApi activityApi = new ActivityApi();
+            var listActivitys = activityApi.GetActivitiesBySessionId(id);
+            var listActivity = listActivitys.Select(a => new ActivityViewModel {
                 ActivityID = a.ActivityID,
                 Name = a.Name,
                 StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy") : "",
                 EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy") : "",
                 Description = a.Description,
                 SessionName = a.Session.Name,
-                SpeakerName = a.ActivityItems.FirstOrDefault(e => e.ActivityId == a.ActivityID).CollectionItem.Name
+                //SpeakerName = a.ActivityItems.FirstOrDefault(e => e.ActivityId == a.ActivityID).CollectionItem.Name
             });
             return listActivity; 
         }

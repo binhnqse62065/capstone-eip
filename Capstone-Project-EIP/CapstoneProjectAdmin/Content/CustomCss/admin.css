@@ -125,3 +125,25 @@
     display:none;
 }
 
+.navbar-custom {
+    background-color: #005f75 !important;
+}
+
+.side-bar-custom {
+    background-color: #005f75 !important;
+    
+}
+
+.sidebar-menu span {
+    color:white;
+}
+
+.tree-view-menu-custom {
+    background-color: #003549 !important;
+}
+
+.btn-custom {
+    color: black;
+    background-color: #fecb24;
+    font-weight:bold !important;
+}

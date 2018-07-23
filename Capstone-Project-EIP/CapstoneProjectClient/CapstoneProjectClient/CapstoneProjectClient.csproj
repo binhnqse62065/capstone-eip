@@ -453,6 +453,10 @@
     <Content Include="Content\CustomCss\sponsor.css" />
     <Content Include="Content\CustomCss\timeline.css" />
     <Content Include="Content\CustomCss\voting.css" />
+    <Content Include="Content\img\Logo.png" />
+    <Content Include="Content\img\Logo2.png" />
+    <Content Include="Content\img\LogoVuong.png" />
+    <Content Include="Content\img\NewLogo.png" />
     <Content Include="Content\img\new_statesman_events.jpg" />
     <Content Include="Content\img\Pi5sTPQ.jpg" />
     <Content Include="Content\ProgressBar\bootstrap-progressbar.js" />
