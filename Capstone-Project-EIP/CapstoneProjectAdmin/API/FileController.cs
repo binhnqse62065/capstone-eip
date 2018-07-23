@@ -1,27 +1,27 @@
-﻿using HmsService.Models.Entities;
+﻿using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
+using HmsService.Models.Entities;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Newtonsoft.Json.Linq;
-using CapstoneProjectAdmin.Models;
-using CapstoneProjectAdmin.ViewModel;
 
 namespace CapstoneProjectAdmin.API
 {
-    [RoutePrefix("api/speaker")]
-    public class SpeakerController : ApiController
+    [RoutePrefix("api/file")]
+    public class FileController : ApiController
     {
         private HmsEntities db = new HmsEntities();
 
-        [Route("GetAllSpeakerByEventId/{eventId}")]
+        [Route("GetAllFileByEventId/{eventId}")]
         [HttpGet]
-        public IEnumerable<CollectionItemViewModel> GetAllSpeakerByEventId(int eventId)
+        public IEnumerable<CollectionItemViewModel> GetAllFileByEventId(int eventId)
         {
-            var speaker = db.EventCollections
-                .FirstOrDefault(s => s.EventId == eventId && s.TypeId == (int)CollectionType.Speaker)
+            var file = db.EventCollections
+                .FirstOrDefault(s => s.EventId == eventId && s.TypeId == (int)CollectionType.File)
                 .CollectionItems
                 .Select(s => new CollectionItemViewModel
                 {
@@ -32,18 +32,18 @@ namespace CapstoneProjectAdmin.API
                     EventCollectionId = s.EventCollectionId,
                     EventId = eventId
                 }).ToList();
-            return speaker;
+            return file;
         }
 
 
-        [Route("UpdateSpeakerData")]
+        [Route("UpdateFileData")]
         [HttpPost]
-        public HttpResponseMessage UpdateSpeakerData(JObject requestObj)
+        public HttpResponseMessage UpdateFileData(JObject requestObj)
         {
-            var speaker = db.CollectionItems.Find(requestObj.SelectToken("collectionItemId").ToObject<Int32>());
-            speaker.Name = requestObj.SelectToken("collectionItemName").ToObject<String>();
-            speaker.Description = requestObj.SelectToken("collectionItemDescription").ToObject<String>();
-            speaker.ImageUrl = requestObj.SelectToken("collectionItemImageUrl").ToObject<String>();
+            var file = db.CollectionItems.Find(requestObj.SelectToken("collectionItemId").ToObject<Int32>());
+            file.Name = requestObj.SelectToken("collectionItemName").ToObject<String>();
+            file.Description = requestObj.SelectToken("collectionItemDescription").ToObject<String>();
+            file.ImageUrl = requestObj.SelectToken("collectionItemImageUrl").ToObject<String>();
             db.SaveChanges();
 
             return new HttpResponseMessage()
@@ -59,12 +59,12 @@ namespace CapstoneProjectAdmin.API
 
         }
 
-        [Route("AddSpeaker")]
+        [Route("AddFile")]
         [HttpPost]
-        public HttpResponseMessage AddSpeaker(CollectionItem speaker)
+        public HttpResponseMessage AddFile(CollectionItem file)
         {
-            speaker.EventCollectionId = 2;
-            db.CollectionItems.Add(speaker);
+            file.EventCollectionId = 4;
+            db.CollectionItems.Add(file);
             db.SaveChanges();
 
             return new HttpResponseMessage()
@@ -74,17 +74,17 @@ namespace CapstoneProjectAdmin.API
                 {
                     success = true,
                     message = "Add successful!",
-                    sponsorId = speaker.CollectionItemID
+                    fileId = file.CollectionItemID
                 })
             };
         }
 
-        [Route("DeleteSpeaker")]
+        [Route("DeleteFile")]
         [HttpPost]
-        public HttpResponseMessage DeleteSpeaker(CollectionItem speaker)
+        public HttpResponseMessage DeleteFile(CollectionItem file)
         {
-            var speakerDelete = db.CollectionItems.Find(speaker.CollectionItemID);
-            db.CollectionItems.Remove(speakerDelete);
+            var fileDelete = db.CollectionItems.Find(file.CollectionItemID);
+            db.CollectionItems.Remove(fileDelete);
             db.SaveChanges();
 
             return new HttpResponseMessage()
@@ -97,12 +97,5 @@ namespace CapstoneProjectAdmin.API
                 })
             };
         }
-    }
-
-    public enum CollectionType
-    {
-        Speaker = 2,
-        Sponsor = 3,
-        File = 4
     }
 }

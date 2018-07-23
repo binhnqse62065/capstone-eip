@@ -22,5 +22,9 @@ namespace HmsService.Sdk
         {
             return this.BaseService.GetSponsorCollectionByEventId(eventId);
         }
+        public EventCollection GetFileByEventId(int eventId)
+        {
+            return this.BaseService.GetFileCollectionByEventId(eventId);
+        }
     }
 }

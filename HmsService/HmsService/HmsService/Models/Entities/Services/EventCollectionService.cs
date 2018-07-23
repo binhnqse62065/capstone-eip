@@ -12,6 +12,8 @@ namespace HmsService.Models.Entities.Services
     {
         EventCollection GetSpeakerCollectionByEventId(int eventId);
         EventCollection GetSponsorCollectionByEventId(int eventId);
+        EventCollection GetFileCollectionByEventId(int eventId);
+
     }
     public partial class EventCollectionService
     {
@@ -34,6 +36,19 @@ namespace HmsService.Models.Entities.Services
             {
 
                 return this.FirstOrDefault(s => s.EventId == eventId && s.TypeId == (int)MyEnums.CollectionType.Sponsor);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public EventCollection GetFileCollectionByEventId(int eventId)
+        {
+            try
+            {
+
+                return this.FirstOrDefault(s => s.EventId == eventId && s.TypeId == (int)MyEnums.CollectionType.File);
             }
             catch (Exception e)
             {

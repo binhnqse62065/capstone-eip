@@ -221,6 +221,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -445,6 +446,7 @@
     <Content Include="Content\bootstrap\Poll\js\jquery-1.11.1.js" />
     <Content Include="Content\bootstrap\Poll\js\processBar.js" />
     <Content Include="Content\CustomCss\customNav.css" />
+    <Content Include="Content\CustomCss\file.css" />
     <Content Include="Content\CustomCss\home.css" />
     <Content Include="Content\CustomCss\main.css" />
     <Content Include="Content\CustomCss\QA.css" />
@@ -997,6 +999,7 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Session\Index.cshtml" />
+    <Content Include="Views\File\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

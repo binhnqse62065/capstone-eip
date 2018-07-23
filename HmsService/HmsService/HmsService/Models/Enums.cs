@@ -15,8 +15,9 @@ namespace HmsService.Models
             [Display(Name = "Sponsor")]
             Sponsor = 3,
             [Display(Name = "Speaker")]
-            Speaker = 2
-
+            Speaker = 2,
+            [Display(Name = "File")]
+            File = 4
         }
 
     }

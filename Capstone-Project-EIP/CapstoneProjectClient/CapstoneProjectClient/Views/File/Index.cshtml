@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Tài liệu";
+}
+
+@using HmsService.Models.Entities;
+@model EventCollection
+
+@if (Model == null || Model.CollectionItems == null)
+{
+    <div class="collection-empty-title">
+        <h3>Hiện tại chưa có danh sách tài liệu</h3>
+    </div>
+
+}
+else
+{
+    <div class="row custom-row">
+        @{
+            foreach (var file in Model.CollectionItems)
+            {
+                <div class="col-md-4 col-sm-6 col-12" onclick="showModalFile('@(file.Name)', '@(file.Description)', '@(file.ImageUrl)')">
+                    <div class="box-file-shadow">
+                        <a href="" data-toggle="modal" data-target="#fileModal">
+                            <img class="img-fluid image-file-custom" src="~/Content/img/data.jpg" alt="brand">
+                        </a>
+                        <div class="item-title">
+                            <h3 class="title title-medium" style="text-align:center">
+                                <a class="file-name">@(file.Name)</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+}
+
+
+<div id="fileModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-file">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title file-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img class="image-file-custom" src="~/Content/img/data.jpg" />
+                <p class="file-description"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default file-url" data-dismiss="modal">Tải xuống</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function showModalFile(name, description, fileUrl) {
+            $('.file-title').html(name);
+            $('.file-description').html(description);
+            $('.file-url').attr('onclick', 'window.open(' + "'" + fileUrl + "'" +')');
+        }
+    </script>
+}

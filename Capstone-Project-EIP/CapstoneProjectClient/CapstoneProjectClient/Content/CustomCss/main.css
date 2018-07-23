@@ -71,3 +71,14 @@
     color: black;
     opacity:1;
 }
+.custom-row {
+    padding-top: 64px;
+    padding-left: 16%;
+}
+
+@media screen and (max-width: 600px){
+    .custom-row {
+        padding-top: 64px;
+        padding-left: unset;
+    }
+}
