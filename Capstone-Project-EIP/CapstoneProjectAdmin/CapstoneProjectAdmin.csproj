@@ -241,6 +241,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ActivityViewModel.cs" />
     <Compile Include="ViewModel\CommentsViewModel.cs" />
+    <Compile Include="ViewModel\InteractionViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
     <Compile Include="ViewModel\QuestionViewModel.cs" />
     <Compile Include="ViewModel\SessionViewModel.cs" />
