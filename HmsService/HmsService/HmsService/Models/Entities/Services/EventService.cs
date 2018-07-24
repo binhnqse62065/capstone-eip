@@ -35,7 +35,9 @@ namespace HmsService.Models.Entities.Services
                 CodeLogin = currentEvent.CodeLogin,
                 EndTime = currentEvent.EndTime,
                 TemplateId = currentEvent.TemplateId,
-                ImageURL = currentEvent.ImageURL
+                ImageURL = currentEvent.ImageURL,
+                Longitude = currentEvent.Longitude,
+                Latitude = currentEvent.Latitude
             };
         }
 
