@@ -257,7 +257,7 @@ $('#InteractionEditSelectBox').on('click', function () {
         $('#KindOfInteractionEditSelectBox').append($('#cbQATemplate').clone().html());
     } else {
         $('#KindOfInteractionEditSelectBox').empty();
-        $('#KindOfInteractionEditSelectBox').append("<option>---Choose---</option>");
+        $('#KindOfInteractionEditSelectBox').append("<option>---Chọn---</option>");
     }
 });
 
@@ -272,7 +272,7 @@ $('#InteractionSelectBox').on('click', function () {
         $('#KindOfInteractionSelectBox').append($('#cbQATemplate').clone().html());
     } else {
         $('#KindOfInteractionSelectBox').empty();
-        $('#KindOfInteractionSelectBox').append("<option>---Choose---</option>");
+        $('#KindOfInteractionSelectBox').append("<option>---Chọn---</option>");
     }
 });
 

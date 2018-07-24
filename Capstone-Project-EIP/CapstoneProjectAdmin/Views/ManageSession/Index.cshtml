@@ -460,7 +460,7 @@
 <!----------------- List QA Template ----------------->
 <div style="display:none;">
     <select id="cbQATemplate">
-        <option>---Lựa chọn---</option>
+        <option>---Chọn---</option>
         @foreach (var qa in listQa)
         {
             <option value="@(qa.QAId)">@(qa.QAName)</option>
@@ -471,7 +471,7 @@
 <!----------------- List Voting Template ----------------->
 <div style="display:none;">
     <select id="cbVotingTemplate">
-        <option>---Lựa chọn---</option>
+        <option>---Chọn---</option>
         @foreach (var voting in listVoting)
         {
             <option value="@(voting.VotingId)">@(voting.VotingName)</option>

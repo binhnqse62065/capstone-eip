@@ -7,13 +7,14 @@
 }
 
 .image-sponsor-custom {
-    width: 269px;
-    height: 202px;
+    width: 385px;
+    height: 216px;
 }
 
 @media screen and (max-width: 600px) {
     .image-sponsor-custom {
         width: 100%;
+        min-width: 307.75px;
         height: auto;
     }
 
