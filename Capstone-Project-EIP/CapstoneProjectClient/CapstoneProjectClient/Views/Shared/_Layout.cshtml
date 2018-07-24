@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="~/Content/CustomCss/timeline.css">
     <link rel="stylesheet" href="~/Content/CustomCss/voting.css">
     <link rel="stylesheet" href="~/Content/CustomCss/schedule.css">
+    <link rel="stylesheet" href="~/Content/CustomCss/file.css">
+
 
 
 
@@ -75,8 +77,10 @@
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Thông tin sự kiện</span></a></li>
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
+                                <li> <a class="custom-menu" href="@Url.Action("Index", "File", new { eventId = eventId })"> <i class="fa fa-file-o"></i><span>Tài liệu</span></a></li>
                                 @*<li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>*@
                                 <li> <a class="custom-menu" href="/"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
+
                             }
                             else
                             {
@@ -95,6 +99,7 @@
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
+                            <li> <a class="custom-menu" href="@Url.Action("Index", "File", new { eventId = eventId })"> <i class="fa fa-file-o"></i><span>Tài liệu</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Thông tin sự kiện</span></a></li>
                             <li> <a class="custom-menu" href="/"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
                         }

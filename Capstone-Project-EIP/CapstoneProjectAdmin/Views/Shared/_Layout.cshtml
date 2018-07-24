@@ -139,7 +139,7 @@
               
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
-
+                    <li><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
                     <li class="treeview active menu-open">
                         <a href="#">
                             <i class="fa fa-pie-chart"></i>
@@ -150,31 +150,30 @@
                         </a>
                         <ul class="treeview-menu tree-view-menu-custom">
                             <li><a href="@Url.Action("Index","Home", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Trang chủ</span></a></li>
-                            <li><a href="@Url.Action("Index","Session" , new { id = eventId})"><i class="fa fa-calendar" aria-hidden="true"></i><span>Phiên Làm Việc</span></a></li>
-                            <li><a href="@Url.Action("Index","QA", new { id = eventId})"><i class="fa fa-question-circle"></i> <span>Hỏi Đáp</span></a></li>
-                            <li><a href="@Url.Action("Index","Voting", new { id = eventId})"><i class="fa fa-check-circle-o"></i> <span>Bình Chon</span></a></li>
-                            <li><a href="@Url.Action("Index","Speaker", new { id = eventId})"><i class="fa fa-users"></i> <span>Diễn Giả</span></a></li>
-                            <li><a href="@Url.Action("Index","Sponsor", new { id = eventId})"><i class="fa fa-users"></i> <span>Tài Trợ</span></a></li>
+                            <li><a href="@Url.Action("Index","Session" , new { id = eventId})"><i class="fa fa-calendar" aria-hidden="true"></i><span>Phiên làm việc</span></a></li>
+                            <li><a href="@Url.Action("Index","QA", new { id = eventId})"><i class="fa fa-question-circle"></i> <span>Hỏi đáp</span></a></li>
+                            <li><a href="@Url.Action("Index","Voting", new { id = eventId})"><i class="fa fa-check-circle-o"></i> <span>Bình chọn</span></a></li>
+                            <li><a href="@Url.Action("Index","Speaker", new { id = eventId})"><i class="fa fa-users"></i> <span>Diễn giả</span></a></li>
+                            <li><a href="@Url.Action("Index","Sponsor", new { id = eventId})"><i class="fa fa-users"></i> <span>Nhà tài Trợ</span></a></li>
+                            <li><a href="@Url.Action("Index","File", new { id = eventId})"><i class="fa fa-file-o"></i> <span>Tài liệu</span></a></li>
                         </ul>
                     </li>
-
-                    <li><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
                     @*<li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-pie-chart"></i>
-                            <span>Trung tâm điểu khiển</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu tree-view-menu-custom">
-                            <li><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
-                            <li><a href="@Url.Action("Index","Timeline", new { id = eventId})"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Dòng Thời Gian</span></a></li>
-                            <li><a href="@Url.Action("Index","Interaction" , new { id = eventId})"><i class="fa fa-check-circle-o"></i> <span>Tương Tác</span></a></li>
-                            <li><a href="@Url.Action("Index","Activity" , new { id = eventId})"><i class="fa fa-rocket" aria-hidden="true"></i><span>Hoạt Động</span></a></li>
+            <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>Trung tâm điểu khiển</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu tree-view-menu-custom">
+                <li><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
+                <li><a href="@Url.Action("Index","Timeline", new { id = eventId})"><i class="fa fa-clock-o" aria-hidden="true"></i> <span>Dòng Thời Gian</span></a></li>
+                <li><a href="@Url.Action("Index","Interaction" , new { id = eventId})"><i class="fa fa-check-circle-o"></i> <span>Tương Tác</span></a></li>
+                <li><a href="@Url.Action("Index","Activity" , new { id = eventId})"><i class="fa fa-rocket" aria-hidden="true"></i><span>Hoạt Động</span></a></li>
 
-                        </ul>
-                    </li>*@
+            </ul>
+        </li>*@
 
                     <li><a href="@Url.Action("Index","Events", new { id = eventId})"><i class="fa fa-sign-out"></i> <span>Đăng Xuất</span></a></li>
 
