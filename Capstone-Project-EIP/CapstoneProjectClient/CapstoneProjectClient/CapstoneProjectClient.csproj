@@ -455,6 +455,7 @@
     <Content Include="Content\CustomCss\sponsor.css" />
     <Content Include="Content\CustomCss\timeline.css" />
     <Content Include="Content\CustomCss\voting.css" />
+    <Content Include="Content\img\data.jpg" />
     <Content Include="Content\img\LogoMakr_6CVPn5.png" />
     <Content Include="Content\img\LogoMakr_7clv31.png" />
     <Content Include="Content\img\new_statesman_events.jpg" />

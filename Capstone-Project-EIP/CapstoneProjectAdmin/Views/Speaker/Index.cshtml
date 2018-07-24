@@ -49,17 +49,28 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
-                                <div class="col-sm-9 input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                @*<div class="col-sm-9 input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-link" aria-hidden="true"></i>
+                                        </div>
+                                        <textarea id="newImageUrl" type="text" class="form-control" placeholder="Nhập đường dẫn của hình ảnh"></textarea>
                                     </div>
-                                    <textarea id="newImageUrl" type="text" class="form-control" placeholder="Nhập đường dẫn của hình ảnh"></textarea>
+                                    <div class="col-sm-3"></div>
+                                    <div class="row col-sm-9">
+                                        <label>or</label>
+                                        <input type="file" id="myFile">
+                                    </div>*@
+
+                                <div class="col-md-10">
+                                    <div class="field">
+                                        <div class="control">
+                                            <button class="button" type="button" id="picker">Chọn file</button>
+                                            <input type="hidden" id="fileupload">
+                                        </div>
+                                    </div>
+                                    <div id="thumbnail-container"></div>
                                 </div>
-                                <div class="col-sm-3"></div>
-                                <div class="row col-sm-9">
-                                    <label>or</label>
-                                    <input type="file" id="myFile">
-                                </div>
+
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -154,7 +165,7 @@
             </div>
         </div>
 
-        
+
     </div>
 </div>
 
@@ -167,7 +178,7 @@
             $('.speaker-title').val(name);
             $('.speaker-description').val(description);
             $('.speaker-image').val(image);
-            $('.speaker-id').val(id); 
+            $('.speaker-id').val(id);
         }
 
          function delSpeaker(id, name) {
@@ -222,8 +233,61 @@
                     }
                 ]
              });
+
+             //Filestack dùng để up hình
+             // Set up the picker
+             const client = filestack.init('AIA0Qk3iTSGzr9dIsuPdgz');
+             const options = {
+                 onUploadDone: updateForm,
+                 maxSize: 10 * 1024 * 1024,
+                 accept: 'image/*',
+                 uploadInBackground: false,
+                 fromSources: ['local_file_system', 'imagesearch', 'facebook', 'instagram', 'dropbox', 'picasa', 'url']
+             };
+             const picker = client.picker(options);
+
+             // Get references to the DOM elements
+
+             const form = document.getElementById('pick-form');
+             const fileInput = document.getElementById('fileupload');
+             const btn = document.getElementById('picker');
+             const nameBox = document.getElementById('nameBox');
+             const urlBox = document.getElementById('urlBox');
+
+             // Add our event listeners
+
+             btn.addEventListener('click', function (e) {
+                 e.preventDefault();
+                 picker.open();
+             });
+
+             
+
+             // Helper to overwrite the field input value
+
+             function updateForm(result) {
+                 const fileData = result.filesUploaded[0];
+                 fileInput.value = fileData.url;
+
+                 // If file is resizable image, resize and embed it as a thumbnail preview
+                 if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
+                     const container = document.getElementById('thumbnail-container');
+                     const thumbnail = document.getElementById('thumbnail') || new Image();
+                     thumbnail.id = 'thumbnail';
+                     thumbnail.src = client.transform(fileData.handle, {
+                         resize: {
+                             width: 200
+                         }
+                     });
+
+                     if (!container.contains(thumbnail)) {
+                         container.appendChild(thumbnail);
+                     }
+                 }
+             };
+
         });
 
     </script>
 }
-    <script src="~/Content/SpeakerJs/Speaker.js"></script>
+<script src="~/Content/SpeakerJs/Speaker.js"></script>
