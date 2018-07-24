@@ -12,12 +12,12 @@
             <div class="row">
                 <h2 class="col-sm-10">Quản Lý Nhà Tài Trợ</h2>
                 <div class="col-sm-2">
-                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#addSponsorModal" style="margin-top:20px">
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#sponsorModal" style="margin-top:20px">
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="ibox-content">
@@ -36,7 +36,7 @@
 </div>
 
 <!--Modal Add Sponsor-->
-<div class="modal fade" id="addSponsorModal" role="dialog">
+<div class="modal fade" id="sponsorModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -52,7 +52,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="newName" type="text" class="form-control" placeholder="Nhập tên nhà tài trợ">
+                        <input id="newName" type="text" class="form-control sponsor-title" placeholder="Nhập tên nhà tài trợ">
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,83 +61,49 @@
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <textarea id="newDescription" type="text" class="form-control" placeholder="Nhập miêu tả"></textarea>
+                        <textarea id="newDescription" type="text" class="form-control  sponsor-description" placeholder="Nhập miêu tả"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
-                    <div class="col-sm-9 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-link" aria-hidden="true"></i>
+                    <div class="col-sm-9" style="padding-left: 0px;">
+                        <div class="field">
+                            <div class="control">
+                                <button class="button" type="button" id="picker">Chọn file</button>
+                                <input type="hidden" id="fileupload">
+                            </div>
                         </div>
-                        <input id="newImageUrl" type="text" class="form-control" placeholder="Nhập đường dẫn hình ảnh">
-                    </div>
-                    <div class="col-sm-3"></div>
-                    <div class="row col-sm-9">
-                        <label>or</label>
-                        <input type="file" id="myFile">
+                        <div id="thumbnail-container" class="sponsor-img"></div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                <button id="btn-add" type="button" class="btn btn-primary  sponsor-id sponsor-button" data-dismiss="modal" style="margin-top:5px">Thêm</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
-
     </div>
 </div>
 
-<!--Modal Update Sponsor-->
-<div class="modal fade" id="sponsorModal" role="dialog">
+<div class="modal fade" id="deleteModal" role="dialog">
     <div class="modal-dialog">
+        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Chỉnh Sửa Nhà tài trợ</h4>
+                <h2 class="modal-title">Bạn có chắc?</h2>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Tên:</label>
-                    <div class="col-sm-9 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-briefcase" aria-hidden="true"></i>
-                        </div>
-                        <input type="text" class="form-control sponsor-title">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Miêu Tả:</label>
-                    <div class="col-sm-9 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-info" aria-hidden="true"></i>
-                        </div>
-                        <textarea type="text" class="form-control sponsor-description"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
-                    <div class="col-sm-9 input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-link" aria-hidden="true"></i>
-                        </div>
-                        <textarea type="text" class="form-control sponsor-image"></textarea>
-                    </div>
-                    <div class="col-sm-3"></div>
-                    <div class="row col-sm-9">
-                        <label>or</label>
-                        <input type="file" id="myFile">
-                    </div>
-
-                </div>
+                <h3 class="sponsor-del-title"></h3>
             </div>
             <div class="modal-footer">
-                <button id="btn-save" type="submit" class="btn btn-primary sponsor-id" data-dismiss="modal" style="margin-top:5px">Lưu</button>
+                <button id="btn-del" type="button" class="btn btn-default" data-dismiss="modal">Xóa</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
@@ -149,12 +115,29 @@
         function showModalSponsor(id, name, description, image) {
             $('.sponsor-title').val(name);
             $('.sponsor-description').val(description);
-            $('.sponsor-image').val(image);
+            $('.sponsor-img').val(image);
             $('.sponsor-id').val(id);
+            $('#thumbnail-container').html("<img id='thumbnail' src='" + image + "' style='width:200px;padding-top: 10px;'/>");
+            $('.modal-title').text('Chỉnh sửa nhà tài trợ');
+            $('.sponsor-button').text('Lưu');
+            $('.sponsor-button').attr('id', 'btn-save');
         }
+
+        function clearModal() {
+            $('.sponsor-title').val('');
+            $('.sponsor-description').val('');
+            $('.sponsor-img').val('');
+            $('#thumbnail-container').html("");
+            $('.sponsor-id').val('');
+            $('.modal-title').text('Thêm nhà tài trợ');
+            $('.sponsor-button').text('Thêm');
+            $('.sponsor-button').attr('id', 'btn-add');
+        }
+
         function delSponsor(id, name) {
+            $('.modal-title').text('Xóa nhà tài trợ');
             $('#btn-del').val(id);
-            //$('.sponsor-del-title').html("Delete Sponsor " + name);
+            $('.sponsor-del-title').html("Xóa nhà tài trợ " + name);
         }
 
         $(document).ready(function () {
@@ -199,11 +182,66 @@
                         name: "Function",
                         render: function (data, type, row) {
                             return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sponsorModal" onclick="showModalSponsor(' + row.collectionItemID + ',\'' + row.name + '\', \'' + row.description + '\', \'' + row.imageUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button id="btn-del" class="btn btn-danger btn-sm sponsor-id" onclick="delSponsor(' + row.collectionItemID + ',\'' + row.name + '\')"><i class="fa fa-trash"></i></button>';
+                                '<button class="btn btn-danger btn-sm sponsor-id" data-toggle="modal" data-target="#deleteModal" onclick="delSponsor(' + row.collectionItemID + ',\'' + row.name + '\')"><i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
             });
+
+            //Filestack dùng để up hình
+            // Set up the picker
+            const client = filestack.init('AIA0Qk3iTSGzr9dIsuPdgz');
+            const options = {
+                onUploadDone: updateForm,
+                maxSize: 10 * 1024 * 1024,
+                accept: 'image/*',
+                uploadInBackground: false,
+                fromSources: ['local_file_system', 'imagesearch', 'facebook', 'instagram', 'dropbox', 'picasa', 'url']
+            };
+            const picker = client.picker(options);
+
+            // Get references to the DOM elements
+
+            const fileInput = document.getElementById('fileupload');
+            const btn = document.getElementById('picker');
+            const nameBox = document.getElementById('nameBox');
+            const urlBox = document.getElementById('urlBox');
+
+            // Add our event listeners
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                picker.open();
+            });
+
+
+
+            // Helper to overwrite the field input value
+
+            function updateForm(result) {
+                const fileData = result.filesUploaded[0];
+                fileInput.value = fileData.url;
+                if (fileInput.value != null) {
+                    $('#thumbnail-container').val(fileInput.value);
+                }
+                // If file is resizable image, resize and embed it as a thumbnail preview
+                if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
+                    const container = document.getElementById('thumbnail-container');
+                    const thumbnail = document.getElementById('thumbnail') || new Image();
+                    thumbnail.id = 'thumbnail';
+                    thumbnail.style = 'padding-top: 10px;';
+                    thumbnail.src = client.transform(fileData.handle, {
+                        resize: {
+                            width: 200
+                        }
+                    });
+
+                    if (!container.contains(thumbnail)) {
+                        container.appendChild(thumbnail);
+                    }
+                }
+            };
+
         });
     </script>
 }

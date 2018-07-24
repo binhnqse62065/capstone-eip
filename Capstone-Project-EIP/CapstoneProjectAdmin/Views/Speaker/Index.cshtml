@@ -11,12 +11,12 @@
             <div class="row">
                 <h2 class="col-sm-10">Quản Lý Diễn Giả</h2>
                 <div class="col-sm-2">
-                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addSpeakerModal" style="margin-top:20px">
+                    <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#speakerModal" style="margin-top:20px"  onclick="clearModal()">
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
             </div>
-            <div class="modal fade" id="addSpeakerModal" role="dialog">
+            <div class="modal fade" id="speakerModal" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -32,7 +32,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                                     </div>
-                                    <input id="newName" type="text" class="form-control" placeholder="Nhập tên diễn giả">
+                                    <input id="newName" type="text" class="form-control speaker-title" placeholder="Nhập tên diễn giả">
                                 </div>
                                 <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" id="speaker-name-error">
                                     <p class="empty">Vui lòng nhập tên diễn giả</p>
@@ -44,37 +44,25 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-info" aria-hidden="true"></i>
                                     </div>
-                                    <textarea id="newDescription" type="text" class="form-control" placeholder="Nhập miêu tả về diễn giả"></textarea>
+                                    <textarea id="newDescription" type="text" class="form-control speaker-description" placeholder="Nhập miêu tả về diễn giả"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
-                                @*<div class="col-sm-9 input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-link" aria-hidden="true"></i>
-                                        </div>
-                                        <textarea id="newImageUrl" type="text" class="form-control" placeholder="Nhập đường dẫn của hình ảnh"></textarea>
-                                    </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="row col-sm-9">
-                                        <label>or</label>
-                                        <input type="file" id="myFile">
-                                    </div>*@
-
-                                <div class="col-md-10">
+                                <div class="col-sm-9" style="padding-left: 0px;">
                                     <div class="field">
                                         <div class="control">
                                             <button class="button" type="button" id="picker">Chọn file</button>
                                             <input type="hidden" id="fileupload">
                                         </div>
                                     </div>
-                                    <div id="thumbnail-container"></div>
+                                    <div id="thumbnail-container" class="speaker-img"></div>
                                 </div>
 
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                            <button id="btn-add" type="button" class="btn btn-primary speaker-id speaker-button" data-dismiss="modal" style="margin-top:5px">Thêm</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
                         </div>
                     </div>
@@ -115,57 +103,6 @@
             </div>
         </div>
 
-        <div class="modal fade" id="speakerModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Chỉnh Sửa Diễn Giả</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Tên:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                                </div>
-                                <input type="text" class="form-control speaker-title">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Miêu tả:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-info" aria-hidden="true"></i>
-                                </div>
-                                <textarea type="text" class="form-control speaker-description"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
-                            <div class="col-sm-9 input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-link" aria-hidden="true"></i>
-                                </div>
-                                <textarea type="text" class="form-control speaker-image"></textarea>
-                            </div>
-                            <div class="col-sm-3"></div>
-                            <div class="row col-sm-9">
-                                <label>or</label>
-                                <input type="file" id="myFile">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btn-save" type="submit" class="btn btn-primary speaker-id" data-dismiss="modal" style="margin-top:5px">Lưu</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </div>
 
@@ -177,13 +114,29 @@
         function showModalSpeaker(id, name, description, image) {
             $('.speaker-title').val(name);
             $('.speaker-description').val(description);
-            $('.speaker-image').val(image);
+            $('.speaker-img').val(image);
+            $('#thumbnail-container').html("<img id='thumbnail' src='" + image + "' style='width:200px;padding-top: 10px;'/>");
             $('.speaker-id').val(id);
+            $('.modal-title').text('Chỉnh sửa diễn giả');
+            $('.speaker-button').text('Lưu');
+            $('.speaker-button').attr('id', 'btn-save');
         }
 
-         function delSpeaker(id, name) {
+        function clearModal() {
+            $('.speaker-title').val('');
+            $('.speaker-description').val('');
+            $('.speaker-img').val('');
+            $('#thumbnail-container').html("");
+            $('.speaker-id').val('');
+            $('.modal-title').text('Thêm diễn giả');
+            $('.speaker-button').text('Thêm');
+            $('.speaker-button').attr('id', 'btn-add');
+        }
+
+        function delSpeaker(id, name) {
+            $('.modal-title').text('Xóa diễn giả');
             $('.speaker-del-id').val(id);
-            $('.speaker-del-title').html("Xóa Diễn Giả " + name);
+             $('.speaker-del-title').html("Xóa Diễn Giả " + name);
         }
 
          $(document).ready(function () {
@@ -248,7 +201,6 @@
 
              // Get references to the DOM elements
 
-             const form = document.getElementById('pick-form');
              const fileInput = document.getElementById('fileupload');
              const btn = document.getElementById('picker');
              const nameBox = document.getElementById('nameBox');
@@ -261,19 +213,22 @@
                  picker.open();
              });
 
-             
+
 
              // Helper to overwrite the field input value
 
              function updateForm(result) {
                  const fileData = result.filesUploaded[0];
                  fileInput.value = fileData.url;
-
+                 if (fileInput.value != null) {
+                     $('#thumbnail-container').val(fileInput.value);
+                 }
                  // If file is resizable image, resize and embed it as a thumbnail preview
                  if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
                      const container = document.getElementById('thumbnail-container');
                      const thumbnail = document.getElementById('thumbnail') || new Image();
                      thumbnail.id = 'thumbnail';
+                     thumbnail.style = 'padding-top: 10px;';
                      thumbnail.src = client.transform(fileData.handle, {
                          resize: {
                              width: 200

@@ -5,12 +5,16 @@
 @using HmsService.Models.Entities;
 @model EventCollection
 
+
+<div class="row" style="padding-top: 74px;">
+    <div class="col-md-12 text-center voting-title">
+        <h3>Nhà tài trợ</h3>
+    </div>
+</div>
+
 @if (Model == null || Model.CollectionItems == null)
 {
-    <div class="collection-empty-title">
-        <h3>Hiện tại chưa có danh sách nhà tài trợ</h3>
-    </div>
-
+        <h3 class="text-center">Hiện tại chưa có danh sách nhà tài trợ</h3>
 }
 else
 {
@@ -41,7 +45,7 @@ else
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <img class="sponsor-img image-sponsor-custom"/>
+                <img class="sponsor-img image-sponsor-custom" />
                 <p class="sponsor-description"></p>
             </div>
             <div class="modal-footer">
