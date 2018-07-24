@@ -11,6 +11,7 @@ namespace CapstoneProjectAdmin.Controllers
         // GET: SystemAdmin
         public ActionResult Index()
         {
+            ViewBag.IsLayoutAdmin = true;
             return View();
         }
     }

@@ -2,6 +2,7 @@
 @model IEnumerable<Event>
 @{
     Layout = "~/Views/Shared/_LayoutEvent.cshtml";
+    ViewBag.Title = "Danh sách sự kiện";
     var today = DateTime.Today;
     var listIsRunning = Model.Where(e => e.EndTime >= today && e.StartTime <= today).ToList();
     var listUpComming = Model.Where(e => e.StartTime > today).ToList();
@@ -29,7 +30,7 @@
         <div class="box-body event-box-body">
             @foreach (var isRunning in listIsRunning)
             {
-                <a class="event-link" href="@Url.Action("Index","Home", new { id = isRunning.EventID })">
+                <a class="event-link" href="@Url.Action("Index","ManageSession", new { id = isRunning.EventID })">
                     <div class="col-lg-4 col-md-4">
                         <!-- small box -->
                         <div class="small-box bg-green event-box">
@@ -65,7 +66,7 @@
         <div class="box-body event-box-body box-body-up-comming collapse">
             @foreach (var upComming in listUpComming)
             {
-                <a class="event-link" href="@Url.Action("Index", "Home", new { id = upComming.EventID })">
+                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { id = upComming.EventID })">
                     <div class="col-lg-4 col-xs-4">
                         <!-- small box -->
                         <div class="small-box bg-yellow event-box">
@@ -102,7 +103,7 @@
         <div class="box-body event-box-body box-body-happened collapse">
             @foreach (var happened in listHappened)
             {
-                <a class="event-link" href="@Url.Action("Index", "Home", new { id = happened.EventID })">
+                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { id = happened.EventID })">
                     <div class="col-lg-4 col-xs-4">
                         <!-- small box -->
                         <div class="small-box bg-gray event-box">

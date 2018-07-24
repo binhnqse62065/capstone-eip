@@ -372,6 +372,7 @@
     <Compile Include="Models\Entities\Services\AspNetUserLoginServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\AspNetUserService.cs" />
     <Compile Include="Models\Entities\Services\AspNetUserServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -482,6 +483,7 @@
     <Compile Include="Sdk\AspNetRoleApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\AspNetUserApi.cs" />
     <Compile Include="Sdk\AspNetUserApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
