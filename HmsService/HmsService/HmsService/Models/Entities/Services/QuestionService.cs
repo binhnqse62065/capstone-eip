@@ -8,11 +8,11 @@ namespace HmsService.Models.Entities.Services
 {
     public partial interface IQuestionService
     {
-        IEnumerable<Question> GetQuestionsByQaId(int eventId);
+        IEnumerable<Question> GetQuestionsByQaId(int? qaId);
     }
     public partial class QuestionService
     {
-        public IEnumerable<Question> GetQuestionsByQaId(int qaId)
+        public IEnumerable<Question> GetQuestionsByQaId(int? qaId)
         {
             try
             {

@@ -72,7 +72,10 @@ namespace CapstoneProjectAdmin.Controllers
             {
                 return View(model);
             }
-
+            if(returnUrl == null)
+            {
+                returnUrl = "/";
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -387,12 +390,12 @@ namespace CapstoneProjectAdmin.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         //
