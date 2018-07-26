@@ -3,6 +3,12 @@
 
     int eventId = ViewBag.EventId != null ? ViewBag.EventId : 0;
     var user = HttpContext.Current.User;
+    var role = User.Identity.Name;
+    var isSysAdmin = false;
+    if(User.IsInRole("System Admin"))
+    {
+        isSysAdmin = true;
+    }
 
 }
 
@@ -143,7 +149,11 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
 
                 <ul class="sidebar-menu" data-widget="tree">
-                    @if (user.IsInRole("Admin"))
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a href="@Url.Action("Index","SystemAdmin", new { id = eventId})"><i class="fa fa-setting"></i> <span>Quản lý tài khoản</span></a></li>
+                    }
+                    else
                     {
                         <li><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
                         <li class="treeview">
@@ -165,10 +175,7 @@
                             </ul>
                         </li>
                         <li><a href="@Url.Action("Index","Events", new { id = eventId})"><i class="fa fa-sign-out"></i> <span>Đăng Xuất</span></a></li>
-                    }
-                    else
-                    {
-                        <li><a href="@Url.Action("Index","SystemAdmin", new { id = eventId})"><i class="fa fa-setting"></i> <span>Quản lý tài khoản</span></a></li>
+                        
                     }
 
 

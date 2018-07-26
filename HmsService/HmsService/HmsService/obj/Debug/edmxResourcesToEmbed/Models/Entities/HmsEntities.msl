@@ -111,6 +111,7 @@
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="HmsEntities.Comment">
         <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="NumberOfDislike" ColumnName="NumberOfDislike" />
           <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="Username" ColumnName="Username" />
@@ -173,6 +174,7 @@
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="HmsEntities.Question">
         <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="NumberOfDislike" ColumnName="NumberOfDislike" />
           <ScalarProperty Name="IsAnswer" ColumnName="IsAnswer" />
           <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
           <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />

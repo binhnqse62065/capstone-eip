@@ -21,6 +21,7 @@ namespace HmsService.ViewModels
     			public virtual string Username { get; set; }
     			public virtual Nullable<System.DateTime> CreateTime { get; set; }
     			public virtual Nullable<int> NumberOfLike { get; set; }
+    			public virtual Nullable<int> NumberOfDislike { get; set; }
     	
     	public CommentViewModel() : base() { }
     	public CommentViewModel(HmsService.Models.Entities.Comment entity) : base(entity) { }

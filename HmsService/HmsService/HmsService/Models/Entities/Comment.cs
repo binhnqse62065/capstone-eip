@@ -20,6 +20,7 @@ namespace HmsService.Models.Entities
         public string Username { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<int> NumberOfLike { get; set; }
+        public Nullable<int> NumberOfDislike { get; set; }
     
         public virtual Question Question { get; set; }
     }

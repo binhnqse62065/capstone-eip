@@ -267,6 +267,7 @@
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="NumberOfLike" Type="Int32" />
+    <Property Name="NumberOfDislike" Type="Int32" />
     <NavigationProperty Name="Question" Relationship="HmsEntities.FK_Comment_Question" FromRole="Comment" ToRole="Question" />
   </EntityType>
   <EntityType Name="Event">
@@ -340,6 +341,7 @@
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="NumberOfLike" Type="Int32" />
     <Property Name="IsAnswer" Type="Boolean" />
+    <Property Name="NumberOfDislike" Type="Int32" />
     <NavigationProperty Name="Comments" Relationship="HmsEntities.FK_Comment_Question" FromRole="Question" ToRole="Comment" />
     <NavigationProperty Name="QA" Relationship="HmsEntities.FK_Question_QA" FromRole="Question" ToRole="QA" />
   </EntityType>

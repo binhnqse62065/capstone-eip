@@ -113,6 +113,7 @@
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="NumberOfLike" Type="int" />
+          <Property Name="NumberOfDislike" Type="int" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -181,6 +182,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="NumberOfLike" Type="int" />
           <Property Name="IsAnswer" Type="bit" />
+          <Property Name="NumberOfDislike" Type="int" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -860,6 +862,7 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="NumberOfLike" Type="Int32" />
+          <Property Name="NumberOfDislike" Type="Int32" />
           <NavigationProperty Name="Question" Relationship="HmsEntities.FK_Comment_Question" FromRole="Comment" ToRole="Question" />
         </EntityType>
         <EntityType Name="Event">
@@ -933,6 +936,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="NumberOfLike" Type="Int32" />
           <Property Name="IsAnswer" Type="Boolean" />
+          <Property Name="NumberOfDislike" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="HmsEntities.FK_Comment_Question" FromRole="Question" ToRole="Comment" />
           <NavigationProperty Name="QA" Relationship="HmsEntities.FK_Question_QA" FromRole="Question" ToRole="QA" />
         </EntityType>
@@ -1337,6 +1341,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="HmsEntities.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="NumberOfDislike" ColumnName="NumberOfDislike" />
                 <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1399,6 +1404,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="HmsEntities.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="NumberOfDislike" ColumnName="NumberOfDislike" />
                 <ScalarProperty Name="IsAnswer" ColumnName="IsAnswer" />
                 <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />

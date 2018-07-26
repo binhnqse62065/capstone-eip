@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CapstoneProjectAdmin.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CapstoneProjectAdmin.Controllers
 {
@@ -68,6 +69,7 @@ namespace CapstoneProjectAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+       
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -79,7 +81,8 @@ namespace CapstoneProjectAdmin.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            var user = await UserManager.FindAsync(model.Email, model.Password);
+            var user = await UserManager.FindAsync(model.Username, model.Password);
+            
 
             if (user != null)
             {
@@ -182,10 +185,17 @@ namespace CapstoneProjectAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = "binh@fpt.edu.vn" };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    /*Create and add role tmp code*/
+                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //await roleManager.CreateAsync(new IdentityRole("System Admin"));
+                    //await UserManager.AddToRoleAsync(user.Id, "System Admin");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

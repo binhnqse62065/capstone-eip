@@ -108,6 +108,7 @@
     <Property Name="Username" Type="nvarchar" MaxLength="50" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="NumberOfLike" Type="int" />
+    <Property Name="NumberOfDislike" Type="int" />
   </EntityType>
   <EntityType Name="Event">
     <Key>
@@ -176,6 +177,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="NumberOfLike" Type="int" />
     <Property Name="IsAnswer" Type="bit" />
+    <Property Name="NumberOfDislike" Type="int" />
   </EntityType>
   <EntityType Name="Session">
     <Key>
