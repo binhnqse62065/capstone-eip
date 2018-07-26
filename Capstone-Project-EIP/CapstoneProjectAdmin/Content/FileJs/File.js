@@ -17,7 +17,7 @@
             },
             success: function () {
                 $('#tblFile').DataTable().ajax.reload();
-                swal("Thành công!", "Bạn đã sửa thông tin diễn giả thành công", "success");
+                swal("Thành công!", "Bạn đã sửa thông tin tài liệu thành công", "success");
             },
             error: function (data) {
                 console.log(data);
@@ -45,7 +45,7 @@
                 },
                 success: function (data) {
                     $('#tblFile').DataTable().ajax.reload();
-                    swal("Thành công!", "Bạn đã thêm thông tin diễn giả thành công", "success");
+                    swal("Thành công!", "Bạn đã thêm tài liệu thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);
@@ -55,22 +55,33 @@
 
     });
 
-    $(document).on('click', '#btn-del', function () {
-        var id = $('#btn-del').val();
-        $.ajax({
-            url: urlApi + '/api/file/DeleteFile',
-            method: "POST",
-            data: {
-                CollectionItemID: id,
-            },
-            success: function (data) {
-                $('#tblFile').DataTable().ajax.reload();
-                swal("Thành công!", "Bạn đã xóa thông tin diễn giả thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    });
-
 });
+
+function delFile(id, name) {
+    swal({
+        title: "Bạn có chắc?",
+        text: "Bạn có chắc chắn xóa tài liệu " + name + ", bạn sẽ không thể phục hồi!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Có!",
+        cancelButtonText: "Không!",
+        closeOnConfirm: false
+    },
+        function () {
+            $.ajax({
+                url: urlApi + '/api/file/DeleteFile',
+                method: "POST",
+                data: {
+                    CollectionItemID: id,
+                },
+                success: function (data) {
+                    $('#tblFile').DataTable().ajax.reload();
+                    swal("Thành công!", "Bạn đã xóa tài liệu thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+}

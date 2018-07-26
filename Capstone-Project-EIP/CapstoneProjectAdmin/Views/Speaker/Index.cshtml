@@ -133,11 +133,11 @@
             $('.speaker-button').attr('id', 'btn-add');
         }
 
-        function delSpeaker(id, name) {
-            $('.modal-title').text('Xóa diễn giả');
-            $('.speaker-del-id').val(id);
-             $('.speaker-del-title').html("Xóa Diễn Giả " + name);
-        }
+        //function delSpeaker(id, name) {
+        //    $('.modal-title').text('Xóa diễn giả');
+        //    $('.speaker-del-id').val(id);
+        //     $('.speaker-del-title').html("Xóa Diễn Giả " + name);
+        //}
 
          $(document).ready(function () {
              $('#tblSpeaker').DataTable({
@@ -181,7 +181,7 @@
                         name: "Function",
                         render: function (data, type, row) {
                             return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#speakerModal" onclick="showModalSpeaker(' + row.collectionItemID + ',\'' + row.name + '\', \'' + row.description + '\', \'' + row.imageUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm speaker-id" data-toggle="modal" data-target="#deleteModal" onclick="delSpeaker(' + row.collectionItemID + ',\'' + row.name + '\')"><i class="fa fa-trash"></i></button>';
+                                '<button class="btn btn-danger btn-sm speaker-id"  onclick="delSpeaker(' + row.collectionItemID + ',\'' + row.name + '\')"><i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
