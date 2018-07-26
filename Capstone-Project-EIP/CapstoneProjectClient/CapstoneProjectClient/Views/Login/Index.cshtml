@@ -50,6 +50,7 @@
     <div class="limiter">
         <div class="container-login100" style="background-color:#005f75;padding-top:15px;left:unset!important;">
             <div style="padding-top: 60px;"><img src="~/Content/img/LogoMakr_6CVPn5.png" style="width:220px;height:200px;" /></div>
+            <p class="intro-title">Nền tảng tương tác trong sự kiện</p>
             <div class="wrap-login100 p-b-30" style="left:unset!important">
                 <div class="login100-form validate-form" id="div-section">
                     <div class="message-error">
@@ -96,27 +97,43 @@
                     url: urlApi + 'api/login/CheckCodeLogin/' + code,
                     method: "POST",
                     success: function (data) {
-                        console.log(data);
-                        if (data.data != null) {
+                        if (data.eventId != 0) {
                             $('.message-error').css('display', 'none');
                             $('.container-loader').css('display', 'none');
-                            //$('#txt-code-login').val("");
-                            //$('#div-section').empty();
-                            //for (var i = 0; i < data.data.length; i++) {
-                            //    var sectionTemplate = $('#session-template').clone();
-                            //    sectionTemplate.find('#btn-session').html(data.data[i].Name);
-                            //    sectionTemplate.find('#btn-session').attr('href', '/Home/Index/' + data.data[i].EventId + '/' + data.data[i].SessionID);
-                            //    $('#div-section').append(sectionTemplate.html());
-                            //}
-                            for (var i = 0; i < data.data.length; i++) {
-                                window.location.href = window.location.href + "Session/Index/" + data.data[i].EventId;
-                            }
+                            window.location.href = urlApi + "Session/Index/" + data.eventId;
                         }
                         else {
                             $('.message-error').css('display', 'block');
                             $('#txt-code-login').val("");
                             $('.container-loader').css('display', 'none');
                         }
+                       
+                        //if (data.data != null) {
+                        //    $('.message-error').css('display', 'none');
+                        //    $('.container-loader').css('display', 'none');
+                        //    //$('#txt-code-login').val("");
+                        //    //$('#div-section').empty();
+                        //    //for (var i = 0; i < data.data.length; i++) {
+                        //    //    var sectionTemplate = $('#session-template').clone();
+                        //    //    sectionTemplate.find('#btn-session').html(data.data[i].Name);
+                        //    //    sectionTemplate.find('#btn-session').attr('href', '/Home/Index/' + data.data[i].EventId + '/' + data.data[i].SessionID);
+                        //    //    $('#div-section').append(sectionTemplate.html());
+                        //    //}
+
+                        //    window.location.href = urlApi + "Session/Index/" + data.eventId;
+
+
+
+
+                        //    //for (var i = 0; i < data.data.length; i++) {
+                        //    //    window.location.href = window.location.href + "Session/Index/" + data.data[i].EventId;
+                        //    //}
+                        //}
+                        //else {
+                        //    $('.message-error').css('display', 'block');
+                        //    $('#txt-code-login').val("");
+                        //    $('.container-loader').css('display', 'none');
+                        //}
                     },
                     error: function (data) {
                         $('.message-error').css('display', 'block');

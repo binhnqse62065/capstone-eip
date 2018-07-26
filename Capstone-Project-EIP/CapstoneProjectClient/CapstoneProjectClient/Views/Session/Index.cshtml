@@ -15,7 +15,7 @@
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="~/Content/bootstrap/Login_v12/images/icons/favicon.ico" />
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/bootstrap/css/bootstrap.min.css">
+    @*<link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <!--===============================================================================================-->
@@ -25,7 +25,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/css-hamburgers/hamburgers.min.css">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/select2/select2.min.css">*@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/main.css">
@@ -54,7 +54,7 @@
                                     if (DateTime.Now <= session.EndTime && DateTime.Now >= session.StartTime)
                                     {
                                         <div class="container-login100-form-btn p-t-10">
-                                            <a href="/Timeline/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">@session.Name</a>
+                                            <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">@session.Name</a>
                                         </div>
                                     }
                                 }

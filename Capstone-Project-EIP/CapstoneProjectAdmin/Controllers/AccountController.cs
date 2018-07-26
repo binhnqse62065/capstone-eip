@@ -78,20 +78,48 @@ namespace CapstoneProjectAdmin.Controllers
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user = await UserManager.FindAsync(model.Email, model.Password);
+
+            if (user != null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                //if (!user.Roles.Any(q => q.RoleId == "4"))
+                //{
+                //    ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
+                //    return View(model);
+                //}
+                if (user.Roles.Any(q => q.RoleId == "2"))
+                {
+                    //ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
+                    return RedirectToAction("Index", "Events", new { area = "" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "SystemAdmin", new { area = "" });
+                }
+                ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
+                return View(model);
             }
+            else {
+                ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
+                return View(model);
+            }
+            //else {
+            //    switch (result)
+            //    {
+            //        case SignInStatus.LockedOut:
+            //            return View("Lockout");
+            //        case SignInStatus.RequiresVerification:
+            //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //        case SignInStatus.Failure:
+            //        default:
+            //            ModelState.AddModelError("", "Invalid login attempt.");
+            //            return View(model);
+            //    }
+            //}
+                
+
+          
         }
 
         //

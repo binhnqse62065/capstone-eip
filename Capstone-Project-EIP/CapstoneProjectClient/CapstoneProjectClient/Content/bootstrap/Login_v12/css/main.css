@@ -28,7 +28,7 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 body, html {
@@ -213,8 +213,8 @@ iframe {
     background-size: cover;
     background-position: center;
     padding-top: 74px;
-    position: relative;
-    left: 16%;
+    /*position: relative;
+    left: 16%;*/
     z-index: 1;
 }
 
@@ -244,7 +244,7 @@ iframe {
     width: 390px;
     background: transparent;
     position: relative;
-    left: 400px;
+    /*left: 400px;*/
 }
 
 
@@ -569,6 +569,10 @@ iframe {
         width: 100%;
         position: unset;
         left: unset;
+    }
+
+    .tab-content {
+        width:100%;
     }
 }
 
@@ -936,4 +940,10 @@ body {
     background: #999 -moz-radial-gradient(circle farthest-side, #333333, #111111);
     background: #999 -webkit-radial-gradient(circle farthest-side, #333333, #111111);
     background: #999 radial-gradient(circle farthest-side, #333333, #111111);
+}
+
+.intro-title {
+    font-size: large;
+    color: #fecb24;
+    font-family: Montserrat-Bold;
 }

@@ -2,6 +2,7 @@
     var eventId = ViewBag.EventId;
     var sessionId = ViewBag.SessionId;
     var sessionNumber = ViewBag.SessionNumber;
+    string eventName = ViewBag.EventName != null ? ViewBag.EventName : "";
 }
 
 <!DOCTYPE html>
@@ -84,18 +85,18 @@
                             }
                             else
                             {
-                                <li> <a class="custom-menu" href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
+                                <li> <a class="custom-menu" href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
                                 <li> <a class="custom-menu" href="/Session/Index/@eventId"><i class="fa fa-sign-out"></i><span>Quay lại</span></a></li>
                             }
                         }
                         else
                         {
-                            <li> <a class="custom-menu" href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
+                            <li> <a class="custom-menu" href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
@@ -146,7 +147,9 @@
             <nav class="navbar narbar-custom" style="height: 64px;">
                 <div class="container-fluid">
                     <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <span class="event-title">@(ViewBag.EventName)</span>
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                            
                             @*@{
                                     if (sessionId != null)
                                     {
