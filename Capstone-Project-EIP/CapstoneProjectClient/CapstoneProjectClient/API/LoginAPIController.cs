@@ -28,6 +28,7 @@ namespace CapstoneProjectClient.API
                     Content = new JsonContent(new
                     {
                         success = true,
+                        eventId = eventCheck != null ?  eventCheck.EventID : 0,
                         data = eventCheck.Sessions.Select(s => new SessionViewModel {
                             Name = s.Name,
                             SessionID = s.SessionID,

@@ -75,8 +75,19 @@
     padding-left: 16%;
 }
 
-@media screen and (max-width: 600px){
+.event-title {
+    color:white;
+    font-weight:bold;
+    font-size:24px;
+    text-align:center;
+}
+
+@media screen and (max-width: 600px) {
     .custom-row {
         padding-left: unset;
+    }
+    .event-title {
+       
+        font-size: unset;
     }
 }
