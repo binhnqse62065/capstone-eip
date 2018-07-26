@@ -13,10 +13,13 @@ namespace CapstoneProjectClient.Controllers
         [Route("Speaker/Index/{eventId}")]
         public ActionResult Index(int eventId)
         {
-            ViewBag.EventId = eventId;
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
-            var listSpeaker = eventCollectionApi.GetSpeakerByEventId(eventId);
             SessionApi sessionApi = new SessionApi();
+            EventApi eventApi = new EventApi();
+            ViewBag.EventId = eventId;
+            ViewBag.EventName = eventApi.GetEventNameById(eventId);
+            var listSpeaker = eventCollectionApi.GetSpeakerByEventId(eventId);
+            
             var listSession = sessionApi.GetSessionsByEventId(eventId);
             if (listSession.Count() == 1)
             {

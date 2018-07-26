@@ -29,6 +29,7 @@ namespace HmsService.Models.Entities
         public string Description { get; set; }
         public int EventId { get; set; }
         public string LivestreamUrl { get; set; }
+        public string Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Activity> Activities { get; set; }

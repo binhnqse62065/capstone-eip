@@ -241,9 +241,9 @@
       <PropertyRef Name="CollectionItemID" />
     </Key>
     <Property Name="CollectionItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_CollectionItem" FromRole="CollectionItem" ToRole="ActivityItem" />
     <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
@@ -354,6 +354,7 @@
     <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
     <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />

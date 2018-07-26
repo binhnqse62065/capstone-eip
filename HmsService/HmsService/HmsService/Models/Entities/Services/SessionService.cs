@@ -27,7 +27,8 @@ namespace HmsService.Models.Entities.Services
                     EndTime = s.EndTime,
                     Description = s.Description,
                     EventId = s.EventId,
-                    EventName = s.Event.Name
+                    EventName = s.Event.Name,
+                    Address = s.Address
                 });
             }
             catch(Exception e)

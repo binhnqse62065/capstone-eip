@@ -186,6 +186,7 @@
     <EntitySetMapping Name="Sessions">
       <EntityTypeMapping TypeName="HmsEntities.Session">
         <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="LivestreamUrl" ColumnName="LivestreamUrl" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="Description" ColumnName="Description" />

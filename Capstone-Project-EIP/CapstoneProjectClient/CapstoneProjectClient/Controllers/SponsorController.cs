@@ -14,7 +14,9 @@ namespace CapstoneProjectClient.Controllers
         [Route("Sponsor/Index/{eventId}")]
         public ActionResult Index(int eventId)
         {
+            EventApi eventApi = new EventApi();
             ViewBag.EventId = eventId;
+            ViewBag.EventName = eventApi.GetEventNameById(eventId);
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listSponsor = eventCollectionApi.GetSponsorByEventId(eventId);
             SessionApi sessionApi = new SessionApi();

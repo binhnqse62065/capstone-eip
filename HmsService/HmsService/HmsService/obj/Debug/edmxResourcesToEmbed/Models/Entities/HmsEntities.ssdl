@@ -85,9 +85,9 @@
       <PropertyRef Name="CollectionItemID" />
     </Key>
     <Property Name="CollectionItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Description" Type="varchar" MaxLength="250" />
-    <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
+    <Property Name="ImageUrl" Type="nvarchar" MaxLength="250" />
     <Property Name="EventCollectionId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CollectionType">
@@ -188,6 +188,7 @@
     <Property Name="Description" Type="nvarchar" MaxLength="250" />
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="LivestreamUrl" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Timeline">
     <Key>
