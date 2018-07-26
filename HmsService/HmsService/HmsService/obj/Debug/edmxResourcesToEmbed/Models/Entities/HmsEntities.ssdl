@@ -85,8 +85,8 @@
       <PropertyRef Name="CollectionItemID" />
     </Key>
     <Property Name="CollectionItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
     <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
     <Property Name="EventCollectionId" Type="int" Nullable="false" />
   </EntityType>
