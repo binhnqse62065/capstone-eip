@@ -18,6 +18,8 @@ namespace CapstoneProjectClient.Controllers
             ViewBag.SessionId = sessionId;
             var timeline = timelineApi.GetAllTimesBySessionId(sessionId);
             SessionApi sessionApi = new SessionApi();
+            ViewBag.SessionName = sessionApi.GetSessionNameById(sessionId);
+
             var listSession = sessionApi.GetSessionsByEventId(eventId);
             if (listSession.Count() == 1)
             {

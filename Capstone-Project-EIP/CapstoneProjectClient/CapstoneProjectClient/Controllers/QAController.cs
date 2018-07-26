@@ -21,12 +21,16 @@ namespace CapstoneProjectClient.Controllers
 
             ViewBag.EventId = eventId;
             ViewBag.SessionId = sessionId;
+            SessionApi sessionApi = new SessionApi();
+            ViewBag.SessionName = sessionApi.GetSessionNameById(sessionId);
+
+
+
             InteractionApi interactionApi = new InteractionApi();
             QAApi qAApi = new QAApi();
-
             int qaId = interactionApi.GetQaIdBySessionId(sessionId);
             QA qa = qAApi.GetQaById(qaId);
-            SessionApi sessionApi = new SessionApi();
+           
             var listSession = sessionApi.GetSessionsByEventId(eventId);
             if (listSession.Count() == 1)
             {

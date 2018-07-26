@@ -22,5 +22,10 @@ namespace HmsService.Sdk
         {
             return this.BaseService.GetSessionById(sessionId);
         }
+
+        public string GetSessionNameById(int sessionId)
+        {
+            return this.BaseService.FirstOrDefault(s => s.SessionID == sessionId).Name;
+        }
     }
 }

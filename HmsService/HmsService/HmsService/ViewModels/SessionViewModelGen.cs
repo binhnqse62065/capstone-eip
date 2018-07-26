@@ -22,6 +22,7 @@ namespace HmsService.ViewModels
     			public virtual string Description { get; set; }
     			public virtual int EventId { get; set; }
     			public virtual string LivestreamUrl { get; set; }
+    			public virtual string Address { get; set; }
                 public virtual string EventName { get; set; }
 
         public SessionViewModel() : base() { }

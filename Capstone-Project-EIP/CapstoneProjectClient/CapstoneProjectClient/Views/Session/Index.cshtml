@@ -5,7 +5,8 @@
     int eventId = ViewBag.EventId;
     ViewBag.Title = "Các hoạt động";
 }
-
+@using HmsService.ViewModels;
+@model IEnumerable<SessionViewModel>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,19 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="~/Content/bootstrap/Login_v12/images/icons/favicon.ico" />
-    <!--===============================================================================================-->
-    @*<link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/vendor/select2/select2.min.css">*@
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/main.css">
     <link rel="stylesheet" href="~/Content/CustomCss/customNav.css">
@@ -36,49 +24,58 @@
     <link rel="stylesheet" type="text/css" href="~/Content/CustomCss/main.css">
 </head>
 <body>
-        <div class="container-login100">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_1" data-toggle="tab">Đang diễn ra</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab">Tất cả</a></li>
-                </ul>
-            </div>
-            <!--Tab content-->
-            <div class="tab-content" style="padding-top: 63px;">
-                <div class="tab-pane active" id="tab_1">
-                    <div class="wrap-login100 p-t-190 p-b-30">
-                        <div class="login100-form validate-form" id="div-section">
-                            @{
-                                foreach (var session in Model)
+    <div class="container-login100">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">Đang diễn ra</a></li>
+                <li class=""><a href="#tab_2" data-toggle="tab">Tất cả</a></li>
+            </ul>
+        </div>
+        <!--Tab content-->
+        <div class="tab-content" style="padding-top: 63px;">
+            <div class="tab-pane active" id="tab_1">
+                <div class="wrap-login100 p-t-190 p-b-30">
+                    <div class="login100-form validate-form" id="div-section">
+                        @{
+                            foreach (var session in Model)
+                            {
+                                if (DateTime.Now <= session.EndTime && DateTime.Now >= session.StartTime)
                                 {
-                                    if (DateTime.Now <= session.EndTime && DateTime.Now >= session.StartTime)
-                                    {
-                                        <div class="container-login100-form-btn p-t-10">
-                                            <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">@session.Name</a>
-                                        </div>
-                                    }
+                                    <div class="container-login100-form-btn p-t-10">
+                                        <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">
+                                            @session.Name
+                                            <br />
+                                            @(session.Address) - @(session.StartTime.Value.ToString("hh:mm"))
+                                        </a>
+
+                                    </div>
                                 }
                             }
-                        </div>
+                        }
                     </div>
                 </div>
-                <div class="tab-pane" id="tab_2">
-                    <div class="wrap-login100 p-t-190 p-b-30">
-                        <div class="login100-form validate-form" id="div-section">
-                            @{
-                                foreach (var session in Model)
-                                {
-                                        <div class="container-login100-form-btn p-t-10">
-                                            <a href="/Timeline/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">@session.Name</a>
-                                        </div>
-                                    }
-                            }
-                        </div>
-                    </div>
-                </div>
-                <!-- /.tab-pane -->
             </div>
+            <div class="tab-pane" id="tab_2">
+                <div class="wrap-login100 p-t-190 p-b-30">
+                    <div class="login100-form validate-form" id="div-section">
+                        @{
+                            foreach (var session in Model)
+                            {
+                                <div class="container-login100-form-btn p-t-10">
+                                    <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">
+                                        @session.Name
+                                        <br />
+                                        @(session.Address) - @(session.StartTime.Value.ToString("hh:mm"))
+                                    </a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- /.tab-pane -->
         </div>
+    </div>
 
     <div id="session-template" style="display:none">
         <div class="container-login100-form-btn p-t-10">

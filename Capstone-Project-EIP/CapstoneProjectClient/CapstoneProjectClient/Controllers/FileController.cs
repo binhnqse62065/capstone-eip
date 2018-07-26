@@ -13,7 +13,9 @@ namespace CapstoneProjectClient.Controllers
         [Route("File/Index/{eventId}")]
         public ActionResult Index(int eventId)
         {
+            EventApi eventApi = new EventApi();
             ViewBag.EventId = eventId;
+            ViewBag.EventName = eventApi.GetEventNameById(eventId);
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listFile = eventCollectionApi.GetFileByEventId(eventId);
             SessionApi sessionApi = new SessionApi();

@@ -249,3 +249,7 @@
     font-weight:bold;
     font-size:20px !important;
 }
+
+.modal-post-question, modal-reply-question {
+    margin-top:70px;
+}
