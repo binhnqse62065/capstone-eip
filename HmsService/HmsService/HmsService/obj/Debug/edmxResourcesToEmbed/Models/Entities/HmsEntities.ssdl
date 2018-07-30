@@ -137,6 +137,7 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="TypeId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="Guest">
     <Key>

@@ -20,5 +20,20 @@ namespace HmsService.Sdk
             return collectionItem.CollectionItemID;
         }
        
+        public void DeleteCollectionItem(CollectionItem collectionItem)
+        {
+            var curItem = this.BaseService.FirstOrDefault(i => i.CollectionItemID == collectionItem.CollectionItemID);
+            this.BaseService.Delete(curItem);
+            this.BaseService.Save();
+        }
+
+        public void UpdateCollectionItem(CollectionItem collectionItem)
+        {
+            var curItem = this.BaseService.FirstOrDefault(i => i.CollectionItemID == collectionItem.CollectionItemID);
+            curItem.Name = collectionItem.Name;
+            curItem.Description = collectionItem.Description;
+            curItem.ImageUrl = collectionItem.ImageUrl;
+            this.BaseService.Save();
+        }
     }
 }

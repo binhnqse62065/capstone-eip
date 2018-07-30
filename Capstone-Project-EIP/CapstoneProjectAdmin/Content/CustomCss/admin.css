@@ -165,3 +165,7 @@
 .inner-custom:hover {
     cursor:pointer;
 }
+
+#txtCollectionTypeDiv {
+    display:none;
+}

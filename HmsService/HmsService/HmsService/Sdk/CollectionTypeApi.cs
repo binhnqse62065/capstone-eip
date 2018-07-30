@@ -18,9 +18,13 @@ namespace HmsService.Sdk
             return this.BaseService.Get(c => c.IsActive == true).ProjectTo<CollectionTypeViewModel>(this.AutoMapperConfig).ToList();
         }
 
-        public int AddNewCollectionType(CollectionType collectionType)
+        public int AddNewCollectionType(string collectionTypeName)
         {
-            collectionType.IsActive = true;
+            CollectionType collectionType = new CollectionType
+            {
+                IsActive = true,
+                Name = collectionTypeName
+            };
             this.BaseService.Create(collectionType);
             this.BaseService.Save();
             return collectionType.CollectionTypeID;

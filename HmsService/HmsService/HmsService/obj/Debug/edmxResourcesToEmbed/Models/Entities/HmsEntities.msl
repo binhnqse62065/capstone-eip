@@ -144,6 +144,7 @@
     <EntitySetMapping Name="EventCollections">
       <EntityTypeMapping TypeName="HmsEntities.EventCollection">
         <MappingFragment StoreEntitySet="EventCollection">
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="TypeId" ColumnName="TypeId" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="Name" ColumnName="Name" />

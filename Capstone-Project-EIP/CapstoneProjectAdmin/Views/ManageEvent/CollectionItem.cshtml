@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "ManageCollection";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+    var eventId = Model.EventId;
+    var typeId = Model.TypeId;
 }
 @using HmsService.Models.Entities;
 @model EventCollection
@@ -78,7 +81,9 @@
                                 <input type="hidden" id="fileupload">
                             </div>
                         </div>
-                        <div id="thumbnailContainer" class="speaker-img"></div>
+                        <div id="thumbnailContainer" class="speaker-img">
+                            <img class="img-responsive"/>
+                        </div>
                     </div>
 
                 </div>
@@ -92,15 +97,80 @@
     </div>
 </div>
 
-<!--Event Collection Id-->
-<input type="hidden" value="@(Model.EventCollectionID)" id="eventCollectionId" />
+<!--Edit Collection Item Modal-->
+<div class="modal fade" id="collectionItemEditModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm thành phần bộ sưu tập</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Tên:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="txtNameEdit" type="text" class="form-control speaker-title" placeholder="Nhập tên thành phần">
+                    </div>
+                    <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" id="collectionItemNameError">
+                        <p class="empty">Vui lòng nhập tên của thành phần</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Miêu Tả:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <textarea id="txtDescriptionEdit" type="text" class="form-control speaker-description" placeholder="Nhập miêu tả về thành phần"></textarea>
+                    </div>
+                    <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" id="collectionItemDesEditError">
+                        <p class="empty">Vui lòng nhập miêu tả của thành phần</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label" style="padding-left: 30px;">Hình Ảnh:</label>
+                    <div class="col-sm-9" style="padding-left: 7px;">
+                        <div class="field">
+                            <div class="control">
+                                <button class="button" type="button" id="picker">Chọn file</button>
+                                <input type="hidden" id="fileupload">
+                            </div>
+                        </div>
+                        <div id="thumbnailContainerEdit" class="speaker-img">
+                            <img class="img-responsive" id="imageUrlEdit"  />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnEdit" type="button" class="btn btn-primary speaker-id speaker-button" data-dismiss="modal" data-target="#collectionItemEditModal" style="margin-top:5px">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Event Id-->
+<input type="hidden" value="@(Model.EventId)" id="eventId" />
 <!--Event Collection Type-->
 <input type="hidden" value="@(Model.TypeId)" id="eventCollectionType" />
+<!--Event Id-->
+<input type="hidden" value="@(Model.EventCollectionID)" id="eventCollectionId" />
 
 @section scripts {
     <script>
+        var eventId = $('#eventId').val();
         var typeId = $('#eventCollectionType').val();
-        $(document).ready(function() {
+        var eventCollectionId = $('#eventCollectionId').val();
+        var urlApi = '@curPath';
+        $(document).ready(function () {
             $('#tblCollectionItem').DataTable({
                 "oLanguage": {
                     "sSearch": "Tìm kiếm",
@@ -116,33 +186,42 @@
                     "sLengthMenu": "Hiển thị _MENU_ dòng"
                 },
                 ajax: {
-                    url: urlApi + "/GetEventCollection/" + eventId + "/" + typeId,
-                    dataSrc: ""
+                    url: urlApi + "GetCollectionItem/" + eventId + "/" + typeId,
+                    //dataSrc: ""
                 },
                 columns: [
                     {
                         name: "Name",
                         render: function (data, type, row) {
-                            return row.name;
+                            return row.Name;
                         }
                     },
                     {
                         name: "Description",
                         render: function (data, type, row) {
-                            return row.description;
+                            return row.Description;
                         }
                     },
                     {
                         name: "Image",
                         render: function (data, type, row) {
-                            return '<img src="' + row.imageUrl + '" alt="brand" class="img-fluid" style="width:260px; height:200px;">';
+                            if (row.ImageUrl != null) {
+                                if (checkURL(row.ImageUrl)) {
+                                    return '<img src="' + row.ImageUrl + '" alt="brand" class="img-fluid" style="width:260px; height:200px;">';
+                                }
+                                else {
+                                    return '<a href="' + row.ImageUrl + '">Tập tin</a>';
+                                }
+                            }
+                            return "";
+
                         }
                     },
                     {
                         name: "Function",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#speakerModal" onclick="showModalSpeaker(' + row.collectionItemID + ',\'' + row.name + '\', \'' + row.description + '\', \'' + row.imageUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm speaker-id" data-toggle="modal" data-target="#deleteModal" onclick="delSpeaker(' + row.collectionItemID + ',\'' + row.name + '\')"><i class="fa fa-trash"></i></button>';
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#collectionItemEditModal" onclick="showModalSpeaker(' + row.CollectionItemID + ',\'' + row.Name + '\', \'' + row.Description + '\', \'' + row.ImageUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                '<button class="btn btn-danger btn-sm speaker-id" onclick="delSpeaker(' + row.CollectionItemID + ')"><i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
@@ -187,19 +266,21 @@
                 }
                 // If file is resizable image, resize and embed it as a thumbnail preview
                 if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
-                    const container = document.getElementById('thumbnail-container');
-                    const thumbnail = document.getElementById('thumbnail') || new Image();
-                    thumbnail.id = 'thumbnail';
-                    thumbnail.style = 'padding-top: 10px;';
-                    thumbnail.src = client.transform(fileData.handle, {
-                        resize: {
-                            width: 200
-                        }
-                    });
+                    console.log(fileInput.value);
+                    $('#thumbnailContainer img').attr('src', fileInput.value);
+                    //const container = document.getElementById('thumbnail-container');
+                    //const thumbnail = document.getElementById('thumbnail') || new Image();
+                    //thumbnail.id = 'thumbnail';
+                    //thumbnail.style = 'padding-top: 10px;';
+                    //thumbnail.src = client.transform(fileData.handle, {
+                    //    resize: {
+                    //        width: 200
+                    //    }
+                    //});
 
-                    if (!container.contains(thumbnail)) {
-                        container.appendChild(thumbnail);
-                    }
+                    //if (!container.contains(thumbnail)) {
+                    //    container.appendChild(thumbnail);
+                    //}
                 }
             }
         });
@@ -208,8 +289,8 @@
             var isValid = true;
             var name = $('#txtName').val();
             var description = $('#txtDescription').val();
-            var imageUrl = $('#thumbnailContainer').val();
-            var eventCollectionId = $('#eventCollectionId').val();
+            var imageUrl = $('#thumbnailContainer img').attr('src');
+            
             if (name.trim().length == 0) {
                 $('#speaker-name-error').css('display', 'block');
                 $('#btnAdd').attr('data-dismiss', null);
@@ -233,8 +314,49 @@
                         EventCollectionId: eventCollectionId
                     },
                     success: function (data) {
-                        $('#tblCollectionItem').DataTable().ajax.reload();
+                        reloadTable();
                         swal("Thành công!", "Bạn đã thêm thông tin thành phần thành công", "success");
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        });
+
+        $('#btnEdit').on('click', function () {
+            var isValid = true;
+            var collectionItemId = $(this).attr('value');
+            var name = $('#txtNameEdit').val();
+            var description = $('#txtDescriptionEdit').val();
+            var imageUrl = $('#thumbnailContainerEdit img').attr('src');
+            
+            if (name.trim().length == 0) {
+                $('#collectionItemNameError').css('display', 'block');
+                $('#btnEdit').attr('data-dismiss', null);
+                isValid = false;
+            }
+            if (description.trim().length == 0) {
+                $('#collectionItemDesEditError').css('display', 'block');
+                $('#btnEdit').attr('data-dismiss', null);
+                isValid = false;
+            }
+            if (isValid) {
+                $('#collectionItemNameError').css('display', 'none');
+                $('#collectionItemDesEditError').css('display', 'none');
+                $('#btnEdit').attr('data-dismiss', 'modal');
+                $.ajax({
+                    url: '@Url.Action("UpdateCollectionItem", "ManageEvent")',
+                    method: "POST",
+                    data: {
+                        CollectionItemID: collectionItemId,
+                        Name: name,
+                        Description: description,
+                        ImageUrl: imageUrl
+                    },
+                    success: function (data) {
+                        reloadTable();
+                        swal("Thành công!", "Bạn đã cập nhật thông tin thành phần thành công", "success");
                     },
                     error: function (data) {
                         console.log(data);
@@ -250,6 +372,51 @@
             $('#thumbnailContainer').val("");
         }
 
+        function checkURL(url) {
+            return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+        }
 
+        function showModalSpeaker(id, name, description, imageUrl) {
+            $('#btnEdit').attr('value', id);
+            $('#txtNameEdit').val(name);
+            $('#txtDescriptionEdit').val(description);
+            $('#imageUrlEdit').attr('src', imageUrl);
+        }
+
+        function delSpeaker(collectionItemId) {
+            swal({
+                title: "Bạn có chắc?",
+                text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Xóa!",
+                cancelButtonText: "Hủy!",
+                closeOnConfirm: false
+            },
+                function () {
+                    $.ajax({
+                        url: '@Url.Action("DeleteCollectionItem", "ManageEvent")',
+                        method: "POST",
+                        data: {
+                            CollectionItemID: collectionItemId,
+
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Xóa!", "Phiên làm đã được xóa thành công", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Có lỗi", "Không thể xóa", "error");
+                        }
+                    });
+                });
+
+        }
+
+        function reloadTable() {
+            $('#tblCollectionItem').DataTable().ajax.reload();
+        }
     </script>
 }
