@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CapstoneProjectAdmin.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     public class EventsController : Controller
     {
         // GET: Events

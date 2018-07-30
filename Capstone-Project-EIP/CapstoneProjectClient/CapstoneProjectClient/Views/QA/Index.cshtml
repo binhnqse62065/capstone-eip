@@ -72,8 +72,9 @@
 
                                 <div class="question-item__action-zone">
                                     <div class="score score--card">
-                                        <button class="score__btn minus btn-plain btn-reply btn-reply-question-template" value="@(item.QuestionId)" data-toggle="modal" data-target="#modalReply">
-                                            <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                                        <button class="score__btn minus btn-plain btn-dislike" value="@(item.QuestionId)" id="btnDislikeQuestion-@(item.QuestionId)">
+                                            <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+                                            @(item.NumberOfDislike)
                                         </button>
                                         <button class="score__btn plus btn-plain btn-like-question-template btn-like-question" id="btn-like-question-@(item.QuestionId)" value="@(item.QuestionId)">
                                             @(item.NumberOfLike)
@@ -81,10 +82,13 @@
                                         </button>
                                     </div>
                                 </div>
-
-
-
                             </div>
+                            <div class="row row-reply" >
+                                <button class="score__btn minus btn-plain btn-rep  btn-reply btn-reply-question-template" value="@(item.QuestionId)" data-toggle="modal" data-target="#modalReply">
+                                    <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                                </button>
+                            </div>
+                            
                             <div class="question-item__body">
                                 @(item.QuestionContent)
                             </div>
@@ -292,7 +296,11 @@
 @section scripts {
     <script>
         var questionId;
-        var urlApi = '@curPath/';
+        var urlApi = '@curPath';
+        var urlLike = 'api/question/LikeQuestion';
+        var urlUnLike = 'api/question/UnLikeQuestion';
+        var urlDisLike = 'api/question/DisLikeQuestion';
+        var urlUnDisLike = 'api/question/UnDisLikeQuestion';
         $(function () {
             //var url = window.location.href;
             //console.log(url);
@@ -367,41 +375,78 @@
                 //click like question
                 $(document).on('click', '.btn-like-question', function () {
                     var questionId = $(this).attr('value');
-                    var urlApiAjax = 'api/question/LikeQuestion';
-                    var isLike = localStorage.getItem("" + questionId);
+                    var urlApiAjax = urlLike;
+                    var status = localStorage.getItem("" + questionId);
 
-                    if (isLike == null) {
-                        localStorage.setItem("" + questionId, "true");
+                    if (status == null) {
+                        localStorage.setItem("" + questionId, "Liked");
+                        chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
+                        callApiUpdateLikeOrDisLike(urlLike, questionId);
                     }
                     else {
-                        if (isLike == 'true') {
-                            localStorage.setItem("" + questionId, "false");
-                            urlApiAjax = 'api/question/DisLikeQuestion';
+                        if (status == 'Liked') {
+                            localStorage.setItem("" + questionId, "UnLiked");
+                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) - 1, false);
+                            callApiUpdateLikeOrDisLike(urlUnLike, questionId);
+                        }
+                        else if (status == 'Disliked') {
+                            localStorage.setItem("" + questionId, "Liked");   
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) - 1, false);
+                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
+                            callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
+                            callApiUpdateLikeOrDisLike(urlLike, questionId);  
                         }
                         else {
-                            localStorage.setItem("" + questionId, "true");
+                            localStorage.setItem("" + questionId, "Liked");
+                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
+                            callApiUpdateLikeOrDisLike(urlLike, questionId);  
                         }
                     }
-                    if (localStorage.getItem("" + questionId) == 'true') {
-                        //true là like, false là dislike
-                        chat.server.likeQuestion(questionId, parseInt($(this).text()) + 1,true);
+                });
+
+
+                //click dislike question
+                $(document).on('click', '.btn-dislike', function () {
+                    
+                    var questionId = $(this).attr('value');
+                    var urlApiAjax = urlDisLike;
+                    var status = localStorage.getItem("" + questionId);
+                    if (status == null) {
+                        localStorage.setItem("" + questionId, "Disliked");
+                        chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
+                        callApiUpdateLikeOrDisLike(urlDisLike, questionId);
                     }
                     else {
-                        chat.server.likeQuestion(questionId, parseInt($(this).text()) - 1,false);
-                    }
-                    $.ajax({
-                        url: urlApi + urlApiAjax,
-                        method: "POST",
-                        data: {
-                            QuestionId: questionId
-                        },
-                        success: function (data) {
-
-                        },
-                        error: function (data) {
-                            console.log(data);
+                        if (status == 'Disliked') {
+                            localStorage.setItem("" + questionId, 'UnDislike');
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) - 1, false);
+                            callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
                         }
-                    });
+                        else if (status == 'Liked') {
+                            localStorage.setItem("" + questionId, "Disliked");
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
+                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) - 1, false);
+                            callApiUpdateLikeOrDisLike(urlDisLike, questionId);
+                            callApiUpdateLikeOrDisLike(urlUnLike, questionId);
+                            
+                        }
+                        else {
+                            localStorage.setItem("" + questionId, "Disliked");
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
+                            callApiUpdateLikeOrDisLike(urlDisLike, questionId);
+                        }
+                    }
+
+                    //if (localStorage.getItem("" + questionId) == 'Disliked') {
+                    //    //Disliked là vừa mới nhấn dislike cho nút này, không là bỏ dislike
+                    //    chat.server.disLikeQuestion(questionId, parseInt($(this).text()) + 1, true);
+                    //}
+                    //else {
+                    //    chat.server.disLikeQuestion(questionId, parseInt($(this).text()) - 1, false);
+                    //}
+
+                    //callApiUpdateLikeOrDisLike(urlApiAjax, questionId);
+                    
                 });
 
                 //Click like reply
@@ -498,6 +543,18 @@
                 }
             };
 
+            //Create a function that hub call back to update new dis like of question
+            chat.client.updateNewDisLikeOfQuestion = function (questionId, newNumberOfLike, isDisLike) {
+                var str = '<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>' + newNumberOfLike;
+                $('#btnDislikeQuestion-' + questionId).empty();
+                $('#btnDislikeQuestion-' + questionId).append(str);
+                if (isDisLike) {
+                    $('#btnDislikeQuestion-' + questionId + ' i').css('color', '#cc0000');
+                }
+                else {
+                    $('#btnDislikeQuestion-' + questionId + ' i').css('color', 'none');
+                }
+            };
 
             //Create a function that hub call back to update new like of comment
             chat.client.updateNewLikeOfComment = function (commentId, newNumberOfLike, isLike) {
@@ -650,6 +707,24 @@
             }
             return color;
         }
+
+        function callApiUpdateLikeOrDisLike(urlApiAjax, questionId) {
+            $.ajax({
+                url: urlApi + urlApiAjax,
+                method: "POST",
+                data: {
+                    QuestionId: questionId
+                },
+                success: function (data) {
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+       
 
     </script>
 }

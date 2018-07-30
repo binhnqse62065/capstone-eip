@@ -224,9 +224,9 @@ namespace CapstoneProjectClient.API
             };
         }
 
-        [Route("DisLikeQuestion")]
+        [Route("UnLikeQuestion")]
         [HttpPost]
-        public HttpResponseMessage DisLikeQuestion(Question question)
+        public HttpResponseMessage UnLikeQuestion(Question question)
         {
             var currQuestion = db.Questions.Find(question.QuestionId);
             currQuestion.NumberOfLike -= 1;
@@ -239,6 +239,42 @@ namespace CapstoneProjectClient.API
                 {
                     success = true,
                     newNumberOfLike = currQuestion.NumberOfLike
+                })
+            };
+        }
+
+        [Route("DisLikeQuestion")]
+        [HttpPost]
+        public HttpResponseMessage DisLikeQuestion(Question question)
+        {
+            QuestionApi questionApi = new QuestionApi();
+            int newNumberOfDislike =  questionApi.DisLikeQuestion(question);
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    newNumberOfLike = newNumberOfDislike
+                })
+            };
+        }
+
+        [Route("UnDisLikeQuestion")]
+        [HttpPost]
+        public HttpResponseMessage UnDisLikeQuestion(Question question)
+        {
+            QuestionApi questionApi = new QuestionApi();
+            int newNumberOfDislike = questionApi.UnDisLikeQuestion(question);
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    newNumberOfLike = newNumberOfDislike
                 })
             };
         }

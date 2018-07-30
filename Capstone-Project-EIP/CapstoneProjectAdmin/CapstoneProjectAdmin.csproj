@@ -200,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\ActivityAPIController.cs" />
+    <Compile Include="API\EventCollectionAPIController.cs" />
     <Compile Include="API\FileController.cs" />
     <Compile Include="API\HomeController.cs" />
     <Compile Include="API\InteractionAPIController.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Controllers\LivestreamController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageEventController.cs" />
     <Compile Include="Controllers\ManageSessionController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ActivityViewModel.cs" />
     <Compile Include="ViewModel\CommentsViewModel.cs" />
+    <Compile Include="ViewModel\EventCollectionViewModel.cs" />
     <Compile Include="ViewModel\EventViewModel.cs" />
     <Compile Include="ViewModel\InteractionViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
@@ -8607,6 +8610,8 @@
     <Content Include="Views\ManageSession\Index.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
     <Content Include="Views\SystemAdmin\Index.cshtml" />
+    <Content Include="Views\ManageEvent\Index.cshtml" />
+    <Content Include="Views\ManageEvent\CollectionItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,6 +14,7 @@ namespace CapstoneProjectAdmin.ViewModel
         public string Description { get; set; }
         public int EventId { get; set; }
         public string LivestreamUrl { get; set; }
+        public string EventName { get; set; }
 
     }
 }

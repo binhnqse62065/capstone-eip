@@ -226,7 +226,6 @@
         //}
 
         function editQA(id, name) {
-            console.log(id);
             $.ajax({
                 url: urlApi +  '/api/QA/getAllQuestionComment',
                 method: "POST",
@@ -234,7 +233,6 @@
                     QAId: id
                 },
                 success: function (data) {
-                    console.log(data);
                     $('#qa-container').empty();
                     for (var i = 0; i < data.data.length; i++) {
                         var templateQuestion = $('#template-question').clone();

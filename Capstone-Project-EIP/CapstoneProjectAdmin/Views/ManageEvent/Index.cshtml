@@ -1,0 +1,412 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int eventId = ViewBag.EventId;
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+
+}
+@using CapstoneProjectAdmin.ViewModel;
+@model IEnumerable<EventCollectionViewModel>
+<!--Section Shared-->
+<section class="content-header">
+    <h1>
+        Cấu hình chung
+    </h1>
+
+</section>
+
+<section class="content content-custom">
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-teal">
+                <div class="inner inner-custom">
+                    <h4>Thông tin chung</h4>
+
+                </div>
+                <div class="icon">
+                    <i class="fa fa-home"></i>
+                </div>
+                <a href="@Url.Action("Index","Home", new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-teal">
+                <div class="inner inner-custom">
+                    <h4>Phiên làm việc</h4>
+
+                </div>
+                <div class="icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <a href="@Url.Action("Index","Session" , new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-teal">
+                <div class="inner inner-custom">
+                    <h4>Hỏi đáp</h4>
+
+                </div>
+                <div class="icon">
+                    <i class="fa fa-question-circle"></i>
+                </div>
+                <a href="@Url.Action("Index","QA", new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-teal">
+                <div class="inner inner-custom">
+                    <h4>Bình chọn</h4>
+
+                </div>
+                <div class="icon">
+                    <i class="fa fa-check-circle-o"></i>
+                </div>
+                <a href="@Url.Action("Index","Voting", new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<!--Section Collection-->
+<section class="content-header">
+    <h1>
+        Các bộ sưu tập
+    </h1>
+</section>
+<section class="content">
+    <div class="col-lg-12 container-add-collection">
+        <button class="btn btn-custom pull-right" data-toggle="modal" data-target="#collectionModal"><i class="fa fa-plus"></i> Thêm bộ sưu tập</button>
+    </div>
+    <div class="row" id="collectionContainer">
+        @foreach (var collection in Model)
+        {
+            <div class="col-lg-3 col-xs-6" id="collectionTypeContainer-@(collection.EventCollectionID)">
+                <!-- small box -->
+                <div class="small-box bg-teal">
+
+                    <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID), '@(collection.Name)', '@(collection.Description)')">
+                        <h4 id="collectionName-@(collection.EventCollectionID)">@(collection.Name)</h4>
+
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+
+
+                    <a href="@Url.Action("ManageCollectionItem","ManageEvent", new { eventId = collection.EventId, typeId =  collection.TypeId })" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!--Modal Add Collection-->
+<div class="modal fade" id="collectionModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm Bộ Sưu Tập</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Tên:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="txtCollectionName" type="text" class="form-control speaker-title" placeholder="Nhập tên bộ sưu tập">
+                    </div>
+                    <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" id="speaker-name-error">
+                        <p class="empty">Vui lòng nhập tên bộ sưu tập</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Miêu Tả:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <textarea id="txtDescription" type="text" class="form-control speaker-description" placeholder="Nhập miêu tả về bộ sưu tập"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Loại:</label>
+                    <div class="col-sm-9 input-group" id="cbCollectionTypeDiv">
+                        <select id="cbCollectionType" class="form-control"></select>
+                    </div>
+                    <div class="col-lg-offset-3 col-sm-9 input-group" id="txtCollectionTypeDiv">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="txtCollectionTypeName" type="text" class="form-control speaker-title" placeholder="Nhập tên loại bộ sưu tập">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Modal Edit Collection-->
+<div class="modal fade" id="collectionEditModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chỉnh Sửa Bộ Sưu Tập</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Tên:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="txtCollectionNameEdit" type="text" class="form-control speaker-title" placeholder="Nhập tên bộ sưu tập">
+                    </div>
+                    <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" id="speaker-name-error">
+                        <p class="empty">Vui lòng nhập tên diễn giả</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Miêu Tả:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <textarea id="txtDescriptionEdit" type="text" class="form-control speaker-description" placeholder="Nhập miêu tả về bộ sưu tập"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnRemove" value="" type="button" class="btn btn-danger" data-dismiss="modal" style="margin-top:5px">Xóa</button>
+                <button id="btnEdit" type="button" class="btn btn-info" data-dismiss="modal" style="margin-top:5px">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!--Collection Container Template-->
+<div id="collectionTemplate" style="display:none;">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-teal">
+            <div class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal">
+                <h4 class="collection-title"></h4>
+
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+            <a href="" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        var urlApi = '@curPath';
+        var eventId = @(eventId);
+
+        $(document).ready(function () {
+            loadCollectionTypeToCb();
+        });
+
+
+        $('#btn-add').on('click', function () {
+            var name = $('#txtCollectionName').val();
+            var description = $('#txtDescription').val();
+            var typeId = parseInt($('#cbCollectionType').val());
+            var eventCollectionObj = {
+                Name: name,
+                EventId: eventId,
+                TypeId: typeId,
+                Description: description
+            };
+            if (typeId == -1) {
+                var collectionTypeName = $('#txtCollectionTypeName').val();
+            }
+            var obj = JSON.stringify(eventCollectionObj);
+            $.ajax({
+                url: '@Url.Action("AddNewEventCollection", "ManageEvent")',
+                method: "POST",
+                data: {
+                    eventCollection: eventCollectionObj,
+                    "collectionTypeName": collectionTypeName
+                },
+                success: function (data) {
+                    
+                    if (data.success) {
+                        swal("Thành công!", "Bạn đã thêm bộ sưu tập thành công", "success");
+                        appenNewCollection(data.collectionTypeId, data.name, data.description);
+                        clearPopup();
+                    }
+                    else {
+                        swal("Thất bại!", "Thêm mới bộ sưu tập không thành công", "warning");
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        $('#btnEdit').on('click', function () {
+            var eventCollectionId = $(this).attr('value');
+            var name = $('#txtCollectionNameEdit').val();
+            var description = $('#txtDescriptionEdit').val();
+            $.ajax({
+                url: '@Url.Action("UpdateCollectionType", "ManageEvent")',
+                method: "POST",
+                data: {
+                    EventCollectionID: eventCollectionId,
+                    Name: name,
+                    Description: description
+                },
+                success: function (data) {
+                    if (data.success) {
+                        swal("Thành công!", "Bạn đã cập nhật bộ sưu tập thành công", "success");
+                        $('#collectionName-' + eventCollectionId).text(name);
+                        $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId + ', \'' + name + '\', \'' + description + '\')');
+
+                    }
+                    else {
+                        swal("Thất bại!", "Cập nhật bộ sưu tập không thành công", "warning");
+
+                    }
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+        });
+
+        $('#btnRemove').on('click', function () {
+            var eventCollectionId = $(this).attr('value');
+            swal({
+                title: "Bạn có chắc?",
+                text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Xóa!",
+                cancelButtonText: "Hủy!",
+                closeOnConfirm: false
+            },
+                function () {
+                    $.ajax({
+                        url: '@Url.Action("DeleteEventCollection", "ManageEvent")',
+                        method: "POST",
+                        data: {
+                            EventCollectionID: eventCollectionId
+
+                        },
+                        success: function (data) {
+                            swal({
+                                title: "Xóa!",
+                                text: "Bộ sưu tập đã được xóa thành công",
+                                type: "success",
+                            }, function () {
+                                $('#collectionTypeContainer-' + eventCollectionId).remove();
+                            });
+
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Không thành công", "Không thể xóa bộ sưu tập này", "error");
+                        }
+                    });
+                });
+        });
+
+
+        $('#cbCollectionType').on('change', function () {
+            var value = this.value;
+            if (value == -1) {
+                $('#txtCollectionTypeDiv').css('display', 'flex');
+            }
+            else {
+                $('#txtCollectionTypeDiv').css('display', 'none');
+            }
+        });
+
+        function appenNewCollection(id, name, description) {
+            var template = $('#collectionTemplate').clone();
+            template.find('.collection-title').text(name);
+            template.find('.inner-custom').attr('onclick', 'openModalEdit(' + id + ', \'' + name + '\', \'' + description + '\')');
+            template.find('a').attr('href', 'ManageCollectionItem/' + eventId + '/' + id);
+            $('#collectionContainer').append(template.html());
+        }
+
+        function clearPopup() {
+            $('#txtCollectionName').val("");
+            $('#txtDescription').val("");
+        }
+
+        function openModalEdit(id, name, description) {
+            $('#txtCollectionNameEdit').val(name);
+            $('#txtDescriptionEdit').val(description);
+            $('#btnEdit').attr('value', id);
+            $('#btnRemove').attr('value', id);
+        }
+
+        function loadCollectionTypeToCb() {
+            $.ajax({
+                url: '@Url.Action("GetCollectionType", "ManageEvent")',
+                method: "GET",
+                success: function (data) {
+                    if (data.success) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            $('#cbCollectionType').append('<option value="' + data.data[i].CollectionTypeID + '">' + data.data[i].Name +'</option>');
+                        }
+                        $('#cbCollectionType').append('<option value="-1">Loại khác</option>');
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function addNewEventCollectionCollection() {
+            $.ajax({
+                url: '@Url.Action("GetCollectionType", "ManageEvent")',
+                method: "GET",
+                success: function (data) {
+                    if (data.success) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            $('#cbCollectionType').append('<option value="' + data.data[i].CollectionTypeID + '">' + data.data[i].Name +'</option>');
+                        }
+                        $('#cbCollectionType').append('<option value="-1">Loại khác</option>');
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+    </script>
+}

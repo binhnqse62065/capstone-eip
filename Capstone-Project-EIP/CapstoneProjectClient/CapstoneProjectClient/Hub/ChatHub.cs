@@ -26,6 +26,10 @@ namespace CapstoneProjectClient
             Clients.All.updateNewLikeOfQuestion(questionId, newNumberOfLike, isLike);
         }
 
+        public void DisLikeQuestion(int questionId, int newNumberOfLike, bool isDisLike)
+        {
+            Clients.All.updateNewDisLikeOfQuestion(questionId, newNumberOfLike, isDisLike);
+        }
 
         public void LikeComment(int commentId, int newNumberOfLike, bool isLike)
         {
