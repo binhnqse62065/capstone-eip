@@ -392,6 +392,7 @@
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Services\EventCollectionService.cs" />
+    <Compile Include="Models\Entities\Services\CollectionTypeService.cs" />
     <Compile Include="Models\Entities\Services\GuestServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -420,6 +421,7 @@
     <Compile Include="Models\Entities\Services\SessionServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Services\CollectionItemService.cs" />
     <Compile Include="Models\Entities\Services\TimelineServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -497,6 +499,7 @@
     <Compile Include="Sdk\CollectionItemApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\CollectionItemApi.cs" />
     <Compile Include="Sdk\CollectionTypeApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
@@ -533,6 +536,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\CollectionTypeApi.cs" />
     <Compile Include="Sdk\SessionApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>

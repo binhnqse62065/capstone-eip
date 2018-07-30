@@ -26,5 +26,10 @@ namespace HmsService.Sdk
         {
             return this.BaseService.GetFileCollectionByEventId(eventId);
         }
+
+        public EventCollection GetEventCollectionByType(int eventId, int typeId)
+        {
+            return this.BaseService.FirstOrDefault(c => c.EventId == eventId && c.TypeId == typeId);
+        }
     }
 }

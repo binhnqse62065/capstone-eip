@@ -151,3 +151,17 @@
 .margin-bottom-10 {
     margin-bottom:15px;
 }
+
+.inner-custom {
+    height:100px;
+}
+.content-custom {
+    min-height:unset;
+}
+.container-add-collection {
+    margin-bottom:20px;
+}
+
+.inner-custom:hover {
+    cursor:pointer;
+}

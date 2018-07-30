@@ -4,6 +4,7 @@
     /**/
 
     ViewBag.Title = "Edit";
+    int eventId = ViewBag.EventId;
 }
 
 <div class="container">
@@ -12,7 +13,7 @@
 
     <div class="box">
         <div class="box-header d-flex align-items-center">
-            <h2 class="h5 display">Edit event information</h2>
+            <h2 class="h5 display">Chỉnh sửa thông tin sự kiện</h2>
         </div>
 
         <div class="box-body">
@@ -103,8 +104,8 @@
             <div class="col-sm-8">
             </div>
             <div class="col-sm-4">
-                <button class="btn btn-primary" id="btnUpdate">Lưu</button>
-                <button type="submit" class="btn btn-secondary">Hủy</button>
+                <a class="btn btn-primary" id="btnUpdate"><i class="fa fa-pencil"></i> <span> Lưu</span></a>
+                <a href="@Url.Action("Index","Home", new { id = eventId})" class="btn btn-danger"><i class="fa fa-arrow-left"></i> <span> Hủy</span></a>
             </div>
 
             @*</form>*@

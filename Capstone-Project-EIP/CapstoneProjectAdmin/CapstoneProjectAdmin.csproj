@@ -224,6 +224,7 @@
     <Compile Include="Controllers\LivestreamController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ManageEventController.cs" />
     <Compile Include="Controllers\ManageSessionController.cs" />
     <Compile Include="Controllers\QAController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
@@ -8607,6 +8608,8 @@
     <Content Include="Views\ManageSession\Index.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
     <Content Include="Views\SystemAdmin\Index.cshtml" />
+    <Content Include="Views\ManageEvent\Index.cshtml" />
+    <Content Include="Views\ManageEvent\CollectionItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
