@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CapstoneProjectClient.ViewModel;
 using HmsService.Sdk;
 
 namespace CapstoneProjectClient.Controllers
@@ -13,6 +14,14 @@ namespace CapstoneProjectClient.Controllers
         [Route("Timeline/Index/{eventId}/{sessionId}")]
         public ActionResult Index(int eventId, int sessionId)
         {
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var listCollection = eventCollectionApi.GetCollectionByEventId(eventId).Select(c => new EventCollectionViewModel
+            {
+                Name = c.Name,
+                TypeId = c.TypeId,
+                EventId = c.EventId
+            }).ToList();
+
             TimelineApi timelineApi = new TimelineApi();
             ViewBag.EventId = eventId;
             ViewBag.SessionId = sessionId;

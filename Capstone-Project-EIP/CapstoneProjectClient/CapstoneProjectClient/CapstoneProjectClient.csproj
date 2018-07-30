@@ -221,6 +221,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CollectionController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
@@ -245,6 +246,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CommentsViewModel.cs" />
+    <Compile Include="ViewModel\EventCollectionViewModel.cs" />
+    <Compile Include="ViewModel\MyEnum.cs" />
     <Compile Include="ViewModel\QuestionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1001,6 +1004,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Session\Index.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
+    <Content Include="Views\Collection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HmsService.Sdk;
 using HmsService.Models.Entities.Services;
+using CapstoneProjectClient.ViewModel;
 
 namespace CapstoneProjectClient.Controllers
 {
@@ -13,6 +14,14 @@ namespace CapstoneProjectClient.Controllers
         [Route("Home/Index/{eventId}")]
         public ActionResult Index(int eventId)
         {
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var listCollection = eventCollectionApi.GetCollectionByEventId(eventId).Select(c => new EventCollectionViewModel
+            {
+                Name = c.Name,
+                TypeId = c.TypeId,
+                EventId = c.EventId
+            }).ToList();
+
             EventApi eventApi = new EventApi();
             var eventCurr = eventApi.BaseService.GetEventById(eventId);
             ViewBag.EventId = eventId;
