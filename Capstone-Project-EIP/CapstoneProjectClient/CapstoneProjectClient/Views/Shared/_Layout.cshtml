@@ -79,8 +79,8 @@
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "Session", new { eventId = eventId })"> <i class="fa fa-bars"></i><span>Các hoạt động</span></a></li>
                                 <li> <a class="custom-menu" href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Thông tin sự kiện</span></a></li>
                                 @*<li> <a class="custom-menu" href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
-                                    <li> <a class="custom-menu" href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
-                                                <li> <a class="custom-menu" href="@Url.Action("Index", "File", new { eventId = eventId })"> <i class="fa fa-file-o"></i><span>Tài liệu</span></a></li>*@
+                    <li> <a class="custom-menu" href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
+                                <li> <a class="custom-menu" href="@Url.Action("Index", "File", new { eventId = eventId })"> <i class="fa fa-file-o"></i><span>Tài liệu</span></a></li>*@
                                 @*<li> <a href="@Url.Action("Index", "Schedule")"> <i class="fa fa-calendar"></i><span>Schedule</span></a></li>*@
                                 if (listCollection != null)
                                 {
@@ -122,19 +122,41 @@
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
-                            <li> <a class="custom-menu" href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
-                            <li> <a class="custom-menu" href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
-                            <li> <a class="custom-menu" href="@Url.Action("Index", "File", new { eventId = eventId })"> <i class="fa fa-file-o"></i><span>Tài liệu</span></a></li>
+                            @*<li> <a class="custom-menu" href="@Url.Action("Index", "Speaker", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Diễn giả</span></a></li>
+                <li> <a class="custom-menu" href="@Url.Action("Index", "Sponsor", new { eventId = eventId })"> <i class="fa fa-users"></i><span>Nhà tài trợ</span></a></li>
+                <li> <a class="custom-menu" href="@Url.Action("Index", "File", new { eventId = eventId })"> <i class="fa fa-file-o"></i><span>Tài liệu</span></a></li>*@
+                            if (listCollection != null)
+                            {
+                                foreach (var collection in listCollection)
+                                {
+                                    if (collection.TypeId == (int)MyEnum.CollectionType.Speaker)
+                                    {
+                                        <li> <a class="custom-menu" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId })"> <i class="fa fa-users"></i><span>@(collection.Name)</span></a></li>
+                                    }
+                                    else if (collection.TypeId == (int)MyEnum.CollectionType.Sponsor)
+                                    {
+                                        <li> <a class="custom-menu" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId })"> <i class="fa fa-users"></i><span>@(collection.Name)</span></a></li>
+                                    }
+                                    else if (collection.TypeId == (int)MyEnum.CollectionType.File)
+                                    {
+                                        <li> <a class="custom-menu" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId })"> <i class="fa fa-file-o"></i><span>@(collection.Name)</span></a></li>
+                                    }
+                                    else
+                                    {
+                                        <li> <a class="custom-menu" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId })"> <i class="fa fa-cogs"></i><span>@(collection.Name)</span></a></li>
+                                    }
+                                }
+                            }
                             <li> <a class="custom-menu" href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Thông tin sự kiện</span></a></li>
                             <li> <a class="custom-menu" href="/"> <i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
                         }
                     }
                     @*<li>
-                            <a href="#">
-                                <i class="icon-mail"></i><span>Demo</span>
-                                <div class="badge badge-warning">6 New</div>
-                            </a>
-                        </li>*@
+            <a href="#">
+                <i class="icon-mail"></i><span>Demo</span>
+                <div class="badge badge-warning">6 New</div>
+            </a>
+        </li>*@
                 </ul>
             </div>
         </div>
