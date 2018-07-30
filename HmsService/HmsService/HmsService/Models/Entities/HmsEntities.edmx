@@ -92,7 +92,7 @@
           <Property Name="CollectionItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
-          <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="250" />
           <Property Name="EventCollectionId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CollectionType">
@@ -100,8 +100,8 @@
             <PropertyRef Name="CollectionTypeID" />
           </Key>
           <Property Name="CollectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -113,6 +113,7 @@
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="NumberOfLike" Type="int" />
+          <Property Name="NumberOfDislike" Type="int" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -137,7 +138,7 @@
             <PropertyRef Name="EventCollectionID" />
           </Key>
           <Property Name="EventCollectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="TypeId" Type="int" Nullable="false" />
         </EntityType>
@@ -181,6 +182,7 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="NumberOfLike" Type="int" />
           <Property Name="IsAnswer" Type="bit" />
+          <Property Name="NumberOfDislike" Type="int" />
         </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -193,6 +195,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="LivestreamUrl" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Timeline">
           <Key>
@@ -835,7 +838,7 @@
           <Property Name="CollectionItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ImageUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EventCollectionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_CollectionItem" FromRole="CollectionItem" ToRole="ActivityItem" />
           <NavigationProperty Name="EventCollection" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="CollectionItem" ToRole="EventCollection" />
@@ -845,8 +848,8 @@
             <PropertyRef Name="CollectionTypeID" />
           </Key>
           <Property Name="CollectionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="CollectionType" ToRole="EventCollection" />
         </EntityType>
         <EntityType Name="Comment">
@@ -859,6 +862,7 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="NumberOfLike" Type="Int32" />
+          <Property Name="NumberOfDislike" Type="Int32" />
           <NavigationProperty Name="Question" Relationship="HmsEntities.FK_Comment_Question" FromRole="Comment" ToRole="Question" />
         </EntityType>
         <EntityType Name="Event">
@@ -889,7 +893,7 @@
             <PropertyRef Name="EventCollectionID" />
           </Key>
           <Property Name="EventCollectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
@@ -932,6 +936,7 @@
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="NumberOfLike" Type="Int32" />
           <Property Name="IsAnswer" Type="Boolean" />
+          <Property Name="NumberOfDislike" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="HmsEntities.FK_Comment_Question" FromRole="Question" ToRole="Comment" />
           <NavigationProperty Name="QA" Relationship="HmsEntities.FK_Question_QA" FromRole="Question" ToRole="QA" />
         </EntityType>
@@ -946,6 +951,7 @@
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
           <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />
@@ -1335,6 +1341,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="HmsEntities.Comment">
               <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="NumberOfDislike" ColumnName="NumberOfDislike" />
                 <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1397,6 +1404,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="HmsEntities.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="NumberOfDislike" ColumnName="NumberOfDislike" />
                 <ScalarProperty Name="IsAnswer" ColumnName="IsAnswer" />
                 <ScalarProperty Name="NumberOfLike" ColumnName="NumberOfLike" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
@@ -1410,6 +1418,7 @@
           <EntitySetMapping Name="Sessions">
             <EntityTypeMapping TypeName="HmsEntities.Session">
               <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="LivestreamUrl" ColumnName="LivestreamUrl" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

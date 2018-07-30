@@ -87,7 +87,7 @@
     <Property Name="CollectionItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="250" />
-    <Property Name="ImageUrl" Type="varchar" MaxLength="250" />
+    <Property Name="ImageUrl" Type="nvarchar" MaxLength="250" />
     <Property Name="EventCollectionId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="CollectionType">
@@ -95,8 +95,8 @@
       <PropertyRef Name="CollectionTypeID" />
     </Key>
     <Property Name="CollectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
-    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -108,6 +108,7 @@
     <Property Name="Username" Type="nvarchar" MaxLength="50" />
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="NumberOfLike" Type="int" />
+    <Property Name="NumberOfDislike" Type="int" />
   </EntityType>
   <EntityType Name="Event">
     <Key>
@@ -132,7 +133,7 @@
       <PropertyRef Name="EventCollectionID" />
     </Key>
     <Property Name="EventCollectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="TypeId" Type="int" Nullable="false" />
   </EntityType>
@@ -176,6 +177,7 @@
     <Property Name="CreateTime" Type="datetime" />
     <Property Name="NumberOfLike" Type="int" />
     <Property Name="IsAnswer" Type="bit" />
+    <Property Name="NumberOfDislike" Type="int" />
   </EntityType>
   <EntityType Name="Session">
     <Key>
@@ -188,6 +190,7 @@
     <Property Name="Description" Type="nvarchar" MaxLength="250" />
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="LivestreamUrl" Type="nvarchar" MaxLength="100" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Timeline">
     <Key>

@@ -88,7 +88,7 @@ namespace CapstoneProjectAdmin.Controllers
                 //    ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
                 //    return View(model);
                 //}
-                if (user.Roles.Any(q => q.RoleId == "2"))
+                if (user.Roles.Any(q => q.RoleId == "4eb7c6df-498f-4739-8b95-04eff269a033"))
                 {
                     //ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
                     return RedirectToAction("Index", "Events", new { area = "" });

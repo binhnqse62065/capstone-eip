@@ -22,6 +22,7 @@ namespace HmsService.ViewModels
     			public virtual Nullable<System.DateTime> CreateTime { get; set; }
     			public virtual Nullable<int> NumberOfLike { get; set; }
     			public virtual Nullable<bool> IsAnswer { get; set; }
+    			public virtual Nullable<int> NumberOfDislike { get; set; }
     	
     	public QuestionViewModel() : base() { }
     	public QuestionViewModel(HmsService.Models.Entities.Question entity) : base(entity) { }

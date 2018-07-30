@@ -27,6 +27,7 @@ namespace HmsService.Models.Entities
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<int> NumberOfLike { get; set; }
         public Nullable<bool> IsAnswer { get; set; }
+        public Nullable<int> NumberOfDislike { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
