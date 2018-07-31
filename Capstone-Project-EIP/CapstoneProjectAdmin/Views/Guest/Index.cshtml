@@ -1,0 +1,323 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int eventId = ViewBag.EventId;
+    string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+}
+
+
+<div class="container">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <div class="row">
+                <h2 class="col-sm-10">Quản lý danh sách người tham gia</h2>
+                <div class="col-sm-2">
+                    <button class="btn btn-custom" type="submit" data-toggle="modal" data-target="#addGuestModal" style="margin-top:20px">
+                        <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="ibox-content">
+            <table class="table table-hover table-bordered" id="tblGuest">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Trạng thái</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!--Modal Add Guest-->
+<div class="modal fade" id="addGuestModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm người tham gia</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Tên:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input required id="txtNameAdd" type="text" class="form-control" placeholder="Vui lòng nhập tên">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Số điện thoại:</label>
+
+                    <div class="input-group col-sm-9">
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        <input required type="tel" class="form-control pull-right" id="txtPhoneAdd" value="" placeholder="Vui lòng nhập số điện thoại">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Email:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input required id="txtEmailAdd" type="email" class="form-control" placeholder="Vui lòng nhập email">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button id="btnAddGuest" type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Update Guest -->
+<div id="updateGuestModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cập nhật thông người tham gia</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Tên<span class="required">*</span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input required id="txtNameEdit" type="text" class="form-control" placeholder="Vui lòng nhập tên">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">
+                        Số điện thoại<span class="required"></span>
+                    </label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input required id="txtPhoneEdit" type="tel" class="form-control" placeholder="Vui lòng nhập số điện thoại">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Email</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input required id="txtEmailEdit" type="email" class="form-control" placeholder="Vui lòng nhập email">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnEditGuest" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var eventId = @(eventId);
+
+        $(document).ready(function () {
+            InitGuestDatatable();
+        });
+
+        $('#btnAddGuest').on('click', function () {
+            var name = $('#txtNameAdd').val();
+            var phone = $('#txtPhoneAdd').val();
+            var email = $('#txtEmailAdd').val();
+            $.ajax({
+                url: '@Url.Action("AddGuest", "Guest")',
+                method: "POST",
+                data: {
+                    GuestName: name,
+                    GuestEmail: email,
+                    GuestPhone: phone,
+                    EventId: eventId
+                },
+                success: function (data) {
+                    reloadTable();
+                    swal("Thành Công!", "Thêm người tham gia thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        $('#btnEditGuest').on('click', function () {
+            var guestId = $(this).attr('value');
+            var name = $('#txtNameEdit').val();
+            var phone = $('#txtPhoneEdit').val();
+            var email = $('#txtEmailEdit').val();
+            $.ajax({
+                url: '@Url.Action("UpdateGuest", "Guest")',
+                method: "POST",
+                data: {
+                    GuestId: guestId,
+                    GuestName: name,
+                    GuestEmail: email,
+                    GuestPhone: phone
+                },
+                success: function (data) {
+                    reloadTable();
+                    swal("Thành Công!", "Cập nhật thông tin người tham gia thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+
+
+        function InitGuestDatatable() {
+            $('#tblGuest').DataTable({
+                "oLanguage": {
+                    "sSearch": "Tìm kiếm",
+                    "oPaginate": {
+                        "sFirst": "Trang đầu",
+                        "sLast": "Trang cuối",
+                        "sNext": "Trang kế",
+                        "sPrevious": "Trang trước"
+                    },
+                    "sInfoEmpty": "",
+                    "sInfo": "Hiển thị từ dòng _START_ tới _END_ trong tổng số _TOTAL_ dòng",
+                    "sZeroRecords": "Không có dữ liệu",
+                    "sLengthMenu": "Hiển thị _MENU_ dòng"
+                },
+                ajax: {
+                    url: '@Url.Action("GetGuest", "Guest", new { eventId = eventId })',
+                    //dataSrc: ""
+                },
+                columns: [
+                    {
+                        name: "name",
+                        render: function (data, type, row) {
+                            return row.GuestName;
+                        }
+                    },
+                    {
+                        name: "GuestPhone",
+                        render: function (data, type, row) {
+                            return row.GuestPhone;
+                        }
+                    },
+                    {
+                        name: "GuestEmail",
+                        render: function (data, type, row) {
+                            return row.GuestEmail;
+                        }
+                    },
+                    {
+                        name: "IsCheckIn",
+                        render: function (data, type, row) {
+                            if (row.IsCheckIn) {
+                                return 'Đã đến tham gia';
+                            }
+                            else {
+                                return 'Chưa đến tham gia';
+                            }
+
+                        }
+                    },
+                    {
+                        name: "Function",
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-success btn-sm speaker-id" onclick="checkInGuest(' + row.GuestId + ')"><i class="fa fa-play" aria-hidden="true"></i></button>  ' +
+                                '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateGuestModal" onclick="openModelUpdate(' + row.GuestId + ', \'' + row.GuestName + '\', \'' + row.GuestPhone + '\', \'' + row.GuestEmail + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                                    '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteGuest(' + row.GuestId + ')"><i class="fa fa-trash"></i></button>';
+                        }
+                    }
+                ]
+            });
+        }
+
+        function checkInGuest(guestId) {
+            $.ajax({
+                url: '@Url.Action("CheckInGuest", "Guest")',
+                method: "POST",
+                data: {
+                    GuestId: guestId
+                },
+                success: function (data) {
+                    reloadTable();
+                    swal("Thành Công!", "Đã xác nhận người tham gia thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function openModelUpdate(id, name, phone, email) {
+            $('#txtNameEdit').val(name);
+            $('#txtPhoneEdit').val(phone);
+            $('#txtEmailEdit').val(email);
+            $('#btnEditGuest').attr('value', id);
+        }
+
+        function deleteGuest(guestId) {
+            swal({
+                title: "Bạn có chắc?",
+                text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Xóa!",
+                cancelButtonText: "Hủy!",
+                closeOnConfirm: false
+            },
+                function () {
+                    $.ajax({
+                        url: '@Url.Action("DeleteGuest", "Guest")',
+                        method: "POST",
+                        data: {
+                            GuestId: guestId
+
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Xóa!", "Người tham gia đã được xóa thành công", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                            swal("Có lỗi", "Không thể xóa", "error");
+                        }
+                    });
+                });
+        }
+
+        function reloadTable() {
+            $('#tblGuest').DataTable().ajax.reload();
+        }
+    </script>
+}

@@ -170,3 +170,7 @@
 #txtCollectionTypeDiv {
     display:none;
 }
+
+#btnAddGuest {
+    margin-bottom:0;
+}

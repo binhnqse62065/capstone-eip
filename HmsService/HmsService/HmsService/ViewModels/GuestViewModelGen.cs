@@ -20,6 +20,7 @@ namespace HmsService.ViewModels
     			public virtual string GuestEmail { get; set; }
     			public virtual string GuestPhone { get; set; }
     			public virtual int EventId { get; set; }
+    			public virtual Nullable<bool> IsCheckIn { get; set; }
     	
     	public GuestViewModel() : base() { }
     	public GuestViewModel(HmsService.Models.Entities.Guest entity) : base(entity) { }

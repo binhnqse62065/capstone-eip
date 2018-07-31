@@ -220,6 +220,7 @@
     <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\GuestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InteractionController.cs" />
     <Compile Include="Controllers\LivestreamController.cs" />
@@ -248,12 +249,14 @@
     <Compile Include="ViewModel\CommentsViewModel.cs" />
     <Compile Include="ViewModel\EventCollectionViewModel.cs" />
     <Compile Include="ViewModel\EventViewModel.cs" />
+    <Compile Include="ViewModel\GuestViewModel.cs" />
     <Compile Include="ViewModel\InteractionViewModel.cs" />
     <Compile Include="ViewModel\QAViewModel.cs" />
     <Compile Include="ViewModel\QuestionViewModel.cs" />
     <Compile Include="ViewModel\SessionViewModel.cs" />
     <Compile Include="ViewModel\CollectionItemViewModel.cs" />
     <Compile Include="ViewModel\TimelineViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\VotingOptionViewModel.cs" />
     <Compile Include="ViewModel\VotingViewModel.cs" />
   </ItemGroup>
@@ -7025,6 +7028,7 @@
     <Content Include="Content\DataTables\datatables.min.js" />
     <Content Include="Content\FileJs\File.js" />
     <Content Include="Content\HomeJs\Home.js" />
+    <Content Include="Content\img\17241-200.png" />
     <Content Include="Content\img\background-wifi-2.png" />
     <Content Include="Content\img\download.png" />
     <Content Include="Content\img\favicon.png" />
@@ -8612,6 +8616,8 @@
     <Content Include="Views\SystemAdmin\Index.cshtml" />
     <Content Include="Views\ManageEvent\Index.cshtml" />
     <Content Include="Views\ManageEvent\CollectionItem.cshtml" />
+    <Content Include="Views\Guest\Index.cshtml" />
+    <Content Include="Views\Account\SystemAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
