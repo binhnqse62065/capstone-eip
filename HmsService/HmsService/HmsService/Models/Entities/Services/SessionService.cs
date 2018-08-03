@@ -19,6 +19,7 @@ namespace HmsService.Models.Entities.Services
         {
             try
             {
+                
                 return this.Get(s => s.EventId == eventId).Select(s => new SessionViewModel
                 {
                     SessionID = s.SessionID,

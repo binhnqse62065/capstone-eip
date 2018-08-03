@@ -20,6 +20,7 @@
     <div class="row">
         <div class="col-lg-3 col-xs-6">
             <!-- small box -->
+
             <div class="small-box bg-teal">
                 <div class="inner inner-custom">
                     <h4>Thông tin chung</h4>
@@ -30,6 +31,8 @@
                 </div>
                 <a href="@Url.Action("Index","Home", new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
             </div>
+
+
         </div>
         <div class="col-lg-3 col-xs-6">
             <!-- small box -->
@@ -255,7 +258,7 @@
                     "collectionTypeName": collectionTypeName
                 },
                 success: function (data) {
-                    
+
                     if (data.success) {
                         swal("Thành công!", "Bạn đã thêm bộ sưu tập thành công", "success");
                         appenNewCollection(data.collectionTypeId, data.name, data.description);

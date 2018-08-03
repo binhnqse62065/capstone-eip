@@ -393,6 +393,7 @@
     </Compile>
     <Compile Include="Models\Entities\Services\EventCollectionService.cs" />
     <Compile Include="Models\Entities\Services\CollectionTypeService.cs" />
+    <Compile Include="Models\Entities\Services\GuestService.cs" />
     <Compile Include="Models\Entities\Services\GuestServiceGen.cs">
       <DependentUpon>Services.tt</DependentUpon>
     </Compile>
@@ -509,6 +510,7 @@
     <Compile Include="Sdk\C__MigrationHistoryApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>
     </Compile>
+    <Compile Include="Sdk\GuestApi.cs" />
     <Compile Include="Sdk\EventCollectionApi.cs" />
     <Compile Include="Sdk\GuestApiGen.cs">
       <DependentUpon>Sdk.tt</DependentUpon>

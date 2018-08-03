@@ -13,5 +13,6 @@ namespace CapstoneProjectAdmin.ViewModel
         public string Username { get; set; }
         public String CreateTime { get; set; }
         public Nullable<int> NumberOfLike { get; set; }
+        public Nullable<int> NumberOfDisLike { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace HmsService.Models.Entities
         public string GuestEmail { get; set; }
         public string GuestPhone { get; set; }
         public int EventId { get; set; }
+        public Nullable<bool> IsCheckIn { get; set; }
     
         public virtual Event Event { get; set; }
     }

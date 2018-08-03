@@ -53,6 +53,12 @@ namespace CapstoneProjectAdmin.Controllers
             }
         }
 
+        public ActionResult Index()
+        {
+            return View("SystemAdmin");
+        }
+
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -83,25 +89,20 @@ namespace CapstoneProjectAdmin.Controllers
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             var user = await UserManager.FindAsync(model.Username, model.Password);
             
-
+            
             if (user != null)
             {
-                //if (!user.Roles.Any(q => q.RoleId == "4"))
-                //{
-                //    ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
-                //    return View(model);
-                //}
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 if (user.Roles.Any(q => q.RoleId == "4eb7c6df-498f-4739-8b95-04eff269a033"))
                 {
-                    //ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
+                    
                     return RedirectToAction("Index", "Events", new { area = "" });
                 }
                 else
                 {
                     return RedirectToAction("Index", "SystemAdmin", new { area = "" });
                 }
-                ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
-                return View(model);
+                
             }
             else {
                 ModelState.AddModelError("", "Sai tên đăng nhập hoặc mật khẩu");
@@ -185,8 +186,8 @@ namespace CapstoneProjectAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Username, Email = "binh@fpt.edu.vn" };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, PhoneNumber = model.TelephoneNumber };
+                var result = await UserManager.CreateAsync(user, "Admin@123");
                 if (result.Succeeded)
                 {
 
@@ -194,7 +195,7 @@ namespace CapstoneProjectAdmin.Controllers
                     //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
                     //var roleManager = new RoleManager<IdentityRole>(roleStore);
                     //await roleManager.CreateAsync(new IdentityRole("System Admin"));
-                    //await UserManager.AddToRoleAsync(user.Id, "System Admin");
+                    await UserManager.AddToRoleAsync(user.Id, "Admin");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -204,13 +205,13 @@ namespace CapstoneProjectAdmin.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Account");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("SystemAdmin",model);
         }
 
         //
@@ -275,7 +276,8 @@ namespace CapstoneProjectAdmin.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            //return code == null ? View("Error") : View();
+            return View();
         }
 
         //
