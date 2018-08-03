@@ -4,7 +4,6 @@
     <EntitySetMapping Name="Guests">
       <EntityTypeMapping TypeName="HmsEntities.Guest">
         <MappingFragment StoreEntitySet="Guest">
-          <ScalarProperty Name="IsCheckIn" ColumnName="IsCheckIn" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
           <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
@@ -104,7 +103,6 @@
       <EntityTypeMapping TypeName="HmsEntities.CollectionType">
         <MappingFragment StoreEntitySet="CollectionType">
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="CollectionTypeID" ColumnName="CollectionTypeID" />
         </MappingFragment>
