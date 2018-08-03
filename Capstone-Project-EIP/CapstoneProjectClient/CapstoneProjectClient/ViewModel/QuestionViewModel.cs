@@ -14,6 +14,7 @@ namespace CapstoneProjectAdmin.ViewModel
         public string Username { get; set; }
         public String CreateTime { get; set; }
         public Nullable<int> NumberOfLike { get; set; }
+        public Nullable<int> NumberOfDisLike { get; set; }
         public IEnumerable<CommentsViewModel> Comments { get; set; }
         public Nullable<bool> IsAnswer { get; set; }
 

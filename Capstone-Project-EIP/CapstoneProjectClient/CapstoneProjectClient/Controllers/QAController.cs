@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using HmsService.Models.Entities.Services;
 using HmsService.Sdk;
 using HmsService.Models.Entities;
+using CapstoneProjectClient.ViewModel;
 
 namespace CapstoneProjectClient.Controllers
 {
@@ -19,6 +20,14 @@ namespace CapstoneProjectClient.Controllers
         public ActionResult Index(int eventId, int sessionId)
         {
 
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var listCollection = eventCollectionApi.GetCollectionByEventId(eventId).Select(c => new EventCollectionViewModel
+            {
+                Name = c.Name,
+                TypeId = c.TypeId,
+                EventId = c.EventId
+            }).ToList();
+            ViewBag.Collections = listCollection;
             ViewBag.EventId = eventId;
             ViewBag.SessionId = sessionId;
             SessionApi sessionApi = new SessionApi();

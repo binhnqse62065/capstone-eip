@@ -1,10 +1,9 @@
 ﻿.image-file-custom {
-    width: 369px;
-    height: 207px;
 }
 
 .box-file-shadow {
-    box-shadow: 5px 10px 20px 7px #888888;
+    /*box-shadow: 5px 10px 20px 7px #888888;*/
+    width: 68.56px;
     margin-left: 5px;
     margin-top: 5px;
     margin-right: 5px;
@@ -17,7 +16,9 @@
     }
 
     .box-file-shadow {
-        box-shadow: 5px 10px 20px 7px #888888;
+        padding-top: 15px;
+        /*width: 68.56px;*/
+        /*box-shadow: 5px 10px 20px 7px #888888;*/
     }
 
     .modal-file {
@@ -37,4 +38,12 @@
 
 .file-title {
     font-size: 20px;
+}
+.file-name-text {
+    padding-top:5px;
+    text-align: center;
+    font-size:12px;
+}
+.icon-color{
+    color:grey;
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CapstoneProjectClient.ViewModel;
 using HmsService.Models.Entities;
 using HmsService.Sdk;
 
@@ -14,6 +15,14 @@ namespace CapstoneProjectClient.Controllers
         [Route("Voting/Index/{eventId}/{sessionId}")]
         public ActionResult Index(int eventId,int sessionId)
         {
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var listCollection = eventCollectionApi.GetCollectionByEventId(eventId).Select(c => new EventCollectionViewModel
+            {
+                Name = c.Name,
+                TypeId = c.TypeId,
+                EventId = c.EventId
+            }).ToList();
+
             ViewBag.EventId = eventId;
             ViewBag.SessionId = sessionId;
             VotingApi votingApi = new VotingApi();

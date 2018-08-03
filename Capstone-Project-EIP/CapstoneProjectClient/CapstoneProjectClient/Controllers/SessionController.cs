@@ -1,4 +1,5 @@
-﻿using HmsService.Sdk;
+﻿using CapstoneProjectClient.ViewModel;
+using HmsService.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,14 @@ namespace CapstoneProjectClient.Controllers
         public ActionResult Index(int eventId)
         {
             ViewBag.EventId = eventId;
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var listCollection = eventCollectionApi.GetCollectionByEventId(eventId).Select(c => new EventCollectionViewModel
+            {
+                Name = c.Name,
+                TypeId = c.TypeId,
+                EventId = c.EventId
+            }).ToList();
+            ViewBag.Collections = listCollection;
             SessionApi sessionApi = new SessionApi();
             var listSession = sessionApi.GetSessionsByEventId(eventId);
             ViewBag.EventName = listSession.FirstOrDefault().EventName;
@@ -23,6 +32,7 @@ namespace CapstoneProjectClient.Controllers
                 ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
                 return RedirectToAction("Index", "QA", new { eventId = ViewBag.EventId, sessionId = ViewBag.SessionId });
             }
+
             return View(listSession);
         }
     }

@@ -45,7 +45,7 @@
                 },
                 success: function (data) {
                     $('#tblSpeaker').DataTable().ajax.reload();
-                    swal("Thành công!", "Bạn đã thêm thông tin diễn giả thành công", "success");
+                    swal("Thành công!", "Bạn đã thêm diễn giả thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);
@@ -54,9 +54,19 @@
         }
 
     });
+});
 
-    $(document).on('click', '#btn-del', function () {
-        var id = $('#btn-del').val();
+function delSpeaker(id, name) {
+    swal({
+        title: "Bạn có chắc?",
+        text: "Bạn có chắc chắn xóa diễn giả " + name + ", bạn sẽ không thể phục hồi!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Có!",
+        cancelButtonText: "Không!",
+        closeOnConfirm: false
+    }, function () {
         $.ajax({
             url: urlApi + '/api/speaker/DeleteSpeaker',
             method: "POST",
@@ -65,12 +75,12 @@
             },
             success: function (data) {
                 $('#tblSpeaker').DataTable().ajax.reload();
-                swal("Thành công!", "Bạn đã xóa thông tin diễn giả thành công", "success");
+                swal("Thành công!", "Bạn đã xóa diễn giả thành công", "success");
             },
             error: function (data) {
                 console.log(data);
             }
         });
     });
-});
+}
 

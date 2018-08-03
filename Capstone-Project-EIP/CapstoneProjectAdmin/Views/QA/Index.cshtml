@@ -40,44 +40,14 @@
                 <h2 class="modal-title">Chỉnh Sửa Hỏi Đáp</h2>
             </div>
             <div class="modal-body">
-                <div class="col-md-12 col-xs-12">
-                    <div class="row qa-container" id="qa-container">
-                        @*
-                            @foreach (var item in Model.Questions.OrderByDescending(q => q.CreateTime))
-                            {
-                                <div class="card list-qa" id="question-@(item.QuestionId)">
-                                    <div class="card main-qa">
-                                        <span class="username-content">@(item.Username): @(item.QuestionContent)</span>
-                                        <br />
-                                        @{
-                                            var createQuestionTimeTmp = (DateTime)item.CreateTime;
-                                            var createQuestionTime = createQuestionTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                                        }
-                                        <span class="create-time">@(createQuestionTime)</span>
-                                        <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteQuestionModal" onclick="delQuestion(@item.QuestionId, '@item.Username')">Delete</button>
-                                    </div>
-
-                                    @foreach (var subItem in item.Comments)
-                                    {
-                                        <div class="card-header list-answer" id="comment-@(subItem.CommentId)">
-                                            <span id="username-reply">@(subItem.Username): </span>
-                                            <span id="reply-content">@(subItem.CommentContent)</span>
-                                            <br />
-                                            @{
-                                                var createTimeTmp = (DateTime)subItem.CreateTime;
-                                                var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                                            }
-                                            <span id="reply-time">@(createTime)</span>
-                                            <button id="btn-delete" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment(@subItem.CommentId, '@subItem.Username')">Delete</button>
-
-                                        </div>
-                                    }
-
-                                </div>
-                            }
-                        *@
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="row qa-container" id="qa-container">
+                            
+                        </div>
                     </div>
                 </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
@@ -159,60 +129,86 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="deleteQAModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">Bạn có chắc</h2>
-                </div>
-                <div class="modal-body">
-                    <h3 class="qa-del-title"></h3>
-                </div>
-                <div class="modal-footer">
-                    <button id="btn-del" type="button" class="btn btn-default qa-del-id" data-dismiss="modal">Xóa</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                </div>
+</div>
+<div class="modal fade" id="deleteQAModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Bạn có chắc</h2>
+            </div>
+            <div class="modal-body">
+                <h3 class="qa-del-title"></h3>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-del" type="button" class="btn btn-default qa-del-id" data-dismiss="modal">Xóa</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>
+</div>
 
 
-    <!--Template Question-->
-    <div id="template-question" style="display:none">
-        <div class="card list-qa" id="question">
-            <div class="card main-qa">
-                <span class="username-content"></span>
-                <br />
-                <span class="create-time"></span>
-                <button id="btn-delete-question" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteQuestionModal" onclick="delQuestion()">Xóa</button>
-            </div>
-        </div>
-    </div>
-
-    <!--Template comment-->
-    <div id="template-comment" style="display:none">
-        <div class="card-header list-answer" id="comment">
-            <span id="username-reply"></span>
-            <span id="reply-content"></span>
+<!--Template Question-->
+<div id="template-question" style="display:none">
+    <div class="card list-qa" id="question">
+        <div class="card main-qa">
+            <span class="username-content"></span>
             <br />
-            <span id="reply-time"></span>
-            <button id="btn-delete-comment" class="btn btn-sm btn-reply" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment()">Xóa</button>
+            <span class="create-time"></span>
+            <button id="btn-delete-question" class="btn btn-sm btn-reply btn-danger btn-delete-question" onclick="delQuestion()">Xóa</button>
+            <button id="btnCheckAnswered" class="btn-check-answered btn btn-sm btn-reply btn-default" onclick="checkIsAnswered()">Chưa trả lời</button>
         </div>
     </div>
+</div>
+
+<!--Template comment-->
+<div id="template-comment" style="display:none">
+    <div class="card-header list-answer" id="comment">
+        <span id="username-reply"></span>
+        <span id="reply-content"></span>
+        <br />
+        <span id="reply-time"></span>
+        <button id="btn-delete-comment" class="btn btn-sm btn-reply btn-danger" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment()">Xóa</button>
+    </div>
+</div>
 
 
-    <input type="hidden" id="questionId" value="" />
-    @section scripts {
-        <script>
+<input type="hidden" id="questionId" value="" />
+@section scripts {
+    <script>
         var urlApi = '@curPath';
         var eventId = @eventId;
 
-        function delQuestion(id, name) {
-            $('.question-del-id').val(id);
-            $('.question-del-title').html("Delete question of " + name);
+        function delQuestion(questionId) {
+            swal({
+                title: "Bạn có chắc?",
+                text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Xóa!",
+                cancelButtonText: "Hủy!",
+                closeOnConfirm: false
+            },
+                function () {
+                    
+                    $.ajax({
+                        url: urlApi + '/api/QA/DeleteQuestion',
+                        method: "POST",
+                        data: {
+                            QuestionId: questionId,
+                        },
+                        success: function (data) {
+                            $('#question-' + questionId).remove();
+                            swal("Xóa!", "Câu hỏi đã được xóa thành công", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                });
         }
 
         function delComment(id, name) {
@@ -237,15 +233,23 @@
                     for (var i = 0; i < data.data.length; i++) {
                         var templateQuestion = $('#template-question').clone();
                         templateQuestion.find('.list-qa').attr('id', 'question-' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.username-content').text('' + data.data[i].Username + ' : ' + data.data[i].QuestionContent + '');
+                        templateQuestion.find('.username-content').html('<b>' + data.data[i].Username + '</b> : ' + data.data[i].QuestionContent + '');
                         templateQuestion.find('.create-time').text('' + data.data[i].CreateTime + '');
-                        templateQuestion.find('#btn-delete-question').attr('onclick', 'delQuestion(' + data.data[i].QuestionId + ',\'' + data.data[i].Username + '\')');
-                        templateQuestion.find('#btn-delete-question').attr('onclick', 'delQuestion(' + data.data[i].QuestionId + ',\'' + data.data[i].Username + '\')');
+                        templateQuestion.find('#btn-delete-question').attr('onclick', 'delQuestion(' + data.data[i].QuestionId + ')');
+                        //templateQuestion.find('.btn-delete-question').attr('value', data.data[i].QuestionId);
+                        templateQuestion.find('.btn-check-answered').attr('onclick', 'checkIsAnswered(' + data.data[i].QuestionId + ')');
+                        templateQuestion.find('.btn-check-answered').attr('id', 'btnCheckAnswered' + data.data[i].QuestionId);
+                        if (data.data[i].IsAnswered) {
+                            templateQuestion.find('.btn-check-answered').removeClass('btn-default');
+                            templateQuestion.find('.btn-check-answered').addClass('btn-success');
+                            templateQuestion.find('.btn-check-answered').text('Đã trả lời');
+                            templateQuestion.find('.main-qa').css('background-color', '#bbd9c5');
+                        }
                         $('#qa-container').append(templateQuestion.html());
                         for (var j = 0; j < data.data[i].Comments.length; j++) {
                             var templateComment = $('#template-comment').clone();
                             templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
-                            templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
+                            templateComment.find('#username-reply').html('<b>' + data.data[i].Comments[j].Username + '</b>: ');
                             templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
                             templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime + '');
                             templateComment.find('#btn-delete-comment').attr('onclick', 'delComment(' + data.data[i].Comments[j].CommentId + ', \'' + data.data[i].Comments[j].Username + '\')');
@@ -325,7 +329,31 @@
                     });
             }
 
-        </script>
+            function checkIsAnswered(questionId) {
+                $.ajax({
+                    url: urlApi + '/api/QA/CheckAnsweredQuestion',
+                    method: "POST",
+                    data: {
+                        QuestionId: questionId
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            swal("Thành công!", "Đã xác nhận câu hỏi này đã trả lời", "success");
+                            $('#btnCheckAnswered' + questionId).removeClass('btn-default');
+                            $('#btnCheckAnswered' + questionId).addClass('btn-success');
+                            $('#btnCheckAnswered' + questionId).text('Đã trả lời');
+                            $('#question-' + questionId + ' .main-qa').css('background-color', '#bbd9c5');
 
-    }
-    <script src="~/Content/QAJs/QA.js"></script>
+                        }
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+    </script>
+
+}
+<script src="~/Content/QAJs/QA.js"></script>

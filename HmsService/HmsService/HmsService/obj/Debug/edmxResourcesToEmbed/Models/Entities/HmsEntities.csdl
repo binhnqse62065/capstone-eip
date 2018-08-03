@@ -152,6 +152,8 @@
     <Property Name="GuestEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="GuestPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="IsCheckIn" Type="Boolean" />
+    <Property Name="TimeRegister" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Guest_Event" FromRole="Guest" ToRole="Event" />
   </EntityType>
   <EntityType Name="C__MigrationHistory">
@@ -302,6 +304,7 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EventId" Type="Int32" Nullable="false" />
     <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
     <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="EventCollection" ToRole="CollectionType" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="EventCollection" ToRole="Event" />

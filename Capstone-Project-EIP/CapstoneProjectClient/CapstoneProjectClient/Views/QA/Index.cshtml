@@ -177,16 +177,33 @@
 
                 <div class="question-item__action-zone">
                     <div class="score score--card">
-                        <button data-toggle="modal" data-target="#modalReply" class="score__btn minus btn-plain btn-reply btn-reply-question-template" id="btn-reply" value="">
-                            <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                        <button class="score__btn minus btn-plain btn-dislike" value="">
+                            <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+
                         </button>
-                        <button class="score__btn plus btn-plain number-of-like btn-like-question-template btn-like-question" value="">
-                            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i>0</span>
+                        <button class="score__btn plus btn-plain btn-like-question-template btn-like-question" value="">
+
+                            <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
                         </button>
                     </div>
+
+
+                    @*<div class="score score--card">
+                    <button data-toggle="modal" data-target="#modalReply" class="score__btn minus btn-plain btn-reply btn-reply-question-template" id="btn-reply" value="">
+                        <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                    </button>
+                    <button class="score__btn plus btn-plain number-of-like btn-like-question-template btn-like-question" value="">
+                        <span><i class="fa fa-thumbs-up" aria-hidden="true"></i>0</span>
+                    </button>
+                </div>*@
                 </div>
 
 
+            </div>
+            <div class="row row-reply">
+                <button class="score__btn minus btn-plain btn-rep  btn-reply btn-reply-question-template" data-toggle="modal" data-target="#modalReply">
+                    <span><i class="fa fa-reply" aria-hidden="true"></i></span>
+                </button>
             </div>
             <div class="question-item__body question-content-template">
 
@@ -302,285 +319,330 @@
         var urlDisLike = 'api/question/DisLikeQuestion';
         var urlUnDisLike = 'api/question/UnDisLikeQuestion';
         $(function () {
+            //chỉnh css cho biết thiết bị này đã like hay dislike câu hỏi nào
+            addCssForQuestion();
+
             //var url = window.location.href;
             //console.log(url);
             //var url = "http://localhost:59917";
             //$.connection.hub.url = url + "/signalr/hubs";
 
 
-            // Reference the auto-generated proxy for the hub.
-            var chat = $.connection.chatHub;
-
-            // Start the connection.
-            $.connection.hub.start().done(function () {
-                //Click send question
-                $('#btnSendQuestion').click(function () {
-                    // Call the Send method on the hub.
 
 
-                    //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
-                    $.ajax({
-                        url: urlApi + "api/question/AddQuestion",
-                        method: "POST",
-                        data: {
-                            Username: $('#txtUsername').val(),
-                            QuestionContent: $('#txtContent').val(),
-                            NumberOfLike: 0,
-                            QAId: $('#txt-qa-id').val()
-                        },
-                        success: function (data) {
-                            chat.server.send($('#txtUsername').val(), $('#txtContent').val(), data.questionId);
-                            $('#txtUsername').val("");
-                            $('#txtContent').val("");
-                        },
-                        error: function (data) {
-                            console.log(data);
-                        }
-                    });
+        });
 
-                    //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
 
+
+        // Reference the auto-generated proxy for the hub.
+        var chat = $.connection.chatHub;
+
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            //Click send question
+            $('#btnSendQuestion').click(function () {
+                // Call the Send method on the hub.
+
+
+                //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
+                $.ajax({
+                    url: urlApi + "api/question/AddQuestion",
+                    method: "POST",
+                    data: {
+                        Username: $('#txtUsername').val(),
+                        QuestionContent: $('#txtContent').val(),
+                        NumberOfLike: 0,
+                        QAId: $('#txt-qa-id').val()
+                    },
+                    success: function (data) {
+                        chat.server.send($('#txtUsername').val(), $('#txtContent').val(), data.questionId);
+                        $('#txtUsername').val("");
+                        $('#txtContent').val("");
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
                 });
 
+                //chat.server.send($('#txtUsername').val(), $('#txtContent').val());
+
+            });
 
 
-                //Click send reply of question
-                $('#btnSendReply').click(function () {
-                    var usernameRep = $('#txtUsernameReply').val();
-                    var contentReply = $('#txtContentReply').val();
-                    var questionId = $('#questionId').val();
+
+            //Click send reply of question
+            $('#btnSendReply').click(function () {
+                var usernameRep = $('#txtUsernameReply').val();
+                var contentReply = $('#txtContentReply').val();
+                var questionId = $('#questionId').val();
 
 
-                    $.ajax({
-                        url: urlApi + "api/Comments",
-                        method: "POST",
-                        data: {
-                            Username: usernameRep,
-                            CommentContent: contentReply,
-                            NumberOfLike: 0,
-                            QuestionId: questionId
+                $.ajax({
+                    url: urlApi + "api/Comments",
+                    method: "POST",
+                    data: {
+                        Username: usernameRep,
+                        CommentContent: contentReply,
+                        NumberOfLike: 0,
+                        QuestionId: questionId
 
-                        },
-                        success: function (data) {
-                            $('#txtUsernameReply').val("");
-                            $('#txtContentReply').val("");
-                            chat.server.sendReply(usernameRep, contentReply, questionId, data.commentId);
-                        },
-                        error: function (data) {
-                            console.log(data);
-                        }
-                    });
+                    },
+                    success: function (data) {
+                        $('#txtUsernameReply').val("");
+                        $('#txtContentReply').val("");
+                        chat.server.sendReply(usernameRep, contentReply, questionId, data.commentId);
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
                 });
+            });
 
-                //click like question
-                $(document).on('click', '.btn-like-question', function () {
-                    var questionId = $(this).attr('value');
-                    var urlApiAjax = urlLike;
-                    var status = localStorage.getItem("" + questionId);
+            //click like question
+            $(document).on('click', '.btn-like-question', function () {
+                var questionId = parseInt($(this).attr('value'));
+                var urlApiAjax = urlLike;
+                var status = localStorage.getItem("" + questionId);
 
-                    if (status == null) {
-                        localStorage.setItem("" + questionId, "Liked");
+
+
+                var listQuestionInteracted = JSON.parse(localStorage.getItem("listQuestion"));
+
+                if (listQuestionInteracted != null) {
+                    var questionStatus = listQuestionInteracted.find(e => e.questionId === questionId);
+                    if (questionStatus != null) {
+                        var currStatus = questionStatus.status;
+                        if (currStatus === 'Liked') {
+                            questionStatus.status = 'UnLiked';
+                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) - 1, false);
+                            callApiUpdateLikeOrDisLike(urlUnLike, questionId);
+                        }
+                        else if (currStatus === 'Disliked') {
+                            questionStatus.status = 'Liked';
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) - 1, false);
+                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
+                            callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
+                            callApiUpdateLikeOrDisLike(urlLike, questionId);
+                        }
+                        else {
+                            questionStatus.status = 'Liked';
+                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
+                            callApiUpdateLikeOrDisLike(urlLike, questionId);
+                        }
+                    }
+                    else {
+                        var questionStatusObject = { 'questionId': questionId, 'status': 'Liked' };
+                        listQuestionInteracted.push(questionStatusObject);
                         chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
                         callApiUpdateLikeOrDisLike(urlLike, questionId);
                     }
-                    else {
-                        if (status == 'Liked') {
-                            localStorage.setItem("" + questionId, "UnLiked");
+                    localStorage.setItem('listQuestion', JSON.stringify(listQuestionInteracted));
+                }
+                else {
+                    var listQuestionInteractedNew = [];
+                    var objectQuestion = { 'questionId': questionId, 'status': 'Liked' };
+                    listQuestionInteractedNew.push(objectQuestion);
+                    localStorage.setItem("listQuestion", JSON.stringify(listQuestionInteractedNew));
+                    chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
+                    callApiUpdateLikeOrDisLike(urlLike, questionId);
+
+                }
+            });
+
+
+            //click dislike question
+            $(document).on('click', '.btn-dislike', function () {
+
+                var questionId = parseInt($(this).attr('value'));
+                var urlApiAjax = urlDisLike;
+                var status = localStorage.getItem("" + questionId);
+
+
+                /* New */
+                var listQuestionInteracted = JSON.parse(localStorage.getItem("listQuestion"));
+
+                if (listQuestionInteracted != null) {
+                    var questionStatus = listQuestionInteracted.find(e => e.questionId === questionId);
+                    if (questionStatus != null) {
+                        var currStatus = questionStatus.status;
+                        if (currStatus === 'Disliked') {
+                            questionStatus.status = 'UnDislike';
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) - 1, false);
+                            callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
+                        }
+                        else if (currStatus === 'Liked') {
+                            questionStatus.status = 'Disliked';
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
                             chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) - 1, false);
+                            callApiUpdateLikeOrDisLike(urlDisLike, questionId);
                             callApiUpdateLikeOrDisLike(urlUnLike, questionId);
                         }
-                        else if (status == 'Disliked') {
-                            localStorage.setItem("" + questionId, "Liked");   
-                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) - 1, false);
-                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
-                            callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
-                            callApiUpdateLikeOrDisLike(urlLike, questionId);  
-                        }
                         else {
-                            localStorage.setItem("" + questionId, "Liked");
-                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) + 1, true);
-                            callApiUpdateLikeOrDisLike(urlLike, questionId);  
+                            questionStatus.status = 'Disliked';
+                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
+                            callApiUpdateLikeOrDisLike(urlDisLike, questionId);
                         }
                     }
-                });
-
-
-                //click dislike question
-                $(document).on('click', '.btn-dislike', function () {
-                    
-                    var questionId = $(this).attr('value');
-                    var urlApiAjax = urlDisLike;
-                    var status = localStorage.getItem("" + questionId);
-                    if (status == null) {
-                        localStorage.setItem("" + questionId, "Disliked");
+                    else {
+                        var questionStatusObject = { 'questionId': questionId, 'status': 'Disliked' };
+                        listQuestionInteracted.push(questionStatusObject);
                         chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
-                        callApiUpdateLikeOrDisLike(urlDisLike, questionId);
+                        callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
+                    }
+                    localStorage.setItem('listQuestion', JSON.stringify(listQuestionInteracted));
+                }
+                else {
+                    var listQuestionInteractedNew = [];
+                    var objectQuestion = { 'questionId': questionId, 'status': 'Disliked' };
+                    listQuestionInteractedNew.push(objectQuestion);
+                    localStorage.setItem("listQuestion", JSON.stringify(listQuestionInteractedNew));
+                    chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
+                    callApiUpdateLikeOrDisLike(urlDisLike, questionId);
+                }
+
+
+
+            });
+
+            //Click like reply
+            $(document).on('click', '.btn-like-reply', function () {
+                var commentId = $(this).attr('value');
+                var urlApiAjax = 'api/comment/LikeComment';
+                var isLikedComment = localStorage.getItem("CommentID" + commentId);
+                if (isLikedComment == null) {
+                    localStorage.setItem("CommentID" + commentId, "true");
+                }
+                else {
+                    if (isLikedComment == "true") {
+                        localStorage.setItem("CommentID" + commentId, "false");
+                        urlApiAjax = 'api/comment/DisLikeComment';
                     }
                     else {
-                        if (status == 'Disliked') {
-                            localStorage.setItem("" + questionId, 'UnDislike');
-                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) - 1, false);
-                            callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
-                        }
-                        else if (status == 'Liked') {
-                            localStorage.setItem("" + questionId, "Disliked");
-                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
-                            chat.server.likeQuestion(questionId, parseInt($('#btn-like-question-' + questionId).text()) - 1, false);
-                            callApiUpdateLikeOrDisLike(urlDisLike, questionId);
-                            callApiUpdateLikeOrDisLike(urlUnLike, questionId);
-                            
-                        }
-                        else {
-                            localStorage.setItem("" + questionId, "Disliked");
-                            chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
-                            callApiUpdateLikeOrDisLike(urlDisLike, questionId);
-                        }
-                    }
-
-                    //if (localStorage.getItem("" + questionId) == 'Disliked') {
-                    //    //Disliked là vừa mới nhấn dislike cho nút này, không là bỏ dislike
-                    //    chat.server.disLikeQuestion(questionId, parseInt($(this).text()) + 1, true);
-                    //}
-                    //else {
-                    //    chat.server.disLikeQuestion(questionId, parseInt($(this).text()) - 1, false);
-                    //}
-
-                    //callApiUpdateLikeOrDisLike(urlApiAjax, questionId);
-                    
-                });
-
-                //Click like reply
-                $(document).on('click', '.btn-like-reply', function () {
-                    var commentId = $(this).attr('value');
-                    var urlApiAjax = 'api/comment/LikeComment';
-                    var isLikedComment = localStorage.getItem("CommentID" + commentId);
-                    if (isLikedComment == null) {
                         localStorage.setItem("CommentID" + commentId, "true");
                     }
-                    else {
-                        if (isLikedComment == "true") {
-                            localStorage.setItem("CommentID" + commentId, "false");
-                            urlApiAjax = 'api/comment/DisLikeComment';
-                        }
-                        else {
-                            localStorage.setItem("CommentID" + commentId, "true");
-                        }
-                    }
+                }
 
-                    isLikedComment = localStorage.getItem("CommentID" + commentId) == "true";
-                    if (isLikedComment == true) {
-                        chat.server.likeComment(commentId, parseInt($(this).text()) + 1, true);
-                    }
-                    else {
-                        chat.server.likeComment(commentId, parseInt($(this).text()) - 1, false);
-                    }
-                    $.ajax({
-                        url: urlApi + urlApiAjax,
-                        method: "POST",
-                        data: {
-                            CommentId: commentId
-                        },
-                        success: function (data) {
+                isLikedComment = localStorage.getItem("CommentID" + commentId) == "true";
+                if (isLikedComment == true) {
+                    chat.server.likeComment(commentId, parseInt($(this).text()) + 1, true);
+                }
+                else {
+                    chat.server.likeComment(commentId, parseInt($(this).text()) - 1, false);
+                }
+                $.ajax({
+                    url: urlApi + urlApiAjax,
+                    method: "POST",
+                    data: {
+                        CommentId: commentId
+                    },
+                    success: function (data) {
 
-                        },
-                        error: function (data) {
-                            console.log(data);
-                        }
-                    });
-
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
                 });
 
-
-            });
-
-            // Create a function that the hub can call back to display messages.
-            chat.client.addNewMessageToPage = function (name, message, newQuestionId) {
-                // Add the message to the page.
-                if (message.length != 0) {
-                    var listQa = $('#list-qa').clone();
-                    listQa.find('.username-content').html(name);
-                    listQa.find('.question-content-template').html(message);
-                    listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
-                    listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                    listQa.find('.btn-reply').attr('value', newQuestionId);
-                    listQa.find('.btn-like-question').attr('value', newQuestionId);
-                    listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
-                    listQa.find('.btn-like-question').attr('id', 'btn-like-question-' + newQuestionId);
-                    $('#qa-container').prepend(listQa.html());
-                }
-
-
-            };
-
-            //Create a function that the hub call back to display reply
-            chat.client.addNewReplyToPage = function (name, message, questionId, commentId) {
-                // Add the message to the page.
-                if (message.length != 0) {
-                    var listReply = $('#list-reply-template').clone();
-                    listReply.find('#username-reply').html(name);
-                    listReply.find('#reply-content').html(message);
-                    listReply.find('#reply-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
-                    listReply.find('.btn-like-reply').attr('id', 'btn-like-reply-' + commentId);
-                    listReply.find('.btn-like-reply').attr('value', commentId);
-                    var listQaContainer = '#list-qa-' + questionId;
-                    $(listQaContainer).append(listReply.html());
-                }
-
-
-            };
-
-
-            //Create a function that hub call back to update new like of question
-            chat.client.updateNewLikeOfQuestion = function (questionId, newNumberOfLike, isLike) {
-                var str = newNumberOfLike + ' <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>';
-                $('#btn-like-question-' + questionId).empty();
-                $('#btn-like-question-' + questionId).append(str);
-                if (isLike) {
-                    $('#btn-like-question-' + questionId + ' i').css('color', '#365899');
-                }
-                else {
-                    $('#btn-like-question-' + questionId + ' i').css('color', 'none');
-                }
-            };
-
-            //Create a function that hub call back to update new dis like of question
-            chat.client.updateNewDisLikeOfQuestion = function (questionId, newNumberOfLike, isDisLike) {
-                var str = '<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>' + newNumberOfLike;
-                $('#btnDislikeQuestion-' + questionId).empty();
-                $('#btnDislikeQuestion-' + questionId).append(str);
-                if (isDisLike) {
-                    $('#btnDislikeQuestion-' + questionId + ' i').css('color', '#cc0000');
-                }
-                else {
-                    $('#btnDislikeQuestion-' + questionId + ' i').css('color', 'none');
-                }
-            };
-
-            //Create a function that hub call back to update new like of comment
-            chat.client.updateNewLikeOfComment = function (commentId, newNumberOfLike, isLike) {
-                var str = newNumberOfLike + ' <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>';
-                $('#btn-like-reply-' + commentId).empty();
-                $('#btn-like-reply-' + commentId).append(str);
-
-                if (isLike) {
-                    $('#btn-like-reply-' + commentId + ' i').css('color', '#365899');
-                }
-                else {
-                    $('#btn-like-reply-' + commentId + ' i').css('color', 'none');
-                }
-
-            };
-
-            
-
-
-
-            //Change questionId when click button reply to know what question will be reply
-            $(document).on('click', '.btn-reply', function () {
-                $('#questionId').val($(this).attr('value'));
             });
 
 
+        });
+
+        // Create a function that the hub can call back to display messages.
+        chat.client.addNewMessageToPage = function (name, message, newQuestionId) {
+            // Add the message to the page.
+            if (message.length != 0) {
+                var listQa = $('#list-qa').clone();
+                listQa.find('.username-content').html(name);
+                listQa.find('.question-content-template').html(message);
+                listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+                //listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                listQa.find('.btn-reply').attr('value', newQuestionId);
+                listQa.find('.btn-like-question').attr('value', newQuestionId);
+                listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
+                listQa.find('.btn-like-question').attr('id', 'btn-like-question-' + newQuestionId);
+                listQa.find('.btn-like-question').html('0 <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                listQa.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + newQuestionId);
+                listQa.find('.btn-dislike').attr('value', newQuestionId);
+                listQa.find('.btn-dislike').html('<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span> 0');
+
+                var nameSplit = name.split();
+                var firstNameChar = nameSplit[nameSplit.length - 1][0];
+                listQa.find('.logo-name span').text(firstNameChar.toUpperCase());
+                listQa.find('.logo-name').css('background-color', getRandomColor());
+
+                $('#qa-container').prepend(listQa.html());
+            }
+
+
+        };
+
+        //Create a function that the hub call back to display reply
+        chat.client.addNewReplyToPage = function (name, message, questionId, commentId) {
+            // Add the message to the page.
+            if (message.length != 0) {
+                var listReply = $('#list-reply-template').clone();
+                listReply.find('#username-reply').html(name);
+                listReply.find('#reply-content').html(message);
+                listReply.find('#reply-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+                listReply.find('.btn-like-reply').attr('id', 'btn-like-reply-' + commentId);
+                listReply.find('.btn-like-reply').attr('value', commentId);
+                var listQaContainer = '#list-qa-' + questionId;
+                $(listQaContainer).append(listReply.html());
+            }
+
+
+        };
+
+
+        //Create a function that hub call back to update new like of question
+        chat.client.updateNewLikeOfQuestion = function (questionId, newNumberOfLike, isLike) {
+            var str = newNumberOfLike + ' <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>';
+            $('#btn-like-question-' + questionId).empty();
+            $('#btn-like-question-' + questionId).append(str);
+            if (isLike) {
+                $('#btn-like-question-' + questionId + ' i').css('color', '#365899');
+            }
+            else {
+                $('#btn-like-question-' + questionId + ' i').css('color', 'none');
+            }
+        };
+
+        //Create a function that hub call back to update new dis like of question
+        chat.client.updateNewDisLikeOfQuestion = function (questionId, newNumberOfLike, isDisLike) {
+            var str = '<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>' + newNumberOfLike;
+            $('#btnDislikeQuestion-' + questionId).empty();
+            $('#btnDislikeQuestion-' + questionId).append(str);
+            if (isDisLike) {
+                $('#btnDislikeQuestion-' + questionId + ' i').css('color', '#cc0000');
+            }
+            else {
+                $('#btnDislikeQuestion-' + questionId + ' i').css('color', 'none');
+            }
+        };
+
+        //Create a function that hub call back to update new like of comment
+        chat.client.updateNewLikeOfComment = function (commentId, newNumberOfLike, isLike) {
+            var str = newNumberOfLike + ' <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>';
+            $('#btn-like-reply-' + commentId).empty();
+            $('#btn-like-reply-' + commentId).append(str);
+
+            if (isLike) {
+                $('#btn-like-reply-' + commentId + ' i').css('color', '#365899');
+            }
+            else {
+                $('#btn-like-reply-' + commentId + ' i').css('color', 'none');
+            }
+
+        };
+
+
+
+
+
+        //Change questionId when click button reply to know what question will be reply
+        $(document).on('click', '.btn-reply', function () {
+            $('#questionId').val($(this).attr('value'));
         });
 
         function getAllQuestionCommentLastest(id) {
@@ -616,6 +678,9 @@
                         templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
                         templateQuestion.find('#btn-reply').attr('value', '' + data.data[i].QuestionId + '');
+                        templateQuestion.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + data.data[i].QuestionId);
+                        templateQuestion.find('.btn-dislike').attr('value', data.data[i].QuestionId);
+                        templateQuestion.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + data.data[i].NumberOfDisLike);
 
                         templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                         $('#qa-container').append(templateQuestion.html());
@@ -672,6 +737,9 @@
                         templateQuestion.find('.username-content').text('' + data.data[i].Username + ' : ' + data.data[i].QuestionContent + '');
                         templateQuestion.find('.create-time').text('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
                         templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                        templateQuestion.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + data.data[i].QuestionId );
+                        templateQuestion.find('.btn-dislike').attr('value', data.data[i].QuestionId );
+                        templateQuestion.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + data.data[i].NumberOfDisLike);
                         $('#qa-container').append(templateQuestion.html());
                         for (var j = 0; j < data.data[i].Comments.length; j++) {
                             var templateComment = $('#list-reply-template').clone();
@@ -724,7 +792,30 @@
             });
         }
 
-       
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        //Dùng để chỉnh css like hay dislike cho các nút đã từng like hoạc dislike ở local storage
+        function addCssForQuestion() {
+            var listQuestionInteracted = JSON.parse(localStorage.getItem("listQuestion"));
+            if (listQuestionInteracted != null) {
+                for (var i = 0; i < listQuestionInteracted.length; i++) {
+                    var tmpQuestion = listQuestionInteracted[i];
+                    if (tmpQuestion.status === 'Liked') {
+                        $('#btn-like-question-' + tmpQuestion.questionId + ' span i').css('color','#365899');
+                    }
+                    else if (tmpQuestion.status === 'Disliked') {
+                        $('#btnDislikeQuestion-' + tmpQuestion.questionId + ' span i').css('color', '#cc0000');
+                    }
+                }
+            }
+        }
 
     </script>
 }

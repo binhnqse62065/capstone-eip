@@ -36,6 +36,7 @@ namespace CapstoneProjectClient.API
                 Username = v.Username,
                 CreateTime = v.CreateTime.Value.ToString("hh:mm tt"),
                 NumberOfLike = v.NumberOfLike,
+                NumberOfDisLike = v.NumberOfDislike,
                 IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
                 Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
                 {
@@ -44,7 +45,8 @@ namespace CapstoneProjectClient.API
                     CommentContent = s.CommentContent,
                     QuestionId = s.QuestionId,
                     CreateTime = s.CreateTime.Value.ToString("hh:mm tt"),
-                    NumberOfLike = s.NumberOfLike
+                    NumberOfLike = s.NumberOfLike,
+                    NumberOfDisLike = s.NumberOfDislike
                 }),
             });
             return new HttpResponseMessage()
@@ -71,6 +73,7 @@ namespace CapstoneProjectClient.API
                 Username = v.Username,
                 CreateTime = v.CreateTime.Value.ToString("hh:mm tt"),
                 NumberOfLike = v.NumberOfLike,
+                NumberOfDisLike = v.NumberOfDislike,
                 IsAnswer = v.IsAnswer != null ? v.IsAnswer : false,
                 Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
                 {
@@ -79,7 +82,8 @@ namespace CapstoneProjectClient.API
                     CommentContent = s.CommentContent,
                     QuestionId = s.QuestionId,
                     CreateTime = s.CreateTime.Value.ToString("hh:mm tt"),
-                    NumberOfLike = s.NumberOfLike
+                    NumberOfLike = s.NumberOfLike,
+                    NumberOfDisLike = s.NumberOfDislike
                 }),
             });
             return new HttpResponseMessage()
@@ -159,6 +163,9 @@ namespace CapstoneProjectClient.API
             //{
             //    return BadRequest(ModelState);
             //}
+            question.IsAnswer = false;
+            question.NumberOfDislike = 0;
+            question.NumberOfLike = 0;
             question.CreateTime = DateTime.Now;
             db.Questions.Add(question);
             db.SaveChanges();

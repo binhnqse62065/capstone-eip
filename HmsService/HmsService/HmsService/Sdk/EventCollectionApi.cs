@@ -31,5 +31,32 @@ namespace HmsService.Sdk
         {
             return this.BaseService.FirstOrDefault(c => c.EventId == eventId && c.TypeId == typeId);
         }
+
+        public IEnumerable<EventCollection> GetCollectionByEventId(int eventId)
+        {
+            return this.BaseService.Get(c => c.EventId == eventId).ToList();
+        }
+
+        public int AddNewEventCollection(EventCollection eventCollection)
+        {
+            this.BaseService.Create(eventCollection);
+            this.BaseService.Save();
+            return eventCollection.EventCollectionID;
+        }
+
+        public void UpdateEventCollection(EventCollection eventCollection)
+        {
+            var curCollection = this.BaseService.FirstOrDefault(c => c.EventCollectionID == eventCollection.EventCollectionID);
+            curCollection.Name = eventCollection.Name;
+            curCollection.Description = eventCollection.Description;
+            this.BaseService.Save();
+        }
+
+        public void DeleteEventCollection(EventCollection eventCollection)
+        {
+            var curCollection = this.BaseService.FirstOrDefault(c => c.EventCollectionID == eventCollection.EventCollectionID);
+            this.BaseService.Delete(curCollection);
+            this.BaseService.Save();
+        }
     }
 }

@@ -26,5 +26,27 @@ namespace HmsService.Sdk
                 EventId = q.EventId
             });
         }
+
+        public IEnumerable<int> GetListQaIdByEventId(int eventId)
+        {
+            return this.BaseService.Get(q => q.EventId == eventId).Select(q => q.QAId);
+        }
+
+        public int GetTotalQuestionHaveComment(int eventId)
+        {
+            var listQa = this.BaseService.Get(q => q.EventId == eventId);
+            int totalQuestionHaveComment = 0;
+            foreach(var qa in listQa)
+            {
+                foreach(var question in qa.Questions)
+                {
+                    if(question.Comments.Count() > 0)
+                    {
+                        totalQuestionHaveComment += 1;
+                    }
+                }
+            }
+            return totalQuestionHaveComment;
+        }
     }
 }

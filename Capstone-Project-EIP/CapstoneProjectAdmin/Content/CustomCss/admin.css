@@ -154,6 +154,7 @@
 
 .inner-custom {
     height:100px;
+    max-width:200px;
 }
 .content-custom {
     min-height:unset;
@@ -165,3 +166,12 @@
 .inner-custom:hover {
     cursor:pointer;
 }
+
+#txtCollectionTypeDiv {
+    display:none;
+}
+
+#btnAddGuest {
+    margin-bottom:0;
+}
+

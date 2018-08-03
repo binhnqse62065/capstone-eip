@@ -66,5 +66,16 @@ namespace HmsService.Sdk
                 return null;
             }
         }
+
+        public int GetTotalVotingByVotingId(int votingId)
+        {
+            var listVotingOption = this.BaseService.Get(v => v.VotingId == votingId);
+            int totalVoting = 0;
+            foreach(var option in listVotingOption)
+            {
+                totalVoting += (int)option.NumberOfVoting;
+            }
+            return totalVoting;
+        }
     }
 }

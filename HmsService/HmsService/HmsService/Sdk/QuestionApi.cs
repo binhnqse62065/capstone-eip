@@ -44,5 +44,44 @@ namespace HmsService.Sdk
             }
 
         }
+
+        public IEnumerable<Question> GetQuestionsByQaId(int qaId)
+        {
+            return this.BaseService.GetQuestionsByQaId(qaId);
+        }
+
+        public void CheckAnswered(Question question)
+        {
+            var tmpQuestion = this.BaseService.FirstOrDefault(q => q.QuestionId == question.QuestionId);
+            tmpQuestion.IsAnswer = true;
+            this.BaseService.Save();
+        }
+
+        public int GetNumberQuestionByQaId(int qaId)
+        {
+            return this.BaseService.Get(q => q.QAId == qaId).Count();
+        }
+
+        public IEnumerable<int> GetListQuestionIdByQaId(int qaId)
+        {
+            return this.BaseService.Get(q => q.QAId == qaId).Select(q => q.QuestionId);
+        }
+
+        public int GetTotalLikeQuestionByQaId(int qaId)
+        {
+            int total = 0;
+            var listQuestion = this.BaseService.Get(q => q.QAId == qaId);
+            foreach(var question in listQuestion)
+            {
+                total += (int)question.NumberOfLike;
+            }
+            return total;
+        }
+
+        public Question GetQuestionById(int questionId)
+        {
+            return this.BaseService.FirstOrDefault(q => q.QuestionId == questionId);
+          
+        }
     }
 }

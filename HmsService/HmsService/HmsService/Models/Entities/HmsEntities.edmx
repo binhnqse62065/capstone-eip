@@ -142,6 +142,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -152,6 +153,8 @@
           <Property Name="GuestEmail" Type="nvarchar" MaxLength="250" />
           <Property Name="GuestPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="IsCheckIn" Type="bit" />
+          <Property Name="TimeRegister" Type="date" />
         </EntityType>
         <EntityType Name="Interaction">
           <Key>
@@ -748,6 +751,8 @@
           <Property Name="GuestEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="GuestPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
+          <Property Name="IsCheckIn" Type="Boolean" />
+          <Property Name="TimeRegister" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Guest_Event" FromRole="Guest" ToRole="Event" />
         </EntityType>
         <EntityType Name="C__MigrationHistory">
@@ -898,6 +903,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
           <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="EventCollection" ToRole="CollectionType" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="EventCollection" ToRole="Event" />
@@ -1236,6 +1242,8 @@
           <EntitySetMapping Name="Guests">
             <EntityTypeMapping TypeName="HmsEntities.Guest">
               <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="TimeRegister" ColumnName="TimeRegister" />
+                <ScalarProperty Name="IsCheckIn" ColumnName="IsCheckIn" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
                 <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
@@ -1376,6 +1384,7 @@
           <EntitySetMapping Name="EventCollections">
             <EntityTypeMapping TypeName="HmsEntities.EventCollection">
               <MappingFragment StoreEntitySet="EventCollection">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

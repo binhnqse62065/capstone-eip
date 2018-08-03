@@ -3,9 +3,10 @@
 
     int eventId = ViewBag.EventId != null ? ViewBag.EventId : 0;
     var user = HttpContext.Current.User;
-    var role = User.Identity.Name;
+    var role = User.Identity.IsAuthenticated;
     var isSysAdmin = false;
-    if(User.IsInRole("System Admin"))
+
+    if(user.IsInRole("SystemAdmin"))
     {
         isSysAdmin = true;
     }
@@ -49,6 +50,8 @@
     <link rel="stylesheet" href="~/Content/DataTables/datatables.min.css">
     <!--Sweet Alert-->
     <link rel="stylesheet" href="~/Content/bootstrap-sweetalert-master/dist/sweetalert.css">
+    <!--Progress Bar-->
+    <link rel="stylesheet" href="~/Content/ProgressBar/css/bootstrap-progressbar-3.3.4.css">
 
 
     <!--Custom Css-->
@@ -115,6 +118,8 @@
     <script src="~/Content/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
     <!--Filestack-->
     <script src="~/Content/Filestack/filestack.min.js"></script>
+    <!--Progress Bar-->
+    <script src="~/Content/ProgressBar/bootstrap-progressbar.min.js"></script>
 
 
 
@@ -138,10 +143,10 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="~/Content/AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="~/Content/img/17241-200.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>Quang Bình</p>
+                        <p>@(User.Identity.Name.ToUpper())</p>
                         @*<a href="#"><i class="fa fa-circle text-success"></i> Online</a>*@
                     </div>
                 </div>
@@ -149,34 +154,36 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
 
                 <ul class="sidebar-menu" data-widget="tree">
-                    @if (User.IsInRole("Admin"))
+                    @if (User.IsInRole("SystemAdmin"))
                     {
-                        <li><a href="@Url.Action("Index","SystemAdmin", new { id = eventId})"><i class="fa fa-setting"></i> <span>Quản lý tài khoản</span></a></li>
+                        <li><a href="@Url.Action("Index","SystemAdmin")"><i class="fa fa-setting"></i> <span>Quản lý tài khoản</span></a></li>
                     }
                     else
                     {
                         <li><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
                         <li><a href="@Url.Action("Index","ManageEvent", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Cấu hình chung</span></a></li>
+                        <li><a href="@Url.Action("Index","Guest", new { id = eventId})"><i class="fa fa-users" aria-hidden="true"></i> <span>Danh sách người tham gia</span></a></li>
+                        <li><a href="@Url.Action("Index","Statistics", new { id = eventId})"><i class="fa fa-users" aria-hidden="true"></i> <span>Thống kê</span></a></li>
                         @*<li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-pie-chart"></i>
-                                <span>Cấu hình chung</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu tree-view-menu-custom">
-                                <li><a href="@Url.Action("Index","ManageEvent", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Trang chủ</span></a></li>
-                    <li><a href="@Url.Action("Index","Home", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Trang chủ</span></a></li>
-                    <li><a href="@Url.Action("Index","Session" , new { id = eventId})"><i class="fa fa-calendar" aria-hidden="true"></i><span>Phiên làm việc</span></a></li>
-                    <li><a href="@Url.Action("Index","QA", new { id = eventId})"><i class="fa fa-question-circle"></i> <span>Hỏi đáp</span></a></li>
-                    <li><a href="@Url.Action("Index","Voting", new { id = eventId})"><i class="fa fa-check-circle-o"></i> <span>Bình chọn</span></a></li>
-                    <li><a href="@Url.Action("Index","Speaker", new { id = eventId})"><i class="fa fa-users"></i> <span>Diễn giả</span></a></li>
-                    <li><a href="@Url.Action("Index","Sponsor", new { id = eventId})"><i class="fa fa-users"></i> <span>Nhà tài Trợ</span></a></li>
-                    <li><a href="@Url.Action("Index","File", new { id = eventId})"><i class="fa fa-file-o"></i> <span>Tài liệu</span></a></li>
-                            </ul>
-                        </li>*@
-                        <li><a href="@Url.Action("Index","Events", new { id = eventId})"><i class="fa fa-sign-out"></i> <span>Đăng Xuất</span></a></li>
+                    <a href="#">
+                        <i class="fa fa-pie-chart"></i>
+                        <span>Cấu hình chung</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu tree-view-menu-custom">
+                        <li><a href="@Url.Action("Index","ManageEvent", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Trang chủ</span></a></li>
+            <li><a href="@Url.Action("Index","Home", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Trang chủ</span></a></li>
+            <li><a href="@Url.Action("Index","Session" , new { id = eventId})"><i class="fa fa-calendar" aria-hidden="true"></i><span>Phiên làm việc</span></a></li>
+            <li><a href="@Url.Action("Index","QA", new { id = eventId})"><i class="fa fa-question-circle"></i> <span>Hỏi đáp</span></a></li>
+            <li><a href="@Url.Action("Index","Voting", new { id = eventId})"><i class="fa fa-check-circle-o"></i> <span>Bình chọn</span></a></li>
+            <li><a href="@Url.Action("Index","Speaker", new { id = eventId})"><i class="fa fa-users"></i> <span>Diễn giả</span></a></li>
+            <li><a href="@Url.Action("Index","Sponsor", new { id = eventId})"><i class="fa fa-users"></i> <span>Nhà tài Trợ</span></a></li>
+            <li><a href="@Url.Action("Index","File", new { id = eventId})"><i class="fa fa-file-o"></i> <span>Tài liệu</span></a></li>
+                    </ul>
+                </li>*@
+                        <li><a href="@Url.Action("Index","Events", new { id = eventId})"><i class="fa fa-sign-out"></i> <span>Thoát</span></a></li>
 
                     }
 

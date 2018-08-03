@@ -41,7 +41,7 @@
             },
             success: function (data) {
                 $('#tblSponsor').DataTable().ajax.reload();
-                swal("Thành công!", "Bạn đã thêm thông tin nhà tài trợ thành công", "success");
+                swal("Thành công!", "Bạn đã thêm nhà tài trợ thành công", "success");
             },
             error: function (data) {
                 console.log(data);
@@ -49,36 +49,34 @@
         });
 
     });
-
-    $(document).on('click', '#btn-del', function () {
-        //swal({
-        //    title: "Are you sure?",
-        //    text: "All voting option will be delete with this voting",
-        //    type: "warning",
-        //    showCancelButton: true,
-        //    confirmButtonClass: "btn-danger",
-        //    confirmButtonText: "Yes, delete it!",
-        //    cancelButtonText: "No, cancel plx!",
-        //    closeOnConfirm: false
-        //},
-        //    function () {
-        var id = $('#btn-del').val();
-        $.ajax({
-            url: urlApi + '/api/sponsor/DeleteSponsor',
-            method: "POST",
-            data: {
-                CollectionItemID: id,
-            },
-            success: function (data) {
-                $('#tblSponsor').DataTable().ajax.reload();
-                swal("Thành công!", "Bạn đã xóa thông tin nhà tài trợ thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-        //});
-
-    });
-
 });
+
+
+function delSponsor(id, name) {
+    swal({
+        title: "Bạn có chắc?",
+        text: "Bạn có chắc chắn xóa nhà tài trợ " + name + ", bạn sẽ không thể phục hồi!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Có!",
+        cancelButtonText: "Không!",
+        closeOnConfirm: false
+    },
+        function () {
+            $.ajax({
+                url: urlApi + '/api/sponsor/DeleteSponsor',
+                method: "POST",
+                data: {
+                    CollectionItemID: id,
+                },
+                success: function (data) {
+                    $('#tblSponsor').DataTable().ajax.reload();
+                    swal("Thành công!", "Bạn đã xóa nhà tài trợ thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+}

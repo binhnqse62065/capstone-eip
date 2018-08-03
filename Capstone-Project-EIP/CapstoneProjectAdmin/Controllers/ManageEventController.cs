@@ -1,4 +1,5 @@
-﻿using HmsService.Models.Entities;
+﻿using CapstoneProjectAdmin.ViewModel;
+using HmsService.Models.Entities;
 using HmsService.Sdk;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,39 @@ namespace CapstoneProjectAdmin.Controllers
         public ActionResult Index(int id)
         {
             ViewBag.EventId = id;
-            CollectionTypeApi collectionTypeApi = new CollectionTypeApi();
-            var listCollection = collectionTypeApi.GetCollectionType();
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var listCollection = eventCollectionApi.GetCollectionByEventId(id).Select(c => new EventCollectionViewModel
+            {
+                EventCollectionID = c.EventCollectionID,
+                Name = c.Name,
+                EventId = c.EventId,
+                TypeId = c.TypeId,
+                Description = c.Description
+            });
             return View(listCollection);
         }
 
-        public JsonResult AddNewCollectionType(CollectionType collectionType)
+        [HttpPost]
+        public JsonResult AddNewEventCollection(EventCollection eventCollection, string collectionTypeName)
         {
             try
             {
-                CollectionTypeApi collectionTypeApi = new CollectionTypeApi();
-                int collectionTypeId = collectionTypeApi.AddNewCollectionType(collectionType);
+                EventCollectionApi eventCollectionApi = new EventCollectionApi();
+                //Nếu không lựa collection type có sẵn thì tạo collecion type mới
+                if (eventCollection.TypeId == -1)
+                {
+                    CollectionTypeApi collectionTypeApi = new CollectionTypeApi();
+                    int collectionTypeId = collectionTypeApi.AddNewCollectionType(collectionTypeName);
+                    eventCollection.TypeId = collectionTypeId;
+                }
+                //tạo event collection
+                eventCollectionApi.AddNewEventCollection(eventCollection);
+                
                 return Json(new {
                     success = true,
-                    Id = collectionTypeId,
-                    Name = collectionType.Name
+                    collectionTypeId = eventCollection.EventCollectionID,
+                    name = eventCollection.Name,
+                    description = eventCollection.Description
                 });
             }
             catch
@@ -39,12 +58,12 @@ namespace CapstoneProjectAdmin.Controllers
             }     
         }
 
-        public JsonResult UpdateCollectionType(CollectionType collectionType)
+        public JsonResult UpdateCollectionType(EventCollection eventCollection)
         {
             try
             {
-                CollectionTypeApi collectionTypeApi = new CollectionTypeApi();
-                collectionTypeApi.UpdateCollectionType(collectionType);
+                EventCollectionApi eventCollectionApi = new EventCollectionApi();
+                eventCollectionApi.UpdateEventCollection(eventCollection);
                 return Json(new {
                     success = true
                 });
@@ -57,12 +76,12 @@ namespace CapstoneProjectAdmin.Controllers
             }
         }
 
-        public JsonResult DeleteCollectionType(CollectionType collectionType)
+        public JsonResult DeleteEventCollection(EventCollection eventCollection)
         {
             try
             {
-                CollectionTypeApi collectionTypeApi = new CollectionTypeApi();
-                collectionTypeApi.DeleteCollectionType(collectionType);
+                EventCollectionApi eventCollectionApi = new EventCollectionApi();
+                eventCollectionApi.DeleteEventCollection(eventCollection);
                 return Json(new
                 {
                     success = true
@@ -77,20 +96,30 @@ namespace CapstoneProjectAdmin.Controllers
             }
         }
 
-        public ActionResult ManageCollectionItem()
+        [Route("ManageCollectionItem/{eventId}/{typeId}")]
+        public ActionResult ManageCollectionItem(int eventId, int typeId)
         {
-            return View("CollectionItem");
+            ViewBag.EventId = eventId;
+            EventCollectionApi eventCollectionApi = new EventCollectionApi();
+            var eventCollection = eventCollectionApi.GetEventCollectionByType(eventId, typeId);
+            return View("CollectionItem", eventCollection);
         }
 
-        [Route("GetEventCollection/{eventId}/{typeId}")]
+        [Route("GetCollectionItem/{eventId}/{typeId}")]
         public JsonResult GetEventCollection(int eventId, int typeId)
         {
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var eventCollection = eventCollectionApi
-                .GetEventCollectionByType(eventId, typeId);
+                .GetEventCollectionByType(eventId, typeId).CollectionItems.Select(i => new CollectionItemViewModel
+                {
+                    CollectionItemID = i.CollectionItemID,
+                    Name = i.Name,
+                    Description = i.Description,
+                    ImageUrl = i.ImageUrl
+                });
             return Json(new {
                 data = eventCollection
-            });
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AddNewCollectionItem(CollectionItem collectionItem)
@@ -100,8 +129,7 @@ namespace CapstoneProjectAdmin.Controllers
                 CollectionItemApi collectionItemApi = new CollectionItemApi();
                 int collectionItemId =  collectionItemApi.AddNewCollectionItem(collectionItem);
                 return Json(new {
-                    success = true,
-                    id = collectionItemId
+                    success = true
                 });
             }
             catch
@@ -111,6 +139,63 @@ namespace CapstoneProjectAdmin.Controllers
                 });
             }
             
+        }
+
+        [HttpGet]
+        public JsonResult GetCollectionType()
+        {
+            try
+            {
+                CollectionTypeApi collectionTypeApi = new CollectionTypeApi();
+                var listCollectionType = collectionTypeApi.GetCollectionType();
+                return Json(new {
+                    success = true,
+                    data = listCollectionType
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new {
+                    success = false
+                });
+            }
+        }
+
+        public JsonResult DeleteCollectionItem(CollectionItem collectionItem)
+        {
+            try
+            {
+                CollectionItemApi collectionItemApi = new CollectionItemApi();
+                collectionItemApi.DeleteCollectionItem(collectionItem);
+                return Json(new {
+                    success = true
+                });
+            }
+            catch
+            {
+                return Json(new {
+                    success = false
+                });
+            }
+
+        }
+
+        public JsonResult UpdateCollectionItem(CollectionItem collectionItem)
+        {
+            try
+            {
+                CollectionItemApi collectionItemApi = new CollectionItemApi();
+                collectionItemApi.UpdateCollectionItem(collectionItem);
+                return Json(new {
+                    success = true
+                });
+            }
+            catch
+            {
+                return Json(new {
+                    success = false
+                });
+            }
         }
     }
 }

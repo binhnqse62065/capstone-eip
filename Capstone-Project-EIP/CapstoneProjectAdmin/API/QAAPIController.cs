@@ -29,21 +29,24 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage getAllQuestionComment(Question qa)
         {
-            var listQA = db.Questions.Where(a => a.QAId == qa.QAId).OrderByDescending(s => s.CreateTime).Select(v => new ViewModel.QuestionViewModel
+            QuestionApi questionApi = new QuestionApi();
+            //var listQa = questionApi.GetQuestionsByQaId((int)qa.QAId);
+            var listQA = questionApi.GetQuestionsByQaId((int)qa.QAId).OrderByDescending(s => s.CreateTime).Select(v => new ViewModel.QuestionViewModel
             {
                 QuestionId = v.QuestionId,
                 QAId = v.QAId,
                 QuestionContent = v.QuestionContent,
                 Username = v.Username,
-                CreateTime = v.CreateTime,
+                CreateTime = v.CreateTime.Value.ToString("hh:mm tt"),
                 NumberOfLike = v.NumberOfLike,
+                IsAnswered = (bool)v.IsAnswer,
                 Comments = v.Comments.OrderByDescending(s => s.CreateTime).Select(s => new CommentsViewModel
                 {
                     Username = s.Username,
                     CommentId = s.CommentId,
                     CommentContent = s.CommentContent,
                     QuestionId = s.QuestionId,
-                    CreateTime = s.CreateTime,
+                    CreateTime = s.CreateTime.Value.ToString("hh:mm tt"),
                     NumberOfLike = s.NumberOfLike
                 }),
             });
@@ -143,5 +146,37 @@ namespace CapstoneProjectAdmin.API
             };
         }
 
+
+        [Route("CheckAnsweredQuestion")]
+        [HttpPost]
+        public HttpResponseMessage CheckAnsweredQuestion(Question question)
+        {
+            try
+            {
+                QuestionApi questionApi = new QuestionApi();
+                questionApi.CheckAnswered(question);
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true
+
+                    })
+                };
+            }
+            catch
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = false
+
+                    })
+                };
+            }
+        }
     }
 }
