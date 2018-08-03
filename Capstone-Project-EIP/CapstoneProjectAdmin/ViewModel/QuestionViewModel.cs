@@ -12,9 +12,10 @@ namespace CapstoneProjectAdmin.ViewModel
         public Nullable<int> QAId { get; set; }
         public string QuestionContent { get; set; }
         public string Username { get; set; }
-        public Nullable<System.DateTime> CreateTime { get; set; }
+        public String CreateTime { get; set; }
         public Nullable<int> NumberOfLike { get; set; }
         public IEnumerable<CommentsViewModel> Comments { get; set; }
+        public bool IsAnswered { get; set; }
 
     }
 }

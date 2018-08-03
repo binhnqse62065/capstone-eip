@@ -12,11 +12,11 @@
         <EntityTypeShape EntityType="HmsEntities.Activity" Width="1.5" PointX="5.25" PointY="11.375" />
         <EntityTypeShape EntityType="HmsEntities.ActivityItem" Width="1.5" PointX="7.5" PointY="8.5" />
         <EntityTypeShape EntityType="HmsEntities.AspNetRole" Width="1.5" PointX="7.75" PointY="2.5" />
-        <EntityTypeShape EntityType="HmsEntities.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="3.625" />
-        <EntityTypeShape EntityType="HmsEntities.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="1" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="1" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="3.75" />
         <EntityTypeShape EntityType="HmsEntities.AspNetUser" Width="1.5" PointX="10" PointY="1.375" />
         <EntityTypeShape EntityType="HmsEntities.CollectionItem" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="HmsEntities.CollectionType" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="HmsEntities.CollectionType" Width="1.5" PointX="0.75" PointY="6.25" />
         <EntityTypeShape EntityType="HmsEntities.Comment" Width="1.5" PointX="7.5" PointY="21.375" />
         <EntityTypeShape EntityType="HmsEntities.Event" Width="1.5" PointX="0.75" PointY="9" />
         <EntityTypeShape EntityType="HmsEntities.EventCollection" Width="1.5" PointX="3" PointY="6" />

@@ -101,6 +101,7 @@
           </Key>
           <Property Name="CollectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Comment">
@@ -152,6 +153,8 @@
           <Property Name="GuestEmail" Type="nvarchar" MaxLength="250" />
           <Property Name="GuestPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="IsCheckIn" Type="bit" />
+          <Property Name="TimeRegister" Type="date" />
         </EntityType>
         <EntityType Name="Interaction">
           <Key>
@@ -749,6 +752,7 @@
           <Property Name="GuestPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="IsCheckIn" Type="Boolean" />
+          <Property Name="TimeRegister" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Guest_Event" FromRole="Guest" ToRole="Event" />
         </EntityType>
         <EntityType Name="C__MigrationHistory">
@@ -851,6 +855,7 @@
           </Key>
           <Property Name="CollectionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="CollectionType" ToRole="EventCollection" />
         </EntityType>
@@ -1237,6 +1242,8 @@
           <EntitySetMapping Name="Guests">
             <EntityTypeMapping TypeName="HmsEntities.Guest">
               <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="TimeRegister" ColumnName="TimeRegister" />
+                <ScalarProperty Name="IsCheckIn" ColumnName="IsCheckIn" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
                 <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
@@ -1336,6 +1343,7 @@
             <EntityTypeMapping TypeName="HmsEntities.CollectionType">
               <MappingFragment StoreEntitySet="CollectionType">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CollectionTypeID" ColumnName="CollectionTypeID" />
               </MappingFragment>

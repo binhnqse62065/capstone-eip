@@ -48,5 +48,24 @@ namespace HmsService.Sdk
             this.BaseService.Delete(curGuest);
             this.BaseService.Save();
         }
+
+        public IEnumerable<Guest> GetAllGuestArrivedOfEvent(int eventId)
+        {
+            return this.BaseService.Get(g => g.EventId == eventId && g.IsCheckIn == true);
+        }
+
+        public int GetNumberGuestRegisterBeforeEvent(int eventId)
+        {
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.BaseService.FirstOrDefault(e => e.EventID == eventId);
+            return this.BaseService.Get(g => g.EventId == eventId && g.TimeRegister < eventTmp.StartTime).Count();
+        }
+
+        public int GetNumberGuestCheckInByEventId(int eventId)
+        {
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.BaseService.FirstOrDefault(e => e.EventID == eventId);
+            return this.BaseService.Get(g => g.EventId == eventId && g.IsCheckIn == true && g.TimeRegister < eventTmp.StartTime).Count();
+        }
     }
 }

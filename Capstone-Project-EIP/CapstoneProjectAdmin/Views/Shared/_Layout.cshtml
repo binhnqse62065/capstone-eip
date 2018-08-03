@@ -50,6 +50,8 @@
     <link rel="stylesheet" href="~/Content/DataTables/datatables.min.css">
     <!--Sweet Alert-->
     <link rel="stylesheet" href="~/Content/bootstrap-sweetalert-master/dist/sweetalert.css">
+    <!--Progress Bar-->
+    <link rel="stylesheet" href="~/Content/ProgressBar/css/bootstrap-progressbar-3.3.4.css">
 
 
     <!--Custom Css-->
@@ -116,6 +118,8 @@
     <script src="~/Content/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
     <!--Filestack-->
     <script src="~/Content/Filestack/filestack.min.js"></script>
+    <!--Progress Bar-->
+    <script src="~/Content/ProgressBar/bootstrap-progressbar.min.js"></script>
 
 
 
@@ -159,6 +163,7 @@
                         <li><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
                         <li><a href="@Url.Action("Index","ManageEvent", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Cấu hình chung</span></a></li>
                         <li><a href="@Url.Action("Index","Guest", new { id = eventId})"><i class="fa fa-users" aria-hidden="true"></i> <span>Danh sách người tham gia</span></a></li>
+                        <li><a href="@Url.Action("Index","Statistics", new { id = eventId})"><i class="fa fa-users" aria-hidden="true"></i> <span>Thống kê</span></a></li>
                         @*<li class="treeview">
                     <a href="#">
                         <i class="fa fa-pie-chart"></i>
@@ -178,7 +183,7 @@
             <li><a href="@Url.Action("Index","File", new { id = eventId})"><i class="fa fa-file-o"></i> <span>Tài liệu</span></a></li>
                     </ul>
                 </li>*@
-                        <li><a href="@Url.Action("Index","Events", new { id = eventId})"><i class="fa fa-sign-out"></i> <span>Đăng Xuất</span></a></li>
+                        <li><a href="@Url.Action("Index","Events", new { id = eventId})"><i class="fa fa-sign-out"></i> <span>Thoát</span></a></li>
 
                     }
 
