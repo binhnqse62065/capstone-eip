@@ -21,6 +21,7 @@ namespace CapstoneProjectClient.Controllers
                 TypeId = c.TypeId,
                 EventId = c.EventId
             }).ToList();
+            ViewBag.Collections = listCollection;
 
             EventApi eventApi = new EventApi();
             var eventCurr = eventApi.BaseService.GetEventById(eventId);
