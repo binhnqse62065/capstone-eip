@@ -154,6 +154,7 @@
           <Property Name="GuestPhone" Type="nvarchar" MaxLength="50" />
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="IsCheckIn" Type="bit" />
+          <Property Name="TimeRegister" Type="date" />
         </EntityType>
         <EntityType Name="Interaction">
           <Key>
@@ -751,6 +752,7 @@
           <Property Name="GuestPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="IsCheckIn" Type="Boolean" />
+          <Property Name="TimeRegister" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Guest_Event" FromRole="Guest" ToRole="Event" />
         </EntityType>
         <EntityType Name="C__MigrationHistory">
@@ -1240,6 +1242,7 @@
           <EntitySetMapping Name="Guests">
             <EntityTypeMapping TypeName="HmsEntities.Guest">
               <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="TimeRegister" ColumnName="TimeRegister" />
                 <ScalarProperty Name="IsCheckIn" ColumnName="IsCheckIn" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />

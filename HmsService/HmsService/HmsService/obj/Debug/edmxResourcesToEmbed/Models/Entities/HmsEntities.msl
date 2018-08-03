@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Guests">
       <EntityTypeMapping TypeName="HmsEntities.Guest">
         <MappingFragment StoreEntitySet="Guest">
+          <ScalarProperty Name="TimeRegister" ColumnName="TimeRegister" />
           <ScalarProperty Name="IsCheckIn" ColumnName="IsCheckIn" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />
           <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />

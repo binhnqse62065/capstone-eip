@@ -20,6 +20,7 @@ namespace HmsService.Models.Entities
         public string GuestPhone { get; set; }
         public int EventId { get; set; }
         public Nullable<bool> IsCheckIn { get; set; }
+        public Nullable<System.DateTime> TimeRegister { get; set; }
     
         public virtual Event Event { get; set; }
     }

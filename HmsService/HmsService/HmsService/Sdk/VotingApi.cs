@@ -117,5 +117,69 @@ namespace HmsService.Sdk
                 EventId = v.EventId
             });
         }
+
+        public IEnumerable<int> GetListVotingIdByEventId(int eventId)
+        {
+            return this.BaseService.Get(v => v.EventId == eventId).Select(v => v.VotingId);
+        }
+
+        public int GetNumberVotingRunned(int eventId)
+        {
+            var listVoting = this.BaseService.Get(v => v.EventId == eventId);
+            int totalVoteRunned = 0;
+            foreach(var voting in listVoting)
+            {
+                foreach(var votingOption in voting.VotingOptions)
+                {
+                    if(votingOption.NumberOfVoting > 0)
+                    {
+                        totalVoteRunned += 1;
+                        break;
+                    }
+                }
+            }
+            return totalVoteRunned;
+        }
+
+        public IEnumerable<VotingViewModel> GetListVotingRunnedOfEvent(int eventId)
+        {
+            var listVoting = this.BaseService.Get(v => v.EventId == eventId);
+            List<Voting> listVotingRunned = new List<Voting>();
+            foreach (var voting in listVoting)
+            {
+                foreach (var votingOption in voting.VotingOptions)
+                {
+                    if (votingOption.NumberOfVoting > 0)
+                    {
+                        listVotingRunned.Add(voting);
+                        break;
+                    }
+                }
+            }
+            IEnumerable<VotingViewModel> listVotingRunnedResult = listVotingRunned.Select(v => new VotingViewModel {
+                VotingId = v.VotingId,
+                VotingName = v.VotingName
+            });
+            return listVotingRunnedResult;
+        }
+
+        
+        public List<double> GetVotingResult(int votingId)
+        {
+            var voting = this.BaseService.FirstOrDefault(v => v.VotingId == votingId);
+            int totalVoting = 0;
+            foreach(var option in voting.VotingOptions)
+            {
+                totalVoting += (int)option.NumberOfVoting;
+            }
+            List<double> listPercentOption = new List<double>();
+            Double percentTmp = 0;
+            foreach (var option in voting.VotingOptions)
+            {
+                percentTmp = Math.Round(((double)option.NumberOfVoting / totalVoting) * 100);
+                listPercentOption.Add(percentTmp);
+            }
+            return listPercentOption;
+        }
     }
 }
