@@ -21,6 +21,8 @@ namespace HmsService.Models.Entities
         public int EventId { get; set; }
         public Nullable<bool> IsCheckIn { get; set; }
         public Nullable<System.DateTime> TimeRegister { get; set; }
+        public Nullable<bool> IsCheckIn1 { get; set; }
+        public Nullable<System.DateTime> TimeRegister1 { get; set; }
     
         public virtual Event Event { get; set; }
     }

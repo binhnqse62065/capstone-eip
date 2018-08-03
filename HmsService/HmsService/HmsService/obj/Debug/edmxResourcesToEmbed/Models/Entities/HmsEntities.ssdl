@@ -96,6 +96,7 @@
     </Key>
     <Property Name="CollectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
     <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Comment">
@@ -147,6 +148,8 @@
     <Property Name="GuestEmail" Type="nvarchar" MaxLength="250" />
     <Property Name="GuestPhone" Type="nvarchar" MaxLength="50" />
     <Property Name="EventId" Type="int" Nullable="false" />
+    <Property Name="IsCheckIn" Type="bit" />
+    <Property Name="TimeRegister" Type="date" />
   </EntityType>
   <EntityType Name="Interaction">
     <Key>

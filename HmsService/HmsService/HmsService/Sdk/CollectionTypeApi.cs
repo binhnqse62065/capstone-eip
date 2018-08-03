@@ -34,7 +34,7 @@ namespace HmsService.Sdk
         {
             var collectionTypeUp = this.BaseService.FirstOrDefault(c => c.CollectionTypeID == collectionType.CollectionTypeID);
             collectionTypeUp.Name = collectionType.Name;
-            collectionTypeUp.Description = collectionType.Description;
+            //collectionTypeUp.Description = collectionType.Description;
             this.BaseService.Save();
             return true;
         }

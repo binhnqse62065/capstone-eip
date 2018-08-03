@@ -22,6 +22,8 @@ namespace HmsService.ViewModels
     			public virtual int EventId { get; set; }
     			public virtual Nullable<bool> IsCheckIn { get; set; }
     			public virtual Nullable<System.DateTime> TimeRegister { get; set; }
+    			public virtual Nullable<bool> IsCheckIn1 { get; set; }
+    			public virtual Nullable<System.DateTime> TimeRegister1 { get; set; }
     	
     	public GuestViewModel() : base() { }
     	public GuestViewModel(HmsService.Models.Entities.Guest entity) : base(entity) { }

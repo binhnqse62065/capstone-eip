@@ -753,6 +753,8 @@
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="IsCheckIn" Type="Boolean" />
           <Property Name="TimeRegister" Type="DateTime" Precision="0" />
+          <Property Name="IsCheckIn1" Type="Boolean" />
+          <Property Name="TimeRegister1" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Guest_Event" FromRole="Guest" ToRole="Event" />
         </EntityType>
         <EntityType Name="C__MigrationHistory">
@@ -1242,8 +1244,8 @@
           <EntitySetMapping Name="Guests">
             <EntityTypeMapping TypeName="HmsEntities.Guest">
               <MappingFragment StoreEntitySet="Guest">
-                <ScalarProperty Name="TimeRegister" ColumnName="TimeRegister" />
-                <ScalarProperty Name="IsCheckIn" ColumnName="IsCheckIn" />
+                <ScalarProperty Name="TimeRegister1" ColumnName="TimeRegister" />
+                <ScalarProperty Name="IsCheckIn1" ColumnName="IsCheckIn" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
                 <ScalarProperty Name="GuestPhone" ColumnName="GuestPhone" />
                 <ScalarProperty Name="GuestEmail" ColumnName="GuestEmail" />
