@@ -25,6 +25,7 @@ namespace HmsService.ViewModels
     			public virtual string Address { get; set; }
         public virtual string EventName { get; set; }
 
+
         public SessionViewModel() : base() { }
     	public SessionViewModel(HmsService.Models.Entities.Session entity) : base(entity) { }
     

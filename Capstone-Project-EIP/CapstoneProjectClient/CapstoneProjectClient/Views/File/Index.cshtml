@@ -14,7 +14,7 @@
 
 @if (Model == null || Model.CollectionItems == null)
 {
-        <h3 class="text-center">Hiện tại chưa có danh sách tài liệu</h3>
+    <h3 class="text-center">Hiện tại chưa có danh sách tài liệu</h3>
 }
 else
 {
@@ -22,15 +22,71 @@ else
         @{
             foreach (var file in Model.CollectionItems)
             {
-                <div class="col-md-4 col-sm-6 col-12" onclick="showModalFile('@(file.Name)', '@(file.Description)', '@(file.ImageUrl)')">
+                <div class="col-md-3 col-lg-2 col-4" onclick="showModalFile('@(file.Name)','@(file.Description)', '@(file.ImageUrl)')">
                     <div class="box-file-shadow">
-                        <a href="" data-toggle="modal" data-target="#fileModal">
-                            <img class="img-fluid image-file-custom" src="~/Content/img/data.jpg" alt="brand">
+                        <a href="" data-toggle="modal" data-target="#fileModal" class="icon-color">
+                            @{
+                                var nameSplit = file.Name.Split('.');
+                                var mimetype = nameSplit[nameSplit.Length - 1];
+                                if ("pdf".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/pdf.png"/>
+                                }
+                                else
+                                if ("docx".IndexOf(mimetype) != -1 || "doc".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/word.png"/>
+                                }
+                                else
+                                if ("xlsx".IndexOf(mimetype) != -1 || "xls".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/excel.png"/>
+                                }
+                                else
+                                if ("avi".IndexOf(mimetype) != -1 || "flv".IndexOf(mimetype) != -1 || "mp4".IndexOf(mimetype) != -1 || "wmv".IndexOf(mimetype) != -1 || "mov".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/video.png"/>
+                                }
+                                else
+                                if ("mp3".IndexOf(mimetype) != -1 || "flac".IndexOf(mimetype) != -1 || "wma".IndexOf(mimetype) != -1 || "wav".IndexOf(mimetype) != -1 || "midi".IndexOf(mimetype) != -1 || "ogg".IndexOf(mimetype) != -1 || "ac3".IndexOf(mimetype) != -1 || "amr".IndexOf(mimetype) != -1 || "aac".IndexOf(mimetype) != -1 || "m4a".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/sound.png"/>
+                                }
+                                else
+                                if ("zip".IndexOf(mimetype) != -1 || "rar".IndexOf(mimetype) != -1 || "7z".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/archive.png"/>
+                                }
+                                else
+                                if ("txt".IndexOf(mimetype) != -1 || "rtf".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/Wordpad-icon.png"/>
+                                }
+                                else
+                                if ("ppt".IndexOf(mimetype) != -1 || "pps".IndexOf(mimetype) != -1 || "pptx".IndexOf(mimetype) != -1 || "ppsx".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/powepoint.png"/>
+                                }
+                                else
+                                if ("jpeg".IndexOf(mimetype) != -1 || "png".IndexOf(mimetype) != -1 || "PNG".IndexOf(mimetype) != -1)
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/image.png"/>
+                                }
+                                else
+                                {
+                                    <img class="img-fluid image-file-custom" src="~/Content/img/file.png"/>
+                                }
+                            }
                         </a>
                         <div class="item-title">
-                            <h3 class="title title-medium" style="text-align:center">
-                                <a class="file-name">@(file.Name)</a>
-                            </h3>
+                            <h6 class="title title-medium file-name-text">
+                                @{
+                                    var nameFileSplit = file.Name.Split('.');
+                                    var mimeType = nameFileSplit[nameFileSplit.Length - 1];
+                                    var name = file.Name.Substring(0, file.Name.Length - mimeType.Length - 1);
+                                    <a class="file-name">@name</a>
+                                }
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -49,7 +105,7 @@ else
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <img class="image-file-custom" src="~/Content/img/data.jpg" />
+                @*<img class="image-file-custom" src="~/Content/img/data.jpg" />*@
                 <p class="file-description"></p>
             </div>
             <div class="modal-footer">
