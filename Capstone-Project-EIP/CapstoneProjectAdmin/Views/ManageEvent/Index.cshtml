@@ -129,9 +129,7 @@
                         </div>
                         <input id="txtCollectionName" type="text" class="form-control speaker-title" placeholder="Nhập tên bộ sưu tập">
                     </div>
-                    <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" id="speaker-name-error">
-                        <p class="empty">Vui lòng nhập tên bộ sưu tập</p>
-                    </div>
+                    <p id="errorNameAdd" class="empty empty col-lg-offset-3">Vui lòng nhập tên bộ sưu tập</p>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Miêu Tả:</label>
@@ -141,6 +139,8 @@
                         </div>
                         <textarea id="txtDescription" type="text" class="form-control speaker-description" placeholder="Nhập miêu tả về bộ sưu tập"></textarea>
                     </div>
+                    <p id="errorDesAdd" class="empty empty col-lg-offset-3">Vui lòng nhập miêu tả bộ sưu tập</p>
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Loại:</label>
@@ -153,10 +153,11 @@
                         </div>
                         <input id="txtCollectionTypeName" type="text" class="form-control speaker-title" placeholder="Nhập tên loại bộ sưu tập">
                     </div>
+                    <p id="errorNameCollectionAdd" class="empty empty col-lg-offset-3">Vui lòng nhập tên loại bộ sưu tập</p>
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="btn-add" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                <button id="btn-add" type="button" class="btn btn-primary" style="margin-top:5px">Thêm</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -183,9 +184,8 @@
                         </div>
                         <input id="txtCollectionNameEdit" type="text" class="form-control speaker-title" placeholder="Nhập tên bộ sưu tập">
                     </div>
-                    <div class="div-title-error empty col-lg-offset-3 col-lg-9 div-name-error" id="speaker-name-error">
-                        <p class="empty">Vui lòng nhập tên diễn giả</p>
-                    </div>
+                    <p id="errorNameEdit" class="empty col-lg-offset-3">Vui lòng nhập tên bộ sựu tập</p>
+                    
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Miêu Tả:</label>
@@ -195,11 +195,12 @@
                         </div>
                         <textarea id="txtDescriptionEdit" type="text" class="form-control speaker-description" placeholder="Nhập miêu tả về bộ sưu tập"></textarea>
                     </div>
+                    <p id="errorDesEdit" class="empty col-lg-offset-3">Vui lòng nhập miêu tả bộ sựu tập</p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button id="btnRemove" value="" type="button" class="btn btn-danger" data-dismiss="modal" style="margin-top:5px">Xóa</button>
-                <button id="btnEdit" type="button" class="btn btn-info" data-dismiss="modal" style="margin-top:5px">Lưu</button>
+                <button id="btnEdit" type="button" class="btn btn-info" style="margin-top:5px">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -237,72 +238,113 @@
 
 
         $('#btn-add').on('click', function () {
+            clearErrorAddCollection();
+
             var name = $('#txtCollectionName').val();
             var description = $('#txtDescription').val();
             var typeId = parseInt($('#cbCollectionType').val());
-            var eventCollectionObj = {
-                Name: name,
-                EventId: eventId,
-                TypeId: typeId,
-                Description: description
-            };
-            if (typeId == -1) {
-                var collectionTypeName = $('#txtCollectionTypeName').val();
-            }
-            var obj = JSON.stringify(eventCollectionObj);
-            $.ajax({
-                url: '@Url.Action("AddNewEventCollection", "ManageEvent")',
-                method: "POST",
-                data: {
-                    eventCollection: eventCollectionObj,
-                    "collectionTypeName": collectionTypeName
-                },
-                success: function (data) {
 
-                    if (data.success) {
-                        swal("Thành công!", "Bạn đã thêm bộ sưu tập thành công", "success");
-                        appenNewCollection(data.collectionTypeId, data.name, data.description);
-                        clearPopup();
-                    }
-                    else {
-                        swal("Thất bại!", "Thêm mới bộ sưu tập không thành công", "warning");
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
+            var isValid = true;
+            if (name.length === 0) {
+                isValid = false;
+                $('#errorNameAdd').css('display', 'block');
+            }
+            if (description.length === 0) {
+                isValid = false;
+                $('#errorDesAdd').css('display', 'block');
+            }
+            if (typeId === -1) {
+                var collectionTypeNameCheck = $('#txtCollectionTypeName').val();
+                if (collectionTypeNameCheck.length === 0) {
+                    isValid = false;
+                    $('#errorNameCollectionAdd').css('display', 'block');
                 }
-            });
+            }
+
+            if (isValid) {
+                var eventCollectionObj = {
+                    Name: name,
+                    EventId: eventId,
+                    TypeId: typeId,
+                    Description: description
+                };
+                if (typeId == -1) {
+                    var collectionTypeName = $('#txtCollectionTypeName').val();
+                }
+                var obj = JSON.stringify(eventCollectionObj);
+                $.ajax({
+                    url: '@Url.Action("AddNewEventCollection", "ManageEvent")',
+                    method: "POST",
+                    data: {
+                        eventCollection: eventCollectionObj,
+                        "collectionTypeName": collectionTypeName
+                    },
+                    success: function (data) {
+
+                        if (data.success) {
+                            swal("Thành công!", "Bạn đã thêm bộ sưu tập thành công", "success");
+                            appenNewCollection(data.collectionTypeId, data.name, data.description);
+                            clearPopup();
+                        }
+                        else {
+                            swal("Thất bại!", "Thêm mới bộ sưu tập không thành công", "warning");
+                        }
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+                $('#collectionModal').modal('hide');
+            }
+
         });
 
         $('#btnEdit').on('click', function () {
+            clearErrorEditCollection();
+
             var eventCollectionId = $(this).attr('value');
             var name = $('#txtCollectionNameEdit').val();
             var description = $('#txtDescriptionEdit').val();
-            $.ajax({
-                url: '@Url.Action("UpdateCollectionType", "ManageEvent")',
-                method: "POST",
-                data: {
-                    EventCollectionID: eventCollectionId,
-                    Name: name,
-                    Description: description
-                },
-                success: function (data) {
-                    if (data.success) {
-                        swal("Thành công!", "Bạn đã cập nhật bộ sưu tập thành công", "success");
-                        $('#collectionName-' + eventCollectionId).text(name);
-                        $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId + ', \'' + name + '\', \'' + description + '\')');
 
+            var isValid = true;
+            if (name.length === 0) {
+                $('#errorNameEdit').css('display', 'block');
+                isValid = false;
+            }
+            if (description.length === 0) {
+                $('#errorDesEdit').css('display', 'block');
+                isValid = false;
+            }
+
+            if (isValid) {
+                $.ajax({
+                    url: '@Url.Action("UpdateCollectionType", "ManageEvent")',
+                    method: "POST",
+                    data: {
+                        EventCollectionID: eventCollectionId,
+                        Name: name,
+                        Description: description
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            swal("Thành công!", "Bạn đã cập nhật bộ sưu tập thành công", "success");
+                            $('#collectionName-' + eventCollectionId).text(name);
+                            $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId + ', \'' + name + '\', \'' + description + '\')');
+
+                        }
+                        else {
+                            swal("Thất bại!", "Cập nhật bộ sưu tập không thành công", "warning");
+
+                        }
+
+                    },
+                    error: function (data) {
+                        console.log(data);
                     }
-                    else {
-                        swal("Thất bại!", "Cập nhật bộ sưu tập không thành công", "warning");
-
-                    }
-
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
+                });
+                $('#collectionEditModal').modal('hide');
+            }
+            
 
         });
 
@@ -369,6 +411,7 @@
         }
 
         function openModalEdit(id, name, description) {
+            clearErrorEditCollection();
             $('#txtCollectionNameEdit').val(name);
             $('#txtDescriptionEdit').val(description);
             $('#btnEdit').attr('value', id);
@@ -411,5 +454,15 @@
             });
         }
 
+        function clearErrorAddCollection() {
+            $('#errorNameAdd').css('display', 'none');
+            $('#errorDesAdd').css('display', 'none');
+            $('#errorNameCollectionAdd').css('display', 'none');
+        }
+
+        function clearErrorEditCollection() {
+            $('#errorNameEdit').css('display', 'none');
+            $('#errorDesEdit').css('display', 'none');
+        }
     </script>
 }
