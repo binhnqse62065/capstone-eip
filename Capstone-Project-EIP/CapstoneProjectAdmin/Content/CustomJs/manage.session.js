@@ -1,12 +1,4 @@
 ﻿var urlApi = $(location).attr('origin') + '/';
-$(document).ready(function () {
-
-    $('#AddStartEndTime').daterangepicker({
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
-    });
-});
 
 
 /*Function*/
@@ -243,6 +235,23 @@ function InitInteractionDatatable(sessionId) {
     });
 }
 
+function clearErrorAddInteraction() {
+    $('#errorNameAdd').css('display', 'none');
+    $('#errorKindIdAdd').css('display', 'none');
+}
+
+function clearValueInputAddInteraction() {
+    $('#newName').val("");
+    $('#InteractionSelectBox').val(0);
+    $('#KindOfInteractionSelectBox').val(0);
+}
+
+function clearErrorEditInteraction() {
+    $('#errorNameEdit').css('display', 'none');
+    $('#errorKindIdEdit').css('display', 'none');
+}
+
+
     /*Interaction*/
 
 
@@ -257,7 +266,7 @@ $('#InteractionEditSelectBox').on('click', function () {
         $('#KindOfInteractionEditSelectBox').append($('#cbQATemplate').clone().html());
     } else {
         $('#KindOfInteractionEditSelectBox').empty();
-        $('#KindOfInteractionEditSelectBox').append("<option>---Chọn---</option>");
+        $('#KindOfInteractionEditSelectBox').append('<option value="0">---Chọn---</option>');
     }
 });
 
@@ -277,89 +286,125 @@ $('#InteractionSelectBox').on('click', function () {
 });
 
 $('#btn-update-interaction').on('click', function () {
+    clearErrorEditInteraction();
+
     var id = $('#btn-update-interaction').val();
     var name = $('.interaction-name').val();
     var selectValue = $('#InteractionEditSelectBox').find(":selected").val();
-    var kindInteractionId = $('#KindOfInteractionEditSelectBox').find(":selected").val();
+    var kindInteractionId = parseInt($('#KindOfInteractionEditSelectBox').find(":selected").val());
+    
+    var isValid = true;
+    if (name.length === 0) {
+        isValid = false;
+        $('#errorNameEdit').css('display', 'block');
+        $('#btn-update-interaction').attr('data-dismiss', null);
+    }
+    if (kindInteractionId === 0) {
+        isValid = false;
+        $('#errorKindIdEdit').css('display', 'block');
+        $('#btn-update-interaction').attr('data-dismiss', null);
+    }
+    if (isValid) {
+        var interactionObject = {
+            interactionId: id,
+            interactionName: name,
+        };
+        if (selectValue == 1) {
+            interactionObject.votingId = kindInteractionId
+            interactionObject.qaId = null
+        } else if (selectValue == 2) {
+            interactionObject.qaId = kindInteractionId
+            interactionObject.votingId = null
 
-    var interactionObject = {
-        interactionId: id,
-        interactionName: name,
-    };
-    if (selectValue == 1) {
-        interactionObject.votingId = kindInteractionId
-        interactionObject.qaId = null
-    } else if (selectValue == 2) {
-        interactionObject.qaId = kindInteractionId
-        interactionObject.votingId = null
+        }
 
+        $.ajax({
+            url: urlApi + '/api/interaction/UpdateInteractionData',
+            method: "POST",
+            data: interactionObject,
+            success: function () {
+                swal("Thành công!", "Cập nhật tương tác thành công", "success");
+                $('#tblInteraction').DataTable().ajax.reload();
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        clearErrorEditInteraction();
+        $('#btn-update-interaction').attr('data-dismiss', 'modal');
     }
 
-    $.ajax({
-        url: urlApi + '/api/interaction/UpdateInteractionData',
-        method: "POST",
-        data: interactionObject,
-        success: function () {
-            swal("Thành công!", "Cập nhật tương tác thành công", "success");
-            $('#tblInteraction').DataTable().ajax.reload();
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
 });
 
 $('#btn-add-interaction').on('click', function () {
-
+    clearErrorAddInteraction();
     var sessionId = $('#session-id').val();
     var name = $('#newName').val();
     var selectValue = $('#InteractionSelectBox').find(":selected").val();
-    var kindInteractionId = $('#KindOfInteractionSelectBox').find(":selected").val();
-    if (selectValue == 1) {
-        $.ajax({
-            url: urlApi + '/api/interaction/AddInteraction',
-            method: "POST",
-            data: {
-                InteractionName: name,
-                VotingId: kindInteractionId,
-                SessionId: sessionId,
-                IsRunning: false
-            },
-            success: function (data) {
-                $('#tblInteraction').DataTable().ajax.reload();
-                swal("Thành công!", "Thêm mới tương tác thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    } else if (selectValue == 2) {
-        $.ajax({
-            url: urlApi + '/api/interaction/AddInteraction',
-            method: "POST",
-            data: {
-                InteractionName: name,
-                QAId: kindInteractionId,
-                SessionId: sessionId,
-                IsRunning: false
-            },
-            success: function (data) {
-                $('#tblInteraction').DataTable().ajax.reload();
-                swal("Thành công!", "Thêm mới tương tác thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+    var kindInteractionId = parseInt($('#KindOfInteractionSelectBox').find(":selected").val());
+    var isValid = true;
+    if (name.length === 0) {
+        isValid = false;
+        $('#errorNameAdd').css('display', 'block');
+        $('#btn-add-interaction').attr('data-dismiss', null);
     }
+    if (kindInteractionId === 0) {
+        isValid = false;
+        $('#errorKindIdAdd').css('display', 'block');
+        $('#btn-add-interaction').attr('data-dismiss', null);
+    }
+    if (isValid) {
+        clearErrorAddInteraction();
+        clearValueInputAddInteraction();
+        if (selectValue == 1) {
+            $.ajax({
+                url: urlApi + '/api/interaction/AddInteraction',
+                method: "POST",
+                data: {
+                    InteractionName: name,
+                    VotingId: kindInteractionId,
+                    SessionId: sessionId,
+                    IsRunning: false
+                },
+                success: function (data) {
+                    $('#tblInteraction').DataTable().ajax.reload();
+                    swal("Thành công!", "Thêm mới tương tác thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        } else if (selectValue == 2) {
+            $.ajax({
+                url: urlApi + '/api/interaction/AddInteraction',
+                method: "POST",
+                data: {
+                    InteractionName: name,
+                    QAId: kindInteractionId,
+                    SessionId: sessionId,
+                    IsRunning: false
+                },
+                success: function (data) {
+                    $('#tblInteraction').DataTable().ajax.reload();
+                    swal("Thành công!", "Thêm mới tương tác thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        $('#btn-add-interaction').attr('data-dismiss', 'modal');
+       
+    }
+    
 
 
 });
 
 $('#btn-del').on('click', function () {
     swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        title: "Bạn có chắc?",
+        text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -444,8 +489,8 @@ function stopInteraction(interactionId) {
 
 function delInteraction(interactionId) {
     swal({
-        title: "Bạn có chắc không?",
-        text: "Bạn muốn xóa tương tác này!",
+        title: "Bạn có chắc?",
+        text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -509,31 +554,56 @@ function ReloadInteractionRunningDatatable() {
 
 //Add new activity
 $('#addActivity').on('click', function () {
-    var time = $('#AddStartEndTime').val();
+    clearErrorAddActivity();
 
-    var timeSplit = time.split('-');
-    var startTime = timeSplit[0].trim().split("/").reverse().join("-");
-    var endTime = timeSplit[1].trim().split("/").reverse().join("-");
+    var name = $('#txtActivityNameAdd').val();
+    var description = $('#txtActivityDesAdd').val();
+
+    var isValid = true;
+    if (name.length === 0) {
+        $('#errorNameActivityAdd').css('display', 'block');
+        isValid = false;
+        $('#addActivity').attr('data-dismiss', null);
+    }
+    if (description.length === 0) {
+        $('#errorDesActivityAdd').css('display', 'block');
+        isValid = false;
+        $('#addActivity').attr('data-dismiss', null);
+    }
+
+    if (isValid) {
+        
+        var time = $('#AddStartEndTime').val();
+
+        var timeSplit = time.split('-');
+        var startTime = timeSplit[0].trim().split("/").reverse().join("-");
+        var endTime = timeSplit[1].trim().split("/").reverse().join("-");
 
 
-    $.ajax({
-        url: urlApi + 'api/activity/AddActivity',
-        method: 'POST',
-        data: {
-            SessionId: $('#session-id').val(),
-            Name: $('#addName').val(),
-            Description: $('#addDescription').val(),
-            StartTime: startTime,
-            EndTime: endTime
-        },
-        success: function (data) {
-            ReloadActivityDatatable();
-            swal("Thành công", "Thêm mới hoạt động thành công", "success");
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
+        $.ajax({
+            url: urlApi + 'api/activity/AddActivity',
+            method: 'POST',
+            data: {
+                SessionId: $('#session-id').val(),
+                Name: name,
+                Description: description,
+                StartTime: startTime,
+                EndTime: endTime
+            },
+            success: function (data) {
+                ReloadActivityDatatable();
+                swal("Thành công", "Thêm mới hoạt động thành công", "success");
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+        $('#addActivity').attr('data-dismiss', 'modal');
+        clearErrorAddActivity();
+        clearInputAddAvtivity();
+    }
+    
 });
 
 //Update activity
@@ -591,7 +661,7 @@ function deleteActivity(id) {
                 },
                 success: function (data) {
                     ReloadActivityDatatable();
-                    swal("Deleted!", "Your activity has been deleted successfully", "success");
+                    swal("Xóa Thành Công!", "Hoạt động đã được xóa thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);
@@ -603,6 +673,16 @@ function deleteActivity(id) {
 
 function ReloadActivityDatatable() {
     $('#tblActivity').DataTable().ajax.reload();
+}
+
+function clearErrorAddActivity() {
+    $('#errorNameActivityAdd').css('display', 'none');
+    $('#errorDesActivityAdd').css('display', 'none');
+}
+
+function clearInputAddAvtivity() {
+    $('#txtActivityNameAdd').val("");
+    $('#txtActivityDesAdd').val("");
 }
 
 /* Timeline */
@@ -644,6 +724,7 @@ $('#addTimeline').on('click', function () {
                 console.log(data);
             }
         });
+        clearInputAddTimeLine();
     }
 
 });
@@ -706,6 +787,11 @@ function deleteTimeline(id) {
 
 function reloadTimelineDatatable() {
     $('#tblTimeline').DataTable().ajax.reload();
+}
+
+function clearInputAddTimeLine() {
+    $('#addTitle').val("");
+    $('#addTimelineDetail').val("");
 }
 
 

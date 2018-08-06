@@ -126,11 +126,11 @@
                 <div class="box-body">
                     <div>
                         <span class="user-join"></span>
-                        <span>Số lượng không tham gia</span>
+                        <span>Số lượng tham gia</span>
                     </div>
                     <div>
                         <span class="user-not-join"></span>
-                        <span>Số lượng tham gia</span>
+                        <span>Số lượng không tham gia</span>
                     </div>
                     <div id="userRegistChart" style="height: 300px;"></div>
                 </div>
@@ -226,9 +226,7 @@
                         <h4 class="text-center">Kết quả bình chọn</h4>
                     </div>
                     <div id="result-voting-section">
-                        <div class="progress progress-striped">
-                            <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
-                        </div>
+
                     </div>
                 </div>
                 <!-- /.chat -->
@@ -265,6 +263,8 @@
                 var donutData = [
                     { label: '', data: @(percentGuestRegister), color: '#e53935' },
                     { label: '', data: @(percentGuestCheckIn), color: '#43a047' }
+                    
+
 
             ]
                 $.plot('#userRegistChart', donutData, {
@@ -294,8 +294,9 @@
             /*Question Chart*/
             if (totalQuestion != 0) {
                 var donutData = [
-                    { label: '', data: @(percenQuestionHaveComment), color: '#e53935' },
-                    { label: '', data: @(percenQuestionDoesNotHaveComment), color: '#43a047' }
+                    { label: '', data: @(percenQuestionDoesNotHaveComment), color: '#e53935' },
+                    { label: '', data: @(percenQuestionHaveComment), color: '#43a047' }
+                    
 
             ]
                 $.plot('#questionChart', donutData, {
@@ -347,7 +348,7 @@
         }
 
         function changeResultVoting(votingId) {
-            
+
             $.ajax({
                 url: '@Url.Action("GetVotingResult", "Statistics")',
                 method: "POST",
@@ -366,7 +367,7 @@
                     else {
                         $('#result-voting-section').html('<h4class="text-center">Có lỗi xảy ra</h4>');
                     }
-                        
+
                 },
                 error: function (data) {
                     console.log(data);

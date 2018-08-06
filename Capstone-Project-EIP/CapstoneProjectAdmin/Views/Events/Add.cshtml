@@ -16,42 +16,45 @@
                     <label class="col-md-2 control-label">Tên sự kiện</label>
                     <div class="col-md-10">
                         <input id="event-name" type="text" class="form-control" placeholder="Vui lòng nhập tên của sự kiện" />
+                        <p class="error-title" id="errorNameAdd">Vui lòng nhập tên sự kiện</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Miêu tả sự kiện</label>
                     <div class="col-md-10">
                         <input id="event-description" type="text" class="form-control" placeholder="Vui lòng nhập miêu tả của sự kiện" />
+                        <p class="error-title" id="errorDesAdd">Vui lòng nhập miêu tả sự kiện</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Thời gian bắt đầu - thời gian kết thúc</label>
+                    <label class="col-md-2 control-label">Thời gian diễn ra</label>
                     <div class="col-md-10">
                         <input id="event-time-range" type="text" class="form-control" placeholder="Vui lòng nhập tên sự kiện" />
+                        <p class="error-title" id="errorTimeAdd">Vui lòng chọn thời gian diễn ra sự kiện</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Địa chỉ</label>
                     <div class="col-md-10">
                         <input id="event-address" type="text" class="form-control" placeholder="Vui lòng nhập địa chỉ sự kiện" />
+                        <p class="error-title" id="errorAddressAdd">Vui lòng nhập địa chỉ sự kiện</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Kinh độ</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="Vui lòng nhập kinh độ của địa điểm diễn ra sự kiện" />
+                        <input type="text" id="txtLat" class="form-control" placeholder="Vui lòng nhập kinh độ của địa điểm diễn ra sự kiện" />
+                        <input type="text" id="txtLng" class="form-control" placeholder="Vui lòng nhập vĩ độ của địa điểm diễn ra sự kiện" />
+                        <p class="error-title" id="errorLatLngAdd">Vui lòng chọn vị trí nơi diễn ra sự kiện trên bản đồ</p>
                     </div>
+                    <div id="map-canvas" style="width:100%; height:500px;"></div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Vĩ độ</label>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="Vui lòng nhập vĩ độ của địa điểm diễn ra sự kiện" />
-                    </div>
-                </div>
+
                 <div class="form-group">
                     <label class="col-md-2 control-label">Mã đăng nhập</label>
                     <div class="col-md-10">
                         <input id="event-code" type="text" class="form-control" placeholder="Vui lòng nhập mã đăng nhập của sự kiện" />
+                        <p class="error-title" id="errrorCodeAdd">Vui lòng nhập mã đăng nhập sự kiện</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,10 +64,13 @@
                             <div class="control">
                                 <button class="button" type="button" id="picker">Chọn file</button>
                                 <input type="hidden" id="fileupload">
+                                <p>* Kích cỡ hình: 1920 x 1080</p>
                             </div>
                         </div>
                         <div id="thumbnail-container"></div>
+                        <p class="error-title" id="errrorImageAdd">Vui lòng chọn hình đại sự kiện</p>
                     </div>
+
                 </div>
             </div>
             <div class="box-footer">
@@ -79,6 +85,10 @@
 
 
 @section scripts {
+    <!--Google Map-->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Meb98e_PppAWoqobk4Ml1rFygPl9eUI&callback=initMap">
+    </script>
     <script>
         $(document).ready(function () {
             var urlApi = '@curPath';
@@ -86,20 +96,60 @@
             $('#event-time-range').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY'
-                }
+                },
+                startDate: moment(),
+                minDate: moment()
             });
 
-
+            clearError();
 
             //Add event
             $('#btn-add-event').on('click', function () {
+                clearError();
+                var isValid = true;
                 var eventName = $('#event-name').val();
                 var eventDescription = $('#event-description').val();
                 var eventAddress = $('#event-address').val();
                 var eventLoginCode = $('#event-code').val();
                 var imageUrl = $('#fileupload').val();
+                var lat = $('#txtLat').val();
+                var lng = $('#txtLng').val();
+                var startEndTime = $('#event-time-range').val();
+                if (eventName.length === 0) {
+                    $('#errorNameAdd').css('display', 'block');
+                    isValid = false;
+                }
+                if (eventDescription.length === 0) {
+                    $('#errorDesAdd').css('display', 'block');
+                    isValid = false;
+                }
+                if (eventAddress.length === 0) {
+                    $('#errorAddressAdd').css('display', 'block');
+                    isValid = false;
+                }
+                if (eventLoginCode.length === 0) {
+                    $('#errrorCodeAdd').css('display', 'block');
+                    isValid = false;
+                }
+                if (imageUrl.length === 0) {
+                    $('#errrorImageAdd').css('display', 'block');
+                    isValid = false;
+                }
+                if (lat.length === 0) {
+                    $('#errorLatLngAdd').css('display', 'block');
+                    isValid = false;
+                }
+                if (lng.length === 0) {
+                    $('#errorLatLngAdd').css('display', 'block');
+                    isValid = false;
+                }
+                if (startEndTime.length === 0) {
+                    $('#errorTimeAdd').css('display', 'block');
+                    isValid = false;
+                }
 
-                var eventTimeSplit = $('#event-time-range').val().split('-');
+                if (isValid) {
+                    var eventTimeSplit = $('#event-time-range').val().split('-');
                 var startTime = eventTimeSplit[0].trim().split('/').reverse().join('-');
                 var endTime = eventTimeSplit[1].trim().split('/').reverse().join('-');
 
@@ -113,18 +163,22 @@
                         CodeLogin: eventLoginCode,
                         StartTime: startTime,
                         EndTime: endTime,
-                        ImageURL: imageUrl
+                        ImageURL: imageUrl,
+                        Latitude: lat,
+                        Longitude: lng
                     },
                     success: function (data) {
-
-                        swal({
-                                    title: "Success!",
-                                    text: "Session has been added successfully",
+                        if (data.success) {
+                            swal({
+                                    title: "Thành công!",
+                                    text: "Thêm mới sự kiện thành công",
                                     type: "success"
                                  },
                                 function () {
                                 window.location.replace('@Url.Action("Index", "Events")');
                             });
+                        }
+
 
 
 
@@ -133,6 +187,8 @@
                         console.log(data);
                     }
                 });
+                }
+
 
             });
 
@@ -168,10 +224,7 @@
                 picker.open();
             });
 
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                alert('Submitting: ' + fileInput.value);
-            });
+
 
             // Helper to overwrite the field input value
 
@@ -196,6 +249,47 @@
                 }
             };
         });
+
+        // Initialize and add the map
+        function initMap() {
+            var map;
+            var myLatlng = { lat: 10.8528727, lng: 106.629381 };
+
+            var myOptions = {
+                zoom: 13,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+            var marker = new google.maps.Marker({
+                draggable: true,
+                position: myLatlng,
+                map: map,
+                title: "Your location"
+            });
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                var lat = event.latLng.lat();
+                var lgn = event.latLng.lng();
+                //var split = latLgn.split(',');
+                $('#txtLat').val(lat);
+                $('#txtLng').val(lgn);
+
+            });
+
+
+        }
+
+        function clearError() {
+                $('#errorNameAdd').css('display', 'none');
+                $('#errorDesAdd').css('display', 'none');
+                $('#errorAddressAdd').css('display', 'none');
+                $('#errrorCodeAdd').css('display', 'none');
+                $('#errrorImageAdd').css('display', 'none');
+                $('#errorLatLngAdd').css('display', 'none');
+                $('#errorTimeAdd').css('display', 'none');
+        }
 
     </script>
 }

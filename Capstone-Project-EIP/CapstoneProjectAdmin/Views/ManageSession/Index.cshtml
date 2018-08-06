@@ -9,6 +9,8 @@
     }
     IEnumerable<QAViewModel> listQa = ViewBag.ListQA;
     IEnumerable<VotingViewModel> listVoting = ViewBag.ListVoting;
+    string startDate = ViewBag.StartDate;
+    string endDate = ViewBag.EndDate;
 }
 @using HmsService.ViewModels;
 @model IEnumerable<SessionViewModel>
@@ -156,8 +158,11 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input type="text" id="newName" class="form-control" placeholder="Enter Interaction's name">
+                        <input type="text" id="newName" class="form-control" placeholder="Nhập tên tương tác">
+
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameAdd">Vui lòng nhập tên tương tác</p>
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
@@ -169,11 +174,14 @@
                             <i class="fa fa-comments" aria-hidden="true"></i>
                         </div>
                         <select id="InteractionSelectBox" class="form-control">
-                            <option>---Chọn---</option>
+                            <option value="0">---Chọn---</option>
                             <option value="1">Bỏ Phiếu</option>
                             <option value="2">Hỏi Đáp</option>
                         </select>
                     </div>
+                    
+
+
                 </div>
 
                 <div class="form-group">
@@ -186,9 +194,10 @@
                             <i class="fa fa-check-square-o" aria-hidden="true"></i>
                         </div>
                         <select Id="KindOfInteractionSelectBox" class="form-control">
-                            <option>---Chọn---</option>
+                            <option value="0">---Chọn---</option>
                         </select>
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorKindIdAdd">Vui lòng chọn loại tương tác</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -221,6 +230,7 @@
                         </div>
                         <input type="text" class="form-control interaction-name" placeholder="Enter Interaction's name">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameEdit">Vui lòng nhập tên tương tác</p>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
@@ -252,6 +262,7 @@
                             <option>---Chọn---</option>
                         </select>
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorKindIdEdit">Vui lòng nhập tên tương tác</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -281,8 +292,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="addName" placeholder="Nhập tên hoạt động">
+                        <input type="text" class="form-control" id="txtActivityNameAdd" placeholder="Nhập tên hoạt động">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameActivityAdd">Vui lòng nhập tên hoạt động</p>
                 </div>
 
                 <div class="form-group">
@@ -294,6 +306,8 @@
                         </div>
                         <input type="text" class="form-control pull-right" id="AddStartEndTime" value="">
                     </div>
+                    
+
                 </div>
 
                 <div class="form-group">
@@ -302,8 +316,10 @@
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="addDescription" placeholder="Nhập miêu tả hoạt động">
+                        <input type="text" class="form-control" id="txtActivityDesAdd" placeholder="Nhập miêu tả hoạt động">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorDesActivityAdd">Vui lòng nhập miêu tả hoạt động</p>
+
                 </div>
 
             </div>
@@ -460,7 +476,7 @@
 <!----------------- List QA Template ----------------->
 <div style="display:none;">
     <select id="cbQATemplate">
-        <option>---Chọn---</option>
+        <option value="0">---Chọn---</option>
         @foreach (var qa in listQa)
         {
             <option value="@(qa.QAId)">@(qa.QAName)</option>
@@ -471,7 +487,7 @@
 <!----------------- List Voting Template ----------------->
 <div style="display:none;">
     <select id="cbVotingTemplate">
-        <option>---Chọn---</option>
+        <option value="0">---Chọn---</option>
         @foreach (var voting in listVoting)
         {
             <option value="@(voting.VotingId)">@(voting.VotingName)</option>
@@ -485,11 +501,25 @@
         var initSessionId = @(sessionId);
 
         $(document).ready(function () {
+            /*Tạo các datatable cho các tab*/
             if (initSessionId != 0) {
                 InitActivityDatatable(initSessionId);
                 InitTimelineDatatable(initSessionId);
                 InitInteractionDatatable(initSessionId);
             }
+
+            $('#AddStartEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                startDate: '@(startDate)',
+                endDate: '@(endDate)',
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)'
+            });
+
+            /*Xóa báo lỗi error ở modal add interaction*/
+            clearErrorAddInteraction();
         });
     </script>
     <script src="~/Content/CustomJs/manage.session.js"></script>

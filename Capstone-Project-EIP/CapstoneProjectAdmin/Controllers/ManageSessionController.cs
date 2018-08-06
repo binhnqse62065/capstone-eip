@@ -16,6 +16,13 @@ namespace CapstoneProjectAdmin.Controllers
             SessionApi sessionApi = new SessionApi();
             QAApi qAApi = new QAApi();
             VotingApi votingApi = new VotingApi();
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventById(id);
+            string startDate = eventTmp.StartTime.Value.ToString("dd/MM/yyyy");
+            string endDate = eventTmp.EndTime.Value.ToString("dd/MM/yyyy");
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
             var listSession = sessionApi.GetSessionsByEventId(id);
             var listQa = qAApi.GetQAByEventId(id).ToList();
             var listVoting = votingApi.GetVotingViewModelByEventId(id).ToList();

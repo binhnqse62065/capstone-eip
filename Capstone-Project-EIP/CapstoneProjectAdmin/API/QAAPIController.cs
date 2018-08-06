@@ -122,6 +122,25 @@ namespace CapstoneProjectAdmin.API
             };
         }
 
+        [Route("UpdateQA")]
+        [HttpPost]
+        public HttpResponseMessage UpdateQA(QA qa)
+        {
+            var qaTmp = db.QAs.Find(qa.QAId);
+            qaTmp.QAName = qa.QAName;
+            db.SaveChanges();
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    message = "Add successful!",
+                })
+            };
+        }
+
         [Route("DeleteQA")]
         [HttpPost]
         public HttpResponseMessage DeleteQA(QA qa)

@@ -57,6 +57,37 @@
     </div>
 </div>
 
+<!--Edit Name Qa Modal-->
+<div class="modal fade" id="editQANameModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Sửa hỏi đáp</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-name">
+                    <label class="col-sm-3 form-control-label">Tên:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        </div>
+                        <input id="editName" type="text" class="form-control" placeholder="Nhập tên của hỏi đáp">
+                    </div>
+                    <p class="empty col-lg-offset-3" id="emptyWarningEdit">Vui lòng nhập tên hỏi đáp!</p>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button id="btnEdit" type="button" class="btn btn-primary" data-dismiss="modal" style="margin-top:5px">Thêm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--Delete Question Modal-->
 <div class="modal fade" id="deleteQuestionModal" role="dialog">
     <div class="modal-dialog">
@@ -170,12 +201,13 @@
         <span id="reply-content"></span>
         <br />
         <span id="reply-time"></span>
-        <button id="btn-delete-comment" class="btn btn-sm btn-reply btn-danger" data-toggle="modal" data-target="#deleteCommentModal" onclick="delComment()">Xóa</button>
+        <button id="btn-delete-comment" class="btn btn-sm btn-reply btn-danger" onclick="delComment()">Xóa</button>
     </div>
 </div>
 
 
 <input type="hidden" id="questionId" value="" />
+<input type="hidden" id="txtEventId" value="@(eventId)" />
 @section scripts {
     <script>
         var urlApi = '@curPath';
@@ -212,8 +244,33 @@
         }
 
         function delComment(id, name) {
-            $('.comment-del-id').val(id);
-            $('.comment-del-title').html("Delete comment of " + name);
+            swal({
+                title: "Bạn có chắc?",
+                text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Xóa!",
+                cancelButtonText: "Hủy!",
+                closeOnConfirm: false
+            },
+                function () {
+
+                    $.ajax({
+                        url: urlApi + '/api/QA/DeleteComment',
+                        method: "POST",
+                        data: {
+                            CommentId: id,
+                        },
+                        success: function (data) {
+                            $('#comment-' + id).remove();
+                            swal("Xóa!", "Bình luận đã được xóa thành công", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                });
         }
 
         //function delQA(id, name) {
@@ -252,7 +309,7 @@
                             templateComment.find('#username-reply').html('<b>' + data.data[i].Comments[j].Username + '</b>: ');
                             templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
                             templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime + '');
-                            templateComment.find('#btn-delete-comment').attr('onclick', 'delComment(' + data.data[i].Comments[j].CommentId + ', \'' + data.data[i].Comments[j].Username + '\')');
+                            templateComment.find('#btn-delete-comment').attr('onclick', 'delComment(' + data.data[i].Comments[j].CommentId + ')');
                             $('#question-' + data.data[i].QuestionId + '').append(templateComment.html());
                         }
                     }
@@ -292,7 +349,8 @@
                     {
                         name: "Function",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editQAModal" onclick="editQA(' + row.qaId + ',\'' + row.qaName + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editQANameModal" onclick="editQAName(' + row.qaId + ',\'' + row.qaName + '\')"><i class="fa fa-pencil"></i></button>     ' +     
+                                '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editQAModal" onclick="editQA(' + row.qaId + ',\'' + row.qaName + '\')"><i class="fa fa-question-circle"></i></button>     ' +
                                 '<button class="btn btn-danger btn-sm speaker-id" onclick="delQA(' + row.qaId + ')"><i class="fa fa-trash"></i></button>';
                         }
                     }
@@ -351,6 +409,11 @@
                         console.log(data);
                     }
                 });
+            }
+
+            function editQAName(id, name) {
+                $('#btnEdit').val(id);
+                $('#editName').val(name);
             }
 
     </script>

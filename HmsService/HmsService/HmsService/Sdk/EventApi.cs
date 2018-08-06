@@ -52,5 +52,10 @@ namespace HmsService.Sdk
             return this.BaseService.FirstOrDefault(e => e.EventID == eventId).Name;
         }
 
+        public Event GetEventById(int eventId)
+        {
+            return this.BaseService.FirstOrDefault(e => e.EventID == eventId);
+        }
+
     }
 }

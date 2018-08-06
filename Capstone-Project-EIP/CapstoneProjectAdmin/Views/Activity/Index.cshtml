@@ -12,6 +12,8 @@
     {
         sessionId = Model.FirstOrDefault().SessionID;
     }
+    string startDate = ViewBag.StartDate;
+    string endDate = ViewBag.EndDate;
 }
 }
 @using HmsService.ViewModels
@@ -210,7 +212,15 @@
             }
 
             //Date range picker
-            $('#AddStartEndTime').daterangepicker();
+            $('#AddStartEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                },
+                startDate: '@(startDate)',
+                endDate: '@(endDate)',
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)'
+            });
 
 
             //Save update activity
