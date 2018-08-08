@@ -253,6 +253,7 @@
                         name: "Function",
                         render: function (data, type, row) {
                             return '<button class="btn btn-success btn-sm speaker-id" onclick="checkInGuest(' + row.GuestId + ')"><i class="fa fa-play" aria-hidden="true"></i></button>  ' +
+                                '<button class="btn btn-warning btn-sm speaker-id" onclick="unCheckInGuest(' + row.GuestId + ')"><i class="fa fa-stop" aria-hidden="true"></i></button>  ' +
                                 '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateGuestModal" onclick="openModelUpdate(' + row.GuestId + ', \'' + row.GuestName + '\', \'' + row.GuestPhone + '\', \'' + row.GuestEmail + '\')"><i class="fa fa-pencil"></i></button>     ' +
                                     '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteGuest(' + row.GuestId + ')"><i class="fa fa-trash"></i></button>';
                         }
@@ -271,6 +272,23 @@
                 success: function (data) {
                     reloadTable();
                     swal("Thành Công!", "Đã xác nhận người tham gia thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+        function unCheckInGuest(guestId) {
+            $.ajax({
+                url: '@Url.Action("UnCheckInGuest", "Guest")',
+                method: "POST",
+                data: {
+                    GuestId: guestId
+                },
+                success: function (data) {
+                    reloadTable();
+                    swal("Thành Công!", "Đã hủy xác nhận người tham gia thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);

@@ -65,6 +65,26 @@ namespace CapstoneProjectAdmin.Controllers
             }
         }
 
+        public JsonResult UnCheckInGuest(Guest guest)
+        {
+            try
+            {
+                GuestApi guestApi = new GuestApi();
+                guestApi.UnCheckInGuest(guest);
+                return Json(new
+                {
+                    success = false
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    success = false
+                });
+            }
+        }
+
         [HttpPost]
         public JsonResult AddGuest(Guest guest)
         {
