@@ -96,8 +96,6 @@
     </Key>
     <Property Name="CollectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
-    <Property Name="Description" Type="nvarchar" MaxLength="250" />
-    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -139,6 +137,7 @@
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="TypeId" Type="int" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsImage" Type="bit" />
   </EntityType>
   <EntityType Name="Guest">
     <Key>
@@ -340,7 +339,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EventCollection_CollectionType">
+  <Association Name="FK_EventCollection_CollectionType1">
     <End Role="CollectionType" Type="Self.CollectionType" Multiplicity="1" />
     <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="*" />
     <ReferentialConstraint>
@@ -352,7 +351,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EventCollection_Event">
+  <Association Name="FK_EventCollection_Event1">
     <End Role="Event" Type="Self.Event" Multiplicity="1" />
     <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="*" />
     <ReferentialConstraint>
@@ -542,11 +541,11 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
-    <AssociationSet Name="FK_EventCollection_CollectionType" Association="Self.FK_EventCollection_CollectionType">
+    <AssociationSet Name="FK_EventCollection_CollectionType1" Association="Self.FK_EventCollection_CollectionType1">
       <End Role="CollectionType" EntitySet="CollectionType" />
       <End Role="EventCollection" EntitySet="EventCollection" />
     </AssociationSet>
-    <AssociationSet Name="FK_EventCollection_Event" Association="Self.FK_EventCollection_Event">
+    <AssociationSet Name="FK_EventCollection_Event1" Association="Self.FK_EventCollection_Event1">
       <End Role="Event" EntitySet="Event" />
       <End Role="EventCollection" EntitySet="EventCollection" />
     </AssociationSet>

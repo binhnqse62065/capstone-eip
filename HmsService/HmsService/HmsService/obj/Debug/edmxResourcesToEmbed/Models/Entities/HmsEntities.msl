@@ -104,8 +104,6 @@
     <EntitySetMapping Name="CollectionTypes">
       <EntityTypeMapping TypeName="HmsEntities.CollectionType">
         <MappingFragment StoreEntitySet="CollectionType">
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="CollectionTypeID" ColumnName="CollectionTypeID" />
         </MappingFragment>
@@ -147,6 +145,7 @@
     <EntitySetMapping Name="EventCollections">
       <EntityTypeMapping TypeName="HmsEntities.EventCollection">
         <MappingFragment StoreEntitySet="EventCollection">
+          <ScalarProperty Name="IsImage" ColumnName="IsImage" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="TypeId" ColumnName="TypeId" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />

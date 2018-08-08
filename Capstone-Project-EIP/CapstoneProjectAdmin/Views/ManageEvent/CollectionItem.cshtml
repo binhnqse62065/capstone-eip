@@ -1,10 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "ManageCollection";
+    ViewBag.Title = "Quản lý thành phần bộ sưu tập";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
     var eventId = Model.EventId;
     var typeId = Model.TypeId;
+    bool isImage = (bool)Model.IsImage;
 }
 @using HmsService.Models.Entities;
 @model EventCollection
@@ -27,9 +28,17 @@
                 <thead>
                     <tr>
                         <th>Tên</th>
-                        <th>Miêu Tả</th>
-                        <th>Hình Ảnh</th>
-                        <th>Chức Năng</th>
+                        <th>Miêu tả</th>
+                        @if (isImage)
+                        {
+                            <th>Hình ảnh</th>
+                        }
+                        else
+                        {
+
+                            <th>Đường dẫn tập tin</th>
+                        }
+                        <th>Chức năng</th>
                     </tr>
                 </thead>
             </table>
@@ -54,7 +63,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="txtName" type="text" class="form-control speaker-title" placeholder="Nhập tên thành phần">
+                        
+                        <input id="txtName" type="text" class="form-control speaker-title" placeholder="Nhập tên thành phần" @(typeId == 4 ? "readonly" : "")>
                     </div>
                     <p id="errorNameAdd" class="empty empty col-lg-offset-3">Vui lòng nhập tên thành phần</p>
 
@@ -71,16 +81,16 @@
                     <p id="errorDesAdd" class="empty empty col-lg-offset-3">Vui lòng nhập miêu tả của thành phần</p>
 
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Hình Ảnh:</label>
-                    <div class="col-sm-9" style="padding-left: 0px;">
+                <div class="form-group row">
+                    <label class="col-sm-3 form-control-label">@(isImage ? "Tập tin:" : "Hình ảnh:")</label>
+                    <div class="col-sm-9 row">
                         <div class="field">
                             <div class="control">
                                 <button class="button" type="button" id="picker">Chọn file</button>
                                 <input type="hidden" id="fileupload">
                             </div>
                         </div>
-                        <div id="thumbnailContainer" class="speaker-img">
+                        <div id="thumbnailContainer" class="speaker-img" style="margin-top:10px;">
                             <img class="img-responsive"/>
                         </div>
                     </div>
@@ -113,7 +123,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="txtNameEdit" type="text" class="form-control speaker-title" placeholder="Nhập tên thành phần">
+                        <input id="txtNameEdit" type="text" class="form-control speaker-title" placeholder="Nhập tên thành phần" @(typeId == 4 ? "readonly" : "")>
                     </div>
                     <p id="errorNameEdit" class="empty empty col-lg-offset-3">Vui lòng nhập tên thành phần</p>
 
@@ -134,8 +144,8 @@
                     <div class="col-sm-9" style="padding-left: 7px;">
                         <div class="field">
                             <div class="control">
-                                <button class="button" type="button" id="picker">Chọn file</button>
-                                <input type="hidden" id="fileupload">
+                                <button class="button" type="button" id="pickerEdit">Chọn file</button>
+                                <input type="hidden" id="fileuploadEdit">
                             </div>
                         </div>
                         <div id="thumbnailContainerEdit" class="speaker-img">
@@ -163,10 +173,11 @@
 
 @section scripts {
     <script>
-        var eventId = $('#eventId').val();
-        var typeId = $('#eventCollectionType').val();
-        var eventCollectionId = $('#eventCollectionId').val();
+        var eventId = parseInt($('#eventId').val());
+        var typeId = parseInt($('#eventCollectionType').val());
+        var eventCollectionId = parseInt($('#eventCollectionId').val());
         var urlApi = '@curPath';
+        var isImage = '@(isImage)';
         $(document).ready(function () {
             $('#tblCollectionItem').DataTable({
                 "oLanguage": {
@@ -183,7 +194,7 @@
                     "sLengthMenu": "Hiển thị _MENU_ dòng"
                 },
                 ajax: {
-                    url: urlApi + "GetCollectionItem/" + eventId + "/" + typeId,
+                    url: urlApi + "GetCollectionItem/" + eventCollectionId,
                     //dataSrc: ""
                 },
                 columns: [
@@ -202,9 +213,9 @@
                     {
                         name: "Image",
                         render: function (data, type, row) {
-                            console.log(row);
+                            
                             if (row.ImageUrl != 'null') {
-                                if (checkURL(row.ImageUrl)) {
+                                if (isImage === 'True') {
                                     return '<img src="' + row.ImageUrl + '" alt="brand" class="img-fluid" style="width:260px; height:200px;">';
                                 }
                                 else {
@@ -219,7 +230,7 @@
                         name: "Function",
                         render: function (data, type, row) {
                             return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#collectionItemEditModal" onclick="showModalSpeaker(' + row.CollectionItemID + ',\'' + row.Name + '\', \'' + row.Description + '\', \'' + row.ImageUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                '<button class="btn btn-danger btn-sm speaker-id" onclick="delSpeaker(' + row.CollectionItemID + ')"><i class="fa fa-trash"></i></button>';
+                                '<button class="btn btn-danger btn-sm speaker-id" onclick="delCollectionItem(' + row.CollectionItemID + ')"><i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
@@ -232,24 +243,40 @@
             const options = {
                 onUploadDone: updateForm,
                 maxSize: 10 * 1024 * 1024,
-                accept: 'image/*',
+                //accept: 'image/*',
                 uploadInBackground: false,
                 fromSources: ['local_file_system', 'imagesearch', 'facebook', 'instagram', 'dropbox', 'picasa', 'url']
-            };
+            };;
+
+            const optionsEdit = {
+                onUploadDone: updateFormEdit,
+                maxSize: 10 * 1024 * 1024,
+                //accept: 'image/*',
+                uploadInBackground: false,
+                fromSources: ['local_file_system', 'imagesearch', 'facebook', 'instagram', 'dropbox', 'picasa', 'url']
+            };;
+            
             const picker = client.picker(options);
+            const pickerEdit = client.picker(optionsEdit);
 
             // Get references to the DOM elements
 
             const fileInput = document.getElementById('fileupload');
             const btn = document.getElementById('picker');
-            const nameBox = document.getElementById('nameBox');
-            const urlBox = document.getElementById('urlBox');
+
+            const fileInputEdit = document.getElementById('fileuploadEdit');
+            const btnEdit = document.getElementById('pickerEdit');
 
             // Add our event listeners
 
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 picker.open();
+            });
+
+            btnEdit.addEventListener('click', function (e) {
+                e.preventDefault();
+                pickerEdit.open();
             });
 
 
@@ -259,26 +286,52 @@
             function updateForm(result) {
                 const fileData = result.filesUploaded[0];
                 fileInput.value = fileData.url;
+
+                var mimetype;
+                if (isImage !== 'True') {
+                    var nameSplit = fileData.filename.split('.');
+                    mimetype = nameSplit[nameSplit.length - 1];
+                }
                 if (fileInput.value != null) {
-                    $('#thumbnail-container').val(fileInput.value);
+
+                    if (isImage !== 'True') {
+                        $('#thumbnailContainer').val(fileInput.value);
+                        $('#txtName').val(fileData.filename);
+                        renderIconFile(mimetype, fileData.filename, '#thumbnailContainer');
+                    }
+                    else {
+                        $('#thumbnailContainer img').attr('src', fileInput.value);
+                    }
                 }
                 // If file is resizable image, resize and embed it as a thumbnail preview
                 if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
-                    console.log(fileInput.value);
                     $('#thumbnailContainer img').attr('src', fileInput.value);
-                    //const container = document.getElementById('thumbnail-container');
-                    //const thumbnail = document.getElementById('thumbnail') || new Image();
-                    //thumbnail.id = 'thumbnail';
-                    //thumbnail.style = 'padding-top: 10px;';
-                    //thumbnail.src = client.transform(fileData.handle, {
-                    //    resize: {
-                    //        width: 200
-                    //    }
-                    //});
+                }
+            }
 
-                    //if (!container.contains(thumbnail)) {
-                    //    container.appendChild(thumbnail);
-                    //}
+            function updateFormEdit(result) {
+                const fileData = result.filesUploaded[0];
+                fileInput.value = fileData.url;
+
+                var mimetype;
+                if (isImage !== 'True') {
+                    var nameSplit = fileData.filename.split('.');
+                    mimetype = nameSplit[nameSplit.length - 1];
+                }
+                if (fileInput.value != null) {
+
+                    if (isImage !== 'True') {
+                        $('#thumbnailContainerEdit').val(fileInput.value);
+                        $('#txtNameEdit').val(fileData.filename);
+                        renderIconFile(mimetype, fileData.filename, '#thumbnailContainerEdit');
+                    }
+                    else {
+                        $('#thumbnailContainerEdit img').attr('src', fileInput.value);
+                    }
+                }
+                // If file is resizable image, resize and embed it as a thumbnail preview
+                if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
+                    $('#thumbnailContainerEdit img').attr('src', fileInput.value);
                 }
             }
         });
@@ -289,7 +342,13 @@
             var isValid = true;
             var name = $('#txtName').val();
             var description = $('#txtDescription').val();
-            var imageUrl = $('#thumbnailContainer img').attr('src');
+            var imageUrl;
+            if (isImage !== 'True') {
+                imageUrl = $('#thumbnailContainer').val();
+            }
+            else {
+                imageUrl = $('#thumbnailContainer img').attr('src');
+            }
             
             if (name.trim().length == 0) {
                 $('#errorNameAdd').css('display', 'block');
@@ -312,6 +371,7 @@
                     success: function (data) {
                         reloadTable();
                         swal("Thành công!", "Bạn đã thêm thông tin thành phần thành công", "success");
+                        clearModal();
                     },
                     error: function (data) {
                         console.log(data);
@@ -328,8 +388,14 @@
             var collectionItemId = $(this).attr('value');
             var name = $('#txtNameEdit').val();
             var description = $('#txtDescriptionEdit').val();
-            var imageUrl = $('#thumbnailContainerEdit img').attr('src');
-            
+            var imageUrl;
+            if (isImage === 'True') {
+                imageUrl = $('#thumbnailContainerEdit img').attr('src');
+            }
+            else {
+                imageUrl = $('#thumbnailContainerEdit').val();
+            }
+
             if (name.trim().length == 0) {
                 $('#errorNameEdit').css('display', 'block');
                 isValid = false;
@@ -339,6 +405,7 @@
                
                 isValid = false;
             }
+
             if (isValid) {
                 
                 $.ajax({
@@ -367,6 +434,8 @@
             $('#txtName').val("");
             $('#txtDescription').val("");
             $('#thumbnailContainer').val("");
+            $('#thumbnailContainer').html("");
+            $('#thumbnailContainer img').attr('src', '');
         }
 
         function checkURL(url) {
@@ -377,10 +446,18 @@
             $('#btnEdit').attr('value', id);
             $('#txtNameEdit').val(name);
             $('#txtDescriptionEdit').val(description);
-            $('#imageUrlEdit').attr('src', imageUrl);
+            
+            if (isImage !== 'True') {
+                var nameSplit = name.split('.');
+                var mimetype = nameSplit[nameSplit.length - 1];
+                renderIconFile(mimetype, name, '#thumbnailContainerEdit');
+            }
+            else {
+                $('#imageUrlEdit').attr('src', imageUrl);
+            }
         }
 
-        function delSpeaker(collectionItemId) {
+        function delCollectionItem(collectionItemId) {
             swal({
                 title: "Bạn có chắc?",
                 text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
@@ -401,7 +478,7 @@
                         },
                         success: function (data) {
                             reloadTable();
-                            swal("Xóa!", "Phiên làm đã được xóa thành công", "success");
+                            swal("Xóa!", "Thành phần của bộ sưu tập đã được xóa thành công", "success");
                         },
                         error: function (data) {
                             console.log(data);
@@ -424,6 +501,43 @@
         function clearErrorEditCollectionItem() {
             $('#errorNameEdit').css('display', 'none');
             $('#errorDesEdit').css('display', 'none');
+        }
+
+
+        function renderIconFile(mimetype, fileName, idDivRender) {
+            if (['pdf'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-pdf-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['docx', 'doc'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-word-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['xlsx', 'xls'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-excel-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['avi', 'flv', 'wmv', 'mov', 'mp4'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-video-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            } 
+            if (['mp3', 'flac', 'wma', 'wav', 'midi', 'ogg', 'ac3', 'amr', 'aac', 'm4a'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-audio-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['zip', 'rar', '7z'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-archive-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['txt', 'rtf'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-text-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['txt', 'rtf'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-text-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['ppt', 'pps', 'pptx', 'ppsx'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-powerpoint-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            if (['jpeg', 'png'].indexOf(mimetype) !== -1) {
+                $(idDivRender).html("<i class='fa fa-file-image-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
+            else {
+                $(idDivRender).html("<i class='fa fa-file-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+            }
         }
     </script>
 }
