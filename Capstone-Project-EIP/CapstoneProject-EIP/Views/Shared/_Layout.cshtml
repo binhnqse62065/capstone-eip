@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Join.vn</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -27,38 +27,14 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Template/eventalk/css/magnific-popup.css">
     <!-- nivo slider CSS -->
     <link rel="stylesheet" href="~/Content/Template/eventalk/vendor/slider/css/nivo-slider.css" type="text/css">
-        <link rel="stylesheet" href="~/Content/Template/eventalk/vendor/slider/css/preview.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="~/Content/Template/eventalk/vendor/slider/css/preview.css" type="text/css" media="screen">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="~/Content/Template/eventalk/style.css">
+    <!--Sweet Alert-->
+    <link rel="stylesheet" href="~/Content/bootstrap-sweetalert-master/dist/sweetalert.css">
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>*@
+
 
     <div id="wrapper" class="wrapper">
         <!-- Header Area Start Here -->
@@ -79,56 +55,22 @@
                                     <nav class="d-none d-lg-block">
                                         <ul id="navOnePage">
                                             <li class="current">
-                                                <a href="#home">Home</a>
-                                                <ul class="rt-dropdown-menu third-level">
-                                                    <li>
-                                                        <ul>
-                                                            <li>
-                                                                <a href="one-page-index.html">Home 1 (One Page)</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="one-page-index2.html">Home 2 (One Page)</a>
-                                                            </li>
-                                                            <li class="current">
-                                                                <a href="one-page-index3.html">Home 3 (One Page)</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="one-page-index4.html">Home 4 (One Page)</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <ul>
-                                                            <li>
-                                                                <a href="index.html">Home 1 (Multi Page)</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="index2.html">Home 2 (Multi Page)</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="index3.html">Home 3 (Multi Page)</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="index4.html">Home 4 (Multi Page)</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
+                                                <a href="#home">Trang chủ</a>
                                             </li>
                                             <li>
-                                                <a href="#speakers">Speakers</a>
+                                                <a href="#speakers">Diễn giả</a>
                                             </li>
                                             <li>
-                                                <a href="#schedule">Schedule</a>
+                                                <a href="#schedule">Lịch</a>
                                             </li>
                                             <li>
-                                                <a href="#register" class="btn-fill color-yellow btn-header" style="position:fixed;top: 0;right: 0;height: 77px;width: 200px;text-align: center;border-color:darkgray;background-color:darkgray;">Register</a>
+                                                <a href="#register" class="btn-fill color-yellow btn-header" style="position:fixed;top: 0;right: 0;height: 77px;width: 200px;text-align: center;border-color:darkgray;background-color:darkgray;">Đăng kí</a>
                                             </li>
                                             <li>
-                                                <a href="#sponsors">Sponsors</a>
+                                                <a href="#sponsors">Nhà tài trợ</a>
                                             </li>
                                             <li>
-                                                <a href="#contact">Contact</a>
+                                                <a href="#contact">Liên hệ</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -136,48 +78,22 @@
                                     <nav id="dropdown" class="d-md-none">
                                         <ul id="navOnePage">
                                             <li>
-                                                <a href="#home">Home</a>
-                                                <ul class="rt-dropdown-menu">
-                                                    <li>
-                                                        <a href="one-page-index.html">Home 1 (One Page)</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="one-page-index2.html">Home 2 (One Page)</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="one-page-index3.html">Home 3 (One Page)</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="one-page-index4.html">Home 4 (One Page)</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index.html">Home 1 (Multi Page)</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index2.html">Home 2 (Multi Page)</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index3.html">Home 3 (Multi Page)</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="index4.html">Home 4 (Multi Page)</a>
-                                                    </li>
-                                                </ul>
+                                                <a href="#home">Trang chủ</a>
                                             </li>
                                             <li>
-                                                <a href="#speakers">Speakers</a>
+                                                <a href="#speakers">Diễn giả</a>
                                             </li>
                                             <li>
-                                                <a href="#schedule">Schedule</a>
+                                                <a href="#schedule">Lịch</a>
                                             </li>
                                             <li>
-                                                <a href="#sponsors">Sponsors</a>
+                                                <a href="#register" @*style="position:fixed;top: 0;right: 0;height: 77px;width: 200px;text-align: center;border-color:darkgray;background-color:darkgray;"*@>Đăng kí</a>
                                             </li>
                                             <li>
-                                                <a href="#contact">Contact</a>
+                                                <a href="#sponsors">Nhà tài trợ</a>
                                             </li>
                                             <li>
-                                                <a href="#register">Buy Tickets</a>
+                                                <a href="#contact">Liên hệ</a>
                                             </li>
                                         </ul>
                                     </nav>
@@ -207,21 +123,15 @@
                 <div class="footer-top-area">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="widget">
-                                    <a class="footer-widget-logo" href="index.html">
+                                    <a class="footer-widget-logo">
                                         <img class="img-fluid" src="~/Content/Template/eventalk/img/logo.png" alt="logo">
                                     </a>
-                                    <div class="footer-widget-about">
-                                        <p>
-                                            Fummy text of the printing antypesetting industry. Lorem Ipsum heen the industry's
-                                            standard dummy text ever since theype.
-                                        </p>
-                                    </div>
                                     <div class="footer-widget-contact">
-                                        <a href="tel:+5647-345-2224">5647-345-2224</a>
+                                        <a></a>
                                     </div>
-                                    <div class="footer-widget-social">
+                                    @*<div class="footer-widget-social">
                                         <ul>
                                             <li>
                                                 <a href="#" title="facebook">
@@ -254,10 +164,10 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12">
+                            @*<div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="widget">
                                     <h3 class="widgettitle">Useful Links</h3>
                                     <div class="footer-widget-menu">
@@ -302,7 +212,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -358,6 +268,12 @@
     <!-- Custom Js -->
     <script src="~/Content/Template/eventalk/js/main-one-page.js"></script>
     <script src="~/Content/register.js"></script>
+    <!--Sweet Alert-->
+    <script src="~/Content/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
+    <!--Google Map-->
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Meb98e_PppAWoqobk4Ml1rFygPl9eUI&callback=initMap">
+    </script>
 
 </body>
 </html>

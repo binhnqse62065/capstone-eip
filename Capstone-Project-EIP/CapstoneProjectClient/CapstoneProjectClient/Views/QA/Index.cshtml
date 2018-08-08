@@ -487,7 +487,7 @@
                         var questionStatusObject = { 'questionId': questionId, 'status': 'Disliked' };
                         listQuestionInteracted.push(questionStatusObject);
                         chat.server.disLikeQuestion(questionId, parseInt($('#btnDislikeQuestion-' + questionId).text()) + 1, true);
-                        callApiUpdateLikeOrDisLike(urlUnDisLike, questionId);
+                        callApiUpdateLikeOrDisLike(urlDisLike, questionId);
                     }
                     localStorage.setItem('listQuestion', JSON.stringify(listQuestionInteracted));
                 }
@@ -730,16 +730,18 @@
                         var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
                         templateQuestion.find('.logo-name span').html(firstCharacterName.toUpperCase());
                         templateQuestion.find('.logo-name').css('background-color', getRandomColor());
+                        templateQuestion.find('.username-content').html(data.data[i].Username);
+                        templateQuestion.find('.question-content-template').html(data.data[i].QuestionContent);
+                        templateQuestion.find('.create-time').html('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
                         templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
                         templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
                         templateQuestion.find('#btn-reply').attr('value', '' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.username-content').text('' + data.data[i].Username + ' : ' + data.data[i].QuestionContent + '');
-                        templateQuestion.find('.create-time').text('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
-                        templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                        templateQuestion.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + data.data[i].QuestionId );
-                        templateQuestion.find('.btn-dislike').attr('value', data.data[i].QuestionId );
+                        templateQuestion.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + data.data[i].QuestionId);
+                        templateQuestion.find('.btn-dislike').attr('value', data.data[i].QuestionId);
                         templateQuestion.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + data.data[i].NumberOfDisLike);
+
+                        templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                         $('#qa-container').append(templateQuestion.html());
                         for (var j = 0; j < data.data[i].Comments.length; j++) {
                             var templateComment = $('#list-reply-template').clone();
@@ -792,14 +794,6 @@
             });
         }
 
-        function getRandomColor() {
-            var letters = '0123456789ABCDEF';
-            var color = '#';
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
 
         //Dùng để chỉnh css like hay dislike cho các nút đã từng like hoạc dislike ở local storage
         function addCssForQuestion() {

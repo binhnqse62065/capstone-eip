@@ -16,6 +16,12 @@ namespace CapstoneProjectAdmin.Controllers
         public ActionResult Index(int id)
         {
             ViewBag.EventId = id;
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventById(id);
+            string startDate = eventTmp.StartTime.Value.ToString("dd/MM/yyyy");
+            string endDate = eventTmp.EndTime.Value.ToString("dd/MM/yyyy");
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
             return View();
         }
 

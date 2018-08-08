@@ -64,5 +64,18 @@ namespace CapstoneProjectAdmin.Controllers
             
         }
 
+
+        
+        public ActionResult SetEventToLandingPage(int id)
+        {
+            EventApi eventApi = new EventApi();
+            eventApi.SetEventToLandingPage(id);
+            var eventTmp = eventApi.BaseService.GetEventById(id);
+            ViewBag.EventId = id;
+            return View("Index", eventTmp);
+
+
+        }
+
     }
 }

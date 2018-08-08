@@ -133,6 +133,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
+          <Property Name="IsLandingPage" Type="bit" />
         </EntityType>
         <EntityType Name="EventCollection">
           <Key>
@@ -889,6 +890,7 @@
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="Latitude" Type="Double" />
+          <Property Name="IsLandingPage" Type="Boolean" />
           <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="Event" ToRole="EventCollection" />
           <NavigationProperty Name="Guests" Relationship="HmsEntities.FK_Guest_Event" FromRole="Event" ToRole="Guest" />
           <NavigationProperty Name="QAs" Relationship="HmsEntities.FK_QA_Event" FromRole="Event" ToRole="QA" />
@@ -1365,6 +1367,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="HmsEntities.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="IsLandingPage" ColumnName="IsLandingPage" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

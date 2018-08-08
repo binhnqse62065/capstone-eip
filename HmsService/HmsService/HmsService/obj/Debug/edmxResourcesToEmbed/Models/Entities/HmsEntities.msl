@@ -127,6 +127,7 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="HmsEntities.Event">
         <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="IsLandingPage" ColumnName="IsLandingPage" />
           <ScalarProperty Name="Latitude" ColumnName="Latitude" />
           <ScalarProperty Name="Longitude" ColumnName="Longitude" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />

@@ -27,6 +27,7 @@ namespace CapstoneProjectAdmin.Controllers
         public JsonResult AddNewEvent(Event eventAdd)
         {
             EventApi eventApi = new EventApi();
+            eventAdd.IsActive = true;
             eventApi.BaseService.Create(eventAdd);
             return Json(new
             {
