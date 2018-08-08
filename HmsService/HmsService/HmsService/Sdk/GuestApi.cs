@@ -35,13 +35,6 @@ namespace HmsService.Sdk
             return (bool)curGuest.IsCheckIn;
         }
 
-        public void UnCheckInGuest(Guest guest)
-        {
-            var curGuest = this.BaseService.FirstOrDefault(g => g.GuestId == guest.GuestId);
-            curGuest.IsCheckIn = false;
-            this.BaseService.Save();
-        }
-
         public void AddGuest(Guest guest)
         {
             guest.IsCheckIn = false;

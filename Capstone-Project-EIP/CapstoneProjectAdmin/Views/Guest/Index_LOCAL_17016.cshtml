@@ -58,8 +58,6 @@
                         </div>
                         <input required id="txtNameAdd" type="text" class="form-control" placeholder="Vui lòng nhập tên">
                     </div>
-                    <p id="errorNameAdd" class="empty empty col-lg-offset-3">Vui lòng nhập tên người tham gia</p>
-
                 </div>
 
                 <div class="form-group">
@@ -71,8 +69,6 @@
                         </div>
                         <input required type="tel" class="form-control pull-right" id="txtPhoneAdd" value="" placeholder="Vui lòng nhập số điện thoại">
                     </div>
-                    <p id="errorPhoneAdd" class="empty empty col-lg-offset-3">Vui lòng nhập số điện thoại người tham gia</p>
-
                 </div>
 
                 <div class="form-group">
@@ -83,14 +79,12 @@
                         </div>
                         <input required id="txtEmailAdd" type="email" class="form-control" placeholder="Vui lòng nhập email">
                     </div>
-                    <p id="errorEmailAdd" class="empty empty col-lg-offset-3">Vui lòng nhập email người tham gia</p>
-
                 </div>
 
 
             </div>
             <div class="modal-footer">
-                <button id="btnAddGuest" type="button" class="btn btn-primary">Thêm</button>
+                <button id="btnAddGuest" type="button" class="btn btn-primary" data-dismiss="modal">Thêm</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy bỏ</button>
             </div>
         </div>
@@ -119,8 +113,6 @@
                         </div>
                         <input required id="txtNameEdit" type="text" class="form-control" placeholder="Vui lòng nhập tên">
                     </div>
-                    <p id="errorNameEdit" class="empty empty col-lg-offset-3">Vui lòng nhập tên người tham gia</p>
-
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
@@ -132,8 +124,6 @@
                         </div>
                         <input required id="txtPhoneEdit" type="tel" class="form-control" placeholder="Vui lòng nhập số điện thoại">
                     </div>
-                    <p id="errorPhoneEdit" class="empty empty col-lg-offset-3">Vui lòng nhập số điện thoại người tham gia</p>
-
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Email</label>
@@ -143,11 +133,10 @@
                         </div>
                         <input required id="txtEmailEdit" type="email" class="form-control" placeholder="Vui lòng nhập email">
                     </div>
-                    <p id="errorEmailEdit" class="empty empty col-lg-offset-3">Vui lòng nhập email người tham gia</p>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnEditGuest" class="btn btn-primary">Lưu</button>
+                <button type="button" id="btnEditGuest" class="btn btn-primary" data-dismiss="modal">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -163,94 +152,50 @@
         });
 
         $('#btnAddGuest').on('click', function () {
-            clearErrorAddGuest();
-
             var name = $('#txtNameAdd').val();
             var phone = $('#txtPhoneAdd').val();
             var email = $('#txtEmailAdd').val();
-
-            var isValid = true;
-            if (name.length === 0) {
-                isValid = false;
-                $('#errorNameAdd').css('display', 'block');
-            }
-            if (phone.length === 0) {
-                isValid = false;
-                $('#errorPhoneAdd').css('display', 'block');
-            }
-            if (email.length === 0) {
-                isValid = false;
-                $('#errorEmailAdd').css('display', 'block');
-            }
-
-            if (isValid) {
-                $.ajax({
-                    url: '@Url.Action("AddGuest", "Guest")',
-                    method: "POST",
-                    data: {
-                        GuestName: name,
-                        GuestEmail: email,
-                        GuestPhone: phone,
-                        EventId: eventId
-                    },
-                    success: function (data) {
-                        reloadTable();
-                        swal("Thành Công!", "Thêm người tham gia thành công", "success");
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-                $('#addGuestModal').modal('hide');
-            }
-
-            
+            $.ajax({
+                url: '@Url.Action("AddGuest", "Guest")',
+                method: "POST",
+                data: {
+                    GuestName: name,
+                    GuestEmail: email,
+                    GuestPhone: phone,
+                    EventId: eventId
+                },
+                success: function (data) {
+                    reloadTable();
+                    swal("Thành Công!", "Thêm người tham gia thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         });
 
         $('#btnEditGuest').on('click', function () {
-            clearErrorEditGuest();
-
             var guestId = $(this).attr('value');
             var name = $('#txtNameEdit').val();
             var phone = $('#txtPhoneEdit').val();
             var email = $('#txtEmailEdit').val();
-
-            var isValid = true;
-            if (name.length === 0) {
-                isValid = false;
-                $('#errorNameEdit').css('display', 'block');
-            }
-            if (phone.length === 0) {
-                isValid = false;
-                $('#errorPhoneEdit').css('display', 'block');
-            }
-            if (email.length === 0) {
-                isValid = false;
-                $('#errorEmailEdit').css('display', 'block');
-            }
-
-            if (isValid) {
-                $.ajax({
-                    url: '@Url.Action("UpdateGuest", "Guest")',
-                    method: "POST",
-                    data: {
-                        GuestId: guestId,
-                        GuestName: name,
-                        GuestEmail: email,
-                        GuestPhone: phone
-                    },
-                    success: function (data) {
-                        reloadTable();
-                        swal("Thành Công!", "Cập nhật thông tin người tham gia thành công", "success");
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-                $('#updateGuestModal').modal('hide');
-            }
-
-            
+            $.ajax({
+                url: '@Url.Action("UpdateGuest", "Guest")',
+                method: "POST",
+                data: {
+                    GuestId: guestId,
+                    GuestName: name,
+                    GuestEmail: email,
+                    GuestPhone: phone
+                },
+                success: function (data) {
+                    reloadTable();
+                    swal("Thành Công!", "Cập nhật thông tin người tham gia thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         });
 
 
@@ -307,17 +252,10 @@
                     {
                         name: "Function",
                         render: function (data, type, row) {
-                            if (row.IsCheckIn) {
-                                return '<button class="btn btn-warning btn-sm speaker-id" onclick="checkInGuest(' + row.GuestId + ')"><i class="fa fa-stop" aria-hidden="true"></i></button>  ' +
-                                    '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateGuestModal" onclick="openModelUpdate(' + row.GuestId + ', \'' + row.GuestName + '\', \'' + row.GuestPhone + '\', \'' + row.GuestEmail + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                            return '<button class="btn btn-success btn-sm speaker-id" onclick="checkInGuest(' + row.GuestId + ')"><i class="fa fa-play" aria-hidden="true"></i></button>  ' +
+                                '<button class="btn btn-warning btn-sm speaker-id" onclick="unCheckInGuest(' + row.GuestId + ')"><i class="fa fa-stop" aria-hidden="true"></i></button>  ' +
+                                '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateGuestModal" onclick="openModelUpdate(' + row.GuestId + ', \'' + row.GuestName + '\', \'' + row.GuestPhone + '\', \'' + row.GuestEmail + '\')"><i class="fa fa-pencil"></i></button>     ' +
                                     '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteGuest(' + row.GuestId + ')"><i class="fa fa-trash"></i></button>';
-                            }
-                            else {
-                                return '<button class="btn btn-success btn-sm" onclick="checkInGuest(' + row.GuestId + ')"><i class="fa fa-play" aria-hidden="true"></i></button>  ' +
-                                    '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateGuestModal" onclick="openModelUpdate(' + row.GuestId + ', \'' + row.GuestName + '\', \'' + row.GuestPhone + '\', \'' + row.GuestEmail + '\')"><i class="fa fa-pencil"></i></button>     ' +
-                                    '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteGuest(' + row.GuestId + ')"><i class="fa fa-trash"></i></button>';
-                            }
-                            
                         }
                     }
                 ]
@@ -333,13 +271,7 @@
                 },
                 success: function (data) {
                     reloadTable();
-                    if (data.isCheckIn) {
-                        swal("Thành Công!", "Đã xác nhận người tham gia thành công", "success");
-                    }
-                    else {
-                        swal("Thành Công!", "Bỏ xác nhận người tham gia", "success");
-                    }
-                    
+                    swal("Thành Công!", "Đã xác nhận người tham gia thành công", "success");
                 },
                 error: function (data) {
                     console.log(data);
@@ -347,7 +279,22 @@
             });
         }
 
-         
+        function unCheckInGuest(guestId) {
+            $.ajax({
+                url: '@Url.Action("UnCheckInGuest", "Guest")',
+                method: "POST",
+                data: {
+                    GuestId: guestId
+                },
+                success: function (data) {
+                    reloadTable();
+                    swal("Thành Công!", "Đã hủy xác nhận người tham gia thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
 
         function openModelUpdate(id, name, phone, email) {
             $('#txtNameEdit').val(name);
@@ -389,18 +336,6 @@
 
         function reloadTable() {
             $('#tblGuest').DataTable().ajax.reload();
-        }
-
-        function clearErrorAddGuest() {
-            $('#errorNameAdd').css('display', 'none');
-            $('#errorPhoneAdd').css('display', 'none');
-            $('#errorEmailAdd').css('display', 'none');
-        }
-
-        function clearErrorEditGuest() {
-            $('#errorNameEdit').css('display', 'none');
-            $('#errorPhoneEdit').css('display', 'none');
-            $('#errorEmailEdit').css('display', 'none');
         }
     </script>
 }
