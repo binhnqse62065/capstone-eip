@@ -37,7 +37,8 @@ namespace HmsService.Models.Entities.Services
                 TemplateId = currentEvent.TemplateId,
                 ImageURL = currentEvent.ImageURL,
                 Longitude = currentEvent.Longitude,
-                Latitude = currentEvent.Latitude
+                Latitude = currentEvent.Latitude,
+                IsLandingPage = currentEvent.IsLandingPage
             };
         }
 

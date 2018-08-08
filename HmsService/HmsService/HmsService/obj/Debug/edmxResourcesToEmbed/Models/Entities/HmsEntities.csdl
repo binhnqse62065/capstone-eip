@@ -290,6 +290,7 @@
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="Longitude" Type="Double" />
     <Property Name="Latitude" Type="Double" />
+    <Property Name="IsLandingPage" Type="Boolean" />
     <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="Event" ToRole="EventCollection" />
     <NavigationProperty Name="Guests" Relationship="HmsEntities.FK_Guest_Event" FromRole="Event" ToRole="Guest" />
     <NavigationProperty Name="QAs" Relationship="HmsEntities.FK_QA_Event" FromRole="Event" ToRole="QA" />

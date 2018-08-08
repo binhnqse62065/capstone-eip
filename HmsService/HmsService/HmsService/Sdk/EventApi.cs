@@ -57,5 +57,16 @@ namespace HmsService.Sdk
             return this.BaseService.FirstOrDefault(e => e.EventID == eventId);
         }
 
+        public void SetEventToLandingPage(int eventId)
+        {
+            var eventTmp = this.BaseService.FirstOrDefault(e => e.EventID == eventId);
+            var listAllEvent = this.BaseService.Get();
+            foreach(var tmp in listAllEvent)
+            {
+                tmp.IsLandingPage = false;
+            }
+            eventTmp.IsLandingPage = true;
+            this.BaseService.Save();
+        }
     }
 }

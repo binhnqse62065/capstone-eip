@@ -60,3 +60,8 @@
 .message .name  {
     text-decoration:none;
 }
+
+#ckIsLandingPage {
+    width:20px;
+    height:20px;
+}

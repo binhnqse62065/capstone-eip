@@ -2,6 +2,7 @@
     /**/
 
     ViewBag.Title = "Thông tin sự kiện";
+    int eventId = Model.EventID;
     //var listBannerImage = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 1).CollectionItems;
 }
 @using HmsService.ViewModels;
@@ -79,6 +80,23 @@
                             <label>Trang Nội Dung</label>
                         </div>
                         <div class="col-sm-8 evtinfo home-page-template">@Html.Raw(Model.TemplateId)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 name-title">
+                            <label>Trang giới thiệu</label>
+                        </div>
+                        <div class="col-sm-8 evtinfo home-page-template">
+                            @if ((bool)Model.IsLandingPage)
+                            {
+                                <span style="font-size:14px;">Đang được hiện trên trang giới thiệu</span> 
+                            }
+                            else
+                            {
+                                <span style="font-size:14px;">Không được hiện trên trang giới thiệu</span>
+                                <a href="@Url.Action("SetEventToLandingPage", "Home", new { id = eventId })" class="btn btn-success" style="margin-top:10px;">Thiết lập thông tin sự kiện này lên trang giới thiệu</a>
+                            }
+
+                        </div>
                     </div>
                 </div>
 
