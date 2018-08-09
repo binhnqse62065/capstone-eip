@@ -3,7 +3,7 @@
 
 /*Function*/
 
-    /*Shared*/
+/*Shared*/
 $('#cb-session-id').on('change', function () {
     if (this.value != 0) {
         InitActivityDatatable(this.value);
@@ -36,13 +36,13 @@ function InitActivityDatatable(sessionId) {
         },
         columns: [
             {
-                name: "name",
+                name: "Name",
                 render: function (data, type, row) {
                     return row.name;
                 }
             },
             {
-                name: "startTime - End Time",
+                name: "StartTime - End Time",
                 render: function (data, type, row) {
                     return row.startTime + " - " + row.endTime;
                 }
@@ -54,9 +54,19 @@ function InitActivityDatatable(sessionId) {
                 }
             },
             {
-                name: "Session Name",
+                name: "Speaker Name",
                 render: function (data, type, row) {
-                    return row.sessionName;
+                    var speakerName = '';
+
+                    for (var i = 0; i < row.speakerName.length; i++) {
+                        if (i == 0) {
+                            speakerName += row.speakerName[i];
+                        } else {
+                            speakerName += ', ';
+                            speakerName += row.speakerName[i];
+                        }
+                    }
+                    return speakerName;
                 }
             },
             {
@@ -252,7 +262,7 @@ function clearErrorEditInteraction() {
 }
 
 
-    /*Interaction*/
+/*Interaction*/
 
 
 $('#InteractionEditSelectBox').on('click', function () {
@@ -292,7 +302,7 @@ $('#btn-update-interaction').on('click', function () {
     var name = $('.interaction-name').val();
     var selectValue = $('#InteractionEditSelectBox').find(":selected").val();
     var kindInteractionId = parseInt($('#KindOfInteractionEditSelectBox').find(":selected").val());
-    
+
     var isValid = true;
     if (name.length === 0) {
         isValid = false;
@@ -394,9 +404,9 @@ $('#btn-add-interaction').on('click', function () {
             });
         }
         $('#btn-add-interaction').attr('data-dismiss', 'modal');
-       
+
     }
-    
+
 
 
 });
@@ -550,12 +560,12 @@ function ReloadInteractionRunningDatatable() {
     $('#tblInteractionRunning').DataTable().ajax.reload();
 }
 
-    /* Activity */
+/* Activity */
 
 //Add new activity
 $('#addActivity').on('click', function () {
     clearErrorAddActivity();
-
+    var collectionItemId = $('#speakerAddSelectBox').val();
     var name = $('#txtActivityNameAdd').val();
     var description = $('#txtActivityDesAdd').val();
 
@@ -572,58 +582,106 @@ $('#addActivity').on('click', function () {
     }
 
     if (isValid) {
-        
-        var time = $('#AddStartEndTime').val();
 
+        var time = $('#AddStartEndTime').val();
+        console.log(collectionItemId);
         var timeSplit = time.split('-');
         var startTime = timeSplit[0].trim().split("/").reverse().join("-");
         var endTime = timeSplit[1].trim().split("/").reverse().join("-");
-
-
-        $.ajax({
-            url: urlApi + 'api/activity/AddActivity',
-            method: 'POST',
-            data: {
-                SessionId: $('#session-id').val(),
-                Name: name,
-                Description: description,
-                StartTime: startTime,
-                EndTime: endTime
-            },
-            success: function (data) {
-                ReloadActivityDatatable();
-                swal("Thành công", "Thêm mới hoạt động thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+        var activityId;
+        if (collectionItemId != '') {
+            $.ajax({
+                url: urlApi + 'api/activity/AddActivity',
+                method: 'POST',
+                data: {
+                    SessionId: $('#session-id').val(),
+                    Name: name,
+                    Description: description,
+                    StartTime: startTime,
+                    EndTime: endTime
+                },
+                success: function (data) {
+                    activityId = data.data.ActivityID;
+                    for (var i = 0; i < collectionItemId.length; i++) {
+                        addActivityItem(activityId, collectionItemId[i]);
+                    }
+                    ReloadActivityDatatable();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        } else {
+            $.ajax({
+                url: urlApi + 'api/activity/AddActivity',
+                method: 'POST',
+                data: {
+                    SessionId: $('#session-id').val(),
+                    Name: name,
+                    Description: description,
+                    StartTime: startTime,
+                    EndTime: endTime
+                },
+                success: function (data) {
+                    ReloadActivityDatatable();
+                    swal("Thành công", "Thêm mới hoạt động thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
 
         $('#addActivity').attr('data-dismiss', 'modal');
         clearErrorAddActivity();
         clearInputAddAvtivity();
     }
-    
+
 });
 
 //Update activity
 $('#btn-update-activity').on('click', function () {
-    $.ajax({
-        url: urlApi + 'api/activity/UpdateActivity',
-        method: "POST",
-        data: {
-            ActivityID: $('#txtActivityId').val(),
-            Name: $('#activityName').val(),
-            Description: $('#activityDescription').val()
-        },
-        success: function (data) {
-            ReloadActivityDatatable();
-            swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
+    var collectionItemId = $('#speakerUpdateSelectBox').val();
+    if (collectionItemId != '') {
+        $.ajax({
+            url: urlApi + 'api/activity/UpdateActivity',
+            method: "POST",
+            data: {
+                ActivityID: $('#txtActivityId').val(),
+                Name: $('#activityName').val(),
+                Description: $('#activityDescription').val()
+            },
+            success: function (data) {
+                deleteActivityItem($('#txtActivityId').val());
+                for (var i = 0; i < collectionItemId.length; i++) {
+                    addActivityItem($('#txtActivityId').val(), collectionItemId[i]);
+                }
+                ReloadActivityDatatable();
+                swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    } else {
+        $.ajax({
+            url: urlApi + 'api/activity/UpdateActivity',
+            method: "POST",
+            data: {
+                ActivityID: $('#txtActivityId').val(),
+                Name: $('#activityName').val(),
+                Description: $('#activityDescription').val()
+            },
+            success: function (data) {
+                ReloadActivityDatatable();
+                swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
 });
 
 function openModelUpdate(id, name, startTime, endTime, description) {
@@ -639,8 +697,23 @@ function openModelUpdate(id, name, startTime, endTime, description) {
 
 }
 
-function deleteActivity(id) {
+function deleteActivityItem(id) {
+    $.ajax({
+        url: urlApi + 'api/activity/DeleteActivityItem',
+        method: 'POST',
+        data: {
+            ActivityId: id,
+        },
+        success: function (data) {
+        },
+        error: function (data) {
+            console.log(activityId);
+            console.log(data);
+        }
+    });
+}
 
+function deleteActivity(id) {
     swal({
         title: "Bạn có chắc?",
         text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
@@ -653,19 +726,17 @@ function deleteActivity(id) {
     },
         function () {
             $.ajax({
-                url: urlApi + 'api/activity/DeleteActivity',
-                method: "POST",
+                url: urlApi + 'api/activity/DeleteActivityItem',
+                method: 'POST',
                 data: {
-                    ActivityID: id,
-
+                    ActivityId: id,
                 },
                 success: function (data) {
-                    ReloadActivityDatatable();
-                    swal("Xóa Thành Công!", "Hoạt động đã được xóa thành công", "success");
+                    deleteActivityAfterDeleteActivityItem(id);
                 },
                 error: function (data) {
+                    console.log(activityId);
                     console.log(data);
-                    swal("Error", "Some error occur", "error");
                 }
             });
         });
@@ -683,6 +754,43 @@ function clearErrorAddActivity() {
 function clearInputAddAvtivity() {
     $('#txtActivityNameAdd').val("");
     $('#txtActivityDesAdd').val("");
+}
+
+function addActivityItem(activityId, collectionItemId) {
+    $.ajax({
+        url: urlApi + 'api/activity/AddActivityItem',
+        method: 'POST',
+        data: {
+            ActivityId: activityId,
+            CollectionItemId: collectionItemId
+        },
+        success: function (data) {
+            ReloadActivityDatatable();
+            swal("Thành công", "Thêm mới hoạt động thành công", "success");
+        },
+        error: function (data) {
+            console.log(activityId + ', ' + collectionItemId);
+            console.log(data);
+        }
+    });
+}
+
+function deleteActivityAfterDeleteActivityItem(activityId) {
+    $.ajax({
+        url: urlApi + 'api/activity/DeleteActivity',
+        method: "POST",
+        data: {
+            ActivityID: activityId,
+        },
+        success: function (data) {
+            ReloadActivityDatatable();
+            swal("Xóa Thành Công!", "Hoạt động đã được xóa thành công", "success");
+        },
+        error: function (data) {
+            console.log(data);
+            swal("Xóa không thành công", "Phát sinh lỗi", "error");
+        }
+    });
 }
 
 /* Timeline */

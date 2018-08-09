@@ -14,6 +14,6 @@ namespace CapstoneProjectAdmin.ViewModel
         public string EndTime { get; set; }
         public string Description { get; set; }
         public string SessionName { get; set; }
-        public string SpeakerName { get; set; }
+        public IEnumerable<string> SpeakerName { get; set; }
     }
 }

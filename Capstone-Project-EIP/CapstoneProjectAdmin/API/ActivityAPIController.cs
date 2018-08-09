@@ -22,17 +22,35 @@ namespace CapstoneProjectAdmin.API
         {
             ActivityApi activityApi = new ActivityApi();
             var listActivitys = activityApi.GetActivitiesBySessionId(id);
-            var listActivity = listActivitys.Select(a => new ActivityViewModel {
+            var listActivity = listActivitys.Select(a => new ActivityViewModel
+            {
                 ActivityID = a.ActivityID,
                 Name = a.Name,
                 StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy") : "",
                 EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy") : "",
                 Description = a.Description,
-                SessionName = a.Session.Name,
-                //SpeakerName = a.ActivityItems.FirstOrDefault(e => e.ActivityId == a.ActivityID).CollectionItem.Name
+                SpeakerName = a.ActivityItems.Where(e => e.ActivityId == a.ActivityID).Select(z => z.CollectionItem.Name)
             });
-            return listActivity; 
+            return listActivity;
         }
+
+        [Route("AddActivityItem")]
+        [HttpPost]
+        public HttpResponseMessage AddActivityItem(ActivityItem activityItem)
+        {
+            db.ActivityItems.Add(activityItem);
+            db.SaveChanges();
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    message = "Add successful!",
+                })
+            };
+        }
+
 
         [Route("AddActivity")]
         [HttpPost]
@@ -50,6 +68,7 @@ namespace CapstoneProjectAdmin.API
                         success = true,
                         data = new
                         {
+                            ActivityID = activity.ActivityID,
                             Name = activity.Name,
                             Description = activity.Description,
                             StartTime = activity.StartTime,
@@ -81,7 +100,7 @@ namespace CapstoneProjectAdmin.API
             {
                 var curActivity = db.Activities.FirstOrDefault(a => a.ActivityID == activity.ActivityID);
                 curActivity.Name = activity.Name;
-                curActivity.Description = activity.Description!= null ? activity.Description : "";
+                curActivity.Description = activity.Description != null ? activity.Description : "";
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
@@ -99,7 +118,7 @@ namespace CapstoneProjectAdmin.API
                     })
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new HttpResponseMessage()
                 {
@@ -110,6 +129,28 @@ namespace CapstoneProjectAdmin.API
                     })
                 };
             }
+        }
+
+
+        [Route("DeleteActivityItem")]
+        [HttpPost]
+        public HttpResponseMessage DeleteActivityItem(ActivityItem activityItem)
+        {
+            var ListActivityItem = db.ActivityItems.Where(e => e.ActivityId == activityItem.ActivityId).Select(a => a.ActivityItemId).ToList();
+            for (int i = 0; i < ListActivityItem.Count(); i++)
+            {
+                db.ActivityItems.Remove(db.ActivityItems.Find(ListActivityItem.ElementAt(i)));
+            }
+            db.SaveChanges();
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    message = "Remove successful!",
+                })
+            };
         }
 
         [Route("DeleteActivity")]
