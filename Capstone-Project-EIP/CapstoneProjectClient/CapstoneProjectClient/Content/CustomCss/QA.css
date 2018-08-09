@@ -126,6 +126,7 @@
 .question-item__author {
     font-weight: 500;
     margin-left: 20px;
+    word-break:break-word;
 }
 
 .question-item-date {
@@ -274,6 +275,11 @@
     position:relative;
 }
 .btn-dislike {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.btn-dislike-reply {
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }

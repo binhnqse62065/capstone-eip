@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using CapstoneProjectClient.Models;
 using HmsService.Models.Entities;
+using HmsService.Sdk;
 
 namespace CapstoneProjectClient.API
 {
@@ -151,9 +152,9 @@ namespace CapstoneProjectClient.API
             };
         }
 
-        [Route("DisLikeComment")]
+        [Route("UnLikeComment")]
         [HttpPost]
-        public HttpResponseMessage DisLikeComment(Comment comment)
+        public HttpResponseMessage UnLikeComment(Comment comment)
         {
             var currComment = db.Comments.Find(comment.CommentId);
             currComment.NumberOfLike -= 1;
@@ -166,6 +167,42 @@ namespace CapstoneProjectClient.API
                 {
                     success = true,
                     newNumberOfLike = currComment.NumberOfLike
+                })
+            };
+        }
+
+        [Route("DislikeComment")]
+        [HttpPost]
+        public HttpResponseMessage DislikeComment(Comment comment)
+        {
+            CommentApi commentApi = new CommentApi();
+            int newNumberDislike = commentApi.UpdateNumberDisLike(comment.CommentId, true);
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    newNumberOfLike = newNumberDislike
+                })
+            };
+        }
+
+        [Route("UnDislikeComment")]
+        [HttpPost]
+        public HttpResponseMessage UnDislikeComment(Comment comment)
+        {
+            CommentApi commentApi = new CommentApi();
+            int newNumberDislike = commentApi.UpdateNumberDisLike(comment.CommentId, false);
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    newNumberOfLike = newNumberDislike
                 })
             };
         }

@@ -29,6 +29,21 @@ namespace HmsService.Sdk
             return totalLike;
         }
 
+        public int UpdateNumberDisLike(int commentId, bool isDislike)
+        {
+            var commentTmp = this.BaseService.FirstOrDefault(c => c.CommentId == commentId);
+            if(isDislike)
+            {
+                commentTmp.NumberOfDislike += 1;
+            }
+            else
+            {
+                commentTmp.NumberOfDislike -= 1;
+            }
+            this.BaseService.Save();
+            return (int)commentTmp.NumberOfDislike;
+        }
+
         //public IEnumerable<CommentViewModel> GetAllComment
     }
 }

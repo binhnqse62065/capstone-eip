@@ -33,9 +33,7 @@
 
                 <button class="btn dropdown-toggle btn-filter-question float-right" data-toggle="dropdown" aria-expanded="false" id="cbSortQuestion">Sắp xếp câu hỏi</button>
                 <ul class="dropdown-menu dropdown-filter-option">
-                    @*<li class="change-filter-question" onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</li>
-        <hr />
-        <li class="change-filter-question" onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</li>*@
+                    
                     <li class="change-filter-question" onclick="filterQuestion(@Model.QAId, 'lastest')">Câu hỏi mới nhất</li>
                     <hr />
                     <li class="change-filter-question" onclick="filterQuestion(@Model.QAId, 'hotest')">Câu hỏi nổi bật</li>
@@ -122,6 +120,10 @@
 
                                     <div class="question-item__action-zone">
                                         <div class="score score--card">
+                                            <button class="score__btn minus btn-plain btn-dislike-reply" value="@(subItem.CommentId)" id="btnDislikeReply-@(subItem.CommentId)">
+                                                <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+                                                @(subItem.NumberOfDislike)
+                                            </button>
                                             <button class="score__btn plus btn-plain btn-like-reply-template btn-like-reply" id="btn-like-reply-@(subItem.CommentId)" value="@(subItem.CommentId)">
                                                 @(subItem.NumberOfLike)
                                                 <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
@@ -134,16 +136,6 @@
                                 <div class="question-item__body">
                                     @(subItem.CommentContent)
                                 </div>
-                                @*<span id="username-reply">@(subItem.Username): </span>
-                                    <span id="reply-content">@(subItem.CommentContent)</span>
-                                    <p class="like-rep">
-                                        <button class="btn btn-primary btn-sm"><i id="btn-like-reply-@(subItem.CommentId)" class="fa fa-thumbs-o-up  btn-like-reply" aria-hidden="true" value="@(subItem.CommentId)"> @(subItem.NumberOfLike)</i></button>
-                                    </p>*@
-                                @*@{
-                                        var createTimeTmp = (DateTime)subItem.CreateTime;
-                                        var createTime = createTimeTmp.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                                    }
-                                    <span id="reply-time">@(createTime)</span>*@
                             </div>
                         }
 
@@ -236,9 +228,10 @@
 
             <div class="question-item__action-zone">
                 <div class="score score--card">
-                    @*<button class="score__btn minus btn-plain">
-                    <span><i class="fa fa-reply" aria-hidden="true"></i></span>
-                </button>*@
+                    <button class="score__btn minus btn-plain btn-dislike-reply" value="">
+                        <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+                        
+                    </button>
                     <button class="score__btn plus btn-plain  btn-like-reply-template btn-like-reply" value="">
                         0
                         <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
@@ -317,13 +310,21 @@
     <script>
         var questionId;
         var urlApi = '@curPath';
+        /* Url để gọi update like dislike của câu hỏi */
         var urlLike = 'api/question/LikeQuestion';
         var urlUnLike = 'api/question/UnLikeQuestion';
         var urlDisLike = 'api/question/DisLikeQuestion';
         var urlUnDisLike = 'api/question/UnDisLikeQuestion';
+
+        /* Url để gọi update like dislike của bình luận */
+        var urlLikeComment = 'api/comment/LikeComment';
+        var urlUnLikeComment = 'api/comment/UnLikeComment';
+        var urlDislikeComment = 'api/comment/DislikeComment';
+        var urlUnDislikeComment = 'api/comment/UnDislikeComment';
         $(function () {
-            //chỉnh css cho biết thiết bị này đã like hay dislike câu hỏi nào
+            //chỉnh css cho biết thiết bị này đã like hay dislike câu hỏi , bình luận nào
             addCssForQuestion();
+            addCssForComment();
 
             //var url = window.location.href;
             //console.log(url);
@@ -456,8 +457,6 @@
 
                 var questionId = parseInt($(this).attr('value'));
                 var urlApiAjax = urlDisLike;
-                //var status = localStorage.getItem("" + questionId);
-
 
                 /* New */
                 var listQuestionInteracted = JSON.parse(localStorage.getItem("listQuestion"));
@@ -507,42 +506,114 @@
 
             //Click like reply
             $(document).on('click', '.btn-like-reply', function () {
-                var commentId = $(this).attr('value');
-                var urlApiAjax = 'api/comment/LikeComment';
-                var isLikedComment = localStorage.getItem("CommentID" + commentId);
-                if (isLikedComment == null) {
-                    localStorage.setItem("CommentID" + commentId, "true");
-                }
-                else {
-                    if (isLikedComment == "true") {
-                        localStorage.setItem("CommentID" + commentId, "false");
-                        urlApiAjax = 'api/comment/DisLikeComment';
+                var commentId = parseInt($(this).attr('value'));
+
+                var currentNumberLikeComment = parseInt($('#btn-like-reply-' + commentId).text());
+
+                var listCommentInteracred = JSON.parse(localStorage.getItem('listComment'));
+                if (listCommentInteracred != null) {
+                    var commentInteract = listCommentInteracred.find(c => c.commentId === commentId);
+                    if (commentInteract == null) {
+                        var newCommentInteract = {
+                            'commentId': commentId,
+                            'status': 'Like'
+                        };
+                        listCommentInteracred.push(newCommentInteract);
+
+                        chat.server.likeComment(commentId, currentNumberLikeComment + 1, true);
+                        callApiUpdateLikeDislikeComment(urlLikeComment, commentId);
                     }
                     else {
-                        localStorage.setItem("CommentID" + commentId, "true");
+                        var currentStatus = commentInteract.status;
+                        if (currentStatus === 'Like') {
+                            commentInteract.status = 'UnLike';
+                            chat.server.likeComment(commentId, currentNumberLikeComment - 1, false);
+                            callApiUpdateLikeDislikeComment(urlUnLikeComment, commentId);
+                        }
+                        else if (currentStatus === 'Dislike') {
+                            commentInteract.status = 'Like';
+                            var currentNumberOfDislikeComment = parseInt($('#btnDislikeReply-' + commentId).text());
+                            chat.server.dislikeComment(commentId, currentNumberOfDislikeComment - 1, false);
+                            chat.server.likeComment(commentId, currentNumberLikeComment + 1, true);
+                            callApiUpdateLikeDislikeComment(urlLikeComment, commentId);
+                            callApiUpdateLikeDislikeComment(urlUnDislikeComment, commentId);
+                        }
+                        else {
+                            commentInteract.status = 'Like';
+                            chat.server.likeComment(commentId, currentNumberLikeComment + 1, true);
+                            callApiUpdateLikeDislikeComment(urlLikeComment, commentId);
+                        }
                     }
-                }
-
-                isLikedComment = localStorage.getItem("CommentID" + commentId) == "true";
-                if (isLikedComment == true) {
-                    chat.server.likeComment(commentId, parseInt($(this).text()) + 1, true);
+                    localStorage.setItem('listComment', JSON.stringify(listCommentInteracred));
                 }
                 else {
-                    chat.server.likeComment(commentId, parseInt($(this).text()) - 1, false);
+                    var listCommentInteractedNew = [];
+                    var commentInteracted = {
+                        'commentId': commentId,
+                        'status': 'Like'
+                    };
+                    listCommentInteractedNew.push(commentInteracted);
+                    localStorage.setItem('listComment', JSON.stringify(listCommentInteractedNew));
+                    chat.server.likeComment(commentId, currentNumberLikeComment + 1, true);
+                    callApiUpdateLikeDislikeComment(urlLikeComment, commentId);
                 }
-                $.ajax({
-                    url: urlApi + urlApiAjax,
-                    method: "POST",
-                    data: {
-                        CommentId: commentId
-                    },
-                    success: function (data) {
 
-                    },
-                    error: function (data) {
-                        console.log(data);
+
+            });
+
+            //Click dislike reply
+            $(document).on('click', '.btn-dislike-reply', function () {
+                var commentId = parseInt($(this).attr('value'));
+                var urlApiAjax = 'api/comment/UnLikeComment';
+                var currentNumberDisLikeComment = parseInt($('#btnDislikeReply-' + commentId).text());
+
+                var listCommentInteracred = JSON.parse(localStorage.getItem('listComment'));
+                if (listCommentInteracred != null) {
+                    var commentInteract = listCommentInteracred.find(c => c.commentId === commentId);
+                    if (commentInteract == null) {
+                        var newCommentInteract = {
+                            'commentId': commentId,
+                            'status': 'Dislike'
+                        };
+                        listCommentInteracred.push(newCommentInteract);
+                        
+                        chat.server.dislikeComment(commentId, currentNumberDisLikeComment + 1, true);
+                        callApiUpdateLikeDislikeComment(urlDislikeComment, commentId);
                     }
-                });
+                    else {
+                        var currentStatus = commentInteract.status;
+                        if (currentStatus === 'Dislike') {
+                            commentInteract.status = 'UnDislike';
+                            chat.server.dislikeComment(commentId, currentNumberDisLikeComment - 1, false);
+                            callApiUpdateLikeDislikeComment(urlUnDislikeComment, commentId);
+                        }
+                        else if (currentStatus === 'Like') {
+                            commentInteract.status = 'Dislike';
+                            var currentNumberOfLikeComment = parseInt($('#btn-like-reply-' + commentId).text());
+                            chat.server.dislikeComment(commentId, currentNumberDisLikeComment + 1, true);
+                            chat.server.likeComment(commentId, currentNumberOfLikeComment - 1, false);
+                            callApiUpdateLikeDislikeComment(urlUnLikeComment, commentId);
+                            callApiUpdateLikeDislikeComment(urlDislikeComment, commentId);
+                        }
+                        else {
+                            commentInteract.status = 'Dislike';
+                            chat.server.dislikeComment(commentId, currentNumberDisLikeComment + 1, true);
+                            callApiUpdateLikeDislikeComment(urlDislikeComment, commentId);
+                        }
+                    }
+                    localStorage.setItem('listComment', JSON.stringify(listCommentInteracred));
+                }
+                else {
+                    var listCommentInteractedNew = [];
+                    var commentInteracted = {
+                        'commentId': commentId,
+                        'status': 'Dislike'
+                    };
+                    listCommentInteractedNew.push(commentInteracted);
+                    localStorage.setItem('listComment', JSON.stringify(listCommentInteractedNew));
+                    chat.server.dislikeComment(commentId, currentNumberDisLikeComment + 1, true);
+                    callApiUpdateLikeDislikeComment(urlDislikeComment, commentId);
+                }
 
             });
 
@@ -588,6 +659,9 @@
                 listReply.find('#reply-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
                 listReply.find('.btn-like-reply').attr('id', 'btn-like-reply-' + commentId);
                 listReply.find('.btn-like-reply').attr('value', commentId);
+                listReply.find('.btn-dislike-reply').attr('id', 'btnDislikeReply-' + commentId);
+                listReply.find('.btn-dislike-reply').attr('value', commentId);
+
                 var listQaContainer = '#list-qa-' + questionId;
                 $(listQaContainer).append(listReply.html());
             }
@@ -637,8 +711,20 @@
 
         };
 
+        /* Dùng để update dislike của comment */
+        chat.client.updateNewDislikeOfComment = function (commentId, newNumberOfDislike, isDislike) {
+            var str = '<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + newNumberOfDislike;
+            $('#btnDislikeReply-' + commentId).empty();
+            $('#btnDislikeReply-' + commentId).append(str);
 
+            if (isDislike) {
+                $('#btnDislikeReply-' + commentId + ' i').css('color', '#cc0000');
+            }
+            else {
+                $('#btnDislikeReply-' + commentId + ' i').css('color', 'none');
+            }
 
+        };
 
 
         //Change questionId when click button reply to know what question will be reply
@@ -668,6 +754,7 @@
                 },
                 success: function (data) {
                     var listQuestionInteracted = JSON.parse(localStorage.getItem("listQuestion"));
+                    var listCommentInteracted = JSON.parse(localStorage.getItem("listComment"));
 
 
                     $('#qa-container').empty();
@@ -720,10 +807,26 @@
                             templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-like-reply').attr('id', 'btn-like-reply-' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
+                            templateComment.find('.btn-dislike-reply').attr('id', 'btnDislikeReply-' + data.data[i].Comments[j].CommentId + '');
+                            templateComment.find('.btn-dislike-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
+                            templateComment.find('.btn-dislike-reply').html('<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span> ' + data.data[i].Comments[j].NumberOfDisLike);
                             templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
                             templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
                             templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
                             templateComment.find('.btn-like-reply').html(data.data[i].Comments[j].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                            /*Set màu cho nút đã like hay dislike*/
+                            if (listCommentInteracted != null) {
+                                var commentInteractedTmp = listCommentInteracted.find(e => e.commentId === data.data[i].Comments[j].CommentId);
+                                if (commentInteractedTmp != null) {
+                                    var status = commentInteractedTmp.status;
+                                    if (status === 'Like') {
+                                        templateComment.find('.btn-like-reply span i').css('color', '#365899');
+                                    }
+                                    else if (status === 'Dislike') {
+                                        templateComment.find('.btn-dislike-reply span i').css('color', '#cc0000');
+                                    }
+                                }
+                            }
                             $('#list-qa-' + data.data[i].QuestionId + '').append(templateComment.html());
                         }
                     }
@@ -744,7 +847,7 @@
             return color;
         }
 
-        /*Dùng để gọi api update số like hay dislike dựa vào id và url truyền vô*/
+        /*Dùng để gọi api update số like hay dislike câu hỏi dựa vào id và url truyền vô*/
         function callApiUpdateLikeOrDisLike(urlApiAjax, questionId) {
             $.ajax({
                 url: urlApi + urlApiAjax,
@@ -761,8 +864,25 @@
             });
         }
 
+        /*Dùng để gọi api update số like hay dislike của comment dựa vô id và url truyền vô */
+        function callApiUpdateLikeDislikeComment(urlApiAjax, commentId) {
+            $.ajax({
+                url: urlApi + urlApiAjax,
+                method: "POST",
+                data: {
+                    CommentId: commentId
+                },
+                success: function (data) {
 
-        //Dùng để chỉnh css like hay dislike cho các nút đã từng like hoạc dislike ở local storage
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        } 
+
+
+        //Dùng để chỉnh css like hay dislike cho câu hỏi đã từng like hoạc dislike ở local storage
         function addCssForQuestion() {
             var listQuestionInteracted = JSON.parse(localStorage.getItem("listQuestion"));
             if (listQuestionInteracted != null) {
@@ -773,6 +893,22 @@
                     }
                     else if (tmpQuestion.status === 'Disliked') {
                         $('#btnDislikeQuestion-' + tmpQuestion.questionId + ' span i').css('color', '#cc0000');
+                    }
+                }
+            }
+        }
+
+        //Dùng để chỉnh css like hay dislike cho bình luận đã từng like hoạc dislike ở local storage
+        function addCssForComment() {
+            var listCommentInteracted = JSON.parse(localStorage.getItem("listComment"));
+            if (listCommentInteracted != null) {
+                for (var i = 0; i < listCommentInteracted.length; i++) {
+                    var tmpComment = listCommentInteracted[i];
+                    if (tmpComment.status === 'Like') {
+                        $('#btn-like-reply-' + tmpComment.commentId + ' span i').css('color', '#365899');
+                    }
+                    else if (tmpComment.status === 'Dislike') {
+                        $('#btnDislikeReply-' + tmpComment.commentId + ' span i').css('color', '#cc0000');
                     }
                 }
             }
