@@ -33,9 +33,12 @@
 
                 <button class="btn dropdown-toggle btn-filter-question float-right" data-toggle="dropdown" aria-expanded="false" id="cbSortQuestion">Sắp xếp câu hỏi</button>
                 <ul class="dropdown-menu dropdown-filter-option">
-                    <li onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</li>
+                    @*<li class="change-filter-question" onclick="getAllQuestionCommentLastest(@Model.QAId)">Câu hỏi mới nhất</li>
+        <hr />
+        <li class="change-filter-question" onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</li>*@
+                    <li class="change-filter-question" onclick="filterQuestion(@Model.QAId, 'lastest')">Câu hỏi mới nhất</li>
                     <hr />
-                    <li onclick="getAllQuestionCommentHotest(@Model.QAId)">Câu hỏi nổi bật</li>
+                    <li class="change-filter-question" onclick="filterQuestion(@Model.QAId, 'hotest')">Câu hỏi nổi bật</li>
                 </ul>
             </div>
 
@@ -368,8 +371,6 @@
 
             });
 
-
-
             //Click send reply of question
             $('#btnSendReply').click(function () {
                 var usernameRep = $('#txtUsernameReply').val();
@@ -402,7 +403,7 @@
             $(document).on('click', '.btn-like-question', function () {
                 var questionId = parseInt($(this).attr('value'));
                 var urlApiAjax = urlLike;
-                var status = localStorage.getItem("" + questionId);
+                //var status = localStorage.getItem("" + questionId);
 
 
 
@@ -455,7 +456,7 @@
 
                 var questionId = parseInt($(this).attr('value'));
                 var urlApiAjax = urlDisLike;
-                var status = localStorage.getItem("" + questionId);
+                //var status = localStorage.getItem("" + questionId);
 
 
                 /* New */
@@ -645,130 +646,95 @@
             $('#questionId').val($(this).attr('value'));
         });
 
-        function getAllQuestionCommentLastest(id) {
-            $('#cbSortQuestion').text('Câu hỏi mới nhất');
-            //$('.btn-lastest-question').css('background-color', 'darkgray');
-            //$('.btn-hotest-question').css('background-color', 'lightgray');
 
-            $.ajax({
-                url: urlApi + '/api/question/getAllQuestionCommentByCreateTime',
-                method: "POST",
-                data: {
-                    QAId: id
-                },
-                success: function (data) {
-                    $('#qa-container').empty();
-                    for (var i = 0; i < data.data.length; i++) {
-                        var templateQuestion = $('#list-qa').clone();
-                        if (data.data[i].IsAnswer != null) {
-                            if (data.data[i].IsAnswer == true) {
-
-                                templateQuestion.find('.main-qa').addClass('answered-question');
-                            }
-                        }
-
-                        var usernamePostQuestionSplit = data.data[i].Username.split(' ');
-                        var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
-                        templateQuestion.find('.logo-name span').html(firstCharacterName.toUpperCase());
-                        templateQuestion.find('.logo-name').css('background-color', getRandomColor());
-                        templateQuestion.find('.username-content').html(data.data[i].Username);
-                        templateQuestion.find('.question-content-template').html(data.data[i].QuestionContent);
-                        templateQuestion.find('.create-time').html('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
-                        templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
-                        templateQuestion.find('#btn-reply').attr('value', '' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + data.data[i].QuestionId);
-                        templateQuestion.find('.btn-dislike').attr('value', data.data[i].QuestionId);
-                        templateQuestion.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + data.data[i].NumberOfDisLike);
-
-                        templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                        $('#qa-container').append(templateQuestion.html());
-                        for (var j = 0; j < data.data[i].Comments.length; j++) {
-                            var templateComment = $('#list-reply-template').clone();
-                            var usernamePostQuestionSplit = data.data[i].Comments[j].Username.split(' ');
-                            var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
-                            templateComment.find('.logo-name span').html(firstCharacterName.toUpperCase());
-                            templateComment.find('.logo-name').css('background-color', getRandomColor());
-                            templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
-                            templateComment.find('.btn-like-reply').attr('id', 'btn-like-reply-' + data.data[i].Comments[j].CommentId + '');
-                            templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
-                            templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
-                            templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
-                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
-                            templateComment.find('.btn-like-reply').html(data.data[i].Comments[j].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                            $('#list-qa-' + data.data[i].QuestionId + '').append(templateComment.html());
-                        }
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-        }
-
-        function getAllQuestionCommentHotest(id) {
-            $('#cbSortQuestion').text('Câu hỏi nổi bật');
-            //$('.btn-lastest-question').css('background-color', 'lightgray');
-            //$('.btn-hotest-question').css('background-color', 'darkgray');
-            $.ajax({
-                url: urlApi + '/api/question/getAllQuestionCommentByLike',
-                method: "POST",
-                data: {
-                    QAId: id
-                },
-                success: function (data) {
-                    $('#qa-container').empty();
-                    for (var i = 0; i < data.data.length; i++) {
-                        var templateQuestion = $('#list-qa').clone();
-                        if (data.data[i].IsAnswer != null) {
-                            if (data.data[i].IsAnswer == true) {
-                                templateQuestion.find('.main-qa').addClass('answered-question');
-                            }
-                        }
-                        var usernamePostQuestionSplit = data.data[i].Username.split(' ');
-                        var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
-                        templateQuestion.find('.logo-name span').html(firstCharacterName.toUpperCase());
-                        templateQuestion.find('.logo-name').css('background-color', getRandomColor());
-                        templateQuestion.find('.username-content').html(data.data[i].Username);
-                        templateQuestion.find('.question-content-template').html(data.data[i].QuestionContent);
-                        templateQuestion.find('.create-time').html('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
-                        templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
-                        templateQuestion.find('#btn-reply').attr('value', '' + data.data[i].QuestionId + '');
-                        templateQuestion.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + data.data[i].QuestionId);
-                        templateQuestion.find('.btn-dislike').attr('value', data.data[i].QuestionId);
-                        templateQuestion.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + data.data[i].NumberOfDisLike);
-
-                        templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                        $('#qa-container').append(templateQuestion.html());
-                        for (var j = 0; j < data.data[i].Comments.length; j++) {
-                            var templateComment = $('#list-reply-template').clone();
-                            var usernamePostQuestionSplit = data.data[i].Comments[j].Username.split(' ');
-                            var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
-                            templateComment.find('.logo-name span').html(firstCharacterName.toUpperCase());
-                            templateComment.find('.logo-name').css('background-color', getRandomColor());
-                            templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
-                            templateComment.find('.btn-like-reply').attr('id', 'btn-like-reply-' + data.data[i].Comments[j].CommentId + '');
-                            templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
-                            templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
-                            templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
-                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
-                            templateComment.find('.btn-like-reply').html(data.data[i].Comments[j].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                            $('#list-qa-' + data.data[i].QuestionId + '').append(templateComment.html());
-                        }
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-
-
+        /*Filter câu hỏi mới nhất, hot nhất */
+        function filterQuestion(id, type) {
+            var urlApiFilter = '';
+            if (type === 'lastest') {
+                $('#cbSortQuestion').text('Câu hỏi mới nhất');
+                urlApiFilter = '/api/question/getAllQuestionCommentByCreateTime';
+            }
+            else {
+                $('#cbSortQuestion').text('Câu hỏi nổi bật');
+                urlApiFilter = '/api/question/getAllQuestionCommentByLike';
+            }
             
+
+            $.ajax({
+                url: urlApi + urlApiFilter,
+                method: "POST",
+                data: {
+                    QAId: id
+                },
+                success: function (data) {
+                    var listQuestionInteracted = JSON.parse(localStorage.getItem("listQuestion"));
+
+
+                    $('#qa-container').empty();
+                    for (var i = 0; i < data.data.length; i++) {
+                        var templateQuestion = $('#list-qa').clone();
+                        if (data.data[i].IsAnswer != null) {
+                            if (data.data[i].IsAnswer == true) {
+
+                                templateQuestion.find('.main-qa').addClass('answered-question');
+                            }
+                        }
+
+                        var usernamePostQuestionSplit = data.data[i].Username.split(' ');
+                        var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
+                        templateQuestion.find('.logo-name span').html(firstCharacterName.toUpperCase());
+                        templateQuestion.find('.logo-name').css('background-color', getRandomColor());
+                        templateQuestion.find('.username-content').html(data.data[i].Username);
+                        templateQuestion.find('.question-content-template').html(data.data[i].QuestionContent);
+                        templateQuestion.find('.create-time').html('' + data.data[i].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
+                        templateQuestion.find('.list-qa').attr('id', 'list-qa-' + data.data[i].QuestionId + '');
+                        templateQuestion.find('.btn-like-question').attr('id', 'btn-like-question-' + data.data[i].QuestionId + '');
+                        templateQuestion.find('.btn-like-question').attr('value', '' + data.data[i].QuestionId + '');
+                        templateQuestion.find('#btn-reply').attr('value', '' + data.data[i].QuestionId + '');
+                        templateQuestion.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + data.data[i].QuestionId);
+                        templateQuestion.find('.btn-dislike').attr('value', data.data[i].QuestionId);
+                        templateQuestion.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + data.data[i].NumberOfDisLike);
+
+                        templateQuestion.find('.btn-like-question').html(data.data[i].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+
+                        /*Set màu cho nút đã like hay dislike*/
+                        if (listQuestionInteracted != null) {
+                            var questionInteractedTmp = listQuestionInteracted.find(e => e.questionId === data.data[i].QuestionId);
+                            if (questionInteractedTmp != null) {
+                                var status = questionInteractedTmp.status;
+                                if (status === 'Liked') {
+                                    templateQuestion.find('.btn-like-question span i').css('color', '#365899');
+                                }
+                                else if (status === 'Disliked') {
+                                    templateQuestion.find('.btn-dislike span i').css('color', '#cc0000');
+                                }
+                            }
+                        }
+                        $('#qa-container').append(templateQuestion.html());
+                        for (var j = 0; j < data.data[i].Comments.length; j++) {
+                            var templateComment = $('#list-reply-template').clone();
+                            var usernamePostQuestionSplit = data.data[i].Comments[j].Username.split(' ');
+                            var firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
+                            templateComment.find('.logo-name span').html(firstCharacterName.toUpperCase());
+                            templateComment.find('.logo-name').css('background-color', getRandomColor());
+                            templateComment.find('.list-answer').attr('id', 'comment-' + data.data[i].Comments[j].CommentId + '');
+                            templateComment.find('.btn-like-reply').attr('id', 'btn-like-reply-' + data.data[i].Comments[j].CommentId + '');
+                            templateComment.find('.btn-like-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
+                            templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
+                            templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
+                            templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
+                            templateComment.find('.btn-like-reply').html(data.data[i].Comments[j].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                            $('#list-qa-' + data.data[i].QuestionId + '').append(templateComment.html());
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
 
+        /*Random màu cho các ô tên*/
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
             var color = '#';
@@ -778,6 +744,7 @@
             return color;
         }
 
+        /*Dùng để gọi api update số like hay dislike dựa vào id và url truyền vô*/
         function callApiUpdateLikeOrDisLike(urlApiAjax, questionId) {
             $.ajax({
                 url: urlApi + urlApiAjax,

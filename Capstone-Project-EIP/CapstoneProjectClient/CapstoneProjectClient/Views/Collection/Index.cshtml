@@ -22,7 +22,8 @@ else
 {
     <div class="row custom-row">
         @{
-            if (Model.TypeId == (int)MyEnum.CollectionType.File)
+            if(!(bool)Model.IsImage)
+            //if (Model.TypeId == (int)MyEnum.CollectionType.File)
             {
                 foreach (var collectionItem in Model.CollectionItems)
                 {

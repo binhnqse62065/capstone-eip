@@ -94,7 +94,7 @@
                 <!-- small box -->
                 <div class="small-box bg-teal">
 
-                    <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID), '@(collection.Name)', '@(collection.Description)')">
+                    <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID),@(collection.EventId),@(collection.TypeId), '@(collection.Name)', '@(collection.Description)')">
                         <h4 id="collectionName-@(collection.EventCollectionID)">@(collection.Name)</h4>
 
                     </div>
@@ -155,6 +155,15 @@
                     </div>
                     <p id="errorNameCollectionAdd" class="empty empty col-lg-offset-3">Vui lòng nhập tên loại bộ sưu tập</p>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Loại hiển thị</label>
+                    <div class="col-sm-9 input-group">
+                        <select class="form-control">
+                            <option value="0">Hình ảnh</option>
+                            <option value="1">Tập tin</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="btn-add" type="button" class="btn btn-primary" style="margin-top:5px">Thêm</button>
@@ -185,7 +194,7 @@
                         <input id="txtCollectionNameEdit" type="text" class="form-control speaker-title" placeholder="Nhập tên bộ sưu tập">
                     </div>
                     <p id="errorNameEdit" class="empty col-lg-offset-3">Vui lòng nhập tên bộ sựu tập</p>
-                    
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Miêu Tả:</label>
@@ -203,6 +212,8 @@
                 <button id="btnEdit" type="button" class="btn btn-info" style="margin-top:5px">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
+            <input type="hidden" id="txtEventId" value="" />
+            <input type="hidden" id="txtTypeId" value="" />
         </div>
 
     </div>
@@ -243,6 +254,7 @@
             var name = $('#txtCollectionName').val();
             var description = $('#txtDescription').val();
             var typeId = parseInt($('#cbCollectionType').val());
+            var collectionTypeName;
 
             var isValid = true;
             if (name.length === 0) {
@@ -254,13 +266,12 @@
                 $('#errorDesAdd').css('display', 'block');
             }
             if (typeId === -1) {
-                var collectionTypeNameCheck = $('#txtCollectionTypeName').val();
-                if (collectionTypeNameCheck.length === 0) {
+                collectionTypeName = $('#txtCollectionTypeName').val();
+                if (collectionTypeName.length === 0) {
                     isValid = false;
                     $('#errorNameCollectionAdd').css('display', 'block');
                 }
             }
-
             if (isValid) {
                 var eventCollectionObj = {
                     Name: name,
@@ -268,9 +279,7 @@
                     TypeId: typeId,
                     Description: description
                 };
-                if (typeId == -1) {
-                    var collectionTypeName = $('#txtCollectionTypeName').val();
-                }
+               
                 var obj = JSON.stringify(eventCollectionObj);
                 $.ajax({
                     url: '@Url.Action("AddNewEventCollection", "ManageEvent")',
@@ -282,9 +291,14 @@
                     success: function (data) {
 
                         if (data.success) {
-                            swal("Thành công!", "Bạn đã thêm bộ sưu tập thành công", "success");
-                            appenNewCollection(data.collectionTypeId, data.name, data.description);
-                            clearPopup();
+
+                            swal({
+                                title: "Thành công!",
+                                text: "Bạn đã thêm bộ sưu tập thành công",
+                                type: "success",
+                            }, function () {
+                                window.location.href = "@Url.Action("Index","ManageEvent", new { id = eventId })";
+                            });
                         }
                         else {
                             swal("Thất bại!", "Thêm mới bộ sưu tập không thành công", "warning");
@@ -303,6 +317,9 @@
             clearErrorEditCollection();
 
             var eventCollectionId = $(this).attr('value');
+            var eventId = $('#txtEventId').val();
+            var typeId = $('#txtTypeId').val();
+
             var name = $('#txtCollectionNameEdit').val();
             var description = $('#txtDescriptionEdit').val();
 
@@ -323,13 +340,15 @@
                     data: {
                         EventCollectionID: eventCollectionId,
                         Name: name,
-                        Description: description
+                        Description: description,
+                        EventId: eventId,
+                        TypeId: typeId
                     },
                     success: function (data) {
                         if (data.success) {
                             swal("Thành công!", "Bạn đã cập nhật bộ sưu tập thành công", "success");
                             $('#collectionName-' + eventCollectionId).text(name);
-                            $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId + ', \'' + name + '\', \'' + description + '\')');
+                            $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId +',' + eventId + ',' + typeId + ' \'' + name + '\', \'' + description + '\')');
 
                         }
                         else {
@@ -350,6 +369,8 @@
 
         $('#btnRemove').on('click', function () {
             var eventCollectionId = $(this).attr('value');
+            var eventId = $('#txtEventId').val();
+            var typeId = $('#txtTypeId').val();
             swal({
                 title: "Bạn có chắc?",
                 text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
@@ -365,8 +386,9 @@
                         url: '@Url.Action("DeleteEventCollection", "ManageEvent")',
                         method: "POST",
                         data: {
-                            EventCollectionID: eventCollectionId
-
+                            EventCollectionID: eventCollectionId,
+                            EventId: eventId,
+                            TypeId: typeId
                         },
                         success: function (data) {
                             swal({
@@ -386,36 +408,29 @@
                 });
         });
 
-
         $('#cbCollectionType').on('change', function () {
-            var value = this.value;
-            if (value == -1) {
+            var collectionType = parseInt(this.value);
+            console.log(collectionType);
+            if (collectionType === -1) {
                 $('#txtCollectionTypeDiv').css('display', 'flex');
             }
-            else {
-                $('#txtCollectionTypeDiv').css('display', 'none');
-            }
         });
-
-        function appenNewCollection(id, name, description) {
-            var template = $('#collectionTemplate').clone();
-            template.find('.collection-title').text(name);
-            template.find('.inner-custom').attr('onclick', 'openModalEdit(' + id + ', \'' + name + '\', \'' + description + '\')');
-            template.find('a').attr('href', 'ManageCollectionItem/' + eventId + '/' + id);
-            $('#collectionContainer').append(template.html());
-        }
 
         function clearPopup() {
             $('#txtCollectionName').val("");
             $('#txtDescription').val("");
         }
 
-        function openModalEdit(id, name, description) {
+        function openModalEdit(eventCollectionId, eventId, typeId, name, description) {
             clearErrorEditCollection();
             $('#txtCollectionNameEdit').val(name);
             $('#txtDescriptionEdit').val(description);
-            $('#btnEdit').attr('value', id);
-            $('#btnRemove').attr('value', id);
+
+            $('#txtEventId').val(eventId);
+            $('#txtTypeId').val(typeId);
+
+            $('#btnEdit').attr('value', eventCollectionId);
+            $('#btnRemove').attr('value', eventCollectionId);
         }
 
         function loadCollectionTypeToCb() {
@@ -427,7 +442,8 @@
                         for (var i = 0; i < data.data.length; i++) {
                             $('#cbCollectionType').append('<option value="' + data.data[i].CollectionTypeID + '">' + data.data[i].Name +'</option>');
                         }
-                        $('#cbCollectionType').append('<option value="-1">Loại khác</option>');
+                        $('#cbCollectionType').append('<option value="-1">Khác</option>');
+                        disableOptionCollectionType();
                     }
                 },
                 error: function (data) {
@@ -436,23 +452,7 @@
             });
         }
 
-        function addNewEventCollectionCollection() {
-            $.ajax({
-                url: '@Url.Action("GetCollectionType", "ManageEvent")',
-                method: "GET",
-                success: function (data) {
-                    if (data.success) {
-                        for (var i = 0; i < data.data.length; i++) {
-                            $('#cbCollectionType').append('<option value="' + data.data[i].CollectionTypeID + '">' + data.data[i].Name +'</option>');
-                        }
-                        $('#cbCollectionType').append('<option value="-1">Loại khác</option>');
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-        }
+     
 
         function clearErrorAddCollection() {
             $('#errorNameAdd').css('display', 'none');
@@ -463,6 +463,27 @@
         function clearErrorEditCollection() {
             $('#errorNameEdit').css('display', 'none');
             $('#errorDesEdit').css('display', 'none');
+        }
+
+        /* Dùng để disable các lựa chọn bộ sưu tập mà event đã có rồi */
+        function disableOptionCollectionType() {
+            $.ajax({
+                url: urlApi + "GetListTypeIdOfEvent/" + eventId,
+                method: "GET",
+                success: function (data) {
+                    if (data.success) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            $("#cbCollectionType option[value=" + data.data[i] + "]").attr('disabled', 'disabled');
+                            var text = $("#cbCollectionType option[value=" + data.data[i] + "]").text();
+                            $("#cbCollectionType option[value=" + data.data[i] + "]").html(text);
+                        }
+                       
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
     </script>
 }

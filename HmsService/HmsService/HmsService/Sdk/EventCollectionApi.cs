@@ -32,6 +32,13 @@ namespace HmsService.Sdk
             return this.BaseService.FirstOrDefault(c => c.EventId == eventId && c.TypeId == typeId);
         }
 
+       
+
+        public EventCollection GetEventCollectionById(int eventCollectionId)
+        {
+            return this.BaseService.FirstOrDefault(c => c.EventCollectionID == eventCollectionId);
+        }
+
         public IEnumerable<EventCollection> GetCollectionByEventId(int eventId)
         {
             return this.BaseService.Get(c => c.EventId == eventId).ToList();
@@ -46,7 +53,7 @@ namespace HmsService.Sdk
 
         public void UpdateEventCollection(EventCollection eventCollection)
         {
-            var curCollection = this.BaseService.FirstOrDefault(c => c.EventCollectionID == eventCollection.EventCollectionID);
+            var curCollection = this.BaseService.FirstOrDefault(c => c.EventId == eventCollection.EventId && c.TypeId == eventCollection.TypeId);
             curCollection.Name = eventCollection.Name;
             curCollection.Description = eventCollection.Description;
             this.BaseService.Save();
@@ -54,7 +61,7 @@ namespace HmsService.Sdk
 
         public void DeleteEventCollection(EventCollection eventCollection)
         {
-            var curCollection = this.BaseService.FirstOrDefault(c => c.EventCollectionID == eventCollection.EventCollectionID);
+            var curCollection = this.BaseService.FirstOrDefault(c => c.EventId == eventCollection.EventId && c.TypeId == eventCollection.TypeId);
             this.BaseService.Delete(curCollection);
             this.BaseService.Save();
         }

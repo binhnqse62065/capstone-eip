@@ -17,8 +17,6 @@ namespace HmsService.ViewModels
     	
     			public virtual int CollectionTypeID { get; set; }
     			public virtual string Name { get; set; }
-    			public virtual string Description { get; set; }
-    			public virtual Nullable<bool> IsActive { get; set; }
     	
     	public CollectionTypeViewModel() : base() { }
     	public CollectionTypeViewModel(HmsService.Models.Entities.CollectionType entity) : base(entity) { }
