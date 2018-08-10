@@ -9,11 +9,11 @@
 
 .list-answer {
     height: unset;
-    margin-left: 30px;
+    margin-left: 10px;
 }
 
 .main-qa {
-    padding: 16px 20px;
+    padding: 16px 10px;
 }
 
 .like-rep {
@@ -199,6 +199,7 @@
 
 .question-item__body {
     margin-top: 5px;
+    word-break:break-word;
 }
 
 .btn-reply-question-template {

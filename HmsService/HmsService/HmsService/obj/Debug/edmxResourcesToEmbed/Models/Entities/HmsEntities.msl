@@ -133,7 +133,6 @@
           <ScalarProperty Name="CodeLogin" ColumnName="CodeLogin" />
           <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
           <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="StartTime" ColumnName="StartTime" />
           <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />

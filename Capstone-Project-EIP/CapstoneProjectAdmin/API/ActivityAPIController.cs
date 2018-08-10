@@ -25,8 +25,8 @@ namespace CapstoneProjectAdmin.API
             var listActivity = listActivitys.Select(a => new ActivityViewModel {
                 ActivityID = a.ActivityID,
                 Name = a.Name,
-                StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy") : "",
-                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy") : "",
+                StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt") : "",
+                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy hh:mm tt") : "",
                 Description = a.Description,
                 SessionName = a.Session.Name,
                 //SpeakerName = a.ActivityItems.FirstOrDefault(e => e.ActivityId == a.ActivityID).CollectionItem.Name

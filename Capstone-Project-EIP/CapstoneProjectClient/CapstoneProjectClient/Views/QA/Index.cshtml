@@ -66,7 +66,7 @@
                                     <div class="question-item__author truncate">
                                         <span class="author__name">@(item.Username)</span>
                                         <br />
-                                        <span class="question-item-date">@(item.CreateTime.Value.ToString("hh:mm tt"))</span>
+                                        <span class="question-item-date">@(item.CreateTime.Value.ToString("HH:mm"))</span>
 
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                                         <div class="question-item__author truncate">
                                             <span class="author__name">@(subItem.Username)</span>
                                             <br />
-                                            <span class="question-item-date">@(subItem.CreateTime.Value.ToString("hh:mm tt"))</span>
+                                            <span class="question-item-date">@(subItem.CreateTime.Value.ToString("HH:mm"))</span>
 
                                         </div>
                                     </div>
@@ -173,7 +173,7 @@
                 <div class="question-item__action-zone">
                     <div class="score score--card">
                         <button class="score__btn minus btn-plain btn-dislike" value="">
-                            <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+                            <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> 0
 
                         </button>
                         <button class="score__btn plus btn-plain btn-like-question-template btn-like-question" value="">
@@ -229,7 +229,7 @@
             <div class="question-item__action-zone">
                 <div class="score score--card">
                     <button class="score__btn minus btn-plain btn-dislike-reply" value="">
-                        <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span>
+                        <span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> 0
                         
                     </button>
                     <button class="score__btn plus btn-plain  btn-like-reply-template btn-like-reply" value="">
@@ -325,6 +325,11 @@
             //chỉnh css cho biết thiết bị này đã like hay dislike câu hỏi , bình luận nào
             addCssForQuestion();
             addCssForComment();
+
+            var date = new Date();
+            var currentHour = date.getHours();
+            var currentMin = date.getMinutes();
+            var timeStr = currentHour + ':' + currentMin;
 
             //var url = window.location.href;
             //console.log(url);
@@ -627,7 +632,12 @@
                 var listQa = $('#list-qa').clone();
                 listQa.find('.username-content').html(name);
                 listQa.find('.question-content-template').html(message);
-                listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+                var date = new Date();
+                var currentHour = date.getHours();
+                var currentMin = date.getMinutes();
+                var timeStr = currentHour + ':' + currentMin;
+                //listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric'/*, hour12: true*/ }));
+                listQa.find('.create-time').html(timeStr);
                 //listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                 listQa.find('.btn-reply').attr('value', newQuestionId);
                 listQa.find('.btn-like-question').attr('value', newQuestionId);
@@ -656,11 +666,19 @@
                 var listReply = $('#list-reply-template').clone();
                 listReply.find('#username-reply').html(name);
                 listReply.find('#reply-content').html(message);
-                listReply.find('#reply-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }));
+                var date = new Date();
+                var currentHour = date.getHours();
+                var currentMin = date.getMinutes();
+                var timeStr = currentHour + ':' + currentMin;
+                listReply.find('#reply-time').html(timeStr);
                 listReply.find('.btn-like-reply').attr('id', 'btn-like-reply-' + commentId);
                 listReply.find('.btn-like-reply').attr('value', commentId);
                 listReply.find('.btn-dislike-reply').attr('id', 'btnDislikeReply-' + commentId);
                 listReply.find('.btn-dislike-reply').attr('value', commentId);
+                var nameSplit = name.split();
+                var firstNameChar = nameSplit[nameSplit.length - 1][0];
+                listReply.find('.logo-name span').text(firstNameChar.toUpperCase());
+                listReply.find('.logo-name').css('background-color', getRandomColor());
 
                 var listQaContainer = '#list-qa-' + questionId;
                 $(listQaContainer).append(listReply.html());

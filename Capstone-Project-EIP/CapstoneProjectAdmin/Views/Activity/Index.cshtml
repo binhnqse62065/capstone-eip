@@ -219,7 +219,8 @@
                 startDate: '@(startDate)',
                 endDate: '@(endDate)',
                 minDate: '@(startDate)',
-                maxDate: '@(endDate)'
+                maxDate: '@(endDate)',
+                timePicker: true
             });
 
 
@@ -285,8 +286,13 @@
             $('#txtActivityId').val(id);
             $('#startEndTime').daterangepicker({
                 locale: {
-                    format:'DD/MM/YYYY'
-                }
+                    format: 'DD/MM/YYYY'
+                },
+                startDate: '@(startDate)',
+                endDate: '@(endDate)',
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)',
+                timePicker: true
             });
 
         }

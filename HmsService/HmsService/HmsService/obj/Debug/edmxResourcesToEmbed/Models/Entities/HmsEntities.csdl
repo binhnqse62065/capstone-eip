@@ -280,7 +280,6 @@
     <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="StartTime" Type="DateTime" Precision="3" />
     <Property Name="EndTime" Type="DateTime" Precision="3" />
-    <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="TemplateId" Type="Int32" />
     <Property Name="CodeLogin" Type="Int32" />

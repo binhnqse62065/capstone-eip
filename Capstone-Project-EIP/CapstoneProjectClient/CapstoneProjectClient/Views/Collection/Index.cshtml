@@ -22,12 +22,12 @@ else
 {
     <div class="row custom-row">
         @{
-            if(!(bool)Model.IsImage)
+            if (!(bool)Model.IsImage)
             //if (Model.TypeId == (int)MyEnum.CollectionType.File)
             {
                 foreach (var collectionItem in Model.CollectionItems)
                 {
-                    <div class="col-md-4 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', '@(collectionItem.Description)', '@(collectionItem.ImageUrl)', true)">
+                    @*<div class="col-md-4 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', '@(collectionItem.Description)', '@(collectionItem.ImageUrl)', true)">
                         <div class="box-speaker-shadow">
                             <a href="" data-toggle="modal" data-target="#itemModal">
                                 <img class="img-fluid image-file-custom" src="~/Content/img/data.jpg" alt="brand">
@@ -36,6 +36,74 @@ else
                                 <h3 class="title title-medium" style="text-align:center">
                                     <a class="file-name">@(collectionItem.Name)</a>
                                 </h3>
+                            </div>
+                        </div>
+                    </div>*@
+                    <div class="col-md-3 col-lg-2 col-4" onclick="showModalItem('@(collectionItem.Name)','@(collectionItem.Description)', '@(collectionItem.ImageUrl)', true)">
+                        <div class="box-file-shadow">
+                            <a href="" data-toggle="modal" data-target="#itemModal" class="icon-color">
+                                @{
+                                    var nameSplit = collectionItem.Name.Split('.');
+                                    var mimetype = nameSplit[nameSplit.Length - 1];
+                                    if ("pdf".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/pdf.png" />
+                                    }
+                                    else
+                                    if ("docx".IndexOf(mimetype) != -1 || "doc".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/word.png" />
+                                    }
+                                    else
+                                    if ("xlsx".IndexOf(mimetype) != -1 || "xls".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/excel.png" />
+                                    }
+                                    else
+                                    if ("avi".IndexOf(mimetype) != -1 || "flv".IndexOf(mimetype) != -1 || "mp4".IndexOf(mimetype) != -1 || "wmv".IndexOf(mimetype) != -1 || "mov".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/video.png" />
+                                    }
+                                    else
+                                    if ("mp3".IndexOf(mimetype) != -1 || "flac".IndexOf(mimetype) != -1 || "wma".IndexOf(mimetype) != -1 || "wav".IndexOf(mimetype) != -1 || "midi".IndexOf(mimetype) != -1 || "ogg".IndexOf(mimetype) != -1 || "ac3".IndexOf(mimetype) != -1 || "amr".IndexOf(mimetype) != -1 || "aac".IndexOf(mimetype) != -1 || "m4a".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/sound.png" />
+                                    }
+                                    else
+                                    if ("zip".IndexOf(mimetype) != -1 || "rar".IndexOf(mimetype) != -1 || "7z".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/archive.png" />
+                                    }
+                                    else
+                                    if ("txt".IndexOf(mimetype) != -1 || "rtf".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/Wordpad-icon.png" />
+                                    }
+                                    else
+                                    if ("ppt".IndexOf(mimetype) != -1 || "pps".IndexOf(mimetype) != -1 || "pptx".IndexOf(mimetype) != -1 || "ppsx".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/powepoint.png" />
+                                    }
+                                    else
+                                    if ("jpeg".IndexOf(mimetype) != -1 || "png".IndexOf(mimetype) != -1 || "PNG".IndexOf(mimetype) != -1)
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/image.png" />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-fluid image-file-custom" src="~/Content/img/file.png" />
+                                    }
+                                }
+                            </a>
+                            <div class="item-title">
+                                <h6 class="title title-medium file-name-text">
+                                    @{
+                                        var nameFileSplit = collectionItem.Name.Split('.');
+                                        var mimeType = nameFileSplit[nameFileSplit.Length - 1];
+                                        var name = collectionItem.Name.Substring(0, collectionItem.Name.Length - mimeType.Length - 1);
+                                        <a class="file-name">@name</a>
+                                    }
+                                </h6>
                             </div>
                         </div>
                     </div>
@@ -95,11 +163,10 @@ else
             $('.speaker-img').attr('src', imgUrl);
             if (isFile) {
                 $('.file-url').attr('onclick', 'window.open(' + "'" + imgUrl + "'" + ')');
-                $('.speaker-img').attr('src', '/Content/img/data.jpg');
+                //$('.speaker-img').attr('src', '/Content/img/data.jpg');
+                $('.speaker-img').css('display', 'none');
             }
-            else {
-                
-            }
+            
         }
 
     </script>

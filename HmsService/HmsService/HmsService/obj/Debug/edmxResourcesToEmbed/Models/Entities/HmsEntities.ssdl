@@ -118,7 +118,6 @@
     <Property Name="EventDescription" Type="nvarchar(max)" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
-    <Property Name="CreateTime" Type="datetime" />
     <Property Name="Address" Type="nvarchar" MaxLength="50" />
     <Property Name="TemplateId" Type="int" />
     <Property Name="CodeLogin" Type="int" />

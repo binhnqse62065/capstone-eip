@@ -81,6 +81,8 @@ namespace CapstoneProjectClient.API
         public HttpResponseMessage PostComment(Comment comment)
         {
             comment.CreateTime = DateTime.Now;
+            comment.NumberOfDislike = 0;
+            comment.NumberOfLike = 0;
             db.Comments.Add(comment);
             db.SaveChanges();
 

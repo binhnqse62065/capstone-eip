@@ -20,7 +20,6 @@ namespace HmsService.ViewModels
     			public virtual string EventDescription { get; set; }
     			public virtual Nullable<System.DateTime> StartTime { get; set; }
     			public virtual Nullable<System.DateTime> EndTime { get; set; }
-    			public virtual Nullable<System.DateTime> CreateTime { get; set; }
     			public virtual string Address { get; set; }
     			public virtual Nullable<int> TemplateId { get; set; }
     			public virtual Nullable<int> CodeLogin { get; set; }

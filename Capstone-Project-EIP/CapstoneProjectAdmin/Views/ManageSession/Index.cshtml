@@ -515,12 +515,29 @@
                 startDate: '@(startDate)',
                 endDate: '@(endDate)',
                 minDate: '@(startDate)',
-                maxDate: '@(endDate)'
+                maxDate: '@(endDate)',
+                timePicker: true
             });
 
             /*Xóa báo lỗi error ở modal add interaction*/
             clearErrorAddInteraction();
         });
+
+        function openModelUpdate(id, name, startTime, endTime, description) {
+            $('#activityName').val(name);
+            $('#activityDescription').val(description);
+            $('#startEndTime').val(startTime + " - " + endTime);
+            $('#txtActivityId').val(id);
+            $('#startEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }, 
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)',
+                timePicker: true
+            });
+
+        }
     </script>
     <script src="~/Content/CustomJs/manage.session.js"></script>
 }

@@ -626,18 +626,18 @@ $('#btn-update-activity').on('click', function () {
     });
 });
 
-function openModelUpdate(id, name, startTime, endTime, description) {
-    $('#activityName').val(name);
-    $('#activityDescription').val(description);
-    $('#startEndTime').val(startTime + " - " + endTime);
-    $('#txtActivityId').val(id);
-    $('#startEndTime').daterangepicker({
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
-    });
+//function openModelUpdate(id, name, startTime, endTime, description) {
+//    $('#activityName').val(name);
+//    $('#activityDescription').val(description);
+//    $('#startEndTime').val(startTime + " - " + endTime);
+//    $('#txtActivityId').val(id);
+//    $('#startEndTime').daterangepicker({
+//        locale: {
+//            format: 'DD/MM/YYYY'
+//        }
+//    });
 
-}
+//}
 
 function deleteActivity(id) {
 
