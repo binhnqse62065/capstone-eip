@@ -642,7 +642,7 @@ $('#addActivity').on('click', function () {
 //Update activity
 $('#btn-update-activity').on('click', function () {
     var collectionItemId = $('#speakerUpdateSelectBox').val();
-    if (collectionItemId != '') {
+    if (collectionItemId != null) {
         $.ajax({
             url: urlApi + 'api/activity/UpdateActivity',
             method: "POST",
@@ -673,6 +673,7 @@ $('#btn-update-activity').on('click', function () {
                 Description: $('#activityDescription').val()
             },
             success: function (data) {
+                deleteActivityItem($('#txtActivityId').val());
                 ReloadActivityDatatable();
                 swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
             },
