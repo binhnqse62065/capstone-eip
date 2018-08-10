@@ -3,6 +3,7 @@
     ViewBag.Title = "Trung tâm điều khiển";
     String urlApi = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
     int sessionId = 0;
+    var listSpeaker = ViewBag.ListSpeaker;
     if (Model.Count() > 0)
     {
         sessionId = Model.FirstOrDefault().SessionID;
@@ -98,7 +99,7 @@
                                     <th>Tên Hoạt Động</th>
                                     <th>Thời Gian Bắt đầu - Kết thúc</th>
                                     <th>Miêu Tả</th>
-                                    <th>Tên phiên làm việc</th>
+                                    <th>Tên diễn giả</th>
                                     <th>Chức Năng</th>
                                 </tr>
                             </thead>
@@ -179,7 +180,7 @@
                             <option value="2">Hỏi Đáp</option>
                         </select>
                     </div>
-                    
+
 
 
                 </div>
@@ -306,7 +307,7 @@
                         </div>
                         <input type="text" class="form-control pull-right" id="AddStartEndTime" value="">
                     </div>
-                    
+
 
                 </div>
 
@@ -319,9 +320,19 @@
                         <input type="text" class="form-control" id="txtActivityDesAdd" placeholder="Nhập miêu tả hoạt động">
                     </div>
                     <p class="error-title col-lg-offset-3" id="errorDesActivityAdd">Vui lòng nhập miêu tả hoạt động</p>
-
                 </div>
-
+                <label class="col-sm-3 form-control-label">Diễn giả:</label>
+                <div class="input-group col-sm-9">
+                    <div class="input-group-addon">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    </div>
+                    <select Id="speakerAddSelectBox" class="form-control" multiple>
+                        @foreach (var speaker in listSpeaker)
+                        {
+                            <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                        }
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Thêm</button>
@@ -374,6 +385,18 @@
                         </div>
                         <input id="activityDescription" type="text" class="form-control" placeholder="Nhập miêu tả">
                     </div>
+                </div>
+                <label class="col-sm-3 form-control-label">Diễn giả:</label>
+                <div class="input-group col-sm-9">
+                    <div class="input-group-addon">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    </div>
+                    <select Id="speakerUpdateSelectBox" class="form-control" multiple>
+                        @foreach (var speaker in listSpeaker)
+                        {
+                            <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                        }
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
