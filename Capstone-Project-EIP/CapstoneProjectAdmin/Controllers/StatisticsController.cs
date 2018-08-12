@@ -33,17 +33,20 @@ namespace CapstoneProjectAdmin.Controllers
                 ViewBag.TotalGuest = totalGuestRegister;
 
                 /*Lấy tổng số câu hỏi*/
-                
-                var listQaId = qAApi.GetListQaIdByEventId(id);
+
+                //var listQaId = qAApi.GetListQaIdByEventId(id);
+                var listQa = qAApi.GetQAByEventId(id);
                 int totalQuestion = 0;
                 int totalQuestionLike = 0;
-                foreach(var qaId in listQaId)
+                foreach(var qa in listQa)
                 {
-                    totalQuestion += questionApi.GetNumberQuestionByQaId(qaId);
-                    totalQuestionLike += questionApi.GetTotalLikeQuestionByQaId(qaId);
+                    totalQuestion += questionApi.GetNumberQuestionByQaId(qa.QAId);
+                    totalQuestionLike += questionApi.GetTotalLikeQuestionByQaId(qa.QAId);
                 }
                 ViewBag.TotalQuestionLike = totalQuestionLike;
                 ViewBag.TotalQuestion = totalQuestion;
+                /* List QA để hiện ở phần select box câu hỏi được quan tâm*/
+                ViewBag.ListQA = listQa;
                 /*Lấy số câu hỏi có comment*/
                 int totalQuestionHaveComment = qAApi.GetTotalQuestionHaveComment(id);
                 ViewBag.TotalQuestionHaveComment = totalQuestionHaveComment;
@@ -53,10 +56,10 @@ namespace CapstoneProjectAdmin.Controllers
                 int totalComment = 0;
                 int totalCommentLike = 0;
                 List<CountCommentViewModel> listQuestionComment = new List<CountCommentViewModel>();
-                
-                foreach(var qaId in listQaId)
+
+                foreach (var qa in listQa)
                 {
-                    var listQuestionIdTmp = questionApi.GetListQuestionIdByQaId(qaId);
+                    var listQuestionIdTmp = questionApi.GetListQuestionIdByQaId(qa.QAId);
                     foreach(var questionId in listQuestionIdTmp)
                     {
                         int totalCommentTmp = commentApi.GetTotalCommentByQuestionId(questionId);
@@ -70,24 +73,34 @@ namespace CapstoneProjectAdmin.Controllers
                         totalCommentLike += commentApi.GetTotalLikeByQuestionId(questionId);
                     }
                 }
-                var listSortCountQuestionComment = listQuestionComment.OrderByDescending(c => c.NumberOfComment).Take(3);
-                List<QuestionViewModel> listTop3InterestedQuestion = new List<QuestionViewModel>();
-                foreach(var item in listSortCountQuestionComment)
+                /*List 3 câu hỏi có số comment nhiều nhất*/
+                //var listSortCountQuestionComment = listQuestionComment.OrderByDescending(c => c.NumberOfComment).Take(3);
+                //List<QuestionViewModel> listTop3InterestedQuestion = new List<QuestionViewModel>();
+                //foreach (var item in listSortCountQuestionComment)
+                //{
+                //    var questionTmp = questionApi.GetQuestionById(item.QuestionId);
+                //    listTop3InterestedQuestion.Add(new QuestionViewModel
+                //    {
+                //        QuestionId = questionTmp.QuestionId,
+                //        Username = questionTmp.Username,
+                //        QuestionContent = questionTmp.QuestionContent,
+                //        CreateTime = questionTmp.CreateTime.Value.ToString("hh:mm")
+                //    });
+                //}
+                //ViewBag.Top3InterestedQuestion = listTop3InterestedQuestion;
+                int firstQaId = listQa.FirstOrDefault().QAId;
+                IEnumerable<QuestionViewModel> listTop3InterestedQuestion = questionApi.GetTop3HotQuestionByQaId(firstQaId).Select(q => new QuestionViewModel
                 {
-                    var questionTmp = questionApi.GetQuestionById(item.QuestionId);
-                    listTop3InterestedQuestion.Add(new QuestionViewModel {
-                        QuestionId = questionTmp.QuestionId,
-                        Username = questionTmp.Username,
-                        QuestionContent = questionTmp.QuestionContent,
-                        CreateTime = questionTmp.CreateTime.Value.ToString("hh:mm")
-                    });
-                }
-                ViewBag.Top3InterestedQuestion = listTop3InterestedQuestion;
+                    QuestionId = q.QuestionId,
+                    Username = q.Username,
+                    QuestionContent = q.QuestionContent,
+                    CreateTime = q.CreateTime.Value.ToString("hh:mm")
+                });
                 ViewBag.TotalLikeComment = totalCommentLike;
                 ViewBag.TotalComment = totalComment;
-
+                ViewBag.Top3InterestedQuestion = listTop3InterestedQuestion;
                 /*Lấy tổng số lượt bình chọn*/
-                
+
                 var listVotingId = votingApi.GetListVotingIdByEventId(id);
                 int totalVoting = 0;
                 foreach(var votingId in listVotingId)
@@ -144,7 +157,12 @@ namespace CapstoneProjectAdmin.Controllers
             try
             {
                 VotingApi votingApi = new VotingApi();
-                List<double> listPercentResult = votingApi.GetVotingResult(voting.VotingId);
+                IEnumerable<VotingResultViewModel> listPercentResult = votingApi.GetVotingResult(voting.VotingId).Select(v => new VotingResultViewModel
+                {
+                    VotingName = v.VotingOptionContent,
+                    PercentVote = (int)v.NumberOfVoting 
+                });
+              
                 return Json(new {
                     success = true,
                     data = listPercentResult
@@ -157,5 +175,34 @@ namespace CapstoneProjectAdmin.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public JsonResult GetTop3QuestionByQaId(QA qa)
+        {
+            try
+            {
+                QuestionApi questionApi = new QuestionApi();
+                IEnumerable<QuestionViewModel> listTop3Question = questionApi.GetTop3HotQuestionByQaId(qa.QAId).Select(q => new QuestionViewModel {
+                    QuestionId = q.QuestionId,
+                    Username = q.Username,
+                    QuestionContent = q.QuestionContent,
+                    CreateTime = q.CreateTime.Value.ToString("hh:mm")
+                });
+
+                return Json(new
+                {
+                    success = true,
+                    data = listTop3Question
+                });
+            }
+            catch
+            {
+                return Json(new
+                {
+                    success = false
+                });
+            }
+        }
+
     }
 }

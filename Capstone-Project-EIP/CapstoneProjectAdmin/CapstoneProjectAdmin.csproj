@@ -260,6 +260,7 @@
     <Compile Include="ViewModel\TimelineViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\VotingOptionViewModel.cs" />
+    <Compile Include="ViewModel\VotingResultViewModel.cs" />
     <Compile Include="ViewModel\VotingViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -7034,6 +7035,7 @@
     <Content Include="Content\img\background-wifi-2.png" />
     <Content Include="Content\img\download.png" />
     <Content Include="Content\img\favicon.png" />
+    <Content Include="Content\img\LogoMakr_6CVPn5.png" />
     <Content Include="Content\Interaction\Interaction.js" />
     <Content Include="Content\ProgressBar\.gitignore" />
     <Content Include="Content\ProgressBar\bootstrap-progressbar.js" />
