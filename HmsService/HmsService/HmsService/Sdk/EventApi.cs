@@ -19,7 +19,7 @@ namespace HmsService.Sdk
             return this.BaseService.Get(e => e.IsActive == true);
         }
 
-        public Event CheckLoginCode(int code)
+        public Event CheckEventCode(int code)
         {
             return this.BaseService.CheckLoginCode(code);
         }

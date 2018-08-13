@@ -163,8 +163,8 @@ namespace HmsService.Sdk
             return listVotingRunnedResult;
         }
 
-        
-        public List<double> GetVotingResult(int votingId)
+
+        public List<VotingOptionViewModel> GetVotingResult(int votingId)
         {
             var voting = this.BaseService.FirstOrDefault(v => v.VotingId == votingId);
             int totalVoting = 0;
@@ -172,12 +172,15 @@ namespace HmsService.Sdk
             {
                 totalVoting += (int)option.NumberOfVoting;
             }
-            List<double> listPercentOption = new List<double>();
+            List<VotingOptionViewModel> listPercentOption = new List<VotingOptionViewModel>();
             Double percentTmp = 0;
             foreach (var option in voting.VotingOptions)
             {
                 percentTmp = Math.Round(((double)option.NumberOfVoting / totalVoting) * 100);
-                listPercentOption.Add(percentTmp);
+                listPercentOption.Add(new VotingOptionViewModel {
+                    VotingOptionContent = option.VotingOptionContent,
+                    NumberOfVoting = (int)percentTmp
+                });
             }
             return listPercentOption;
         }

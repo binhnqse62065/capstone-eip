@@ -620,6 +620,7 @@
     <Compile Include="ViewModels\VotingOptionViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\VotingResultViewModel.cs" />
     <Compile Include="ViewModels\VotingViewModelGen.cs">
       <DependentUpon>ViewModel.tt</DependentUpon>
     </Compile>

@@ -583,13 +583,16 @@ $('#addActivity').on('click', function () {
 
     if (isValid) {
 
-        var time = $('#AddStartEndTime').val();
-        console.log(collectionItemId);
+        var time = $('#AddStartEndTime').val().trim();
         var timeSplit = time.split('-');
-        var startTime = timeSplit[0].trim().split("/").reverse().join("-");
-        var endTime = timeSplit[1].trim().split("/").reverse().join("-");
+        var startTimeSplit = timeSplit[0].trim().split(" ");
+        var endTimeSpit = timeSplit[1].trim().split(" ");
+
+        var startTime = startTimeSplit[0].trim().split("/").reverse().join("-") + ' ' + startTimeSplit[1] /*+ ' ' + startTimeSplit[2]*/;
+        var endTime = endTimeSpit[0].trim().split("/").reverse().join("-") + ' ' + endTimeSpit[1]/* + ' ' + endTimeSpit[2]*/;
+
         var activityId;
-        if (collectionItemId != '') {
+        if (collectionItemId != null) {
             $.ajax({
                 url: urlApi + 'api/activity/AddActivity',
                 method: 'POST',
@@ -641,47 +644,78 @@ $('#addActivity').on('click', function () {
 
 //Update activity
 $('#btn-update-activity').on('click', function () {
+    clearErrorEditActivity();
     var collectionItemId = $('#speakerUpdateSelectBox').val();
-    if (collectionItemId != null) {
-        $.ajax({
-            url: urlApi + 'api/activity/UpdateActivity',
-            method: "POST",
-            data: {
-                ActivityID: $('#txtActivityId').val(),
-                Name: $('#activityName').val(),
-                Description: $('#activityDescription').val()
-            },
-            success: function (data) {
-                deleteActivityItem($('#txtActivityId').val());
-                for (var i = 0; i < collectionItemId.length; i++) {
-                    addActivityItem($('#txtActivityId').val(), collectionItemId[i]);
-                }
-                ReloadActivityDatatable();
-                swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    } else {
-        $.ajax({
-            url: urlApi + 'api/activity/UpdateActivity',
-            method: "POST",
-            data: {
-                ActivityID: $('#txtActivityId').val(),
-                Name: $('#activityName').val(),
-                Description: $('#activityDescription').val()
-            },
-            success: function (data) {
-                deleteActivityItem($('#txtActivityId').val());
-                ReloadActivityDatatable();
-                swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+    var name = $('#activityName').val();
+    var description = $('#activityDescription').val();
+
+    var isValid = true;
+    if (name.length === 0) {
+        $('#errorNameActivityEdit').css('display', 'block');
+        isValid = false;
+        
     }
+    if (description.length === 0) {
+        $('#errorDesActivityEdit').css('display', 'block');
+        isValid = false;
+        
+    }
+
+    if (isValid) {
+        var time = $('#startEndTime').val().trim();
+        var timeSplit = time.split('-');
+        var startTimeSplit = timeSplit[0].trim().split(" ");
+        var endTimeSpit = timeSplit[1].trim().split(" ");
+
+        var startTime = startTimeSplit[0].trim().split("/").reverse().join("-") + ' ' + startTimeSplit[1];
+        var endTime = endTimeSpit[0].trim().split("/").reverse().join("-") + ' ' + endTimeSpit[1];
+
+        if (collectionItemId != null) {
+            $.ajax({
+                url: urlApi + 'api/activity/UpdateActivity',
+                method: "POST",
+                data: {
+                    ActivityID: $('#txtActivityId').val(),
+                    Name: $('#activityName').val(),
+                    Description: $('#activityDescription').val(),
+                    StartTime: startTime,
+                    EndTime: endTime
+                },
+                success: function (data) {
+                    deleteActivityItem($('#txtActivityId').val());
+                    for (var i = 0; i < collectionItemId.length; i++) {
+                        addActivityItem($('#txtActivityId').val(), collectionItemId[i]);
+                    }
+                    ReloadActivityDatatable();
+                    swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        } else {
+            $.ajax({
+                url: urlApi + 'api/activity/UpdateActivity',
+                method: "POST",
+                data: {
+                    ActivityID: $('#txtActivityId').val(),
+                    Name: $('#activityName').val(),
+                    Description: $('#activityDescription').val()
+                },
+                success: function (data) {
+                    deleteActivityItem($('#txtActivityId').val());
+                    ReloadActivityDatatable();
+                    swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        $('#modalUpdateActivity').modal('hide');
+    }
+
+    
 
 });
 
@@ -750,6 +784,11 @@ function ReloadActivityDatatable() {
 function clearErrorAddActivity() {
     $('#errorNameActivityAdd').css('display', 'none');
     $('#errorDesActivityAdd').css('display', 'none');
+}
+
+function clearErrorEditActivity() {
+    $('#errorNameActivityEdit').css('display', 'none');
+    $('#errorDesActivityEdit').css('display', 'none');
 }
 
 function clearInputAddAvtivity() {

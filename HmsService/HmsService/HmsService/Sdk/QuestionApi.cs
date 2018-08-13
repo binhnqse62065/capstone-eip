@@ -83,5 +83,10 @@ namespace HmsService.Sdk
             return this.BaseService.FirstOrDefault(q => q.QuestionId == questionId);
           
         }
+
+        public IEnumerable<Question> GetTop3HotQuestionByQaId(int qaId)
+        {
+            return this.BaseService.Get(q => q.QAId == qaId).OrderByDescending(q => q.Comments.Count()).Take(3);
+        }
     }
 }

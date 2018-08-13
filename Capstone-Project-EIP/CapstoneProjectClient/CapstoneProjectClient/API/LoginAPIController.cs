@@ -21,7 +21,7 @@ namespace CapstoneProjectClient.API
             {
                 EventApi eventApi = new EventApi();
                 int codeLogin = Int32.Parse(code);
-                var eventCheck = eventApi.CheckLoginCode(codeLogin);
+                var eventCheck = eventApi.CheckEventCode(codeLogin);
                 return new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,

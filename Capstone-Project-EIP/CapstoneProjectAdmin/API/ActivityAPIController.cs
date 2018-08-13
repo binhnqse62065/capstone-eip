@@ -26,8 +26,8 @@ namespace CapstoneProjectAdmin.API
             {
                 ActivityID = a.ActivityID,
                 Name = a.Name,
-                StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy hh:mm tt") : "",
-                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy hh:mm tt") : "",
+                StartTime = a.StartTime != null ? a.StartTime.Value.ToString("dd/MM/yyyy HH:mm") : "",
+                EndTime = a.EndTime != null ? a.EndTime.Value.ToString("dd/MM/yyyy HH:mm") : "",
                 Description = a.Description,
                 SpeakerName = a.ActivityItems.Where(e => e.ActivityId == a.ActivityID).Select(z => z.CollectionItem.Name)
             });
@@ -101,6 +101,8 @@ namespace CapstoneProjectAdmin.API
                 var curActivity = db.Activities.FirstOrDefault(a => a.ActivityID == activity.ActivityID);
                 curActivity.Name = activity.Name;
                 curActivity.Description = activity.Description != null ? activity.Description : "";
+                curActivity.StartTime = activity.StartTime;
+                curActivity.EndTime = activity.EndTime;
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
