@@ -56,6 +56,7 @@ namespace HmsService.Sdk
             var curCollection = this.BaseService.FirstOrDefault(c => c.EventId == eventCollection.EventId && c.TypeId == eventCollection.TypeId);
             curCollection.Name = eventCollection.Name;
             curCollection.Description = eventCollection.Description;
+            curCollection.IsActive = eventCollection.IsActive;
             this.BaseService.Save();
         }
 

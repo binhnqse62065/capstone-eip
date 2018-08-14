@@ -20,7 +20,8 @@ namespace CapstoneProjectClient.Controllers
             {
                 Name = c.Name,
                 TypeId = c.TypeId,
-                EventId = c.EventId
+                EventId = c.EventId,
+                IsActive = (bool)c.IsActive
             }).ToList();
             ViewBag.Collections = listCollection;
             SessionApi sessionApi = new SessionApi();

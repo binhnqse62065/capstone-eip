@@ -19,7 +19,7 @@
     <Property Name="SessionId" Type="int" Nullable="false" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
-    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="ActivityItem">
     <Key>
@@ -137,6 +137,7 @@
     <Property Name="TypeId" Type="int" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="255" />
     <Property Name="IsImage" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Guest">
     <Key>

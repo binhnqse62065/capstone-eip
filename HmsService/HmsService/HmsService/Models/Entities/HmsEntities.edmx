@@ -24,7 +24,7 @@
           <Property Name="SessionId" Type="int" Nullable="false" />
           <Property Name="StartTime" Type="datetime" />
           <Property Name="EndTime" Type="datetime" />
-          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="ActivityItem">
           <Key>
@@ -142,6 +142,7 @@
           <Property Name="TypeId" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
           <Property Name="IsImage" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -773,7 +774,7 @@
           <Property Name="SessionId" Type="Int32" Nullable="false" />
           <Property Name="StartTime" Type="DateTime" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
           <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_Activity" FromRole="Activity" ToRole="ActivityItem" />
         </EntityType>
@@ -902,6 +903,7 @@
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="IsImage" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
           <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType1" FromRole="EventCollection" ToRole="CollectionType" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event1" FromRole="EventCollection" ToRole="Event" />
@@ -1380,6 +1382,7 @@
           <EntitySetMapping Name="EventCollections">
             <EntityTypeMapping TypeName="HmsEntities.EventCollection">
               <MappingFragment StoreEntitySet="EventCollection">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="IsImage" ColumnName="IsImage" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />

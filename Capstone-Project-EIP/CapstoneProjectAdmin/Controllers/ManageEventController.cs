@@ -22,7 +22,8 @@ namespace CapstoneProjectAdmin.Controllers
                 Name = c.Name,
                 EventId = c.EventId,
                 TypeId = c.TypeId,
-                Description = c.Description
+                Description = c.Description,
+                IsActive = (bool)c.IsActive
             });
             return View(listCollection);
         }
@@ -47,7 +48,7 @@ namespace CapstoneProjectAdmin.Controllers
                     success = true,
                     collectionTypeId = eventCollection.EventCollectionID,
                     name = eventCollection.Name,
-                    description = eventCollection.Description
+                    description = eventCollection.Description,
                 });
             }
             catch

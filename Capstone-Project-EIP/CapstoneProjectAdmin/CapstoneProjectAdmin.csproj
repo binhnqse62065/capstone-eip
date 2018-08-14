@@ -7033,6 +7033,7 @@
     <Content Include="Content\HomeJs\Home.js" />
     <Content Include="Content\img\17241-200.png" />
     <Content Include="Content\img\background-wifi-2.png" />
+    <Content Include="Content\img\default-image.png" />
     <Content Include="Content\img\download.png" />
     <Content Include="Content\img\favicon.png" />
     <Content Include="Content\img\LogoMakr_6CVPn5.png" />
