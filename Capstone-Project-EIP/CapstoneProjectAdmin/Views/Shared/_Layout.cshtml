@@ -157,6 +157,7 @@
                     @if (User.IsInRole("SystemAdmin"))
                     {
                         <li><a href="@Url.Action("Index","SystemAdmin")"><i class="fa fa-setting"></i> <span>Quản lý tài khoản</span></a></li>
+                        <li><a href="@Url.Action("LogOff","Account")"><i class="fa fa-sign-out"></i> <span>Thoát</span></a></li>
                     }
                     else
                     {

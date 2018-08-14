@@ -13,6 +13,13 @@ namespace HmsService.Sdk
 {
     public partial class QuestionApi
     {
+
+        public void AddNewQuestion(Question question)
+        {
+            this.BaseService.Create(question);
+            this.BaseService.Save();
+        }
+
         public int DisLikeQuestion(Question question)
         {
             try

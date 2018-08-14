@@ -101,8 +101,8 @@ namespace CapstoneProjectAdmin.API
                 var curActivity = db.Activities.FirstOrDefault(a => a.ActivityID == activity.ActivityID);
                 curActivity.Name = activity.Name;
                 curActivity.Description = activity.Description != null ? activity.Description : "";
-                curActivity.StartTime = activity.StartTime;
-                curActivity.EndTime = activity.EndTime;
+                curActivity.StartTime = activity.StartTime != null ? activity.StartTime : curActivity.StartTime;
+                curActivity.EndTime = activity.EndTime != null ? activity.EndTime : curActivity.EndTime;
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {

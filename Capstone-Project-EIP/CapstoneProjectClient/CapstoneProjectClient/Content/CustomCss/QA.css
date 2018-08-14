@@ -10,6 +10,7 @@
 .list-answer {
     height: unset;
     margin-left: 10px;
+    padding-right:10px;
 }
 
 .main-qa {

@@ -377,8 +377,14 @@ $('#btn-add-interaction').on('click', function () {
                     IsRunning: false
                 },
                 success: function (data) {
-                    $('#tblInteraction').DataTable().ajax.reload();
-                    swal("Thành công!", "Thêm mới tương tác thành công", "success");
+                    if (data.success) {
+                        $('#tblInteraction').DataTable().ajax.reload();
+                        swal("Thành công!", "Thêm mới tương tác thành công", "success");
+                    }
+                    else {
+                        swal("Thất bại!", "Đã có lỗi xảy ra", "warning");
+                    }
+                    
                 },
                 error: function (data) {
                     console.log(data);
@@ -469,9 +475,14 @@ function playInteraction(interactionId, sessionId) {
             SessionId: sessionId,
         },
         success: function (data) {
-            ReloadInteractionDatatable();
-            ReloadInteractionRunningDatatable();
-            swal("Thành công!", "Tiến hành chạy tương tác thành công", "success");
+            if (data.success) {
+                ReloadInteractionDatatable();
+                ReloadInteractionRunningDatatable();
+                swal("Thành công!", "Tiến hành chạy tương tác thành công", "success");
+            }
+            else {
+                swal("Thất bại!", "Có lỗi xảy ra", "warning");
+            }
         },
         error: function (data) {
             console.log(data);
@@ -700,7 +711,9 @@ $('#btn-update-activity').on('click', function () {
                 data: {
                     ActivityID: $('#txtActivityId').val(),
                     Name: $('#activityName').val(),
-                    Description: $('#activityDescription').val()
+                    Description: $('#activityDescription').val(),
+                    StartTime: startTime,
+                    EndTime: endTime
                 },
                 success: function (data) {
                     deleteActivityItem($('#txtActivityId').val());
