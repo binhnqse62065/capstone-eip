@@ -327,10 +327,14 @@
                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
                     </div>
                     <select Id="speakerAddSelectBox" class="form-control" multiple>
-                        @foreach (var speaker in listSpeaker)
+                        @if (listSpeaker != null)
                         {
-                            <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                            foreach (var speaker in listSpeaker)
+                            {
+                                <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                            }
                         }
+
                     </select>
                 </div>
             </div>
@@ -395,9 +399,12 @@
                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
                     </div>
                     <select Id="speakerUpdateSelectBox" class="form-control" multiple>
-                        @foreach (var speaker in listSpeaker)
+                        @if (listSpeaker != null)
                         {
-                            <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                            foreach (var speaker in listSpeaker)
+                            {
+                                <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                            }
                         }
                     </select>
                 </div>

@@ -19,10 +19,16 @@ namespace CapstoneProjectAdmin.API
 
         [Route("getAllQA/{eventId}")]
         [HttpGet]
-        public IEnumerable<QA> GetQAs(int eventId)
+        public IEnumerable<ViewModel.QAViewModel> GetQAs(int eventId)
         {
-            var listQA = db.QAs.Where(a => a.EventId == eventId).ToList();
-            return listQA;
+            QAApi qAApi = new QAApi();
+            var listQa = qAApi.BaseService.Get(q => q.EventId == eventId).Select(q => new ViewModel.QAViewModel
+            {
+                Name = q.QAName,
+                QAId = q.QAId
+            });
+           
+            return listQa;
         }
 
         [Route("getAllQuestionComment")]
@@ -173,14 +179,14 @@ namespace CapstoneProjectAdmin.API
             try
             {
                 QuestionApi questionApi = new QuestionApi();
-                questionApi.CheckAnswered(question);
+                bool isAnswered = questionApi.CheckAnswered(question);
                 return new HttpResponseMessage()
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new JsonContent(new
                     {
-                        success = true
-
+                        success = true,
+                        isAnswered = isAnswered
                     })
                 };
             }

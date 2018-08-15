@@ -124,13 +124,13 @@
           <Property Name="StartTime" Type="datetime" />
           <Property Name="EndTime" Type="datetime" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
-          <Property Name="TemplateId" Type="int" />
           <Property Name="CodeLogin" Type="int" />
           <Property Name="ImageURL" Type="varchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
           <Property Name="IsLandingPage" Type="bit" />
+          <Property Name="BriefName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="EventCollection">
           <Key>
@@ -200,6 +200,7 @@
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="LivestreamUrl" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Timeline">
           <Key>
@@ -880,13 +881,13 @@
           <Property Name="StartTime" Type="DateTime" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Precision="3" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TemplateId" Type="Int32" />
           <Property Name="CodeLogin" Type="Int32" />
           <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="Latitude" Type="Double" />
           <Property Name="IsLandingPage" Type="Boolean" />
+          <Property Name="BriefName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event1" FromRole="Event" ToRole="EventCollection" />
           <NavigationProperty Name="Guests" Relationship="HmsEntities.FK_Guest_Event" FromRole="Event" ToRole="Guest" />
           <NavigationProperty Name="QAs" Relationship="HmsEntities.FK_QA_Event" FromRole="Event" ToRole="QA" />
@@ -960,6 +961,7 @@
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
           <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />
@@ -1363,13 +1365,13 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="HmsEntities.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="BriefName" ColumnName="BriefName" />
                 <ScalarProperty Name="IsLandingPage" ColumnName="IsLandingPage" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
                 <ScalarProperty Name="CodeLogin" ColumnName="CodeLogin" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
@@ -1430,6 +1432,7 @@
           <EntitySetMapping Name="Sessions">
             <EntityTypeMapping TypeName="HmsEntities.Session">
               <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="LivestreamUrl" ColumnName="LivestreamUrl" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />

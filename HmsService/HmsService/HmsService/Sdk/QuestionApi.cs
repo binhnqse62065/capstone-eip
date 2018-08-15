@@ -57,11 +57,19 @@ namespace HmsService.Sdk
             return this.BaseService.GetQuestionsByQaId(qaId);
         }
 
-        public void CheckAnswered(Question question)
+        public bool CheckAnswered(Question question)
         {
             var tmpQuestion = this.BaseService.FirstOrDefault(q => q.QuestionId == question.QuestionId);
-            tmpQuestion.IsAnswer = true;
+            if((bool)tmpQuestion.IsAnswer)
+            {
+                tmpQuestion.IsAnswer = false;
+            }
+            else
+            {
+                tmpQuestion.IsAnswer = true;
+            }
             this.BaseService.Save();
+            return (bool)tmpQuestion.IsAnswer;
         }
 
         public int GetNumberQuestionByQaId(int qaId)

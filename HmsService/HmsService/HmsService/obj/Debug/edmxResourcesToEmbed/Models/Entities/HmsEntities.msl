@@ -125,13 +125,13 @@
     <EntitySetMapping Name="Events">
       <EntityTypeMapping TypeName="HmsEntities.Event">
         <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="BriefName" ColumnName="BriefName" />
           <ScalarProperty Name="IsLandingPage" ColumnName="IsLandingPage" />
           <ScalarProperty Name="Latitude" ColumnName="Latitude" />
           <ScalarProperty Name="Longitude" ColumnName="Longitude" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
           <ScalarProperty Name="CodeLogin" ColumnName="CodeLogin" />
-          <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="EndTime" ColumnName="EndTime" />
           <ScalarProperty Name="StartTime" ColumnName="StartTime" />
@@ -192,6 +192,7 @@
     <EntitySetMapping Name="Sessions">
       <EntityTypeMapping TypeName="HmsEntities.Session">
         <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="LivestreamUrl" ColumnName="LivestreamUrl" />
           <ScalarProperty Name="EventId" ColumnName="EventId" />

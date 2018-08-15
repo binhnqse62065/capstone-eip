@@ -234,3 +234,11 @@ button span {
 .comingsoon-content h2 {
     color:white !important;
 }
+
+.item-img {
+    width:270px;
+    height:190px;
+}
+.item-img img {
+    height:100% !important;
+}

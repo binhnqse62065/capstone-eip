@@ -8,7 +8,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using HmsService.Sdk;
-
+using System;
 
 namespace HmsService.Sdk
 {
@@ -22,6 +22,11 @@ namespace HmsService.Sdk
         public Event CheckEventCode(int code)
         {
             return this.BaseService.CheckLoginCode(code);
+        }
+
+        public bool CheckBriedName(string briefName)
+        {
+            return this.BaseService.FirstOrDefault(e => e.BriefName == briefName) != null ? true : false;
         }
 
         public bool UpdateEvent(Event eventUpdate)
@@ -67,6 +72,12 @@ namespace HmsService.Sdk
             }
             eventTmp.IsLandingPage = true;
             this.BaseService.Save();
+        }
+
+        public IEnumerable<EventViewModel> GetRunningAndUpCommingEvent()
+        {
+            var today = DateTime.Today;
+            return this.BaseService.Get(e => e.IsActive == true && (e.StartTime > today || (e.EndTime >= today && e.StartTime <= today) )).ProjectTo<EventViewModel>(this.AutoMapperConfig);
         }
     }
 }

@@ -342,14 +342,14 @@
                     {
                         name: "Name",
                         render: function (data, type, row) {
-                            return row.qaName;
+                            return row.name;
                         }
                     },
                     {
                         name: "Function",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editQANameModal" onclick="editQAName(' + row.qaId + ',\'' + row.qaName + '\')"><i class="fa fa-pencil"></i></button>     ' +     
-                                '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editQAModal" onclick="editQA(' + row.qaId + ',\'' + row.qaName + '\')"><i class="fa fa-question-circle"></i></button>     ' +
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editQANameModal" onclick="editQAName(' + row.qaId + ',\'' + row.name + '\')"><i class="fa fa-pencil"></i></button>     ' +     
+                                '<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#editQAModal" onclick="editQA(' + row.qaId + ',\'' + row.name + '\')"><i class="fa fa-question-circle"></i></button>     ' +
                                 '<button class="btn btn-danger btn-sm speaker-id" onclick="delQA(' + row.qaId + ')"><i class="fa fa-trash"></i></button>';
                         }
                     }
@@ -394,12 +394,22 @@
                         QuestionId: questionId
                     },
                     success: function (data) {
+                        console.log(data);
                         if (data.success) {
-                            swal("Thành công!", "Đã xác nhận câu hỏi này đã trả lời", "success");
-                            $('#btnCheckAnswered' + questionId).removeClass('btn-default');
-                            $('#btnCheckAnswered' + questionId).addClass('btn-success');
-                            $('#btnCheckAnswered' + questionId).text('Đã trả lời');
-                            $('#question-' + questionId + ' .main-qa').css('background-color', '#bbd9c5');
+                            if (data.isAnswered) {
+                                swal("Thành công!", "Đã xác nhận câu hỏi này đã trả lời", "success");
+                                $('#btnCheckAnswered' + questionId).removeClass('btn-default');
+                                $('#btnCheckAnswered' + questionId).addClass('btn-success');
+                                $('#btnCheckAnswered' + questionId).text('Đã trả lời');
+                                $('#question-' + questionId + ' .main-qa').css('background-color', '#bbd9c5');
+                            }
+                            else {
+                                swal("Thành công!", "Đã xác nhận câu hỏi này chưa trả lời", "success");
+                                $('#btnCheckAnswered' + questionId).removeClass('btn-success');
+                                $('#btnCheckAnswered' + questionId).addClass('btn-default');
+                                $('#btnCheckAnswered' + questionId).text('Chưa trả lời');
+                                $('#question-' + questionId + ' .main-qa').css('background-color', 'white');
+                            }
 
                         }
 
