@@ -23,7 +23,12 @@ namespace CapstoneProjectAdmin.Controllers
                 EventId = c.EventId,
                 TypeId = c.TypeId,
                 Description = c.Description,
-                IsActive = (bool)c.IsActive
+                IsActive = (bool)c.IsActive,
+                CollectionType = new CollectionTypeViewModel
+                {
+                    CollectionTypeID = c.CollectionType.CollectionTypeID,
+                    Name = c.CollectionType.Name
+                }
             });
             return View(listCollection);
         }
@@ -153,14 +158,14 @@ namespace CapstoneProjectAdmin.Controllers
                 var listCollectionType = collectionTypeApi.GetCollectionType();
                 return Json(new {
                     success = true,
-                    data = listCollectionType
+                    data = listCollectionType.Skip(2)
                 }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 return Json(new {
                     success = false
-                });
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 

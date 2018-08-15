@@ -13,5 +13,7 @@ namespace CapstoneProjectAdmin.ViewModel
         public int TypeId { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
+
+        public virtual CollectionTypeViewModel CollectionType { get; set; }
     }
 }

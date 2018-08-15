@@ -91,3 +91,7 @@
         font-size: unset;
     }
 }
+
+.menu-active {
+    background: #65b7ab;
+}

@@ -160,6 +160,9 @@
 
         $(document).ready(function () {
             InitGuestDatatable();
+
+            $('.menu').removeClass('menu-active');
+            $('.menu-guest').addClass('menu-active');
         });
 
         $('#btnAddGuest').on('click', function () {

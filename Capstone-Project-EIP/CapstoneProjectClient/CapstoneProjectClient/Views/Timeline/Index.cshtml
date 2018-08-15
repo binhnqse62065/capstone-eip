@@ -8,10 +8,10 @@
 
 <div class="container" style="padding-top:74px;">
     @*<div class="row">
-        <div class="col-md-12 text-center voting-title">
-            <h3>Dòng thời gian</h3>
-        </div>
-    </div>*@
+            <div class="col-md-12 text-center voting-title">
+                <h3>Dòng thời gian</h3>
+            </div>
+        </div>*@
     @if (Model.Count() == 0)
     {
         <h3 class="text-center">Hiện tại không có dòng thời gian nào</h3>
@@ -64,4 +64,13 @@
     }
 
 </div>
+@section scripts {
+    <script src="~/Content/bootstrap/Poll/js/processBar.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('.custom-menu').removeClass('menu-active');
+            $('.menu-timeline').addClass('menu-active');
+        });
+    </script>
+}
