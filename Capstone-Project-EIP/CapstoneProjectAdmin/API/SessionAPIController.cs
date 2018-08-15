@@ -21,7 +21,7 @@ namespace CapstoneProjectAdmin.API
         [HttpGet]
         public IEnumerable<SessionViewModel> GetSession(int id)
         {
-            var session = db.Sessions.Where(s => s.EventId == id).ToList().Select(s => new SessionViewModel {
+            var session = db.Sessions.Where(s => s.EventId == id && s.IsActive == true).ToList().Select(s => new SessionViewModel {
                 SessionID = s.SessionID,
                 Name = s.Name,
                 StartTime = s.StartTime.Value.ToString("dd/MM/yyyy"),
@@ -79,7 +79,8 @@ namespace CapstoneProjectAdmin.API
             try
             {
                 var curSession = db.Sessions.Find(session.SessionID);
-                db.Sessions.Remove(curSession);
+                curSession.IsActive = false;
+                
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
@@ -113,7 +114,7 @@ namespace CapstoneProjectAdmin.API
         {
             try
             {
-
+                session.IsActive = true;
                 db.Sessions.Add(session);
                 db.SaveChanges();
                 return new HttpResponseMessage()

@@ -157,7 +157,7 @@ namespace CapstoneProjectClient.API
         //[ResponseType(typeof(Question))]
         [Route("AddQuestion")]
         [HttpPost]
-        public HttpResponseMessage PostQuestion(Question question)
+        public HttpResponseMessage AddQuestion(Question question)
         {
             //if (!ModelState.IsValid)
             //{
@@ -167,8 +167,8 @@ namespace CapstoneProjectClient.API
             question.NumberOfDislike = 0;
             question.NumberOfLike = 0;
             question.CreateTime = DateTime.Now;
-            db.Questions.Add(question);
-            db.SaveChanges();
+            QuestionApi questionApi = new QuestionApi();
+            questionApi.AddNewQuestion(question);
 
             return new HttpResponseMessage()
             {

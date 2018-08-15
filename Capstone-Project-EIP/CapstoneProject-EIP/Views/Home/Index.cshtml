@@ -19,6 +19,8 @@
     {
         time = startTime.Value.Day + " - " + endTime.Value.Day + " Tháng " + endTime.Value.Month;
     }
+
+    IEnumerable<HmsService.ViewModels.EventViewModel> listRunningAndUpcoming = ViewBag.ListEvent;
 }
 <!doctype html>
 <html class="no-js" lang="">
@@ -30,7 +32,7 @@
     <title>Join.vn</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- Modernizr Js -->
     @*<script src="~/Content/Template/eventalk/js/modernizr-2.8.3.min.js"></script>*@
 </head>
@@ -96,10 +98,10 @@
         </div>
         <!-- Slider Area End Here -->
         <!-- About Area Start Here -->
-        <section class="section-space-big bg-common bg-accent" style="background-image: url(../../Content/Template/eventalk/img/figure/figure3.jpg);">
+        <section class="section-space-big bg-common bg-accent" @*style="background-image: url(../../Content/Template/eventalk/img/figure/figure3.jpg);"*@>
             <div class="container">
                 <div class="about-layout3">
-                    <img src="~/Content/Template/eventalk/img/about/about-logo.png" alt="logo" class="img-fluid">
+                    @*<img src="~/Content/img/LogoMakr_6CVPn5.png" alt="logo" class="img-fluid">*@
                     <p>
 
                         @Html.Raw(Model.EventDescription)
@@ -176,81 +178,80 @@
                     <h2>Lịch</h2>
 
                 </div>
-                <div class="schedule-layout3">
+
+                <div class="schedule-layout2">
                     <ul class="schedule-nav nav nav-tabs">
                         @for (int i = 0; i < Model.Sessions.Count(); i++)
                         {
                             <li class="nav-item">
-                                <a href="#schedule@(i)" data-toggle="tab" aria-expanded="false" class="@(i == 0 ? "active" : "")">
+                                <a href="#@(i)" data-toggle="tab" aria-expanded="false" class="@(i == 0 ? "active" : "")">
                                     <div class="day-number">@Html.Raw(Model.Sessions.ElementAt(i).Name)</div>
+                                    <div class="schedule-date">@(Model.Sessions.ElementAt(i).StartTime)</div>
                                 </a>
                             </li>
                         }
+
+
                     </ul>
                     <div class="schedule-content">
                         <div class="tab-content">
                             @for (int i = 0; i < Model.Sessions.Count(); i++)
                             {
-                                var activityItem = Model.Sessions.ElementAt(i).Activities;
-
-                                <div role="tabpanel" class="tab-pane fade @(i == 0 ? "active show" : "") " id="schedule@(i)">
-                                    <table class="table table-bordered table-responsive">
+                                <div role="tabpanel" class="my-tab-pane tab-pane fade @(i == 0 ? "active show" : "")" id="@(i)">
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Chủ đề</th>
+                                                <th>Diễn giả</th>
+                                                <th>Thời gian</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
-                                            @foreach (var item in activityItem)
+                                            @for (int j = 0; j < Model.Sessions.ElementAt(i).Activities.Count(); j++)
                                             {
+                                                var activityListTmp = Model.Sessions.ElementAt(i).Activities.OrderBy(a => a.StartTime);
                                                 <tr>
+                                                    <th scope="row">@(j + 1)</th>
                                                     <td>
-                                                        <a>
-                                                            <div class="schedule-info">
-                                                                <div class="media">
-                                                                    <div class="speaker-img">
-                                                                        <img src="~/Content/Template/eventalk/img/speaker/speaker9.png" alt="schedule" class="rounded-circle">
-                                                                    </div>
-                                                                    <div class="media-body item-content">
-                                                                        <h3 class="title title-medium color-dark size-sm">@(item.Name)</h3>
-                                                                        <p>@(item.Name)</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                                        <a href="single-event.html">@Html.Raw(activityListTmp.ElementAt(j).Name)</a>
                                                     </td>
                                                     <td>
-                                                        <a>
-                                                            <div class="schedule-info">
-                                                                <div class="item-content">
-                                                                    <h3 class="title title-medium color-dark size-sm">Time Schedule</h3>
-                                                                    <p>@(item.StartTime.Value.ToShortTimeString())</p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                                        @{
+                                                            var activityItemList = Model.Sessions.ElementAt(i).Activities.ElementAt(j).ActivityItems;
+                                                            for (int k = 0; k < activityItemList.Count(); k++)
+                                                            {
+                                                                if (k == activityItemList.Count() - 1)
+                                                                {
+                                                                    <span>@(activityItemList.ElementAt(k).CollectionItem.Name)</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>@(activityItemList.ElementAt(k).CollectionItem.Name),</span>
+                                                                }
+                                                            }
+                                                        }
+
                                                     </td>
-                                                    <td>
-                                                        <a>
-                                                            <div class="schedule-info">
-                                                                <div class="item-content">
-                                                                    <h3 class="title title-medium color-dark size-sm">Hall</h3>
-                                                                    <p>CityCafe</p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </td>
+                                                    <td>@(activityListTmp.ElementAt(j).StartTime.Value.ToString("dd/MM/yyyy HH:mm"))</td>
                                                 </tr>
                                             }
+
+
                                         </tbody>
                                     </table>
                                 </div>
-
-
                             }
+
+
                         </div>
                     </div>
-
                 </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <a href="#" title="More Schedules" class="btn-fill size-md border-radius-5 color-yellow">Xem thêm</a>
-                    </div>
-                </div>
+                @*<div class="row">
+                        <div class="col-12 text-center">
+                            <a href="#" title="More Schedules" class="btn-fill size-md border-radius-5 color-yellow">Xem thêm</a>
+                        </div>
+                    </div>*@
             </div>
         </section>
         <!-- Schedule Area End Here -->
@@ -269,7 +270,7 @@
                     <input id="guestEmail" placeholder="Email(bắt buộc)" type="email" class="custom-input" />
                     <p class="error-title" id="errorEmail">Vui lòng nhập email</p>
                     <p class="error-title" id="errorEmailFormat">Email không đúng định dạng</p>
-                    <button id="btn-submit">Register <span class="fa fa-chevron-right"></span></button>
+                    <button id="btn-submit">Đăng kí <span class="fa fa-chevron-right"></span></button>
                 </div>
             </div>
         </section>
@@ -292,7 +293,7 @@
                                 {
                                     <div class="col-md-3 col-sm-6 col-12">
                                         <div class="sponsonrs-box">
-                                            <a href="#">
+                                            <a >
                                                 <img src="@(item.ImageUrl)" alt="brand" class="img-fluid">
                                             </a>
                                         </div>
@@ -328,20 +329,53 @@
                     <div id="map" style="width:100%; height:496px;">
 
                     </div>
-                    @*<div class="upcoming-event-layout1">
-                            <h2>
-                                Marketing
-                                <br> Conferance 2018
-                            </h2>
-                            <div class="date">17 - 25 Oct, 2018</div>
-                            <p>Tobacco Dock, London</p>
-                        </div>*@
+
                 </div>
             </div>
         </section>
         <!-- Map Area End Here -->
     </div>
 
+    <!-- Blog Area Start Here -->
+    <section class="section-space-default-less30 bg-accent" id="listEvent">
+        <div class="container">
+            <div class="section-heading title-black color-dark text-center">
+                <h2>Danh sách sự kiện đang và sắp diễn ra</h2>
+                
+            </div>
+            <div class="row">
+                @foreach (var eventTmp in listRunningAndUpcoming)
+                {
+                    <div class="col-12">
+                        <div class="blog-layout2">
+                            <div class="media align-items-center media-none--sm">
+                                <div class="item-img" >
+                                    <img src="@(eventTmp.ImageURL)" alt="blog" class="img-fluid img-responsive">
+                                    <div class="item-date">
+
+                                        <span>@(eventTmp.StartTime.Value.ToString("dd/MM"))</span>
+                                    </div>
+                                </div>
+                                <div class="media-body media-body-box">
+                                    <div class="item-title">
+                                        <h3 class="title title-medium color-dark hover-primary">
+                                            <a href="/@(eventTmp.BriefName)">@Html.Raw(eventTmp.Name)</a>
+                                        </h3>
+                                    </div>
+                                    <div class="item-deccription">
+                                        <p>
+                                            @Html.Raw(eventTmp.EventDescription)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- Blog Area End Here -->
     <!--EventId-->
     <input type="hidden" id="txtEventId" value="@(Model.EventID)" />
 
@@ -393,12 +427,12 @@
                         isValid = false;
                         $('#errorPhoneFormat').css('display', 'block');
                     }
-                    
+
                 }
                 if (email.length === 0) {
                     isValid = false;
                     $('#errorEmail').css('display', 'block');
-                    
+
                 }
                 else {
                     if (!validateEmail(email)) {
@@ -427,6 +461,16 @@
                 }
 
 
+            });
+
+            $('.my-tab-pane').on('click', function () {
+                $('.my-tab-pane').removeClass('active show');
+                $(this).addClass('active show');
+            });
+
+            $('.nav-item').on('click', function () {
+                $('.nav-item a').removeClass('active');
+                $(this).addClass('active');
             });
         });
 

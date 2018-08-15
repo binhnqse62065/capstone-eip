@@ -175,7 +175,7 @@
     <Property Name="SessionId" Type="Int32" Nullable="false" />
     <Property Name="StartTime" Type="DateTime" Precision="3" />
     <Property Name="EndTime" Type="DateTime" Precision="3" />
-    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
     <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_Activity" FromRole="Activity" ToRole="ActivityItem" />
   </EntityType>
@@ -281,13 +281,13 @@
     <Property Name="StartTime" Type="DateTime" Precision="3" />
     <Property Name="EndTime" Type="DateTime" Precision="3" />
     <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="TemplateId" Type="Int32" />
     <Property Name="CodeLogin" Type="Int32" />
     <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="Longitude" Type="Double" />
     <Property Name="Latitude" Type="Double" />
     <Property Name="IsLandingPage" Type="Boolean" />
+    <Property Name="BriefName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event1" FromRole="Event" ToRole="EventCollection" />
     <NavigationProperty Name="Guests" Relationship="HmsEntities.FK_Guest_Event" FromRole="Event" ToRole="Guest" />
     <NavigationProperty Name="QAs" Relationship="HmsEntities.FK_QA_Event" FromRole="Event" ToRole="QA" />
@@ -304,6 +304,7 @@
     <Property Name="TypeId" Type="Int32" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="IsImage" Type="Boolean" />
+    <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
     <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType1" FromRole="EventCollection" ToRole="CollectionType" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event1" FromRole="EventCollection" ToRole="Event" />
@@ -360,6 +361,7 @@
     <Property Name="EventId" Type="Int32" Nullable="false" />
     <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
     <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
     <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />

@@ -13,6 +13,12 @@ namespace HmsService.Sdk
 {
     public partial class CommentApi
     {
+        public void CreateComment(Comment comment)
+        {
+            this.BaseService.Create(comment);
+            this.BaseService.Save();
+        }
+
         public int GetTotalCommentByQuestionId(int questionId)
         {
             return this.BaseService.Get(c => c.QuestionId == questionId).Count();

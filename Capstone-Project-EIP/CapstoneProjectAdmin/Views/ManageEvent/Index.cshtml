@@ -93,10 +93,9 @@
             <div class="col-lg-3 col-xs-6" id="collectionTypeContainer-@(collection.EventCollectionID)">
                 <!-- small box -->
                 <div class="small-box bg-teal">
-
-                    <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID),@(collection.EventId),@(collection.TypeId), '@(collection.Name)', '@(collection.Description)')">
+                    
+                    <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID),@(collection.EventId),@(collection.TypeId), '@(collection.Name)', '@(collection.Description)', '@(collection.IsActive)')">
                         <h4 id="collectionName-@(collection.EventCollectionID)">@(collection.Name)</h4>
-
                     </div>
                     <div class="icon">
                         <i class="fa fa-users"></i>
@@ -164,6 +163,13 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Được hiển thị</label>
+                    <div class="col-sm-9 input-group">
+                        <input type="checkbox" id="ckIsActiveAdd" />
+
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="btn-add" type="button" class="btn btn-primary" style="margin-top:5px">Thêm</button>
@@ -205,6 +211,13 @@
                         <textarea id="txtDescriptionEdit" type="text" class="form-control speaker-description" placeholder="Nhập miêu tả về bộ sưu tập"></textarea>
                     </div>
                     <p id="errorDesEdit" class="empty col-lg-offset-3">Vui lòng nhập miêu tả bộ sựu tập</p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Được hiển thị</label>
+                    <div class="col-sm-9 input-group">
+                        <input type="checkbox" id="ckIsActiveEdit" />
+
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -254,6 +267,10 @@
             var name = $('#txtCollectionName').val();
             var description = $('#txtDescription').val();
             var typeId = parseInt($('#cbCollectionType').val());
+            var isActive = false;
+            if ($('#ckIsActiveAdd').is(":checked")) {
+                isActive = true;
+            }
             var collectionTypeName;
 
             var isValid = true;
@@ -277,7 +294,8 @@
                     Name: name,
                     EventId: eventId,
                     TypeId: typeId,
-                    Description: description
+                    Description: description,
+                    IsActive: isActive
                 };
                
                 var obj = JSON.stringify(eventCollectionObj);
@@ -319,6 +337,7 @@
             var eventCollectionId = $(this).attr('value');
             var eventId = $('#txtEventId').val();
             var typeId = $('#txtTypeId').val();
+            var isActive = $('#ckIsActiveEdit').is(":checked");
 
             var name = $('#txtCollectionNameEdit').val();
             var description = $('#txtDescriptionEdit').val();
@@ -342,13 +361,14 @@
                         Name: name,
                         Description: description,
                         EventId: eventId,
-                        TypeId: typeId
+                        TypeId: typeId,
+                        IsActive: isActive
                     },
                     success: function (data) {
                         if (data.success) {
                             swal("Thành công!", "Bạn đã cập nhật bộ sưu tập thành công", "success");
                             $('#collectionName-' + eventCollectionId).text(name);
-                            $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId +',' + eventId + ',' + typeId + ' \'' + name + '\', \'' + description + '\')');
+                            $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId + ',' + eventId + ',' + typeId + ' \'' + name + '\', \'' + description + '\',' + isActive + ')');
 
                         }
                         else {
@@ -421,13 +441,16 @@
             $('#txtDescription').val("");
         }
 
-        function openModalEdit(eventCollectionId, eventId, typeId, name, description) {
+        function openModalEdit(eventCollectionId, eventId, typeId, name, description, isActive) {
             clearErrorEditCollection();
             $('#txtCollectionNameEdit').val(name);
             $('#txtDescriptionEdit').val(description);
-
             $('#txtEventId').val(eventId);
             $('#txtTypeId').val(typeId);
+            if (isActive) {
+                $('#ckIsActiveEdit').prop('checked', true);
+            }
+
 
             $('#btnEdit').attr('value', eventCollectionId);
             $('#btnRemove').attr('value', eventCollectionId);

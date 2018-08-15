@@ -25,12 +25,12 @@ namespace CapstoneProjectAdmin.Controllers
             ViewBag.EndDate = endDate;
 
             var listSession = sessionApi.GetSessionsByEventId(id);
-            var listQa = qAApi.GetQAByEventId(id).ToList();
-            var listVoting = votingApi.GetVotingViewModelByEventId(id).ToList();
-            var listSpeaker = eventCollectionApi.GetSpeakerByEventId(id).CollectionItems.ToList();
-            ViewBag.ListQA = listQa;
-            ViewBag.ListVoting = listVoting;
-            ViewBag.ListSpeaker = listSpeaker;
+            var listQa = qAApi.GetQAByEventId(id);
+            var listVoting = votingApi.GetVotingViewModelByEventId(id);
+            var listSpeaker = eventCollectionApi.GetSpeakerByEventId(id);
+            ViewBag.ListQA = listQa != null ? listQa : null;
+            ViewBag.ListVoting = listVoting != null ? listVoting : null; 
+            ViewBag.ListSpeaker = listSpeaker != null ? listSpeaker.CollectionItems : null;
             return View(listSession);
         }
     }

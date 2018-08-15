@@ -35,6 +35,7 @@ namespace CapstoneProjectClient.API
                             EventId = s.EventId
                         })
                     })
+                    
                 };
             }
             catch(Exception e)

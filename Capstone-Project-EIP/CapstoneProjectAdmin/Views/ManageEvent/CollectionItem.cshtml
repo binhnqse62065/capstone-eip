@@ -63,12 +63,12 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        
+
                         <input id="txtName" type="text" class="form-control speaker-title" placeholder="Nhập tên thành phần" @(typeId == 4 ? "readonly" : "")>
                     </div>
                     <p id="errorNameAdd" class="empty empty col-lg-offset-3">Vui lòng nhập tên thành phần</p>
 
-                   
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Miêu Tả:</label>
@@ -91,11 +91,12 @@
                             </div>
                         </div>
                         <div id="thumbnailContainer" class="speaker-img" style="margin-top:10px;">
-                            <img class="img-responsive"/>
+                            <img class="img-responsive" />
                         </div>
                     </div>
 
                 </div>
+                
             </div>
             <div class="modal-footer">
                 <button id="btnAdd" type="button" class="btn btn-primary speaker-id speaker-button" style="margin-top:5px">Thêm</button>
@@ -149,7 +150,7 @@
                             </div>
                         </div>
                         <div id="thumbnailContainerEdit" class="speaker-img">
-                            <img class="img-responsive" id="imageUrlEdit"  />
+                            <img class="img-responsive" id="imageUrlEdit" />
                         </div>
                     </div>
 
@@ -239,7 +240,7 @@
 
             //Filestack dùng để up hình
             // Set up the picker
-            const client = filestack.init('AIA0Qk3iTSGzr9dIsuPdgz');
+            const client = filestack.init('AdNHIzJfhTmey1CSdotUZz');
             const options = {
                 onUploadDone: updateForm,
                 maxSize: 10 * 1024 * 1024,
@@ -434,7 +435,7 @@
             $('#txtName').val("");
             $('#txtDescription').val("");
             $('#thumbnailContainer').val("");
-            $('#thumbnailContainer').html("");
+            //$('#thumbnailContainer').html("");
             $('#thumbnailContainer img').attr('src', '');
         }
 

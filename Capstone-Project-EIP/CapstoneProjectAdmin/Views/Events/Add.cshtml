@@ -58,6 +58,15 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-md-2 control-label">Tên đường dẫn</label>
+                    <div class="col-md-10">
+                        <input id="brief-name" type="text" class="form-control" placeholder="Vui lòng nhập tên đường dẫn của sự kiện" />
+                        <p class="note-brief-name">Tên đường dẫn là gồm chữ không dâu cách nhau bằng dấu gạch ngang</p>
+                        <p class="error-title" id="errorBriefNameAdd">Vui lòng nhập tên đường dẫn sự kiện</p>
+                        <p class="error-title" id="errrorExistBriefNameAdd">Tên đường dẫn sự kiện đã tồn tại, vui lòng nhập tên khác</p>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-md-2 control-label">Hình đại diện</label>
                     <div class="col-md-10">
                         <div class="field">
@@ -114,6 +123,7 @@
                 var imageUrl = $('#fileupload').val();
                 var lat = $('#txtLat').val();
                 var lng = $('#txtLng').val();
+                var briefName = $('#brief-name').val();
                 var startEndTime = $('#event-time-range').val();
                 if (eventName.length === 0) {
                     $('#errorNameAdd').css('display', 'block');
@@ -147,7 +157,10 @@
                     $('#errorTimeAdd').css('display', 'block');
                     isValid = false;
                 }
-
+                if (briefName.length === 0) {
+                    $('#errorBriefNameAdd').css('display', 'block');
+                    isValid = false;
+                }
                 if (isValid) {
                     var eventTimeSplit = $('#event-time-range').val().split('-');
                 var startTime = eventTimeSplit[0].trim().split('/').reverse().join('-');
@@ -165,7 +178,8 @@
                         EndTime: endTime,
                         ImageURL: imageUrl,
                         Latitude: lat,
-                        Longitude: lng
+                        Longitude: lng,
+                        BriefName: briefName
                     },
                     success: function (data) {
                         if (data.success) {
@@ -178,7 +192,9 @@
                                 window.location.replace('@Url.Action("Index", "Events")');
                             });
                         }
-
+                        else {
+                            $('#errrorExistBriefNameAdd').css('display', 'block');
+                        }
 
 
 
@@ -199,7 +215,7 @@
 
             //Filestack dùng để up hình
             // Set up the picker
-            const client = filestack.init('AIA0Qk3iTSGzr9dIsuPdgz');
+            const client = filestack.init('AdNHIzJfhTmey1CSdotUZz');
             const options = {
                 onUploadDone: updateForm,
                 maxSize: 10 * 1024 * 1024,

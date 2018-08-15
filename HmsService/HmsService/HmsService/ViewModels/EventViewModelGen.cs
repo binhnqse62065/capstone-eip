@@ -21,13 +21,13 @@ namespace HmsService.ViewModels
     			public virtual Nullable<System.DateTime> StartTime { get; set; }
     			public virtual Nullable<System.DateTime> EndTime { get; set; }
     			public virtual string Address { get; set; }
-    			public virtual Nullable<int> TemplateId { get; set; }
     			public virtual Nullable<int> CodeLogin { get; set; }
     			public virtual string ImageURL { get; set; }
     			public virtual Nullable<bool> IsActive { get; set; }
     			public virtual Nullable<double> Longitude { get; set; }
     			public virtual Nullable<double> Latitude { get; set; }
     			public virtual Nullable<bool> IsLandingPage { get; set; }
+    			public virtual string BriefName { get; set; }
     	
     	public EventViewModel() : base() { }
     	public EventViewModel(HmsService.Models.Entities.Event entity) : base(entity) { }
