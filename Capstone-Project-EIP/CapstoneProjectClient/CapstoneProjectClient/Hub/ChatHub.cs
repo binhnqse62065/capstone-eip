@@ -35,6 +35,11 @@ namespace CapstoneProjectClient
         {
             Clients.All.updateNewLikeOfComment(commentId, newNumberOfLike, isLike);
         }
+
+        public void DislikeComment(int commentId, int newNumberOfDislike, bool isLike)
+        {
+            Clients.All.updateNewDislikeOfComment(commentId, newNumberOfDislike, isLike);
+        }
         public ChatHub() : this(GlobalHost.ConnectionManager.GetHubContext<ChatHub>().Clients) { }
 
         public ChatHub(IHubConnectionContext<dynamic> clients)

@@ -27,11 +27,26 @@ namespace CapstoneProjectAdmin.Controllers
         public JsonResult AddNewEvent(Event eventAdd)
         {
             EventApi eventApi = new EventApi();
-            eventApi.BaseService.Create(eventAdd);
-            return Json(new
+            eventAdd.IsActive = true;
+            eventAdd.IsLandingPage = false;
+            eventAdd.BriefName = eventAdd.BriefName;
+            bool isExistBriefName = eventApi.CheckBriedName(eventAdd.BriefName);
+            if(!isExistBriefName)
             {
-                success = true
-            }, JsonRequestBehavior.AllowGet);
+                eventApi.BaseService.Create(eventAdd);
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            
         }
     }
 }

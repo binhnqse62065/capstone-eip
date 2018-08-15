@@ -49,6 +49,9 @@
         percentGuestRegister = 100 - percentGuestCheckIn;
     }
 
+    //List QA ở select box câu hỏi được quan tâm
+    IEnumerable<HmsService.ViewModels.QAViewModel> listQa = ViewBag.ListQA;
+
 }
 
 <section class="content-header">
@@ -126,11 +129,11 @@
                 <div class="box-body">
                     <div>
                         <span class="user-join"></span>
-                        <span>Số lượng không tham gia</span>
+                        <span>Số lượng tham gia</span>
                     </div>
                     <div>
                         <span class="user-not-join"></span>
-                        <span>Số lượng tham gia</span>
+                        <span>Số lượng không tham gia</span>
                     </div>
                     <div id="userRegistChart" style="height: 300px;"></div>
                 </div>
@@ -170,36 +173,45 @@
             <div class="box box-success">
                 <div class="box-header">
                     <i class="fa fa-comments-o"></i>
-                    <h3 class="box-title">3 câu hỏi được quan tâm nhất</h3>
-
+                    <h3 class="box-title">Những câu hỏi được quan tâm nhất</h3>
+                    
                 </div>
-                <div class="box-body chat" id="chat-box">
-                    @foreach (var question in top3InterestedQuestion)
-                    {
+                <div class="box-body chat" >
+                    <select class="form-control" style="margin-bottom:10px;" id="cbQaId">
+                        @foreach(var qa in listQa)
+                        {
+                            <option value="@(qa.QAId)">@(qa.QAName)</option>
+                        }
+                    </select>
+                    <div id="listQuestion">
+                        @foreach (var question in top3InterestedQuestion)
+                        {
 
-                        <!-- chat item -->
-                        <div class="item">
-                            @{
-                                string[] userCommentSplit = question.Username.Split();
-                                char firstCharacterUserComment = userCommentSplit[userCommentSplit.Length - 1][0];
-                                var backgroundColor = String.Format("#{0:X6}", random.Next(0x1000000));
-                                <div class="logo-name" style="background-color:@(backgroundColor)">
-                                    <span>@firstCharacterUserComment.ToString().ToUpper()</span>
-                                </div>
-                            }
-                            @*<img src="~/Content/AdminLTE-master/dist/img/user4-128x128.jpg" alt="user image" class="online">*@
-                            <p class="message">
-                                <a class="name">
-                                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> @(question.CreateTime)</small>
-                                    @(question.Username)
-                                </a>
-                                @(question.QuestionContent)
-                            </p>
+                            <!-- chat item -->
+                            <div class="item">
+                                @{
+                                    string[] userCommentSplit = question.Username.Split();
+                                    char firstCharacterUserComment = userCommentSplit[userCommentSplit.Length - 1][0];
+                                    var backgroundColor = String.Format("#{0:X6}", random.Next(0x1000000));
+                                    <div class="logo-name" style="background-color:@(backgroundColor)">
+                                        <span>@firstCharacterUserComment.ToString().ToUpper()</span>
+                                    </div>
+                                }
+                                @*<img src="~/Content/AdminLTE-master/dist/img/user4-128x128.jpg" alt="user image" class="online">*@
+                                <p class="message">
+                                    <a class="name">
+                                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> @(question.CreateTime)</small>
+                                        @(question.Username)
+                                    </a>
+                                    @(question.QuestionContent)
+                                </p>
 
 
-                        </div>
-                        <!-- /.item -->
-                    }
+                            </div>
+                            <!-- /.item -->
+                        }
+                    </div>
+                    
 
                 </div>
                 <!-- /.chat -->
@@ -226,9 +238,7 @@
                         <h4 class="text-center">Kết quả bình chọn</h4>
                     </div>
                     <div id="result-voting-section">
-                        <div class="progress progress-striped">
-                            <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
-                        </div>
+
                     </div>
                 </div>
                 <!-- /.chat -->
@@ -242,8 +252,28 @@
 </section>
 
 <div id="progress-bar-result-template" style="display:none;">
+    <span></span>
     <div class="progress progress-striped">
         <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
+    </div>
+</div>
+<div id="listQuestionTemplate" style="display:none;"> 
+    <div class="item">
+     
+            <div class="logo-name">
+                <span></span>
+            </div>
+
+      
+        <p class="message">
+            <a class="name">
+                <small class="text-muted pull-right"><i class="fa fa-clock-o"></i></small>
+               
+            </a>
+           
+        </p>
+
+
     </div>
 </div>
 
@@ -265,6 +295,8 @@
                 var donutData = [
                     { label: '', data: @(percentGuestRegister), color: '#e53935' },
                     { label: '', data: @(percentGuestCheckIn), color: '#43a047' }
+                    
+
 
             ]
                 $.plot('#userRegistChart', donutData, {
@@ -294,8 +326,9 @@
             /*Question Chart*/
             if (totalQuestion != 0) {
                 var donutData = [
-                    { label: '', data: @(percenQuestionHaveComment), color: '#e53935' },
-                    { label: '', data: @(percenQuestionDoesNotHaveComment), color: '#43a047' }
+                    { label: '', data: @(percenQuestionDoesNotHaveComment), color: '#e53935' },
+                    { label: '', data: @(percenQuestionHaveComment), color: '#43a047' }
+                    
 
             ]
                 $.plot('#questionChart', donutData, {
@@ -333,10 +366,19 @@
         * ----------------------
         */
 
+        /*Thay đổi select box qa thì thay đổi các kết quả ở dưới*/
         $('#cbVotingId').on('change', function () {
             var votingId = this.value;
             $('#result-voting-section').empty();
             changeResultVoting(votingId);
+        });
+
+        /*Thay đổi select box voting thì thay đổi các kết quả ở dưới*/
+        $('#cbQaId').on('change', function () {
+            var qaId = this.value;
+            console.log(qaId);
+            $('#listQuestion').empty();
+            changeTop3Question(qaId);
         });
 
         function labelFormatter(label, series) {
@@ -347,7 +389,7 @@
         }
 
         function changeResultVoting(votingId) {
-            
+
             $.ajax({
                 url: '@Url.Action("GetVotingResult", "Statistics")',
                 method: "POST",
@@ -358,7 +400,8 @@
                     if (data.success) {
                         var resultTemplate = $('#progress-bar-result-template').clone();
                         for (var i = 0; i < data.data.length; i++) {
-                            resultTemplate.find('.progress-bar').attr('data-transitiongoal', data.data[i]);
+                            resultTemplate.find('.progress-bar').attr('data-transitiongoal', data.data[i].PercentVote);
+                            resultTemplate.find('span').text(data.data[i].VotingName);
                             $('#result-voting-section').append(resultTemplate.html());
                         }
                         $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
@@ -366,12 +409,60 @@
                     else {
                         $('#result-voting-section').html('<h4class="text-center">Có lỗi xảy ra</h4>');
                     }
-                        
+
                 },
                 error: function (data) {
                     console.log(data);
                 }
             });
+        }
+
+        function changeTop3Question(qaId) {
+
+            $.ajax({
+                url: '@Url.Action("GetTop3QuestionByQaId", "Statistics")',
+                method: "POST",
+                data: {
+                    QAId: qaId
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#listQuestion').empty();
+                        var template = $('#listQuestionTemplate').clone();
+                        var usernamePostQuestionSplit; 
+                        var firstCharacterName;
+                        for (var i = 0; i < data.data.length; i++) {
+                            usernamePostQuestionSplit = data.data[i].Username.split(' ');
+                            firstCharacterName = usernamePostQuestionSplit[usernamePostQuestionSplit.length - 1][0];
+                            template.find('.logo-name span').html(firstCharacterName.toUpperCase());
+                            template.find('.logo-name').css('background-color', getRandomColor());
+                            //template.find('.message').text(data.data[i].QuestionContent);
+                            //template.find('.text-muted').text(data.data[i].CreateTime);
+                            //template.find('.name').text(data.data[i].Username);
+                            template.find('.message').html('<a class="name"><small class="text-muted pull-right"><i class="fa fa-clock-o"></i> ' + data.data[i].CreateTime + '</small>' + data.data[i].Username + '</a>' + data.data[i].QuestionContent);
+                            $('#listQuestion').append(template.html());
+                        }
+                    }
+                    else {
+                        $('#listQuestion').append('<h4class="text-center">Có lỗi xảy ra</h4>');
+                    }
+
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+
+        /*Random màu cho các ô tên*/
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
         }
     </script>
 }

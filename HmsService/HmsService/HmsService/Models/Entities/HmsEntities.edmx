@@ -24,7 +24,7 @@
           <Property Name="SessionId" Type="int" Nullable="false" />
           <Property Name="StartTime" Type="datetime" />
           <Property Name="EndTime" Type="datetime" />
-          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="ActivityItem">
           <Key>
@@ -101,8 +101,6 @@
           </Key>
           <Property Name="CollectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Description" Type="nvarchar" MaxLength="250" />
-          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -125,14 +123,14 @@
           <Property Name="EventDescription" Type="nvarchar(max)" />
           <Property Name="StartTime" Type="datetime" />
           <Property Name="EndTime" Type="datetime" />
-          <Property Name="CreateTime" Type="datetime" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
-          <Property Name="TemplateId" Type="int" />
           <Property Name="CodeLogin" Type="int" />
           <Property Name="ImageURL" Type="varchar(max)" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="Longitude" Type="float" />
           <Property Name="Latitude" Type="float" />
+          <Property Name="IsLandingPage" Type="bit" />
+          <Property Name="BriefName" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="EventCollection">
           <Key>
@@ -143,6 +141,8 @@
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="TypeId" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsImage" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -200,6 +200,7 @@
           <Property Name="EventId" Type="int" Nullable="false" />
           <Property Name="LivestreamUrl" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="Timeline">
           <Key>
@@ -344,7 +345,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventCollection_CollectionType">
+        <Association Name="FK_EventCollection_CollectionType1">
           <End Role="CollectionType" Type="Self.CollectionType" Multiplicity="1" />
           <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="*" />
           <ReferentialConstraint>
@@ -356,7 +357,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventCollection_Event">
+        <Association Name="FK_EventCollection_Event1">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="*" />
           <ReferentialConstraint>
@@ -546,11 +547,11 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventCollection_CollectionType" Association="Self.FK_EventCollection_CollectionType">
+          <AssociationSet Name="FK_EventCollection_CollectionType1" Association="Self.FK_EventCollection_CollectionType1">
             <End Role="CollectionType" EntitySet="CollectionType" />
             <End Role="EventCollection" EntitySet="EventCollection" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventCollection_Event" Association="Self.FK_EventCollection_Event">
+          <AssociationSet Name="FK_EventCollection_Event1" Association="Self.FK_EventCollection_Event1">
             <End Role="Event" EntitySet="Event" />
             <End Role="EventCollection" EntitySet="EventCollection" />
           </AssociationSet>
@@ -674,7 +675,7 @@
             <End Role="EventCollection" EntitySet="EventCollections" />
             <End Role="CollectionItem" EntitySet="CollectionItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventCollection_CollectionType" Association="HmsEntities.FK_EventCollection_CollectionType">
+          <AssociationSet Name="FK_EventCollection_CollectionType1" Association="HmsEntities.FK_EventCollection_CollectionType1">
             <End Role="CollectionType" EntitySet="CollectionTypes" />
             <End Role="EventCollection" EntitySet="EventCollections" />
           </AssociationSet>
@@ -682,7 +683,7 @@
             <End Role="Question" EntitySet="Questions" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_EventCollection_Event" Association="HmsEntities.FK_EventCollection_Event">
+          <AssociationSet Name="FK_EventCollection_Event1" Association="HmsEntities.FK_EventCollection_Event1">
             <End Role="Event" EntitySet="Events" />
             <End Role="EventCollection" EntitySet="EventCollections" />
           </AssociationSet>
@@ -774,7 +775,7 @@
           <Property Name="SessionId" Type="Int32" Nullable="false" />
           <Property Name="StartTime" Type="DateTime" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Session" Relationship="HmsEntities.FK_Activity_Session" FromRole="Activity" ToRole="Session" />
           <NavigationProperty Name="ActivityItems" Relationship="HmsEntities.FK_ActivityItem_Activity" FromRole="Activity" ToRole="ActivityItem" />
         </EntityType>
@@ -855,9 +856,7 @@
           </Key>
           <Property Name="CollectionTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="CollectionType" ToRole="EventCollection" />
+          <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_CollectionType1" FromRole="CollectionType" ToRole="EventCollection" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -881,15 +880,15 @@
           <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StartTime" Type="DateTime" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TemplateId" Type="Int32" />
           <Property Name="CodeLogin" Type="Int32" />
           <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="Longitude" Type="Double" />
           <Property Name="Latitude" Type="Double" />
-          <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="Event" ToRole="EventCollection" />
+          <Property Name="IsLandingPage" Type="Boolean" />
+          <Property Name="BriefName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="EventCollections" Relationship="HmsEntities.FK_EventCollection_Event1" FromRole="Event" ToRole="EventCollection" />
           <NavigationProperty Name="Guests" Relationship="HmsEntities.FK_Guest_Event" FromRole="Event" ToRole="Guest" />
           <NavigationProperty Name="QAs" Relationship="HmsEntities.FK_QA_Event" FromRole="Event" ToRole="QA" />
           <NavigationProperty Name="Sessions" Relationship="HmsEntities.FK_Session_Event" FromRole="Event" ToRole="Session" />
@@ -904,9 +903,11 @@
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsImage" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="CollectionItems" Relationship="HmsEntities.FK_CollectionItem_EventCollection" FromRole="EventCollection" ToRole="CollectionItem" />
-          <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType" FromRole="EventCollection" ToRole="CollectionType" />
-          <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event" FromRole="EventCollection" ToRole="Event" />
+          <NavigationProperty Name="CollectionType" Relationship="HmsEntities.FK_EventCollection_CollectionType1" FromRole="EventCollection" ToRole="CollectionType" />
+          <NavigationProperty Name="Event" Relationship="HmsEntities.FK_EventCollection_Event1" FromRole="EventCollection" ToRole="Event" />
         </EntityType>
         <EntityType Name="Interaction">
           <Key>
@@ -960,6 +961,7 @@
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="LivestreamUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Activities" Relationship="HmsEntities.FK_Activity_Session" FromRole="Session" ToRole="Activity" />
           <NavigationProperty Name="Event" Relationship="HmsEntities.FK_Session_Event" FromRole="Session" ToRole="Event" />
           <NavigationProperty Name="Interactions" Relationship="HmsEntities.FK_Interaction_Session" FromRole="Session" ToRole="Interaction" />
@@ -1073,7 +1075,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventCollection_CollectionType">
+        <Association Name="FK_EventCollection_CollectionType1">
           <End Type="HmsEntities.CollectionType" Role="CollectionType" Multiplicity="1" />
           <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1097,7 +1099,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EventCollection_Event">
+        <Association Name="FK_EventCollection_Event1">
           <End Type="HmsEntities.Event" Role="Event" Multiplicity="1" />
           <End Type="HmsEntities.EventCollection" Role="EventCollection" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1342,8 +1344,6 @@
           <EntitySetMapping Name="CollectionTypes">
             <EntityTypeMapping TypeName="HmsEntities.CollectionType">
               <MappingFragment StoreEntitySet="CollectionType">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CollectionTypeID" ColumnName="CollectionTypeID" />
               </MappingFragment>
@@ -1365,14 +1365,14 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="HmsEntities.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="BriefName" ColumnName="BriefName" />
+                <ScalarProperty Name="IsLandingPage" ColumnName="IsLandingPage" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
                 <ScalarProperty Name="CodeLogin" ColumnName="CodeLogin" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
@@ -1384,6 +1384,8 @@
           <EntitySetMapping Name="EventCollections">
             <EntityTypeMapping TypeName="HmsEntities.EventCollection">
               <MappingFragment StoreEntitySet="EventCollection">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsImage" ColumnName="IsImage" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
@@ -1430,6 +1432,7 @@
           <EntitySetMapping Name="Sessions">
             <EntityTypeMapping TypeName="HmsEntities.Session">
               <MappingFragment StoreEntitySet="Session">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="LivestreamUrl" ColumnName="LivestreamUrl" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />

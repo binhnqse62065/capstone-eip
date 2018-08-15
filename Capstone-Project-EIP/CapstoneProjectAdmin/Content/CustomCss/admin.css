@@ -175,3 +175,11 @@
     margin-bottom:0;
 }
 
+.error-title {
+    margin-top:10px;
+    color:red;
+    display:none;
+}
+.note-brief-name {
+    margin-top:10px;
+}

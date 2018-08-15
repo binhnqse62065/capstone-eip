@@ -14,6 +14,13 @@ namespace HmsService.Sdk
 {
     public partial class VotingOptionApi
     {
+        public void ChangeNumberOfVotingOption(VotingOption option)
+        {
+            var optionTmp = this.BaseService.FirstOrDefault(v => v.VotingOptionId == option.VotingOptionId);
+            optionTmp.NumberOfVoting += 1;
+            this.BaseService.Save();
+        }
+
         public bool UpdateVotingOption(VotingOption option)
         {
             try

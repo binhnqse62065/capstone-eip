@@ -19,7 +19,7 @@
     <Property Name="SessionId" Type="int" Nullable="false" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
-    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="Description" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="ActivityItem">
     <Key>
@@ -96,8 +96,6 @@
     </Key>
     <Property Name="CollectionTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
-    <Property Name="Description" Type="nvarchar" MaxLength="250" />
-    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Comment">
     <Key>
@@ -120,14 +118,14 @@
     <Property Name="EventDescription" Type="nvarchar(max)" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
-    <Property Name="CreateTime" Type="datetime" />
     <Property Name="Address" Type="nvarchar" MaxLength="50" />
-    <Property Name="TemplateId" Type="int" />
     <Property Name="CodeLogin" Type="int" />
     <Property Name="ImageURL" Type="varchar(max)" />
     <Property Name="IsActive" Type="bit" />
     <Property Name="Longitude" Type="float" />
     <Property Name="Latitude" Type="float" />
+    <Property Name="IsLandingPage" Type="bit" />
+    <Property Name="BriefName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="EventCollection">
     <Key>
@@ -138,6 +136,8 @@
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="TypeId" Type="int" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsImage" Type="bit" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Guest">
     <Key>
@@ -195,6 +195,7 @@
     <Property Name="EventId" Type="int" Nullable="false" />
     <Property Name="LivestreamUrl" Type="nvarchar" MaxLength="100" />
     <Property Name="Address" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsActive" Type="bit" />
   </EntityType>
   <EntityType Name="Timeline">
     <Key>
@@ -339,7 +340,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EventCollection_CollectionType">
+  <Association Name="FK_EventCollection_CollectionType1">
     <End Role="CollectionType" Type="Self.CollectionType" Multiplicity="1" />
     <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="*" />
     <ReferentialConstraint>
@@ -351,7 +352,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_EventCollection_Event">
+  <Association Name="FK_EventCollection_Event1">
     <End Role="Event" Type="Self.Event" Multiplicity="1" />
     <End Role="EventCollection" Type="Self.EventCollection" Multiplicity="*" />
     <ReferentialConstraint>
@@ -541,11 +542,11 @@
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
     </AssociationSet>
-    <AssociationSet Name="FK_EventCollection_CollectionType" Association="Self.FK_EventCollection_CollectionType">
+    <AssociationSet Name="FK_EventCollection_CollectionType1" Association="Self.FK_EventCollection_CollectionType1">
       <End Role="CollectionType" EntitySet="CollectionType" />
       <End Role="EventCollection" EntitySet="EventCollection" />
     </AssociationSet>
-    <AssociationSet Name="FK_EventCollection_Event" Association="Self.FK_EventCollection_Event">
+    <AssociationSet Name="FK_EventCollection_Event1" Association="Self.FK_EventCollection_Event1">
       <End Role="Event" EntitySet="Event" />
       <End Role="EventCollection" EntitySet="EventCollection" />
     </AssociationSet>

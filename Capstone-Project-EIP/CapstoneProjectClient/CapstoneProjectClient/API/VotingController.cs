@@ -20,13 +20,14 @@ namespace CapstoneProjectClient.API
         [HttpPost]
         public HttpResponseMessage ChangeNumberOfVoting(VotingOption option)
         {
-            var votingOption = db.VotingOptions.Find(option.VotingOptionId);
-            //var votingOption = db.VotingOptions.Find(requestObj.SelectToken("votingOptionId").ToObject<Int32>());
-            votingOption.NumberOfVoting += 1;
-            db.SaveChanges();
+            //var votingOption = db.VotingOptions.Find(option.VotingOptionId);
+            //votingOption.NumberOfVoting += 1;
+            //db.SaveChanges();
 
 
             VotingOptionApi votingOptionApi = new VotingOptionApi();
+            votingOptionApi.ChangeNumberOfVotingOption(option);
+            
             List<double> listPercentOption = votingOptionApi.GetNewResultVoting(option.VotingId);
             
             

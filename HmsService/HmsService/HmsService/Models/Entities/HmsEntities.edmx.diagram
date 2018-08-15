@@ -9,33 +9,33 @@
         <AssociationConnector Association="HmsEntities.FK_GroupMembershipCard_Brand" />
         <AssociationConnector Association="HmsEntities.FK_MembershipCard_GroupMembershipCard" />
         <EntityTypeShape EntityType="HmsEntities.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HmsEntities.Activity" Width="1.5" PointX="5.25" PointY="11.375" />
-        <EntityTypeShape EntityType="HmsEntities.ActivityItem" Width="1.5" PointX="7.5" PointY="8.5" />
-        <EntityTypeShape EntityType="HmsEntities.AspNetRole" Width="1.5" PointX="7.75" PointY="2.5" />
-        <EntityTypeShape EntityType="HmsEntities.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="1" />
-        <EntityTypeShape EntityType="HmsEntities.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="3.75" />
-        <EntityTypeShape EntityType="HmsEntities.AspNetUser" Width="1.5" PointX="10" PointY="1.375" />
-        <EntityTypeShape EntityType="HmsEntities.CollectionItem" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="HmsEntities.CollectionType" Width="1.5" PointX="0.75" PointY="6.25" />
-        <EntityTypeShape EntityType="HmsEntities.Comment" Width="1.5" PointX="7.5" PointY="21.375" />
-        <EntityTypeShape EntityType="HmsEntities.Event" Width="1.5" PointX="0.75" PointY="9" />
-        <EntityTypeShape EntityType="HmsEntities.EventCollection" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="HmsEntities.Interaction" Width="1.5" PointX="8.25" PointY="13.5" />
-        <EntityTypeShape EntityType="HmsEntities.QA" Width="1.5" PointX="3" PointY="18" />
-        <EntityTypeShape EntityType="HmsEntities.Question" Width="1.5" PointX="5.25" PointY="21.125" />
-        <EntityTypeShape EntityType="HmsEntities.Session" Width="1.5" PointX="3" PointY="9.5" />
-        <EntityTypeShape EntityType="HmsEntities.Timeline" Width="1.5" PointX="5.25" PointY="8.5" />
-        <EntityTypeShape EntityType="HmsEntities.Voting" Width="1.5" PointX="3" PointY="14.75" />
-        <EntityTypeShape EntityType="HmsEntities.VotingOption" Width="1.5" PointX="5.25" PointY="14.75" />
+        <EntityTypeShape EntityType="HmsEntities.Activity" Width="1.5" PointX="5.25" PointY="9.125" />
+        <EntityTypeShape EntityType="HmsEntities.ActivityItem" Width="1.5" PointX="7.5" PointY="15.875" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetRole" Width="1.5" PointX="9.75" PointY="2.5" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="3.625" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="1" />
+        <EntityTypeShape EntityType="HmsEntities.AspNetUser" Width="1.5" PointX="12" PointY="1.375" />
+        <EntityTypeShape EntityType="HmsEntities.CollectionItem" Width="1.5" PointX="5.25" PointY="22.25" />
+        <EntityTypeShape EntityType="HmsEntities.CollectionType" Width="1.5" PointX="0.75" PointY="15.625" />
+        <EntityTypeShape EntityType="HmsEntities.Comment" Width="1.5" PointX="7.5" PointY="5.625" />
+        <EntityTypeShape EntityType="HmsEntities.Event" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="HmsEntities.EventCollection" Width="1.5" PointX="3" PointY="15" />
+        <EntityTypeShape EntityType="HmsEntities.Interaction" Width="1.5" PointX="8.25" PointY="12.125" />
+        <EntityTypeShape EntityType="HmsEntities.QA" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="HmsEntities.Question" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="HmsEntities.Session" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="HmsEntities.Timeline" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="HmsEntities.Voting" Width="1.5" PointX="3" PointY="19" />
+        <EntityTypeShape EntityType="HmsEntities.VotingOption" Width="1.5" PointX="5.25" PointY="19.125" />
         <AssociationConnector Association="HmsEntities.FK_Activity_Session" />
         <AssociationConnector Association="HmsEntities.FK_ActivityItem_Activity" />
         <AssociationConnector Association="HmsEntities.FK_ActivityItem_CollectionItem" />
         <AssociationConnector Association="HmsEntities.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HmsEntities.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="HmsEntities.FK_CollectionItem_EventCollection" />
-        <AssociationConnector Association="HmsEntities.FK_EventCollection_CollectionType" />
+        <AssociationConnector Association="HmsEntities.FK_EventCollection_CollectionType1" />
         <AssociationConnector Association="HmsEntities.FK_Comment_Question" />
-        <AssociationConnector Association="HmsEntities.FK_EventCollection_Event" />
+        <AssociationConnector Association="HmsEntities.FK_EventCollection_Event1" />
         <AssociationConnector Association="HmsEntities.FK_QA_Event" />
         <AssociationConnector Association="HmsEntities.FK_Session_Event" />
         <AssociationConnector Association="HmsEntities.FK_Voting_Event" />

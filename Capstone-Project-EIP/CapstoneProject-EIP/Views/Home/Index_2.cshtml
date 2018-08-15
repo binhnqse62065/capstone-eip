@@ -2,7 +2,7 @@
 @using System.Globalization;
 @model Event
 @{
-    var listBannerImage = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 1).CollectionItems;
+    
     var listSpeaker = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
     var listSponsor = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 3).CollectionItems;
 
@@ -44,14 +44,11 @@
     <div class="slider-area slider-layout4 slider-direction-layout2" id="fixed-type-slider">
         <div class="bend niceties preview-1">
             <div id="ensign-nivoslider-3" class="slides">
-                @for (int i = 0; i < listBannerImage.Count(); i++)
-                {
-                    <img src="@(listBannerImage.ElementAt(i).ImageUrl)" alt="slider" title="#slider-direction-@(i)" />
-                }
+                <img src="@(Model.ImageURL)" alt="slider"  />
+              
             </div>
-            @for (int i = 0; i < listBannerImage.Count(); i++)
-            {
-                <div id="slider-direction-@(i)" class="t-cn slider-direction">
+
+                <div id="slider-direction" class="t-cn slider-direction">
                     <div class="slider-content s-tb slide-1">
                         <div class="title-container s-tb-c title-light">
                             <div class="container text-left">
@@ -59,13 +56,12 @@
                                     <p>@(Model.Name)</p>
                                 </div>
                                 <div class="slider-btn-area forth-line margin-t-30">
-                                    <a href="#" class="btn-ghost color-yellow">Buy Tickets Now!</a>
+                                    <a href="#register" class="btn-ghost color-yellow">Đăng kí ngay</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
         </div>
     </div>
     <!-- Slider Area End Here -->

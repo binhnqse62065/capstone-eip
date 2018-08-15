@@ -7119,16 +7119,9 @@ div ~ :last-child .progress-layout2:before {
   display: inline-block;
   max-width: 25rem;
   margin: 0 auto;
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
-  -webkit-transition: all 0.5s ease-out;
-  -moz-transition: all 0.5s ease-out;
-  -ms-transition: all 0.5s ease-out;
-  -o-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
 }
 .sponsonrs-layout1 .sponsonrs-box a:hover img {
-  -webkit-filter: grayscale(0);
+  /*-webkit-filter: grayscale(0);*/
 }
 /*======================================================
 [17] Blog Area Style

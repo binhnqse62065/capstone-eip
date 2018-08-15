@@ -3,12 +3,15 @@
     ViewBag.Title = "Trung tâm điều khiển";
     String urlApi = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
     int sessionId = 0;
+    var listSpeaker = ViewBag.ListSpeaker;
     if (Model.Count() > 0)
     {
         sessionId = Model.FirstOrDefault().SessionID;
     }
     IEnumerable<QAViewModel> listQa = ViewBag.ListQA;
     IEnumerable<VotingViewModel> listVoting = ViewBag.ListVoting;
+    string startDate = ViewBag.StartDate;
+    string endDate = ViewBag.EndDate;
 }
 @using HmsService.ViewModels;
 @model IEnumerable<SessionViewModel>
@@ -96,7 +99,7 @@
                                     <th>Tên Hoạt Động</th>
                                     <th>Thời Gian Bắt đầu - Kết thúc</th>
                                     <th>Miêu Tả</th>
-                                    <th>Tên phiên làm việc</th>
+                                    <th>Tên diễn giả</th>
                                     <th>Chức Năng</th>
                                 </tr>
                             </thead>
@@ -156,8 +159,11 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input type="text" id="newName" class="form-control" placeholder="Enter Interaction's name">
+                        <input type="text" id="newName" class="form-control" placeholder="Nhập tên tương tác">
+
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameAdd">Vui lòng nhập tên tương tác</p>
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
@@ -169,11 +175,14 @@
                             <i class="fa fa-comments" aria-hidden="true"></i>
                         </div>
                         <select id="InteractionSelectBox" class="form-control">
-                            <option>---Chọn---</option>
+                            <option value="0">---Chọn---</option>
                             <option value="1">Bỏ Phiếu</option>
                             <option value="2">Hỏi Đáp</option>
                         </select>
                     </div>
+
+
+
                 </div>
 
                 <div class="form-group">
@@ -186,9 +195,10 @@
                             <i class="fa fa-check-square-o" aria-hidden="true"></i>
                         </div>
                         <select Id="KindOfInteractionSelectBox" class="form-control">
-                            <option>---Chọn---</option>
+                            <option value="0">---Chọn---</option>
                         </select>
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorKindIdAdd">Vui lòng chọn loại tương tác</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -221,6 +231,7 @@
                         </div>
                         <input type="text" class="form-control interaction-name" placeholder="Enter Interaction's name">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameEdit">Vui lòng nhập tên tương tác</p>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
@@ -252,6 +263,7 @@
                             <option>---Chọn---</option>
                         </select>
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorKindIdEdit">Vui lòng nhập tên tương tác</p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -281,12 +293,13 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="addName" placeholder="Nhập tên hoạt động">
+                        <input type="text" class="form-control" id="txtActivityNameAdd" placeholder="Nhập tên hoạt động">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameActivityAdd">Vui lòng nhập tên hoạt động</p>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Ngày Giờ:</label>
+                    <label class="col-sm-3 form-control-label">Thời gian diễn ra:</label>
 
                     <div class="input-group col-sm-9">
                         <div class="input-group-addon">
@@ -294,6 +307,8 @@
                         </div>
                         <input type="text" class="form-control pull-right" id="AddStartEndTime" value="">
                     </div>
+
+
                 </div>
 
                 <div class="form-group">
@@ -302,10 +317,26 @@
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <input type="text" class="form-control" id="addDescription" placeholder="Nhập miêu tả hoạt động">
+                        <input type="text" class="form-control" id="txtActivityDesAdd" placeholder="Nhập miêu tả hoạt động">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorDesActivityAdd">Vui lòng nhập miêu tả hoạt động</p>
                 </div>
+                <label class="col-sm-3 form-control-label">Diễn giả:</label>
+                <div class="input-group col-sm-9">
+                    <div class="input-group-addon">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    </div>
+                    <select Id="speakerAddSelectBox" class="form-control" multiple>
+                        @if (listSpeaker != null)
+                        {
+                            foreach (var speaker in listSpeaker)
+                            {
+                                <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                            }
+                        }
 
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="addActivity" data-dismiss="modal" type="button" class="btn btn-primary">Thêm</button>
@@ -338,10 +369,11 @@
                         </div>
                         <input id="activityName" type="text" class="form-control" placeholder="Nhập tên hoạt động">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameActivityEdit">Vui lòng nhập tên hoạt động</p>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Thời gian Bắt đầu - Kết thúc<span class="required"></span>
+                        Thời gian diễn ra<span class="required"></span>
                     </label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
@@ -358,11 +390,28 @@
                         </div>
                         <input id="activityDescription" type="text" class="form-control" placeholder="Nhập miêu tả">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorDesActivityEdit">Vui lòng nhập miêu tả hoạt động</p>
+
+                </div>
+                <label class="col-sm-3 form-control-label">Diễn giả:</label>
+                <div class="input-group col-sm-9">
+                    <div class="input-group-addon">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    </div>
+                    <select Id="speakerUpdateSelectBox" class="form-control" multiple>
+                        @if (listSpeaker != null)
+                        {
+                            foreach (var speaker in listSpeaker)
+                            {
+                                <option value="@speaker.CollectionItemID">@speaker.Name</option>
+                            }
+                        }
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="txtActivityId" value="" />
-                <button type="button" id="btn-update-activity" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button type="button" id="btn-update-activity" class="btn btn-primary">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -460,7 +509,7 @@
 <!----------------- List QA Template ----------------->
 <div style="display:none;">
     <select id="cbQATemplate">
-        <option>---Chọn---</option>
+        <option value="0">---Chọn---</option>
         @foreach (var qa in listQa)
         {
             <option value="@(qa.QAId)">@(qa.QAName)</option>
@@ -471,7 +520,7 @@
 <!----------------- List Voting Template ----------------->
 <div style="display:none;">
     <select id="cbVotingTemplate">
-        <option>---Chọn---</option>
+        <option value="0">---Chọn---</option>
         @foreach (var voting in listVoting)
         {
             <option value="@(voting.VotingId)">@(voting.VotingName)</option>
@@ -485,12 +534,48 @@
         var initSessionId = @(sessionId);
 
         $(document).ready(function () {
+            /*Tạo các datatable cho các tab*/
             if (initSessionId != 0) {
                 InitActivityDatatable(initSessionId);
                 InitTimelineDatatable(initSessionId);
                 InitInteractionDatatable(initSessionId);
             }
+
+            $('#AddStartEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY HH:mm'
+                },
+                @*startDate: '@(startDate)',
+                endDate: '@(endDate)',*@
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)',
+                timePicker: true,
+                timePicker24Hour: true
+            });
+
+            /*Xóa báo lỗi error ở modal add interaction*/
+            clearErrorAddInteraction();
         });
+
+        function openModelUpdate(id, name, startTime, endTime, description) {
+            $('#activityName').val(name);
+            $('#activityDescription').val(description);
+            $('#startEndTime').val(startTime + " - " + endTime);
+            //$('#startEndTime').val('21/08/2018 09:00 ' + " - " + '21/08/2018 10:00');
+            $('#txtActivityId').val(id);
+            $('#startEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY HH:mm'
+                }, 
+                @*startDate: '@(startDate)',
+                endDate: '@(endDate)',*@
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)',
+                timePicker: true,
+                timePicker24Hour: true
+            });
+
+        }
     </script>
     <script src="~/Content/CustomJs/manage.session.js"></script>
 }

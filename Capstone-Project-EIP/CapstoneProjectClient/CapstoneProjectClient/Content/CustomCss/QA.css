@@ -9,11 +9,12 @@
 
 .list-answer {
     height: unset;
-    margin-left: 30px;
+    margin-left: 10px;
+    padding-right:10px;
 }
 
 .main-qa {
-    padding: 16px 20px;
+    padding: 16px 10px;
 }
 
 .like-rep {
@@ -126,6 +127,7 @@
 .question-item__author {
     font-weight: 500;
     margin-left: 20px;
+    word-break:break-word;
 }
 
 .question-item-date {
@@ -198,6 +200,7 @@
 
 .question-item__body {
     margin-top: 5px;
+    word-break:break-word;
 }
 
 .btn-reply-question-template {
@@ -274,6 +277,11 @@
     position:relative;
 }
 .btn-dislike {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+.btn-dislike-reply {
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }

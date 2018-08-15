@@ -1,9 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "Quản lý phiên sự kiện";
+    ViewBag.Title = "Quản lý phiên làm việc";
     int eventId = ViewBag.EventId;
     string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 
+    string startDate = ViewBag.StartDate;
+    string endDate = ViewBag.EndDate;
 }
 
 
@@ -35,7 +37,7 @@
 
 
     </div>
-    
+
 </div>
 
 
@@ -44,10 +46,10 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content">
+        <div class="modal-content" @*style="min-width:700px;"*@>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Thêm phiên làm</h4>
+                <h4 class="modal-title">Thêm phiên làm việc</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -56,12 +58,13 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="txtNameAdd" type="text" class="form-control" placeholder="Enter Session's name">
+                        <input id="txtNameAdd" type="text" class="form-control" placeholder="Nhập tên phiên làm việc">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameAdd">Vui lòng nhập tên phiên làm việc</p>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 form-control-label">Thời gian bắt đầu - kết thúc:</label>
+                    <label class="col-sm-3 form-control-label">Thời gian diễn ra:</label>
 
                     <div class="input-group col-sm-9">
                         <div class="input-group-addon">
@@ -77,8 +80,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <input id="txtDescriptionAdd" type="text" class="form-control" placeholder="Enter Description">
+                        <input id="txtDescriptionAdd" type="text" class="form-control" placeholder="Vui lòng nhập miêu tả ">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorDesAdd">Vui lòng nhập miêu tả phiên làm việc</p>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Liên kết trực tuyến:</label>
@@ -86,8 +90,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-link" aria-hidden="true"></i>
                         </div>
-                        <input id="txtLivestreamAdd" type="text" class="form-control" placeholder="Vui lòng nhập đường dẫn">
+                        <input id="txtLivestreamAdd" type="text" class="form-control" placeholder="Vui lòng nhập liên kết trực tuyến">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorLivestreamAdd">Vui lòng nhập liên kết trực tuyến phiên làm việc</p>
                 </div>
 
             </div>
@@ -121,18 +126,20 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="sessionName" type="text" class="form-control" placeholder="Enter Session's name">
+                        <input id="sessionName" type="text" class="form-control" placeholder="Nhập tên phiên làm việc">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorNameEdit">Vui lòng nhập tên phiên làm việc</p>
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Thời gian bắt đầu - kết thúc<span class="required"></span>
+                        Thời gian diễn ra<span class="required"></span>
                     </label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="startEndTimeUpdate" type="text" class="form-control" placeholder="Enter Session's name">
+                        <input id="startEndTimeUpdate" type="text" class="form-control" placeholder="Nhập thời gian diễn ra">
                     </div>
                 </div>
                 <div class="form-group">
@@ -141,8 +148,10 @@
                         <div class="input-group-addon">
                             <i class="fa fa-info" aria-hidden="true"></i>
                         </div>
-                        <input id="sessionDescription" type="text" class="form-control" placeholder="Enter Description">
+                        <input id="sessionDescription" type="text" class="form-control" placeholder="Nhập miêu tả">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorDesEdit">Vui lòng nhập miêu tả phiên làm việc</p>
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Liên kết trực tuyến</label>
@@ -150,8 +159,10 @@
                         <div class="input-group-addon">
                             <i class="fa fa-link" aria-hidden="true"></i>
                         </div>
-                        <input id="sessionLivestreamUrl" type="text" class="form-control" placeholder="Enter Description">
+                        <input id="sessionLivestreamUrl" type="text" class="form-control" placeholder="Nhập liên kết trực tuyến">
                     </div>
+                    <p class="error-title col-lg-offset-3" id="errorLivestreamEdit">Vui lòng nhập liên kết trực tuyến phiên làm việc</p>
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -229,76 +240,142 @@
             $('#startEndTimeAdd').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY'
+                },
+                startDate: '@(startDate)',
+                endDate: '@(endDate)',
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)',
+                onSelect: function (dateText) {
+                    updateSelects(dateText);
                 }
+
             });
 
 
             //Save update session
             $('#btn-update-session').on('click', function () {
-                var time = $('#startEndTimeUpdate').val();
-                var timeSplit = time.split('-');
-                var startTimeTmp = timeSplit[0].trim();
-                var endTimeTmp = timeSplit[1].trim();
+                clearErrorEditSession();
 
-                var startTime = startTimeTmp.split("/").reverse().join("-");
-                var endTime = endTimeTmp.split("/").reverse().join("-");
+                var sessionName = $('#sessionName').val()
+                var sessionDescription = $('#sessionDescription').val();
+                var livestreamUrl = $('#sessionLivestreamUrl').val();
 
-                $.ajax({
-                    url: urlApi + 'api/session/UpdateSession',
-                    method: "POST",
-                    data: {
-                        SessionID: $('#txtSessionId').val(),
-                        Name: $('#sessionName').val(),
-                        Description: $('#sessionDescription').val(),
-                        StartTime: startTime,
-                        EndTime: endTime,
-                        LivestreamUrl: $('#sessionLivestreamUrl').val()
-                    },
-                    success: function (data) {
-                        reloadTable();
-                        swal("Thành công!", "Bạn đã update thông tin phiên làm thành công", "success");
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                var isValid = true;
+                if (sessionName.length === 0) {
+                    isValid = false;
+                    $('#errorNameEdit').css('display', 'block');
+                }
+                if (sessionDescription.length === 0) {
+                    isValid = false;
+                    $('#errorDesEdit').css('display', 'block');
+                }
+                if (livestreamUrl.length === 0) {
+                    isValid = false;
+                    $('#errorLivestreamEdit').css('display', 'block');
+                }
+
+                if (isValid) {
+                    var time = $('#startEndTimeUpdate').val();
+                    var timeSplit = time.split('-');
+                    var startTimeTmp = timeSplit[0].trim();
+                    var endTimeTmp = timeSplit[1].trim();
+
+                    var startTime = startTimeTmp.split("/").reverse().join("-");
+                    var endTime = endTimeTmp.split("/").reverse().join("-");
+
+                    $.ajax({
+                        url: urlApi + 'api/session/UpdateSession',
+                        method: "POST",
+                        data: {
+                            SessionID: $('#txtSessionId').val(),
+                            Name: $('#sessionName').val(),
+                            Description: $('#sessionDescription').val(),
+                            StartTime: startTime,
+                            EndTime: endTime,
+                            LivestreamUrl: $('#sessionLivestreamUrl').val()
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Thành công!", "Bạn đã update thông tin phiên làm thành công", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                        
+
+                    });
+                    clearErrorEditSession();
+                    $('#btn-update-session').attr('data-dismiss', 'modal');
+                }
+                else {
+                    $('#btn-update-session').attr('data-dismiss', null);
+                }
+
+                
             });
 
             //Add Session
             $('#btn-add-session').on('click', function () {
+                clearErrorAddSession();
+
                 var sessionName = $('#txtNameAdd').val();
                 var sessionDescription = $('#txtDescriptionAdd').val();
-                var startEndTime = $('#startEndTimeAdd').val();
                 var livestreamUrl = $('#txtLivestreamAdd').val();
-                var timeSplit = startEndTime.split('-');
-                var startTime = timeSplit[0].trim().split("/").reverse().join("-");
-                var endTime = timeSplit[1].trim().split("/").reverse().join("-");
 
-                $.ajax({
-                    url: urlApi + 'api/session/AddSession',
-                    method: "POST",
-                    data: {
-                        EventId: eventId,
-                        Name: sessionName,
-                        Description: sessionDescription,
-                        StartTime: startTime,
-                        EndTime: endTime,
-                        LivestreamUrl: livestreamUrl
-                    },
-                    success: function (data) {
-                        reloadTable();
-                        swal("Thành Công!", "Phiên làm đã được thêm vào thành công", "success");
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                var isValid = true;
+                if (sessionName.length === 0) {
+                    isValid = false;
+                    $('#errorNameAdd').css('display', 'block');
+                }
+                if (sessionDescription.length === 0) {
+                    isValid = false;
+                    $('#errorDesAdd').css('display', 'block');
+                }
+                if (livestreamUrl.length === 0) {
+                    isValid = false;
+                    $('#errorLivestreamAdd').css('display', 'block');
+                }
+
+                if (isValid) {
+                    $('#btn-add-session').attr('data-dismiss', 'modal');
+
+                    var startEndTime = $('#startEndTimeAdd').val();
+                    var timeSplit = startEndTime.split('-');
+                    var startTime = timeSplit[0].trim().split("/").reverse().join("-");
+                    var endTime = timeSplit[1].trim().split("/").reverse().join("-");
+
+                    $.ajax({
+                        url: urlApi + 'api/session/AddSession',
+                        method: "POST",
+                        data: {
+                            EventId: eventId,
+                            Name: sessionName,
+                            Description: sessionDescription,
+                            StartTime: startTime,
+                            EndTime: endTime,
+                            LivestreamUrl: livestreamUrl
+                        },
+                        success: function (data) {
+                            reloadTable();
+                            swal("Thành Công!", "Phiên làm đã được thêm vào thành công", "success");
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                    clearInputAddSession();
+                }
+                else {
+                    $('#btn-add-session').attr('data-dismiss', null);
+                }
+
             });
 
         });
 
 
-        function openModelUpdate(id,name, startTime, endTime, description,livestreamUrl) {
+        function openModelUpdate(id, name, startTime, endTime, description, livestreamUrl) {
+            clearErrorEditSession();
             $('#sessionName').val(name);
             $('#sessionDescription').val(description);
             $('#startEndTimeUpdate').val(startTime + " - " + endTime);
@@ -347,6 +424,24 @@
 
         function reloadTable() {
             $('#tblSession').DataTable().ajax.reload();
+        }
+
+        function clearErrorAddSession() {
+            $('#errorNameAdd').css('display', 'none');
+            $('#errorDesAdd').css('display', 'none');
+            $('#errorLivestreamAdd').css('display', 'none');
+        }
+
+        function clearErrorEditSession() {
+            $('#errorNameEdit').css('display', 'none');
+            $('#errorDesEdit').css('display', 'none');
+            $('#errorLivestreamEdit').css('display', 'none');
+        }
+
+        function clearInputAddSession() {
+            $('#txtNameAdd').val("");
+            $('#txtDescriptionAdd').val("");
+            $('#txtLivestreamAdd').val("");
         }
 
     </script>

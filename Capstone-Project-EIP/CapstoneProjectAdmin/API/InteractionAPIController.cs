@@ -73,29 +73,37 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage UpdateInteractionData(Interaction interaction)
         {
-            var interactionUpdate = db.Interactions.Find(interaction.InteractionId);
-            interactionUpdate.InteractionName = interaction.InteractionName;
-            if(interaction.VotingId == null)
+            try
             {
-                interactionUpdate.QAId = interaction.QAId;
-                interactionUpdate.VotingId = null;
-            } else if (interaction.QAId == null)
-            {
-                interactionUpdate.VotingId = interaction.VotingId;
-                interactionUpdate.QAId = null;
-            }
-            db.SaveChanges();
+                InteractionApi interactionApi = new InteractionApi();
+                interactionApi.UpdateInteraction(interaction);
 
-            return new HttpResponseMessage()
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new JsonContent(new
+                return new HttpResponseMessage()
                 {
-                    success = true,
-                    message = "Update successful!",
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        message = "Update successful!",
 
-                })
-            };
+                    })
+                };
+            }
+            catch
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = "Update fail!",
+
+                    })
+                };
+
+            }
+            
 
         }
 
@@ -103,43 +111,78 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage AddInteraction(Interaction interaction)
         {
-            db.Interactions.Add(interaction);
-            db.SaveChanges();
-
-            return new HttpResponseMessage()
+            try
             {
-                StatusCode = HttpStatusCode.OK,
-                Content = new JsonContent(new
+                InteractionApi interactionApi = new InteractionApi();
+                interactionApi.AddNewInteraction(interaction);
+                return new HttpResponseMessage()
                 {
-                    success = true,
-                    message = "Add successful!",
-                })
-            };
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        message = "Add successful!",
+                    })
+                };
+            }
+            catch
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = "Add fail!",
+                    })
+                };
+            }
+            
+
+            
         }
 
         [Route("DeleteInteraction")]
         [HttpPost]
         public HttpResponseMessage DeleteInteraction(Interaction interaction)
         {
-            var interactionDelItem = db.Interactions.Find(interaction.InteractionId);
-            db.Interactions.Remove(interactionDelItem);
-            db.SaveChanges();
-
-            return new HttpResponseMessage()
+            try
             {
-                StatusCode = HttpStatusCode.OK,
-                Content = new JsonContent(new
+                InteractionApi interactionApi = new InteractionApi();
+                interactionApi.DeleteInteraction(interaction);
+
+
+                return new HttpResponseMessage()
                 {
-                    success = true,
-                    message = "Remove successful!",
-                })
-            };
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = true,
+                        message = "Remove successful!",
+                    })
+                };
+            }
+            catch
+            {
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = "Remove fail!",
+                    })
+                };
+            }
+
+            
         }
 
         [Route("StopInteraction")]
         [HttpPost]
         public HttpResponseMessage StopInteraction(Interaction interaction)
         {
+
             var interactionStopItem = db.Interactions.Find(interaction.InteractionId);
             interactionStopItem.IsRunning = false;
             db.SaveChanges();
@@ -159,37 +202,54 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage PlayInteraction(Interaction interaction)
         {
-            var interactionAll = db.Interactions.Where(e => e.SessionId == interaction.SessionId).ToList();
-            var interactionIsRunning = interactionAll.Where(s => s.IsRunning == true).ToList();
-            var interactionPlayItem = db.Interactions.Find(interaction.InteractionId);
-            foreach (var item in interactionIsRunning)
+            InteractionApi interactionApi = new InteractionApi();
+            bool isSucess = interactionApi.PlayInteraction(interaction);
+            //var interactionAll = db.Interactions.Where(e => e.SessionId == interaction.SessionId).ToList();
+            //var interactionIsRunning = interactionAll.Where(s => s.IsRunning == true).ToList();
+            //var interactionPlayItem = db.Interactions.Find(interaction.InteractionId);
+            //foreach (var item in interactionIsRunning)
+            //{
+            //    if(interactionPlayItem.VotingId != null)
+            //    {
+            //        if(item.VotingId != null)
+            //        {
+            //            item.IsRunning = false;
+            //        }
+            //    }else if (interactionPlayItem.QAId != null)
+            //    {
+            //        if (item.QAId != null)
+            //        {
+            //            item.IsRunning = false;
+            //        }
+            //    }
+            //}
+            //interactionPlayItem.IsRunning = true;
+            //db.SaveChanges();
+            if(isSucess)
             {
-                if(interactionPlayItem.VotingId != null)
+                return new HttpResponseMessage()
                 {
-                    if(item.VotingId != null)
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
                     {
-                        item.IsRunning = false;
-                    }
-                }else if (interactionPlayItem.QAId != null)
-                {
-                    if (item.QAId != null)
-                    {
-                        item.IsRunning = false;
-                    }
-                }
+                        success = true,
+                        message = "Play successful!",
+                    })
+                };
             }
-            interactionPlayItem.IsRunning = true;
-            db.SaveChanges();
-
-            return new HttpResponseMessage()
+            else
             {
-                StatusCode = HttpStatusCode.OK,
-                Content = new JsonContent(new
+                return new HttpResponseMessage()
                 {
-                    success = true,
-                    message = "Play successful!",
-                })
-            };
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new JsonContent(new
+                    {
+                        success = false,
+                        message = "Play fail!",
+                    })
+                };
+            }
+            
         }
 
     }

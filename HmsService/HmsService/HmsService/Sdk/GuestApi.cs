@@ -19,11 +19,20 @@ namespace HmsService.Sdk
             return this.BaseService.Get(g => g.EventId == eventId);
         }
 
-        public void CheckInGuest(Guest guest)
+        public bool CheckInGuest(Guest guest)
         {
             var curGuest = this.BaseService.FirstOrDefault(g => g.GuestId == guest.GuestId);
-            curGuest.IsCheckIn = true;
+            if((bool)curGuest.IsCheckIn)
+            {
+                curGuest.IsCheckIn = false;
+            }
+            else
+            {
+                curGuest.IsCheckIn = true;
+            }
+            
             this.BaseService.Save();
+            return (bool)curGuest.IsCheckIn;
         }
 
         public void AddGuest(Guest guest)

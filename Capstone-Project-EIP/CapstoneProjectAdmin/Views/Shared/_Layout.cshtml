@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Join.vn</title>
     <!-- Favicon-->
-    <link rel="shortcut icon" href="~/Content/img/favicon.png">
+    <link rel="shortcut icon" href="~/Content/img/LogoMakr_6CVPn5.png">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -157,6 +157,7 @@
                     @if (User.IsInRole("SystemAdmin"))
                     {
                         <li><a href="@Url.Action("Index","SystemAdmin")"><i class="fa fa-setting"></i> <span>Quản lý tài khoản</span></a></li>
+                        <li><a href="@Url.Action("LogOff","Account")"><i class="fa fa-sign-out"></i> <span>Thoát</span></a></li>
                     }
                     else
                     {

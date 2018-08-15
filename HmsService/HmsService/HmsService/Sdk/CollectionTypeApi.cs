@@ -15,14 +15,13 @@ namespace HmsService.Sdk
     {
         public IEnumerable<CollectionTypeViewModel> GetCollectionType()
         {
-            return this.BaseService.Get(c => c.IsActive == true).ProjectTo<CollectionTypeViewModel>(this.AutoMapperConfig).ToList();
+            return this.BaseService.Get().ProjectTo<CollectionTypeViewModel>(this.AutoMapperConfig).ToList();
         }
 
         public int AddNewCollectionType(string collectionTypeName)
         {
             CollectionType collectionType = new CollectionType
             {
-                IsActive = true,
                 Name = collectionTypeName
             };
             this.BaseService.Create(collectionType);
@@ -34,7 +33,6 @@ namespace HmsService.Sdk
         {
             var collectionTypeUp = this.BaseService.FirstOrDefault(c => c.CollectionTypeID == collectionType.CollectionTypeID);
             collectionTypeUp.Name = collectionType.Name;
-            collectionTypeUp.Description = collectionType.Description;
             this.BaseService.Save();
             return true;
         }

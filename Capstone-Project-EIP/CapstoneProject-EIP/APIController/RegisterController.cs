@@ -19,6 +19,8 @@ namespace CapstoneProject_EIP.APIController
         [HttpPost]
         public HttpResponseMessage AddGuest(Guest guest)
         {
+            guest.TimeRegister = DateTime.Now;
+            guest.IsCheckIn = false;
             db.Guests.Add(guest);
             db.SaveChanges();
 

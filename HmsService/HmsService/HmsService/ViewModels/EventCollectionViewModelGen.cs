@@ -20,6 +20,8 @@ namespace HmsService.ViewModels
     			public virtual int EventId { get; set; }
     			public virtual int TypeId { get; set; }
     			public virtual string Description { get; set; }
+    			public virtual Nullable<bool> IsImage { get; set; }
+    			public virtual Nullable<bool> IsActive { get; set; }
     	
     	public EventCollectionViewModel() : base() { }
     	public EventCollectionViewModel(HmsService.Models.Entities.EventCollection entity) : base(entity) { }

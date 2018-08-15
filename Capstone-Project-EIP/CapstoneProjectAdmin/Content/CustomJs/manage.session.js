@@ -1,17 +1,9 @@
 ﻿var urlApi = $(location).attr('origin') + '/';
-$(document).ready(function () {
-
-    $('#AddStartEndTime').daterangepicker({
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
-    });
-});
 
 
 /*Function*/
 
-    /*Shared*/
+/*Shared*/
 $('#cb-session-id').on('change', function () {
     if (this.value != 0) {
         InitActivityDatatable(this.value);
@@ -44,13 +36,13 @@ function InitActivityDatatable(sessionId) {
         },
         columns: [
             {
-                name: "name",
+                name: "Name",
                 render: function (data, type, row) {
                     return row.name;
                 }
             },
             {
-                name: "startTime - End Time",
+                name: "StartTime - End Time",
                 render: function (data, type, row) {
                     return row.startTime + " - " + row.endTime;
                 }
@@ -62,9 +54,19 @@ function InitActivityDatatable(sessionId) {
                 }
             },
             {
-                name: "Session Name",
+                name: "Speaker Name",
                 render: function (data, type, row) {
-                    return row.sessionName;
+                    var speakerName = '';
+
+                    for (var i = 0; i < row.speakerName.length; i++) {
+                        if (i == 0) {
+                            speakerName += row.speakerName[i];
+                        } else {
+                            speakerName += ', ';
+                            speakerName += row.speakerName[i];
+                        }
+                    }
+                    return speakerName;
                 }
             },
             {
@@ -243,7 +245,24 @@ function InitInteractionDatatable(sessionId) {
     });
 }
 
-    /*Interaction*/
+function clearErrorAddInteraction() {
+    $('#errorNameAdd').css('display', 'none');
+    $('#errorKindIdAdd').css('display', 'none');
+}
+
+function clearValueInputAddInteraction() {
+    $('#newName').val("");
+    $('#InteractionSelectBox').val(0);
+    $('#KindOfInteractionSelectBox').val(0);
+}
+
+function clearErrorEditInteraction() {
+    $('#errorNameEdit').css('display', 'none');
+    $('#errorKindIdEdit').css('display', 'none');
+}
+
+
+/*Interaction*/
 
 
 $('#InteractionEditSelectBox').on('click', function () {
@@ -257,7 +276,7 @@ $('#InteractionEditSelectBox').on('click', function () {
         $('#KindOfInteractionEditSelectBox').append($('#cbQATemplate').clone().html());
     } else {
         $('#KindOfInteractionEditSelectBox').empty();
-        $('#KindOfInteractionEditSelectBox').append("<option>---Chọn---</option>");
+        $('#KindOfInteractionEditSelectBox').append('<option value="0">---Chọn---</option>');
     }
 });
 
@@ -277,89 +296,131 @@ $('#InteractionSelectBox').on('click', function () {
 });
 
 $('#btn-update-interaction').on('click', function () {
+    clearErrorEditInteraction();
+
     var id = $('#btn-update-interaction').val();
     var name = $('.interaction-name').val();
     var selectValue = $('#InteractionEditSelectBox').find(":selected").val();
-    var kindInteractionId = $('#KindOfInteractionEditSelectBox').find(":selected").val();
+    var kindInteractionId = parseInt($('#KindOfInteractionEditSelectBox').find(":selected").val());
 
-    var interactionObject = {
-        interactionId: id,
-        interactionName: name,
-    };
-    if (selectValue == 1) {
-        interactionObject.votingId = kindInteractionId
-        interactionObject.qaId = null
-    } else if (selectValue == 2) {
-        interactionObject.qaId = kindInteractionId
-        interactionObject.votingId = null
+    var isValid = true;
+    if (name.length === 0) {
+        isValid = false;
+        $('#errorNameEdit').css('display', 'block');
+        $('#btn-update-interaction').attr('data-dismiss', null);
+    }
+    if (kindInteractionId === 0) {
+        isValid = false;
+        $('#errorKindIdEdit').css('display', 'block');
+        $('#btn-update-interaction').attr('data-dismiss', null);
+    }
+    if (isValid) {
+        var interactionObject = {
+            interactionId: id,
+            interactionName: name,
+        };
+        if (selectValue == 1) {
+            interactionObject.votingId = kindInteractionId
+            interactionObject.qaId = null
+        } else if (selectValue == 2) {
+            interactionObject.qaId = kindInteractionId
+            interactionObject.votingId = null
 
+        }
+
+        $.ajax({
+            url: urlApi + '/api/interaction/UpdateInteractionData',
+            method: "POST",
+            data: interactionObject,
+            success: function () {
+                swal("Thành công!", "Cập nhật tương tác thành công", "success");
+                $('#tblInteraction').DataTable().ajax.reload();
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+        clearErrorEditInteraction();
+        $('#btn-update-interaction').attr('data-dismiss', 'modal');
     }
 
-    $.ajax({
-        url: urlApi + '/api/interaction/UpdateInteractionData',
-        method: "POST",
-        data: interactionObject,
-        success: function () {
-            swal("Thành công!", "Cập nhật tương tác thành công", "success");
-            $('#tblInteraction').DataTable().ajax.reload();
-        },
-        error: function (data) {
-            console.log(data);
-        }
-    });
 });
 
 $('#btn-add-interaction').on('click', function () {
-
+    clearErrorAddInteraction();
     var sessionId = $('#session-id').val();
     var name = $('#newName').val();
     var selectValue = $('#InteractionSelectBox').find(":selected").val();
-    var kindInteractionId = $('#KindOfInteractionSelectBox').find(":selected").val();
-    if (selectValue == 1) {
-        $.ajax({
-            url: urlApi + '/api/interaction/AddInteraction',
-            method: "POST",
-            data: {
-                InteractionName: name,
-                VotingId: kindInteractionId,
-                SessionId: sessionId,
-                IsRunning: false
-            },
-            success: function (data) {
-                $('#tblInteraction').DataTable().ajax.reload();
-                swal("Thành công!", "Thêm mới tương tác thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
-    } else if (selectValue == 2) {
-        $.ajax({
-            url: urlApi + '/api/interaction/AddInteraction',
-            method: "POST",
-            data: {
-                InteractionName: name,
-                QAId: kindInteractionId,
-                SessionId: sessionId,
-                IsRunning: false
-            },
-            success: function (data) {
-                $('#tblInteraction').DataTable().ajax.reload();
-                swal("Thành công!", "Thêm mới tương tác thành công", "success");
-            },
-            error: function (data) {
-                console.log(data);
-            }
-        });
+    var kindInteractionId = parseInt($('#KindOfInteractionSelectBox').find(":selected").val());
+    var isValid = true;
+    if (name.length === 0) {
+        isValid = false;
+        $('#errorNameAdd').css('display', 'block');
+        $('#btn-add-interaction').attr('data-dismiss', null);
     }
+    if (kindInteractionId === 0) {
+        isValid = false;
+        $('#errorKindIdAdd').css('display', 'block');
+        $('#btn-add-interaction').attr('data-dismiss', null);
+    }
+    if (isValid) {
+        clearErrorAddInteraction();
+        clearValueInputAddInteraction();
+        if (selectValue == 1) {
+            $.ajax({
+                url: urlApi + '/api/interaction/AddInteraction',
+                method: "POST",
+                data: {
+                    InteractionName: name,
+                    VotingId: kindInteractionId,
+                    SessionId: sessionId,
+                    IsRunning: false
+                },
+                success: function (data) {
+                    if (data.success) {
+                        $('#tblInteraction').DataTable().ajax.reload();
+                        swal("Thành công!", "Thêm mới tương tác thành công", "success");
+                    }
+                    else {
+                        swal("Thất bại!", "Đã có lỗi xảy ra", "warning");
+                    }
+                    
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        } else if (selectValue == 2) {
+            $.ajax({
+                url: urlApi + '/api/interaction/AddInteraction',
+                method: "POST",
+                data: {
+                    InteractionName: name,
+                    QAId: kindInteractionId,
+                    SessionId: sessionId,
+                    IsRunning: false
+                },
+                success: function (data) {
+                    $('#tblInteraction').DataTable().ajax.reload();
+                    swal("Thành công!", "Thêm mới tương tác thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        $('#btn-add-interaction').attr('data-dismiss', 'modal');
+
+    }
+
 
 
 });
 
 $('#btn-del').on('click', function () {
     swal({
-        title: "Are you sure?",
-        text: "You will not be able to recover this imaginary file!",
+        title: "Bạn có chắc?",
+        text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -414,9 +475,14 @@ function playInteraction(interactionId, sessionId) {
             SessionId: sessionId,
         },
         success: function (data) {
-            ReloadInteractionDatatable();
-            ReloadInteractionRunningDatatable();
-            swal("Thành công!", "Tiến hành chạy tương tác thành công", "success");
+            if (data.success) {
+                ReloadInteractionDatatable();
+                ReloadInteractionRunningDatatable();
+                swal("Thành công!", "Tiến hành chạy tương tác thành công", "success");
+            }
+            else {
+                swal("Thất bại!", "Có lỗi xảy ra", "warning");
+            }
         },
         error: function (data) {
             console.log(data);
@@ -444,8 +510,8 @@ function stopInteraction(interactionId) {
 
 function delInteraction(interactionId) {
     swal({
-        title: "Bạn có chắc không?",
-        text: "Bạn muốn xóa tương tác này!",
+        title: "Bạn có chắc?",
+        text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -505,72 +571,197 @@ function ReloadInteractionRunningDatatable() {
     $('#tblInteractionRunning').DataTable().ajax.reload();
 }
 
-    /* Activity */
+/* Activity */
 
 //Add new activity
 $('#addActivity').on('click', function () {
-    var time = $('#AddStartEndTime').val();
+    clearErrorAddActivity();
+    var collectionItemId = $('#speakerAddSelectBox').val();
+    var name = $('#txtActivityNameAdd').val();
+    var description = $('#txtActivityDesAdd').val();
 
-    var timeSplit = time.split('-');
-    var startTime = timeSplit[0].trim().split("/").reverse().join("-");
-    var endTime = timeSplit[1].trim().split("/").reverse().join("-");
+    var isValid = true;
+    if (name.length === 0) {
+        $('#errorNameActivityAdd').css('display', 'block');
+        isValid = false;
+        $('#addActivity').attr('data-dismiss', null);
+    }
+    if (description.length === 0) {
+        $('#errorDesActivityAdd').css('display', 'block');
+        isValid = false;
+        $('#addActivity').attr('data-dismiss', null);
+    }
 
+    if (isValid) {
 
-    $.ajax({
-        url: urlApi + 'api/activity/AddActivity',
-        method: 'POST',
-        data: {
-            SessionId: $('#session-id').val(),
-            Name: $('#addName').val(),
-            Description: $('#addDescription').val(),
-            StartTime: startTime,
-            EndTime: endTime
-        },
-        success: function (data) {
-            ReloadActivityDatatable();
-            swal("Thành công", "Thêm mới hoạt động thành công", "success");
-        },
-        error: function (data) {
-            console.log(data);
+        var time = $('#AddStartEndTime').val().trim();
+        var timeSplit = time.split('-');
+        var startTimeSplit = timeSplit[0].trim().split(" ");
+        var endTimeSpit = timeSplit[1].trim().split(" ");
+
+        var startTime = startTimeSplit[0].trim().split("/").reverse().join("-") + ' ' + startTimeSplit[1] /*+ ' ' + startTimeSplit[2]*/;
+        var endTime = endTimeSpit[0].trim().split("/").reverse().join("-") + ' ' + endTimeSpit[1]/* + ' ' + endTimeSpit[2]*/;
+
+        var activityId;
+        if (collectionItemId != null) {
+            $.ajax({
+                url: urlApi + 'api/activity/AddActivity',
+                method: 'POST',
+                data: {
+                    SessionId: $('#session-id').val(),
+                    Name: name,
+                    Description: description,
+                    StartTime: startTime,
+                    EndTime: endTime
+                },
+                success: function (data) {
+                    activityId = data.data.ActivityID;
+                    for (var i = 0; i < collectionItemId.length; i++) {
+                        addActivityItem(activityId, collectionItemId[i]);
+                    }
+                    ReloadActivityDatatable();
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        } else {
+            $.ajax({
+                url: urlApi + 'api/activity/AddActivity',
+                method: 'POST',
+                data: {
+                    SessionId: $('#session-id').val(),
+                    Name: name,
+                    Description: description,
+                    StartTime: startTime,
+                    EndTime: endTime
+                },
+                success: function (data) {
+                    ReloadActivityDatatable();
+                    swal("Thành công", "Thêm mới hoạt động thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
         }
-    });
+
+        $('#addActivity').attr('data-dismiss', 'modal');
+        clearErrorAddActivity();
+        clearInputAddAvtivity();
+    }
+
 });
 
 //Update activity
 $('#btn-update-activity').on('click', function () {
+    clearErrorEditActivity();
+    var collectionItemId = $('#speakerUpdateSelectBox').val();
+    var name = $('#activityName').val();
+    var description = $('#activityDescription').val();
+
+    var isValid = true;
+    if (name.length === 0) {
+        $('#errorNameActivityEdit').css('display', 'block');
+        isValid = false;
+        
+    }
+    if (description.length === 0) {
+        $('#errorDesActivityEdit').css('display', 'block');
+        isValid = false;
+        
+    }
+
+    if (isValid) {
+        var time = $('#startEndTime').val().trim();
+        var timeSplit = time.split('-');
+        var startTimeSplit = timeSplit[0].trim().split(" ");
+        var endTimeSpit = timeSplit[1].trim().split(" ");
+
+        var startTime = startTimeSplit[0].trim().split("/").reverse().join("-") + ' ' + startTimeSplit[1];
+        var endTime = endTimeSpit[0].trim().split("/").reverse().join("-") + ' ' + endTimeSpit[1];
+
+        if (collectionItemId != null) {
+            $.ajax({
+                url: urlApi + 'api/activity/UpdateActivity',
+                method: "POST",
+                data: {
+                    ActivityID: $('#txtActivityId').val(),
+                    Name: $('#activityName').val(),
+                    Description: $('#activityDescription').val(),
+                    StartTime: startTime,
+                    EndTime: endTime
+                },
+                success: function (data) {
+                    deleteActivityItem($('#txtActivityId').val());
+                    for (var i = 0; i < collectionItemId.length; i++) {
+                        addActivityItem($('#txtActivityId').val(), collectionItemId[i]);
+                    }
+                    ReloadActivityDatatable();
+                    swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        } else {
+            $.ajax({
+                url: urlApi + 'api/activity/UpdateActivity',
+                method: "POST",
+                data: {
+                    ActivityID: $('#txtActivityId').val(),
+                    Name: $('#activityName').val(),
+                    Description: $('#activityDescription').val(),
+                    StartTime: startTime,
+                    EndTime: endTime
+                },
+                success: function (data) {
+                    deleteActivityItem($('#txtActivityId').val());
+                    ReloadActivityDatatable();
+                    swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+        $('#modalUpdateActivity').modal('hide');
+    }
+
+    
+
+});
+
+//function openModelUpdate(id, name, startTime, endTime, description) {
+//    $('#activityName').val(name);
+//    $('#activityDescription').val(description);
+//    $('#startEndTime').val(startTime + " - " + endTime);
+//    $('#txtActivityId').val(id);
+//    $('#startEndTime').daterangepicker({
+//        locale: {
+//            format: 'DD/MM/YYYY'
+//        }
+//    });
+
+//}
+
+function deleteActivityItem(id) {
     $.ajax({
-        url: urlApi + 'api/activity/UpdateActivity',
-        method: "POST",
+        url: urlApi + 'api/activity/DeleteActivityItem',
+        method: 'POST',
         data: {
-            ActivityID: $('#txtActivityId').val(),
-            Name: $('#activityName').val(),
-            Description: $('#activityDescription').val()
+            ActivityId: id,
         },
         success: function (data) {
-            ReloadActivityDatatable();
-            swal("Thành công", "Cập nhật thông tin hoạt động thành công", "success");
         },
         error: function (data) {
+            console.log(activityId);
             console.log(data);
         }
     });
-});
-
-function openModelUpdate(id, name, startTime, endTime, description) {
-    $('#activityName').val(name);
-    $('#activityDescription').val(description);
-    $('#startEndTime').val(startTime + " - " + endTime);
-    $('#txtActivityId').val(id);
-    $('#startEndTime').daterangepicker({
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
-    });
-
 }
 
 function deleteActivity(id) {
-
     swal({
         title: "Bạn có chắc?",
         text: "Bạn có chắc chắn, bạn sẽ không thể phục hồi lại!",
@@ -583,19 +774,17 @@ function deleteActivity(id) {
     },
         function () {
             $.ajax({
-                url: urlApi + 'api/activity/DeleteActivity',
-                method: "POST",
+                url: urlApi + 'api/activity/DeleteActivityItem',
+                method: 'POST',
                 data: {
-                    ActivityID: id,
-
+                    ActivityId: id,
                 },
                 success: function (data) {
-                    ReloadActivityDatatable();
-                    swal("Deleted!", "Your activity has been deleted successfully", "success");
+                    deleteActivityAfterDeleteActivityItem(id);
                 },
                 error: function (data) {
+                    console.log(activityId);
                     console.log(data);
-                    swal("Error", "Some error occur", "error");
                 }
             });
         });
@@ -603,6 +792,58 @@ function deleteActivity(id) {
 
 function ReloadActivityDatatable() {
     $('#tblActivity').DataTable().ajax.reload();
+}
+
+function clearErrorAddActivity() {
+    $('#errorNameActivityAdd').css('display', 'none');
+    $('#errorDesActivityAdd').css('display', 'none');
+}
+
+function clearErrorEditActivity() {
+    $('#errorNameActivityEdit').css('display', 'none');
+    $('#errorDesActivityEdit').css('display', 'none');
+}
+
+function clearInputAddAvtivity() {
+    $('#txtActivityNameAdd').val("");
+    $('#txtActivityDesAdd').val("");
+}
+
+function addActivityItem(activityId, collectionItemId) {
+    $.ajax({
+        url: urlApi + 'api/activity/AddActivityItem',
+        method: 'POST',
+        data: {
+            ActivityId: activityId,
+            CollectionItemId: collectionItemId
+        },
+        success: function (data) {
+            ReloadActivityDatatable();
+            swal("Thành công", "Thêm mới hoạt động thành công", "success");
+        },
+        error: function (data) {
+            console.log(activityId + ', ' + collectionItemId);
+            console.log(data);
+        }
+    });
+}
+
+function deleteActivityAfterDeleteActivityItem(activityId) {
+    $.ajax({
+        url: urlApi + 'api/activity/DeleteActivity',
+        method: "POST",
+        data: {
+            ActivityID: activityId,
+        },
+        success: function (data) {
+            ReloadActivityDatatable();
+            swal("Xóa Thành Công!", "Hoạt động đã được xóa thành công", "success");
+        },
+        error: function (data) {
+            console.log(data);
+            swal("Xóa không thành công", "Phát sinh lỗi", "error");
+        }
+    });
 }
 
 /* Timeline */
@@ -644,6 +885,7 @@ $('#addTimeline').on('click', function () {
                 console.log(data);
             }
         });
+        clearInputAddTimeLine();
     }
 
 });
@@ -706,6 +948,11 @@ function deleteTimeline(id) {
 
 function reloadTimelineDatatable() {
     $('#tblTimeline').DataTable().ajax.reload();
+}
+
+function clearInputAddTimeLine() {
+    $('#addTitle').val("");
+    $('#addTimelineDetail').val("");
 }
 
 

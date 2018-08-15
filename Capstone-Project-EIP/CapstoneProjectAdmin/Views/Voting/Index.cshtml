@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<!--Modal Add Session-->
+<!--Modal Add Voting-->
 <div class="modal fade" id="addVotingModal" role="dialog">
     <div class="modal-dialog">
 
@@ -51,9 +51,7 @@
                         </div>
                         <input id="txt-voting-name" type="text" class="form-control" placeholder="Nhập tên bình chọn">
                     </div>
-                    <div class="col-lg-offset-3 col-lg-9 div-name-error">
-                        <p class="empty" id="vote-name-error">Vui lòng nhập tên</p>
-                    </div>
+                    <p class="empty col-lg-offset-3" id="vote-name-error">Vui lòng nhập tên</p>
                 </div>
                 <div class="form-group form-option">
                     <label class="col-sm-3 form-control-label">Lựa Chọn:</label>
@@ -75,13 +73,14 @@
                 <div class="form-group">
                     <a class="btn btn-info btn-add-option" id="btn-add-option"><i class="fa fa-plus" aria-hidden="true"></i>Thêm lựa chọn</a>
                 </div>
+                <p class="empty col-lg-offset-3" id="vote-option-error">Vui lòng nhập giá trị cho các bình chọn</p>
 
 
 
 
             </div>
             <div class="modal-footer">
-                <button id="btn-add-voting" type="button" class="btn btn-primary"  >Thêm</button>
+                <button id="btn-add-voting" type="button" class="btn btn-primary">Thêm</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -106,9 +105,11 @@
                         <div class="input-group-addon">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                         </div>
-                        <input id="voting-name-update" type="text" class="form-control voting-name-update" >
+                        <input id="voting-name-update" type="text" class="form-control voting-name-update">
                         <input type="hidden" id="voting-update-id" value="" />
                     </div>
+                    <p class="empty col-lg-offset-3" id="vote-name-error-edit">Vui lòng nhập tên bình chọn</p>
+
                 </div>
                 <div class="form-group form-option">
                     <label class="col-sm-3 form-control-label">Lựa Chọn:</label>
@@ -124,9 +125,11 @@
                 <div class="form-group">
                     <a class="btn btn-info btn-add-option-update" id="btn-add-option-update"><i class="fa fa-plus" aria-hidden="true"></i>Thêm Lựa Chọn</a>
                 </div>
+                <p class="empty col-lg-offset-3" id="vote-option-error-edit">Vui lòng nhập giá trị cho các bình chọn</p>
+
             </div>
             <div class="modal-footer">
-                <button id="btn-update-voting" type="button" class="btn btn-primary" data-dismiss="modal">Lưu</button>
+                <button id="btn-update-voting" type="button" class="btn btn-primary">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
             </div>
         </div>
@@ -213,23 +216,28 @@
 
             //Add Voting
             $(document).on('click', '#btn-add-voting', function () {
-                $('#btn-add-voting').attr('data-dismiss', 'modal');
-                $('#vote-name-error').css('display', 'none');
+                
+                clearErrorAddVoting();
                 var isValid = true;
                 var votingName = $('#txt-voting-name').val();
+                var votingOptions = $('.voting-option-value');
                 if (votingName.length == 0) {
-                    $('#btn-add-voting').attr('data-dismiss', null);
                     $('#vote-name-error').css('display', 'block');
-                } else {
-                    $('#btn-add-voting').attr('data-dismiss', 'modal');
-                    if (votingName.length == 0) {
+                    isValid = false;
+                }
+                for (var i = 0; i < votingOptions.length - 1; i++) {
+                    
+                    if ($(votingOptions[i]).val().length == 0) {
                         isValid = false;
+                        $('#vote-option-error').css('display', 'block');
+                        break;
+                    }
+                    
+                }
 
-                    }
+                if (isValid) {
+                    
                     var votingOptions = $('.voting-option-value');
-                    if (votingOptions.length == 0) {
-                        isValid = false;
-                    }
                     var votingOptionsArr = [];
                     // length - 1 do có 1 input là template nên không sử dụng
                     for (var i = 0; i < votingOptions.length - 1; i++) {
@@ -241,9 +249,9 @@
                         optionObj.NumberOfVoting = 0;
                         votingOptionsArr.push(optionObj);
                     }
-                    
+
                     $.ajax({
-                        
+
                         url: urlApi + 'api/voting/AddVoting',
                         method: "POST",
                         data: {
@@ -255,11 +263,18 @@
                             reloadTable();
                             swal("Thành Công!", "Bình chọn đã được thêm thành công", "success");
                             
+
                         },
                         error: function (data) {
                             console.log(data);
                         }
                     });
+                    clearModalAddVoting();
+                   
+                    $('#addVotingModal').modal('hide');
+                }
+                else {
+                    $('#btn-add-voting').attr('data-dismiss', null);
                 }
             });
 
@@ -277,33 +292,57 @@
                 var votingId = $('#voting-update-id').val();
                 var votingName = $('#voting-name-update').val();
                 var votingOptionValues = $('.voting-option-value-update');
-                var votingOptionArr = [];
-                // do input cuối cùng là template nên không sử dụng
-                for (var i = 0; i < votingOptionValues.length - 1; i++) {
-                    var optionObj = {};
-                    optionObj.VotingOptionId = $(votingOptionValues[i]).attr('data-id');
-                    optionObj.VotingOptionContent = $(votingOptionValues[i]).val();
-                    optionObj.VotingId = votingId;
-                    votingOptionArr.push(optionObj);
+
+
+                var isValid = true;
+                if (votingName.length === 0) {
+                    isValid = false;
+                    $('#vote-name-error-edit').css('display', 'block');
 
                 }
-                var votingUpdate = {
-                    VotingId: votingId,
-                    VotingName: votingName,
-                    VotingOptions: votingOptionArr
-                };
-                $.ajax({
-                    url: urlApi + 'api/voting/UpdateVoting',
-                    method: "POST",
-                    data: votingUpdate,
-                    success: function (data) {
-                        swal("Thành Công!", "Bình chọn đã được cập nhật thành công", "success");
-                        reloadTable();
-                    },
-                    error: function (data) {
-                        console.log(data);
+                for (var i = 0; i < votingOptionValues.length - 1; i++) {
+
+                    if ($(votingOptionValues[i]).val().length == 0) {
+                        isValid = false;
+                        $('#vote-option-error-edit').css('display', 'block');
+                        break;
                     }
-                });
+
+                }
+
+                if (isValid) {
+                    var votingOptionArr = [];
+                    // do input cuối cùng là template nên không sử dụng
+                    for (var i = 0; i < votingOptionValues.length - 1; i++) {
+                        var optionObj = {};
+                        optionObj.VotingOptionId = $(votingOptionValues[i]).attr('data-id');
+                        optionObj.VotingOptionContent = $(votingOptionValues[i]).val();
+                        optionObj.VotingId = votingId;
+                        votingOptionArr.push(optionObj);
+
+                    }
+                    var votingUpdate = {
+                        VotingId: votingId,
+                        VotingName: votingName,
+                        VotingOptions: votingOptionArr
+                    };
+                    $.ajax({
+                        url: urlApi + 'api/voting/UpdateVoting',
+                        method: "POST",
+                        data: votingUpdate,
+                        success: function (data) {
+                            swal("Thành Công!", "Bình chọn đã được cập nhật thành công", "success");
+                            reloadTable();
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                    $('#updateVotingModal').modal('hide');
+
+                }
+
+                
 
 
             });
@@ -314,6 +353,7 @@
         }
 
         function openUpdateModal(id) {
+            clearErrorEditVoting();
             $.ajax({
                 url: urlApi + 'api/voting/GetVotingById',
                 method: "POST",
@@ -340,7 +380,7 @@
         function deleteVoting(id) {
             swal({
                 title: "Bạn có chắc?",
-                text: "Cuộc bình chọn sẽ bị xóa",
+                text: "Bạn sẽ không thể phục hồi lại!",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn-danger",
@@ -362,12 +402,26 @@
                         },
                         error: function (data) {
                             console.log(data);
-                            swal("Lỗi", "Không thể xóa", "error");
+                            swal("Lỗi", "Cuộc bình chọn này đã được chọn làm mẫu cho tương tác", "error");
                         }
                     });
                 });
         }
 
+        function clearModalAddVoting() {
+            $('#txt-voting-name').val("");
+            $('#group-option').empty();
+            $('#group-option').append($('#template-option').clone().html());
+        }
 
+        function clearErrorAddVoting() {
+            $('#vote-name-error').css('display', 'none');
+            $('#vote-option-error').css('display', 'none');
+        }
+
+        function clearErrorEditVoting() {
+            $('#vote-name-error-edit').css('display', 'none');
+            $('#vote-option-error-edit').css('display', 'none');
+        }
     </script>
 }

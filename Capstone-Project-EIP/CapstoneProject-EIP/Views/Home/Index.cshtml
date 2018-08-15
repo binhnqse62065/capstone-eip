@@ -1,21 +1,26 @@
-﻿@using HmsService.Models.Entities;
+﻿@using CapstoneProject_EIP.ViewModel;
 @using System.Globalization;
-@model Event
+@using HmsService.Models.Entities;
+@model EventViewModel
 
 @{
-    var listBannerImage = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 1).CollectionItems;
-    var listSpeaker = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
-    var listSponsor = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 3).CollectionItems;
+
+    //var listSpeaker = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 2).CollectionItems;
+    //var listSponsor = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 3).CollectionItems;
+    EventCollection listSpeaker = ViewBag.Speakers;
+    EventCollection listSponsor = ViewBag.Sponsors;
 
     var startTime = Model.StartTime;
     var endTime = Model.EndTime;
-    string startMonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(startTime.Value.Month);
-    string endMonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(endTime.Value.Month);
-    var time = startTime.Value.Day + " " + startMonthName + " - " + endTime.Value.Day + " " + endMonthName;
+    //string startMonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(startTime.Value.Month);
+    //string endMonthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(endTime.Value.Month);
+    var time = startTime.Value.Day + " tháng " + startTime.Value.Month + " - " + endTime.Value.Day + " tháng " + endTime.Value.Month;
     if (startTime.Value.Month == endTime.Value.Month)
     {
-        time = startTime.Value.Day + " - " + endTime.Value.Day + " " + endMonthName;
+        time = startTime.Value.Day + " - " + endTime.Value.Day + " Tháng " + endTime.Value.Month;
     }
+
+    IEnumerable<HmsService.ViewModels.EventViewModel> listRunningAndUpcoming = ViewBag.ListEvent;
 }
 <!doctype html>
 <html class="no-js" lang="">
@@ -24,11 +29,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Eventalk | Home 3 (One Page)</title>
+    <title>Join.vn</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="~/Content/Template/eventalk/img/favicon.png">
+
     <!-- Modernizr Js -->
     @*<script src="~/Content/Template/eventalk/js/modernizr-2.8.3.min.js"></script>*@
 </head>
@@ -73,35 +77,33 @@
                             @*<li>Tobacco Dock, London</li>*@
                             <li>@Html.Raw(Model.Address)</li>
                         </ul>
-                        <img src="~/Content/Template/eventalk/img/slider/slider-text-img.png" alt="slider" class="img-responsive">
+                        <h2>@Html.Raw(Model.Name)</h2>
+                        @*<img src="~/Content/Template/eventalk/img/slider/slider-text-img.png" alt="slider" class="img-responsive">*@
                         <div class="countdown-layout3">
-                            <div id="countdown"></div>
+                            <div id="countdownStartTime"></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="bend niceties preview-1">
                 <div id="ensign-nivoslider-2" class="slides">
-                    @for (int i = 0; i < listBannerImage.Count(); i++)
-                    {
-                        <img src="@(listBannerImage.ElementAt(i).ImageUrl)" alt="slider" title="#slider-direction-@(i)" />
-                    }
+                    <img src="@(Model.ImageURL)" alt="banner" />
+                    @*@for (int i = 0; i < listBannerImage.Count(); i++)
+                        {
+                            <img src="@(listBannerImage.ElementAt(i).ImageUrl)" alt="slider" title="#slider-direction-@(i)" />
+                        }*@
 
                 </div>
             </div>
         </div>
         <!-- Slider Area End Here -->
         <!-- About Area Start Here -->
-        <section class="section-space-big bg-common bg-accent" style="background-image: url(~/Content/Template/eventalk/img/figure/figure3.png);">
+        <section class="section-space-big bg-common bg-accent" @*style="background-image: url(../../Content/Template/eventalk/img/figure/figure3.jpg);"*@>
             <div class="container">
                 <div class="about-layout3">
-                    <img src="~/Content/Template/eventalk/img/about/about-logo.png" alt="logo" class="img-fluid">
+                    @*<img src="~/Content/img/LogoMakr_6CVPn5.png" alt="logo" class="img-fluid">*@
                     <p>
-                        @*Emply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-                            simply dummy text of the rinting and typesetting industry.standard dummy text ever since.Emply
-                            dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                            when an unknown printer took.*@
+
                         @Html.Raw(Model.EventDescription)
                     </p>
                 </div>
@@ -112,62 +114,59 @@
         <section id="speakers" class="section-space-default bg-light overlay-icon-layout4">
             <div class="container zindex-up zoom-gallery menu-list-wrapper">
                 <div class="section-heading title-black color-dark text-left">
-                    <h2>Todays Performers</h2>
-                    <p>Dorem ipsum dolor sitIncidunt laborum beatae earum nihil onsequuntur official </p>
+                    <h2>Danh sách diễn giả</h2>
                 </div>
                 <div class="row menu-list">
                     @{
-                        var index = 0;
-                        foreach (var item in listSpeaker)
+                        if (listSpeaker != null)
                         {
-                            <div class="col-lg-4 col-md-6 col-sm-6 menu-item @(index > 3 ? "hiden" : "")">
-                                <div class="speaker-layout3">
-                                    <img src="@(item.ImageUrl)" alt="speaker" class="img-fluid">
-                                    <div class="item-title">
-                                        <h3 class="title title-medium color-light hover-yellow">
-                                            <a href="single-speaker.html">@(item.Name)</a>
-                                        </h3>
-                                        @*<div class="title-light size-md color-light text-left">BadBoys Band</div>*@
+                            if (listSpeaker.CollectionItems.Count() > 0)
+                            {
+                                var index = 0;
+                                foreach (var item in listSpeaker.CollectionItems)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-6 menu-item @(index > 3 ? "hiden" : "")">
+                                        <div class="speaker-layout3">
+                                            <img src="@(item.ImageUrl)" alt="speaker" class="img-fluid">
+                                            <div class="item-title">
+                                                <h3 class="title title-medium color-light hover-yellow">
+                                                    <a href="single-speaker.html">@(item.Name)</a>
+                                                </h3>
+                                                @*<div class="title-light size-md color-light text-left">BadBoys Band</div>*@
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div class="item-social">
-                                        <ul>
-                                            <li>
-                                                <a href="#" title="facebook">
-                                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" title="twitter">
-                                                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" title="linkedin">
-                                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" title="pinterest">
-                                                    <i class="fa fa-pinterest" aria-hidden="true"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            index++;
+                                    index++;
+                                }
+                            }
+                            else
+                            {
+                                <h3 class="text-center">Hiện tại chưa có thông tin diễn giả</h3>
+                            }
                         }
+                        else
+                        {
+                            <h3 class="text-center">Hiện tại chưa có thông tin diễn giả</h3>
+                        }
+
+
+
                     }
 
                 </div>
-                @if (listSpeaker.Count() > 3)
+                @if (listSpeaker != null)
                 {
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <a href="#" title="More Performaers" class="loadmore-three-item btn-fill size-lg color-yellow zindex-up border-radius-5 margin-t-30">More Performaers</a>
+                    if (listSpeaker.CollectionItems.Count() > 3)
+                    {
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <a href="#" title="More Performaers" class="loadmore-three-item btn-fill size-lg color-yellow zindex-up border-radius-5 margin-t-30">Xem thêm</a>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
+
 
             </div>
         </section>
@@ -176,99 +175,103 @@
         <section id="schedule" class="section-space-default bg-light">
             <div class="container">
                 <div class="section-heading title-black color-dark text-center">
-                    <h2>Performance Schedule</h2>
+                    <h2>Lịch</h2>
 
                 </div>
-                <div class="schedule-layout3">
+
+                <div class="schedule-layout2">
                     <ul class="schedule-nav nav nav-tabs">
-                        @for (int i = 0; i < Model.Sessions.Count; i++)
+                        @for (int i = 0; i < Model.Sessions.Count(); i++)
                         {
                             <li class="nav-item">
-                                <a href="#schedule@(i)" data-toggle="tab" aria-expanded="false" class="@(i == 0 ? "active" : "")">
+                                <a href="#@(i)" data-toggle="tab" aria-expanded="false" class="@(i == 0 ? "active" : "")">
                                     <div class="day-number">@Html.Raw(Model.Sessions.ElementAt(i).Name)</div>
+                                    <div class="schedule-date">@(Model.Sessions.ElementAt(i).StartTime)</div>
                                 </a>
                             </li>
                         }
+
+
                     </ul>
                     <div class="schedule-content">
                         <div class="tab-content">
-                            @for (int i = 0; i < Model.Sessions.Count; i++)
+                            @for (int i = 0; i < Model.Sessions.Count(); i++)
                             {
-                                var activityItem = Model.Sessions.ElementAt(i).Activities;
-
-                                <div role="tabpanel" class="tab-pane fade @(i == 0 ? "active show" : "") " id="schedule@(i)">
-                                    <table class="table table-bordered table-responsive">
+                                <div role="tabpanel" class="my-tab-pane tab-pane fade @(i == 0 ? "active show" : "")" id="@(i)">
+                                    <table class="table table-striped table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Chủ đề</th>
+                                                <th>Diễn giả</th>
+                                                <th>Thời gian</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
-                                            @foreach (var item in activityItem)
+                                            @for (int j = 0; j < Model.Sessions.ElementAt(i).Activities.Count(); j++)
                                             {
+                                                var activityListTmp = Model.Sessions.ElementAt(i).Activities.OrderBy(a => a.StartTime);
                                                 <tr>
+                                                    <th scope="row">@(j + 1)</th>
                                                     <td>
-                                                        <a href="single-event.html">
-                                                            <div class="schedule-info">
-                                                                <div class="media">
-                                                                    <div class="speaker-img">
-                                                                        <img src="~/Content/Template/eventalk/img/speaker/speaker9.png" alt="schedule" class="rounded-circle">
-                                                                    </div>
-                                                                    <div class="media-body item-content">
-                                                                        <h3 class="title title-medium color-dark size-sm">@(item.Name)</h3>
-                                                                        <p>@(item.Name)</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                                        <a href="single-event.html">@Html.Raw(activityListTmp.ElementAt(j).Name)</a>
                                                     </td>
                                                     <td>
-                                                        <a href="single-event.html">
-                                                            <div class="schedule-info">
-                                                                <div class="item-content">
-                                                                    <h3 class="title title-medium color-dark size-sm">Time Schedule</h3>
-                                                                    <p>@(item.StartTime.Value.ToShortTimeString())</p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                                        @{
+                                                            var activityItemList = Model.Sessions.ElementAt(i).Activities.ElementAt(j).ActivityItems;
+                                                            for (int k = 0; k < activityItemList.Count(); k++)
+                                                            {
+                                                                if (k == activityItemList.Count() - 1)
+                                                                {
+                                                                    <span>@(activityItemList.ElementAt(k).CollectionItem.Name)</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>@(activityItemList.ElementAt(k).CollectionItem.Name),</span>
+                                                                }
+                                                            }
+                                                        }
+
                                                     </td>
-                                                    <td>
-                                                        <a href="single-event.html">
-                                                            <div class="schedule-info">
-                                                                <div class="item-content">
-                                                                    <h3 class="title title-medium color-dark size-sm">Hall</h3>
-                                                                    <p>CityCafe</p>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </td>
+                                                    <td>@(activityListTmp.ElementAt(j).StartTime.Value.ToString("dd/MM/yyyy HH:mm"))</td>
                                                 </tr>
                                             }
+
+
                                         </tbody>
                                     </table>
                                 </div>
-
-
                             }
+
+
                         </div>
                     </div>
-
                 </div>
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <a href="#" title="More Schedules" class="btn-fill size-md border-radius-5 color-yellow">More Schedules</a>
-                    </div>
-                </div>
+                @*<div class="row">
+                        <div class="col-12 text-center">
+                            <a href="#" title="More Schedules" class="btn-fill size-md border-radius-5 color-yellow">Xem thêm</a>
+                        </div>
+                    </div>*@
             </div>
         </section>
         <!-- Schedule Area End Here -->
         <!-- Pricing Plan Area Start Here -->
-        <section id="register" class="section-space-default-less30 overlay-icon-layout2 bg-common bg-accent" style="background-image: url(~/Content/Template/eventalk/img/figure/figure5.png);">
+        <section id="register" class="section-space-default-less30 overlay-icon-layout2 bg-common bg-accent" @*style="background-image: url(../../Content/Template/eventalk/img/figure/figure4.png);"*@>
             <div class="container zindex-up">
                 <div class="section-heading title-black color-dark text-left">
-                    <h2>Register</h2>
+                    <h2>Đăng kí</h2>
                 </div>
-                <form class="custom-form">
-                    <input id="guestName" placeholder="Name" type="text" class="custom-input" required />
-                    <input id="guestPhone" placeholder="Phone" type="tel" class="custom-input" required />
-                    <input id="guestEmail" placeholder="E-mail" type="email" class="custom-input" required />
-                    <button id="btn-submit">Register <span class="fa fa-chevron-right"></span></button>
-                </form>
+                <div class="custom-form">
+                    <input id="guestName" placeholder="Tên(bắt buộc)" type="text" class="custom-input" />
+                    <p class="error-title" id="errorName">Vui lòng nhập tên</p>
+                    <input id="guestPhone" placeholder="Số điện thoại(bắt buộc)" type="tel" class="custom-input" />
+                    <p class="error-title" id="errorPhone">Vui lòng nhập số điện</p>
+                    <p class="error-title" id="errorPhoneFormat">Số điện thoại không đúng định dạng</p>
+                    <input id="guestEmail" placeholder="Email(bắt buộc)" type="email" class="custom-input" />
+                    <p class="error-title" id="errorEmail">Vui lòng nhập email</p>
+                    <p class="error-title" id="errorEmailFormat">Email không đúng định dạng</p>
+                    <button id="btn-submit">Đăng kí <span class="fa fa-chevron-right"></span></button>
+                </div>
             </div>
         </section>
         <!-- Pricing Plan Area End Here -->
@@ -276,21 +279,38 @@
         <section id="sponsors" class="section-space-default bg-light">
             <div class="container">
                 <div class="section-heading title-black color-dark text-center">
-                    <h2>Offcial Sponsonrs &amp; Partner</h2>
-                    <p>Check Who Makes This Event Possible!</p>
+                    <h2>Danh sách nhà tài trợ</h2>
+
                 </div>
                 <div class="sponsonrs-layout1">
                     <div class="row">
-                        @foreach (var item in listSponsor)
+
+                        @if (listSponsor != null)
                         {
-                            <div class="col-md-3 col-sm-6 col-12">
-                                <div class="sponsonrs-box">
-                                    <a href="#">
-                                        <img src="@(item.ImageUrl)" alt="brand" class="img-fluid">
-                                    </a>
-                                </div>
-                            </div>
+                            if (listSponsor.CollectionItems.Count() > 0)
+                            {
+                                foreach (var item in listSponsor.CollectionItems)
+                                {
+                                    <div class="col-md-3 col-sm-6 col-12">
+                                        <div class="sponsonrs-box">
+                                            <a >
+                                                <img src="@(item.ImageUrl)" alt="brand" class="img-fluid">
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <h3 class="text-center">Hiện tại chưa có thông tin nhà tài trợ</h3>
+                            }
+
                         }
+                        else
+                        {
+                            <h3 class="text-center"> Hiện tại chưa có thông tin nhà tài trợ</h3>
+                        }
+
                     </div>
                 </div>
 
@@ -301,22 +321,64 @@
         <section id="contact" class="full-width-container">
             <div class="container-fluid">
                 <div class="google-map-area">
-                    <div id="googleMap" style="width:100%; height:496px;">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4667109038546!2d106.69877591480079!3d10.775521892322164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f479e4f95db%3A0xcae127d5b519b548!2sRex+Hotel!5e0!3m2!1sen!2s!4v1527840226572" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    @*<div id="googleMap" style="width:100%; height:496px;">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4667109038546!2d106.69877591480079!3d10.775521892322164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f479e4f95db%3A0xcae127d5b519b548!2sRex+Hotel!5e0!3m2!1sen!2s!4v1527840226572" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+
+                        </div>*@
+                    <div id="map" style="width:100%; height:496px;">
+
                     </div>
-                    <div class="upcoming-event-layout1">
-                        <h2>
-                            Marketing
-                            <br> Conferance 2018
-                        </h2>
-                        <div class="date">17 - 25 Oct, 2018</div>
-                        <p>Tobacco Dock, London</p>
-                    </div>
+
                 </div>
             </div>
         </section>
         <!-- Map Area End Here -->
     </div>
+
+    <!-- Blog Area Start Here -->
+    <section class="section-space-default-less30 bg-accent" id="listEvent">
+        <div class="container">
+            <div class="section-heading title-black color-dark text-center">
+                <h2>Danh sách sự kiện đang và sắp diễn ra</h2>
+                
+            </div>
+            <div class="row">
+                @foreach (var eventTmp in listRunningAndUpcoming)
+                {
+                    <div class="col-12">
+                        <div class="blog-layout2">
+                            <div class="media align-items-center media-none--sm">
+                                <div class="item-img" >
+                                    <img src="@(eventTmp.ImageURL)" alt="blog" class="img-fluid img-responsive">
+                                    <div class="item-date">
+
+                                        <span>@(eventTmp.StartTime.Value.ToString("dd/MM"))</span>
+                                    </div>
+                                </div>
+                                <div class="media-body media-body-box">
+                                    <div class="item-title">
+                                        <h3 class="title title-medium color-dark hover-primary">
+                                            <a href="/@(eventTmp.BriefName)">@Html.Raw(eventTmp.Name)</a>
+                                        </h3>
+                                    </div>
+                                    <div class="item-deccription">
+                                        <p>
+                                            @Html.Raw(eventTmp.EventDescription)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- Blog Area End Here -->
+    <!--EventId-->
+    <input type="hidden" id="txtEventId" value="@(Model.EventID)" />
+
     <!-- Wrapper End -->
     <!-- Custom Js -->
     @*<script src="~/Content/Template/eventalk/js/main-one-page.js"></script>*@
@@ -324,31 +386,125 @@
 
 <!-- Mirrored from www.radiustheme.com/demo/html/eventalk/one-page-index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 24 May 2018 08:23:51 GMT -->
 </html>
-@*@section scripts {
+@section scripts {
     <script>
         $(document).ready(function () {
+            var startTime = '@(Model.StartTime)';
+            /*-------------------------------------
+            Countdown activation code
+        -------------------------------------*/
+            var eventCounter = $('#countdownStartTime');
+            if (eventCounter.length) {
+                eventCounter.countdown(startTime, function (e) {
+                    $(this).html(e.strftime("<div class='countdown-section'><h2>%D</h2> <h3>day%!D</h3> </div><div class='countdown-section'><h2>%H</h2> <h3>Hour%!H</h3> </div><div class='countdown-section'><h2>%M</h2> <h3>Minutes</h3> </div><div class='countdown-section'><h2>%S</h2> <h3>Second</h3> </div>"))
+
+                });
+            }
+
+
+
+
             $('#btn-submit').on('click', function () {
+                clearErrorRegister();
+
                 var name = $('#guestName').val();
                 var phone = $('#guestPhone').val();
                 var email = $('#guestEmail').val();
-                $.ajax({
-                    url: 'api/landingPage/AddGuest',
-                    method: "POST",
-                    data: {
-                        GuestName: name,
-                        GuestPhone: phone,
-                        GuestEmail: email,
-                        EventId: 1,
-                    },
-                    success: function (data) {
-                        console.log('Add success');
-                    },
-                    error: function (data) {
-                        console.log(data);
+                var eventId = $('#txtEventId').val();
+
+                var isValid = true;
+                if (name.length === 0) {
+                    isValid = false;
+                    $('#errorName').css('display', 'block');
+                }
+                if (phone.length === 0) {
+                    isValid = false;
+                    $('#errorPhone').css('display', 'block');
+
+                }
+                else {
+                    if (!phonenumber(phone)) {
+                        isValid = false;
+                        $('#errorPhoneFormat').css('display', 'block');
                     }
-                });
+
+                }
+                if (email.length === 0) {
+                    isValid = false;
+                    $('#errorEmail').css('display', 'block');
+
+                }
+                else {
+                    if (!validateEmail(email)) {
+                        $('#errorEmailFormat').css('display', 'block');
+                        isValid = false;
+                    }
+                }
+                if (isValid) {
+                    $.ajax({
+                        url: 'api/landingPage/AddGuest',
+                        method: "POST",
+                        data: {
+                            GuestName: name,
+                            GuestPhone: phone,
+                            GuestEmail: email,
+                            EventId: eventId
+                        },
+                        success: function (data) {
+                            swal("Thành công", "Đăng kí tham gia thành công", "success");
+                            clearInputRegister();
+                        },
+                        error: function (data) {
+                            console.log(data);
+                        }
+                    });
+                }
+
+
+            });
+
+            $('.my-tab-pane').on('click', function () {
+                $('.my-tab-pane').removeClass('active show');
+                $(this).addClass('active show');
+            });
+
+            $('.nav-item').on('click', function () {
+                $('.nav-item a').removeClass('active');
+                $(this).addClass('active');
             });
         });
+
+        function clearErrorRegister() {
+            $('#errorName').css('display', 'none');
+            $('#errorPhone').css('display', 'none');
+            $('#errorEmail').css('display', 'none');
+            $('#errorEmailFormat').css('display', 'none');
+            $('#errorPhoneFormat').css('display', 'none');
+        }
+
+        function clearInputRegister() {
+            $('#guestName').val("");
+            $('#guestPhone').val("");
+            $('#guestEmail').val("");
+        }
+
+        var myLat = @(Model.Latitude);
+        var myLng = @(Model.Longitude);
+
+        function initMap() {
+            var myLatLng = { lat: myLat, lng: myLng };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Hello World!'
+            });
+        }
     </script>
-}*@
+}
 

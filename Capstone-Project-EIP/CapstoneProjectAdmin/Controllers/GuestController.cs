@@ -52,9 +52,10 @@ namespace CapstoneProjectAdmin.Controllers
             try
             {
                 GuestApi guestApi = new GuestApi();
-                guestApi.CheckInGuest(guest);
+                bool isCheckIn =  guestApi.CheckInGuest(guest);
                 return Json(new {
-                    success = false
+                    success = false,
+                    isCheckIn = isCheckIn
                 });
             }
             catch

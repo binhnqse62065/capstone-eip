@@ -22,7 +22,8 @@ namespace CapstoneProjectAdmin.Controllers
                 Name = c.Name,
                 EventId = c.EventId,
                 TypeId = c.TypeId,
-                Description = c.Description
+                Description = c.Description,
+                IsActive = (bool)c.IsActive
             });
             return View(listCollection);
         }
@@ -47,7 +48,7 @@ namespace CapstoneProjectAdmin.Controllers
                     success = true,
                     collectionTypeId = eventCollection.EventCollectionID,
                     name = eventCollection.Name,
-                    description = eventCollection.Description
+                    description = eventCollection.Description,
                 });
             }
             catch
@@ -102,22 +103,24 @@ namespace CapstoneProjectAdmin.Controllers
             ViewBag.EventId = eventId;
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var eventCollection = eventCollectionApi.GetEventCollectionByType(eventId, typeId);
+            //var eventCollection = eventCollectionApi.GetEventCollectionById(eventCollectionId);
             return View("CollectionItem", eventCollection);
         }
 
-        [Route("GetCollectionItem/{eventId}/{typeId}")]
-        public JsonResult GetEventCollection(int eventId, int typeId)
+        [Route("GetCollectionItem/{eventCollectionId}")]
+        public JsonResult GetEventCollection(int eventCollectionId)
         {
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var eventCollection = eventCollectionApi
-                .GetEventCollectionByType(eventId, typeId).CollectionItems.Select(i => new CollectionItemViewModel
+                .GetEventCollectionById(eventCollectionId).CollectionItems.Select(i => new CollectionItemViewModel
                 {
                     CollectionItemID = i.CollectionItemID,
                     Name = i.Name,
                     Description = i.Description,
                     ImageUrl = i.ImageUrl
                 });
-            return Json(new {
+            return Json(new
+            {
                 data = eventCollection
             }, JsonRequestBehavior.AllowGet);
         }
@@ -195,6 +198,26 @@ namespace CapstoneProjectAdmin.Controllers
                 return Json(new {
                     success = false
                 });
+            }
+        }
+
+        [Route("GetListTypeIdOfEvent/{eventId}")]
+        public JsonResult GetListTypeIdOfEvent(int eventId)
+        {
+            try
+            {
+                EventCollectionApi eventCollectionApi = new EventCollectionApi();
+                var listTypeId = eventCollectionApi.GetCollectionByEventId(eventId).Select(e => e.TypeId);
+                return Json(new {
+                    success = true,
+                    data = listTypeId
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json(new {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }

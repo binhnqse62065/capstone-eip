@@ -26,7 +26,6 @@ namespace CapstoneProjectAdmin.API
             eventUpdate.EventDescription = eventOject.EventDescription;
             eventUpdate.StartTime = eventOject.StartTime;
             eventUpdate.EndTime = eventOject.EndTime;
-            eventUpdate.TemplateId = eventOject.TemplateId;
             eventUpdate.ImageURL = eventOject.ImageURL;
             db.SaveChanges();
 
@@ -42,7 +41,6 @@ namespace CapstoneProjectAdmin.API
                         Code = eventUpdate.CodeLogin,
                         Address = eventUpdate.Address,
                         Description = eventUpdate.EventDescription,
-                        Template = eventUpdate.TemplateId,
                         Image = eventUpdate.ImageURL,
                         StartTime = eventUpdate.StartTime.ToString(),
                         EndTime = eventUpdate.EndTime.ToString()
