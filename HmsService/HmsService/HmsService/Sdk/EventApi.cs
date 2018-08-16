@@ -79,5 +79,11 @@ namespace HmsService.Sdk
             var today = DateTime.Today;
             return this.BaseService.Get(e => e.IsActive == true && (e.StartTime > today || (e.EndTime >= today && e.StartTime <= today) )).ProjectTo<EventViewModel>(this.AutoMapperConfig);
         }
+
+        public int AddNewEvent(Event eventAdd)
+        {
+            this.BaseService.Create(eventAdd);
+            return eventAdd.EventID;
+        }
     }
 }

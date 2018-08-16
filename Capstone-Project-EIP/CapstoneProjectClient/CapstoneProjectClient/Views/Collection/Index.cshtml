@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 @using CapstoneProjectClient.ViewModel;
@@ -27,18 +28,6 @@ else
             {
                 foreach (var collectionItem in Model.CollectionItems)
                 {
-                    @*<div class="col-md-4 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', '@(collectionItem.Description)', '@(collectionItem.ImageUrl)', true)">
-                        <div class="box-speaker-shadow">
-                            <a href="" data-toggle="modal" data-target="#itemModal">
-                                <img class="img-fluid image-file-custom" src="~/Content/img/data.jpg" alt="brand">
-                            </a>
-                            <div class="item-title">
-                                <h3 class="title title-medium" style="text-align:center">
-                                    <a class="file-name">@(collectionItem.Name)</a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>*@
                     <div class="col-md-3 col-lg-2 col-4" onclick="showModalItem('@(collectionItem.Name)','@(collectionItem.Description)', '@(collectionItem.ImageUrl)', true)">
                         <div class="box-file-shadow">
                             <a href="" data-toggle="modal" data-target="#itemModal" class="icon-color">
@@ -168,6 +157,12 @@ else
             }
             
         }
+        var typeId = @(Model.TypeId);
+
+        $(document).ready(function () {
+            $('.custom-menu').removeClass('menu-active');
+            $('.menu-collection-' + typeId).addClass('menu-active');
+        });
 
     </script>
 }

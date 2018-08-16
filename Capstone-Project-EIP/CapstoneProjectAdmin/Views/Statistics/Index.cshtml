@@ -11,10 +11,10 @@
 
 
     int totalQuestion = ViewBag.TotalQuestion;
-    int totalComment = ViewBag.TotalComment;
-    int totalQuestionLike = ViewBag.TotalQuestionLike;
-    int totalCommentLike = ViewBag.TotalLikeComment;
-    int totalQuestionHaveComment = ViewBag.TotalQuestionHaveComment;
+    int totalComment = ViewBag.TotalComment != null ? ViewBag.TotalComment : 0;
+    int totalQuestionLike = ViewBag.TotalQuestionLike != null ? ViewBag.TotalQuestionLike : 0;
+    int totalCommentLike = ViewBag.TotalLikeComment != null ? ViewBag.TotalLikeComment : 0;
+    int totalQuestionHaveComment = ViewBag.TotalQuestionHaveComment != null ? ViewBag.TotalQuestionHaveComment : 0;
     double percenQuestionHaveComment = 0;
     double percenQuestionDoesNotHaveComment = 0;
     if (totalQuestion != 0)
@@ -25,8 +25,8 @@
     IEnumerable<QuestionViewModel> top3InterestedQuestion = ViewBag.Top3InterestedQuestion;
 
 
-    int totalVoting = ViewBag.TotalVoting;
-    int totalVotingRunned = ViewBag.TotalVotingRunned;
+    int totalVoting = ViewBag.TotalVoting != null ? ViewBag.TotalVoting : 0;
+    int totalVotingRunned = ViewBag.TotalVotingRunned != null ? ViewBag.TotalVotingRunned : 0;
     int avarageVote = 0;
     if (totalVotingRunned != 0)
     {
@@ -35,8 +35,8 @@
     IEnumerable<HmsService.ViewModels.VotingViewModel> listVotingRunned = ViewBag.ListVotingRunned;
 
 
-    int numberGuestCheckIn = ViewBag.NumberGuestCheckIn;
-    int numberGuestRegisterBeforeEvent = ViewBag.NumberGuestRegisterBeforeEvent;
+    int numberGuestCheckIn = ViewBag.NumberGuestCheckIn != null ? ViewBag.NumberGuestCheckIn : 0;
+    int numberGuestRegisterBeforeEvent = ViewBag.NumberGuestRegisterBeforeEvent != null ? ViewBag.NumberGuestRegisterBeforeEvent : 0;
 
 
     //int totalGuestChart = numberGuestCheckIn + numberGuestRegisterBeforeEvent;
@@ -174,44 +174,52 @@
                 <div class="box-header">
                     <i class="fa fa-comments-o"></i>
                     <h3 class="box-title">Những câu hỏi được quan tâm nhất</h3>
-                    
+
                 </div>
-                <div class="box-body chat" >
-                    <select class="form-control" style="margin-bottom:10px;" id="cbQaId">
-                        @foreach(var qa in listQa)
-                        {
-                            <option value="@(qa.QAId)">@(qa.QAName)</option>
-                        }
-                    </select>
-                    <div id="listQuestion">
-                        @foreach (var question in top3InterestedQuestion)
-                        {
+                <div class="box-body chat">
+                    @if (top3InterestedQuestion != null)
+                    {
+                        <select class="form-control" style="margin-bottom:10px;" id="cbQaId">
+                            @foreach (var qa in listQa)
+                            {
+                                <option value="@(qa.QAId)">@(qa.QAName)</option>
+                            }
+                        </select>
+                        <div id="listQuestion">
+                            @foreach (var question in top3InterestedQuestion)
+                            {
 
-                            <!-- chat item -->
-                            <div class="item">
-                                @{
-                                    string[] userCommentSplit = question.Username.Split();
-                                    char firstCharacterUserComment = userCommentSplit[userCommentSplit.Length - 1][0];
-                                    var backgroundColor = String.Format("#{0:X6}", random.Next(0x1000000));
-                                    <div class="logo-name" style="background-color:@(backgroundColor)">
-                                        <span>@firstCharacterUserComment.ToString().ToUpper()</span>
-                                    </div>
-                                }
-                                @*<img src="~/Content/AdminLTE-master/dist/img/user4-128x128.jpg" alt="user image" class="online">*@
-                                <p class="message">
-                                    <a class="name">
-                                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> @(question.CreateTime)</small>
-                                        @(question.Username)
-                                    </a>
-                                    @(question.QuestionContent)
-                                </p>
+                                <!-- chat item -->
+                                <div class="item">
+                                    @{
+                                        string[] userCommentSplit = question.Username.Split();
+                                        char firstCharacterUserComment = userCommentSplit[userCommentSplit.Length - 1][0];
+                                        var backgroundColor = String.Format("#{0:X6}", random.Next(0x1000000));
+                                        <div class="logo-name" style="background-color:@(backgroundColor)">
+                                            <span>@firstCharacterUserComment.ToString().ToUpper()</span>
+                                        </div>
+                                    }
+                                    @*<img src="~/Content/AdminLTE-master/dist/img/user4-128x128.jpg" alt="user image" class="online">*@
+                                    <p class="message">
+                                        <a class="name">
+                                            <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> @(question.CreateTime)</small>
+                                            @(question.Username)
+                                        </a>
+                                        @(question.QuestionContent)
+                                    </p>
 
 
-                            </div>
-                            <!-- /.item -->
-                        }
-                    </div>
-                    
+                                </div>
+                                <!-- /.item -->
+                            }
+
+                        </div>
+                    }
+                    else
+                    {
+                        <h3>Chưa có dữ liệu để thống kê</h3>
+                    }
+
 
                 </div>
                 <!-- /.chat -->
@@ -228,18 +236,26 @@
 
                 </div>
                 <div class="box-body chat" id="chat-box">
-                    <select class="form-control" id="cbVotingId">
-                        @foreach (var voting in listVotingRunned)
-                        {
-                            <option value="@(voting.VotingId)">@(voting.VotingName)</option>
-                        }
-                    </select>
-                    <div class="row">
-                        <h4 class="text-center">Kết quả bình chọn</h4>
-                    </div>
-                    <div id="result-voting-section">
+                    @if (listVotingRunned != null)
+                    {
+                        <select class="form-control" id="cbVotingId">
+                            @foreach (var voting in listVotingRunned)
+                            {
+                                <option value="@(voting.VotingId)">@(voting.VotingName)</option>
+                            }
+                        </select>
+                        <div class="row">
+                            <h4 class="text-center">Kết quả bình chọn</h4>
+                        </div>
+                        <div id="result-voting-section">
 
-                    </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <h3>Chưa có dữ liệu để thống kê</h3>
+                    }
+
                 </div>
                 <!-- /.chat -->
 
@@ -257,20 +273,20 @@
         <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
     </div>
 </div>
-<div id="listQuestionTemplate" style="display:none;"> 
+<div id="listQuestionTemplate" style="display:none;">
     <div class="item">
-     
-            <div class="logo-name">
-                <span></span>
-            </div>
 
-      
+        <div class="logo-name">
+            <span></span>
+        </div>
+
+
         <p class="message">
             <a class="name">
                 <small class="text-muted pull-right"><i class="fa fa-clock-o"></i></small>
-               
+
             </a>
-           
+
         </p>
 
 
@@ -290,12 +306,16 @@
         var totalGuest = parseInt(@(numberGuestRegisterBeforeEvent));
         var totalQuestion = parseInt(@(totalQuestion));
         $(document).ready(function () {
+            $('.menu').removeClass('menu-active');
+            $('.menu-statistics').addClass('menu-active');
+
+
             /*Guest Chart*/
             if (totalGuest != 0) {
                 var donutData = [
                     { label: '', data: @(percentGuestRegister), color: '#e53935' },
                     { label: '', data: @(percentGuestCheckIn), color: '#43a047' }
-                    
+
 
 
             ]
@@ -328,7 +348,7 @@
                 var donutData = [
                     { label: '', data: @(percenQuestionDoesNotHaveComment), color: '#e53935' },
                     { label: '', data: @(percenQuestionHaveComment), color: '#43a047' }
-                    
+
 
             ]
                 $.plot('#questionChart', donutData, {
@@ -429,7 +449,7 @@
                     if (data.success) {
                         $('#listQuestion').empty();
                         var template = $('#listQuestionTemplate').clone();
-                        var usernamePostQuestionSplit; 
+                        var usernamePostQuestionSplit;
                         var firstCharacterName;
                         for (var i = 0; i < data.data.length; i++) {
                             usernamePostQuestionSplit = data.data[i].Username.split(' ');

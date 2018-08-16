@@ -183,3 +183,7 @@
 .note-brief-name {
     margin-top:10px;
 }
+
+.menu-active {
+    background: #65b7ab;
+}

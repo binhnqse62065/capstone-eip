@@ -71,5 +71,12 @@
 </div>
 @section scripts {
     <script src="~/Content/bootstrap/Poll/js/processBar.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.custom-menu').removeClass('menu-active');
+            $('.menu-voting').addClass('menu-active');
+        });
+    </script>
 }
 
