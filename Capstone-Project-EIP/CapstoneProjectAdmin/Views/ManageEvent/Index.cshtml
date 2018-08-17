@@ -174,10 +174,11 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Được hiển thị</label>
-                    <div class="col-sm-9 input-group">
+                    <input type="checkbox" data-toggle="toggle" checked id="ckIsActiveAdd" data-on="Hiện" data-off="Ẩn" data-size="small"/>
+                    @*<div class="col-sm-9 input-group">
                         <input type="checkbox" id="ckIsActiveAdd" />
 
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="modal-footer">
@@ -232,8 +233,8 @@
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Được hiển thị</label>
                     <div class="col-sm-9 input-group">
-                        <input type="checkbox" id="ckIsActiveEdit" />
-
+                        @*<input type="checkbox" id="ckIsActiveEdit" />*@
+                        <input type="checkbox" data-toggle="toggle" class="ckIsActiveEdit" id="ckIsActiveEdit" data-on="Hiện" data-off="Ẩn" data-size="small" />
                     </div>
                 </div>
             </div>
@@ -278,6 +279,11 @@
 
             $('.menu').removeClass('menu-active');
             $('.menu-event').addClass('menu-active');
+
+            //$('#ckActive').bootstrapToggle({
+            //    on: 'Hiện',
+            //    off: 'Ẩn'
+            //});
         });
 
 
@@ -486,10 +492,10 @@
             $('#txtEventId').val(eventId);
             $('#txtTypeId').val(typeId);
             if (isActive) {
-                $('#ckIsActiveEdit').prop('checked', true);
+                $('#ckIsActiveEdit').bootstrapToggle('on');
             }
             else {
-                $('#ckIsActiveEdit').prop('checked', false);
+                $('#ckIsActiveEdit').bootstrapToggle('off');
             }
 
 
@@ -502,7 +508,6 @@
                 url: '@Url.Action("GetCollectionType", "ManageEvent")',
                 method: "GET",
                 success: function (data) {
-                    console.log(data);
                     if (data.success) {
                         for (var i = 0; i < data.data.length; i++) {
                             $('#cbCollectionType').append('<option value="' + data.data[i].CollectionTypeID + '">' + data.data[i].Name +'</option>');
