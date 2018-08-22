@@ -114,6 +114,27 @@ namespace CapstoneProjectAdmin.Models
         public string Code { get; set; }
     }
 
+    public class ResetPasswordViewModelCustom
+    {
+        [Required]
+        public string UserId { get; set; }
+    }
+
+    public class ChangePasswordViewModelCustom
+    {
+        [Required]
+        public string UserName { get; set; }
+        [Required]
+        [Display(Name = "Vui lòng nhập mật khẩu cũ")]
+        public string OldPassword { get; set; }
+        [Required]
+        [Display(Name = "Vui lòng nhập mật khẩu mới")]
+        public string NewPassword { get; set; }
+        [Required]
+        [Display(Name = "Vui lòng nhập lại mật khẩu mới")]
+        public string ConfirmNewPassword { get; set; }
+    }
+
     public class ForgotPasswordViewModel
     {
         [Required]

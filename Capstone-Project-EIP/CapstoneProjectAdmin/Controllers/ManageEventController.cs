@@ -12,9 +12,15 @@ namespace CapstoneProjectAdmin.Controllers
     public class ManageEventController : Controller
     {
         // GET: ManageEvent
-        public ActionResult Index(int id)
+        [Route("ManageEvent/{briefName}")]
+        public ActionResult Index(string briefName)
         {
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventByBriefName(briefName);
+            int id = eventTmp.EventID;
             ViewBag.EventId = id;
+            ViewBag.BriefName = eventTmp.BriefName;
+
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listCollection = eventCollectionApi.GetCollectionByEventId(id).Select(c => new EventCollectionViewModel
             {

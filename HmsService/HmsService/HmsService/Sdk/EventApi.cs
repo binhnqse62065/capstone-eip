@@ -29,6 +29,11 @@ namespace HmsService.Sdk
             return this.BaseService.FirstOrDefault(e => e.BriefName == briefName) != null ? true : false;
         }
 
+        public Event GetEventByBriefName(string briefName)
+        {
+            return this.BaseService.FirstOrDefault(e => e.BriefName == briefName);
+        }
+
         public bool UpdateEvent(Event eventUpdate)
         {
             try

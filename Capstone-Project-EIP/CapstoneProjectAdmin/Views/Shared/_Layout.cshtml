@@ -2,15 +2,7 @@
     //int eventId = Int32.Parse(ViewContext.RouteData.Values["id"].ToString());
 
     int eventId = ViewBag.EventId != null ? ViewBag.EventId : 0;
-    var user = HttpContext.Current.User;
-    var role = User.Identity.IsAuthenticated;
-    var isSysAdmin = false;
-
-    if(user.IsInRole("SystemAdmin"))
-    {
-        isSysAdmin = true;
-    }
-
+    string briefName = ViewBag.BriefName != null ? ViewBag.BriefName : "";
 }
 
 <!DOCTYPE html>
@@ -165,11 +157,11 @@
                     }
                     else
                     {
-                        <li class="menu-session menu"><a href="@Url.Action("Index","ManageSession", new { id = eventId})"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
-                        <li class="menu-event menu"><a href="@Url.Action("Index","ManageEvent", new { id = eventId})"><i class="fa fa-home" aria-hidden="true"></i> <span>Cấu hình chung</span></a></li>
-                        <li class="menu-guest menu"><a href="@Url.Action("Index","Guest", new { id = eventId})"><i class="fa fa-users" aria-hidden="true"></i> <span>Danh sách người tham gia</span></a></li>
-                        <li class="menu-statistics menu"><a href="@Url.Action("Index","Statistics", new { id = eventId})"><i class="fa fa-users" aria-hidden="true"></i> <span>Thống kê</span></a></li>
-                        <li class="menu-events menu"><a href="@Url.Action("Index","Events", new { id = eventId})"><i class="fa fa-sign-out"></i> <span>Thoát</span></a></li>
+                        <li class="menu-session menu"><a href="@Url.Action("Index","ManageSession", new { briefName = briefName })"><i class="fa fa-wrench" aria-hidden="true"></i> <span>Trung tâm điều khiển</span></a></li>
+                        <li class="menu-event menu"><a href="@Url.Action("Index","ManageEvent", new { briefName = briefName })"><i class="fa fa-home" aria-hidden="true"></i> <span>Cấu hình chung</span></a></li>
+                        <li class="menu-guest menu"><a href="@Url.Action("Index","Guest", new { briefName = briefName })"><i class="fa fa-users" aria-hidden="true"></i> <span>Danh sách người tham gia</span></a></li>
+                        <li class="menu-statistics menu"><a href="@Url.Action("Index","Statistics", new { briefName = briefName })"><i class="fa 	fa fa-bar-chart" aria-hidden="true"></i> <span>Thống kê</span></a></li>
+                        <li class="menu-events menu"><a href="@Url.Action("Index","Events")"><i class="fa fa-sign-out"></i> <span>Thoát</span></a></li>
 
                     }
 

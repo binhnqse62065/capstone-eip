@@ -6,18 +6,39 @@ using System.Web.Mvc;
 using HmsService.Sdk;
 using HmsService.Models.Entities.Services;
 using HmsService.Models.Entities;
+using CapstoneProjectAdmin.ViewModel;
 
 namespace CapstoneProjectAdmin.Controllers
 {
+    
     public class HomeController : Controller
     {
         private HmsEntities db = new HmsEntities();
-        public ActionResult Index(int id)
+
+        [Route("ManageHome/{briefName}")]
+        public ActionResult Index(string briefName)
         {
             EventApi eventApi = new EventApi();
-            var cur = eventApi.BaseService.GetEventById(id);
-            ViewBag.EventId = id;
-            return View(cur);
+            var currentEvent = eventApi.GetEventByBriefName(briefName);
+
+            ViewBag.EventId = currentEvent.EventID;
+            HmsService.ViewModels.EventViewModel eventTmp = new HmsService.ViewModels.EventViewModel
+            {
+                EventID = currentEvent.EventID,
+                Name = currentEvent.Name,
+                EventDescription = currentEvent.EventDescription,
+                Address = currentEvent.Address,
+                StartTime = currentEvent.StartTime,
+                CodeLogin = currentEvent.CodeLogin,
+                EndTime = currentEvent.EndTime,
+                ImageURL = currentEvent.ImageURL,
+                BriefName = currentEvent.BriefName,
+                Longitude = currentEvent.Longitude,
+                Latitude = currentEvent.Latitude,
+                IsLandingPage = currentEvent.IsLandingPage
+                
+            };
+            return View(eventTmp);
         }
 
         public ActionResult Edit(int id)

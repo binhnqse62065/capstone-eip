@@ -13,11 +13,14 @@ namespace CapstoneProjectAdmin.Controllers
         // GET: Session
         private HmsEntities db = new HmsEntities();
 
-        public ActionResult Index(int id)
+        [Route("ManageSession/{briefName}")]
+        public ActionResult Index(string briefName)
         {
-            ViewBag.EventId = id;
+            
             EventApi eventApi = new EventApi();
-            var eventTmp = eventApi.GetEventById(id);
+            var eventTmp = eventApi.GetEventByBriefName(briefName);
+            ViewBag.EventId = eventTmp.EventID;
+            ViewBag.BriefName = eventTmp.BriefName;
             string startDate = eventTmp.StartTime.Value.ToString("dd/MM/yyyy");
             string endDate = eventTmp.EndTime.Value.ToString("dd/MM/yyyy");
             ViewBag.StartDate = startDate;

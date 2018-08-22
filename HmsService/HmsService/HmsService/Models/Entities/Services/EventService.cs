@@ -37,7 +37,8 @@ namespace HmsService.Models.Entities.Services
                 ImageURL = currentEvent.ImageURL,
                 Longitude = currentEvent.Longitude,
                 Latitude = currentEvent.Latitude,
-                IsLandingPage = currentEvent.IsLandingPage
+                IsLandingPage = currentEvent.IsLandingPage,
+                BriefName = currentEvent.BriefName
             };
         }
 
