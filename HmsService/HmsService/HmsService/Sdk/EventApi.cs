@@ -34,7 +34,7 @@ namespace HmsService.Sdk
             return this.BaseService.FirstOrDefault(e => e.BriefName == briefName);
         }
 
-        public bool UpdateEvent(Event eventUpdate)
+        public string UpdateEvent(Event eventUpdate)
         {
             try
             {
@@ -49,11 +49,11 @@ namespace HmsService.Sdk
                 eventTmp.Longitude = eventUpdate.Longitude != null ? eventUpdate.Longitude : eventTmp.Longitude;
                 eventTmp.Latitude = eventUpdate.Latitude != null ? eventUpdate.Latitude : eventTmp.Latitude;
                 this.BaseService.Save();
-                return true;
+                return eventTmp.BriefName;
             }
             catch(System.Exception e)
             {
-                return false;
+                return "";
             }
         }
 

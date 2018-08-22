@@ -5,6 +5,7 @@
 
     ViewBag.Title = "Edit";
     int eventId = ViewBag.EventId;
+    string briefName = ViewBag.BriefName != null ? ViewBag.BriefName : "";
 }
 
 <div class="container">
@@ -46,7 +47,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="txtStartEndTime" placeholder="" value="@Html.Raw(Model.StartTime) - @Html.Raw(Model.EndTime)">
+                    <input type="text" class="form-control pull-right" id="txtStartEndTime" placeholder="" value="@Html.Raw(Model.StartTime.Value.ToString("dd/MM/yyyy")) - @Html.Raw(Model.EndTime.Value.ToString("dd/MM/yyyy"))">
                 </div>
             </div>
 
@@ -112,7 +113,7 @@
             </div>
             <div class="col-sm-4">
                 <a class="btn btn-primary" id="btnUpdate"><i class="fa fa-pencil"></i> <span> Lưu</span></a>
-                <a href="@Url.Action("Index","Home", new { id = eventId})" class="btn btn-danger"><i class="fa fa-arrow-left"></i> <span> Hủy</span></a>
+                <a href="@Url.Action("Index","Home", new { briefName = briefName })" class="btn btn-danger"><i class="fa fa-arrow-left"></i> <span> Hủy</span></a>
             </div>
 
             @*</form>*@
@@ -166,7 +167,7 @@
                                 text: "Cập nhật thông tin sự kiện thành công",
                                 type: "success",
                             }, function () {
-                                window.location.href = "/Home/Index/" + data.eventId;
+                                window.location.href = "/ManageHome/" + data.briefName;
                                 });
                         }
                     },
@@ -180,7 +181,11 @@
             CKEDITOR.replace('editor1');
 
             //Date range picker
-            $('#txtStartEndTime').daterangepicker();
+            $('#txtStartEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY'
+                }
+            });
 
 
 
