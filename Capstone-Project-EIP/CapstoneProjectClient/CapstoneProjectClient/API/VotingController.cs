@@ -47,11 +47,7 @@ namespace CapstoneProjectClient.API
         [HttpPost]
         public HttpResponseMessage ShowResultOfVoting(VotingOption option)
         {
-
-
-
             VotingOptionApi votingOptionApi = new VotingOptionApi();
-
 
             List<double> listPercentOption = votingOptionApi.GetNewResultVoting(option.VotingId);
 
