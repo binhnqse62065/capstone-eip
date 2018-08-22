@@ -127,6 +127,7 @@
 
 .navbar-custom {
     background-color: #005f75 !important;
+    min-height:65px !important;
 }
 
 .side-bar-custom {

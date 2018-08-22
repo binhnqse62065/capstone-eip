@@ -10,8 +10,8 @@
     }
     IEnumerable<QAViewModel> listQa = ViewBag.ListQA;
     IEnumerable<VotingViewModel> listVoting = ViewBag.ListVoting;
-    string startDate = ViewBag.StartDate;
-    string endDate = ViewBag.EndDate;
+    string startDate = ViewBag.StartDate != null ? ViewBag.StartDate : DateTime.Today.ToString("dd/MM/yyyy HH:mm");
+    string endDate = ViewBag.EndDate != null ? ViewBag.EndDate : DateTime.Today.ToString("dd/MM/yyyy HH:mm");
 }
 @using HmsService.ViewModels;
 @model IEnumerable<SessionViewModel>
@@ -29,6 +29,7 @@
                         }
                     </select>
                 </div>
+
 
 
             </div>
@@ -141,7 +142,7 @@
 <input type="hidden" value="@(sessionId)" id="session-id" />
 
 <!----------------- Add Interaction Modal ----------------->
-<div class="modal fade" id="addInteractionModal" role="dialog">
+<div class="modal fade" id="addInteractionModal" @*role="dialog"*@>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -167,7 +168,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Lựa chọn Tương tác
+                        Loại Tương Tác
                         <span class="required">*</span>
                     </label>
                     <div class="input-group col-sm-9">
@@ -187,7 +188,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Loại Tương tác
+                        Tương tác
                         <span class="required">*</span>
                     </label>
                     <div class="input-group col-sm-9">
@@ -209,6 +210,7 @@
 
     </div>
 </div>
+
 
 <!----------------- Edit Interaction Modal ----------------->
 <div class="modal fade" id="editInteractionModal" role="dialog">

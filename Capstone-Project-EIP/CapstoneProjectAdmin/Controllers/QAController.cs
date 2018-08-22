@@ -10,9 +10,14 @@ namespace CapstoneProjectAdmin.Controllers
     public class QAController : Controller
     {
         // GET: QA
-        public ActionResult Index(int id)
+        [Route("ManageQA/{briefName}")]
+        public ActionResult Index(string briefName)
         {
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventByBriefName(briefName);
+            int id = eventTmp.EventID;
             ViewBag.EventId = id;
+            ViewBag.BriefName = eventTmp.BriefName;
             return View();
         }
     }
