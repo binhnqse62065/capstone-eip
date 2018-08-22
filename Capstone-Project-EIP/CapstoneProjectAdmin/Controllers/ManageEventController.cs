@@ -12,7 +12,7 @@ namespace CapstoneProjectAdmin.Controllers
     public class ManageEventController : Controller
     {
         // GET: ManageEvent
-        [Route("ManageEvent/{briefName}")]
+        [Route("ManageEventInfor/{briefName}")]
         public ActionResult Index(string briefName)
         {
             EventApi eventApi = new EventApi();

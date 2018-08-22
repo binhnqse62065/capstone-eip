@@ -37,7 +37,7 @@
                                 {
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="group-poll" value="@Model.VotingOptions.ElementAt(i).VotingOptionId">
+                                            <input type="radio" class="group-poll" name="group-poll" value="@Model.VotingOptions.ElementAt(i).VotingOptionId">
                                             &nbsp; &nbsp;  @Model.VotingOptions.ElementAt(i).VotingOptionContent
                                         </label>
                                     </div>
@@ -90,7 +90,9 @@
                 var votingInteractTmp = listVoting.find(v => v.VotingId === votingId);
                 if (votingInteractTmp !== null) {
                     var votingOptionId = parseInt(votingInteractTmp.VotingOptionId);
-                    $('input[name=group-poll][value="' + votingOptionId + ' "]').prop('checked', true);
+                    $('input.group-poll[value="' + votingOptionId + '"]').prop('checked', true);
+                    $('input.group-poll').prop('disabled', 'disabled');
+                    //$('input[name=group-poll][value="' + votingOptionId + ' "]').prop('checked', true);
                     showVotingResult(votingOptionId, votingId, false);
                 }
             }
