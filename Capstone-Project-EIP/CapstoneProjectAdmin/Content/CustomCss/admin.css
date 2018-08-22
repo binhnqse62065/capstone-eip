@@ -187,3 +187,7 @@
 .menu-active {
     background: #65b7ab;
 }
+.toggle-on.btn-sm {
+    position:absolute;
+    left:-5px;
+}

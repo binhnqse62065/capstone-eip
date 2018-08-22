@@ -7155,6 +7155,8 @@
     <Content Include="Content\sweetalert-master\src\sweetalert.css" />
     <Content Include="Content\sweetalert-master\src\sweetalert.js" />
     <Content Include="Content\sweetalert-master\webpack.config.js" />
+    <Content Include="Content\ToggleBootstrap\toggle.css" />
+    <Content Include="Content\ToggleBootstrap\toggle.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
