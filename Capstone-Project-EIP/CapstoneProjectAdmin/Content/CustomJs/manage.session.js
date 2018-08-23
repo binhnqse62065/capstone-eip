@@ -10,6 +10,7 @@ $('#cb-session-id').on('change', function () {
         InitTimelineDatatable(this.value);
         InitInteractionDatatable(this.value);
         $('#session-id').val(this.value);
+        setDateRangeActivity(this.value);
     }
 
 });
@@ -260,6 +261,36 @@ function clearErrorEditInteraction() {
     $('#errorNameEdit').css('display', 'none');
     $('#errorKindIdEdit').css('display', 'none');
 }
+
+function setDateRangeActivity(sessionId) {
+    /*Gán giá trị cho daterangepicker dựa theo thời gian của session ở tab Activity*/
+    $.ajax({
+        url: urlApi + '/api/session/GetSessionById/' + sessionId,
+        method: "GET",
+        success: function (data) {
+
+            var startTime = data.startTime;
+            var endTime = data.endTime;
+            $('#activityStartTime').val(startTime);
+            $('#activityEndTime').val(endTime);
+            $('#AddStartEndTime').daterangepicker({
+                locale: {
+                    format: 'DD/MM/YYYY HH:mm'
+                },
+                startDate: startTime,
+                endDate: endTime,
+                minDate: startTime,
+                maxDate: endTime + '23:59',
+                timePicker: true,
+                timePicker24Hour: true
+            });
+        },
+        error: function (data) {
+            console.log(data);
+        }
+    });
+}
+
 
 
 /*Interaction*/

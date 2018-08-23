@@ -1,4 +1,5 @@
-﻿using HmsService.Models;
+﻿using CapstoneProjectAdmin.Models;
+using HmsService.Models;
 using HmsService.Models.Entities;
 using HmsService.Sdk;
 using System;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace CapstoneProjectAdmin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = Roles.Admin)]
     public class EventsController : Controller
     {
         // GET: Events

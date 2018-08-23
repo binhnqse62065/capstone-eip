@@ -66,7 +66,7 @@
         <div class="box-body event-box-body box-body-up-comming collapse">
             @foreach (var upComming in listUpComming)
             {
-                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { id = upComming.EventID })">
+                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { briefName = upComming.BriefName })">
                     <div class="col-lg-4 col-xs-4">
                         <!-- small box -->
                         <div class="small-box bg-yellow event-box">
@@ -103,7 +103,7 @@
         <div class="box-body event-box-body box-body-happened collapse">
             @foreach (var happened in listHappened)
             {
-                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { id = happened.EventID })">
+                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { briefName = happened.BriefName })">
                     <div class="col-lg-4 col-xs-4">
                         <!-- small box -->
                         <div class="small-box bg-gray event-box">

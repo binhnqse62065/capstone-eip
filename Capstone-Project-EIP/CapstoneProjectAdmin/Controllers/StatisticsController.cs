@@ -1,4 +1,5 @@
-﻿using CapstoneProjectAdmin.ViewModel;
+﻿using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
 using HmsService.Sdk;
 using Newtonsoft.Json.Linq;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace CapstoneProjectAdmin.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class StatisticsController : Controller
     {
         // GET: Statistics

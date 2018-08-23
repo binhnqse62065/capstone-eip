@@ -242,3 +242,6 @@ button span {
 .item-img img {
     height:100% !important;
 }
+.upcoming-event-layout1 {
+    z-index:9999;
+}

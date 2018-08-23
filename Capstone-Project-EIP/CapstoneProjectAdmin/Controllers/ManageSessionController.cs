@@ -1,4 +1,5 @@
-﻿using HmsService.Sdk;
+﻿using CapstoneProjectAdmin.Models;
+using HmsService.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CapstoneProjectAdmin.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class ManageSessionController : Controller
     {
         // GET: ManageSession

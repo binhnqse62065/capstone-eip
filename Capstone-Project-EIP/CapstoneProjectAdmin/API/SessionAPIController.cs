@@ -2,6 +2,7 @@
 using CapstoneProjectAdmin.Models;
 using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
+using HmsService.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -27,10 +28,34 @@ namespace CapstoneProjectAdmin.API
                 StartTime = s.StartTime.Value.ToString("dd/MM/yyyy"),
                 EndTime = s.EndTime.Value.ToString("dd/MM/yyyy"),
                 Description = s.Description,
-                LivestreamUrl = s.LivestreamUrl
+                LivestreamUrl = s.LivestreamUrl,
+                Address = s.Address
                 
             });
             return session.ToList();
+        }
+
+        [Route("GetSessionById/{sessionId}")]
+        [HttpGet]
+        public SessionViewModel GetSessionById(int sessionId)
+        {
+            try
+            {
+                SessionApi sessionApi = new SessionApi();
+                var session = sessionApi.BaseService.FirstOrDefault(s => s.SessionID == sessionId);
+                var result = new SessionViewModel
+                {
+                    SessionID = session.SessionID,
+                    StartTime = session.StartTime.Value.ToString("dd/MM/yyyy"),
+                    EndTime = session.EndTime.Value.ToString("dd/MM/yyyy")
+
+                };
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         [Route("UpdateSession")]

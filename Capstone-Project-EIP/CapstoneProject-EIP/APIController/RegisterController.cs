@@ -1,4 +1,5 @@
-﻿using CapstoneProject_EIP.Models;
+﻿using CapstoneProject_EIP.Controllers;
+using CapstoneProject_EIP.Models;
 using HmsService.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ using System.Web.Http;
 
 namespace CapstoneProject_EIP.APIController
 {
+    
+
+
+
     [RoutePrefix("api/landingPage")]
 
     public class RegisterController : ApiController
