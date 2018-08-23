@@ -1,4 +1,5 @@
-﻿using CapstoneProjectAdmin.ViewModel;
+﻿using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
 using HmsService.Sdk;
 using System;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace CapstoneProjectAdmin.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class ManageEventController : Controller
     {
         // GET: ManageEvent
@@ -112,6 +114,9 @@ namespace CapstoneProjectAdmin.Controllers
         public ActionResult ManageCollectionItem(int eventId, int typeId)
         {
             ViewBag.EventId = eventId;
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventById(eventId);
+            ViewBag.BriefName = eventTmp.BriefName;
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var eventCollection = eventCollectionApi.GetEventCollectionByType(eventId, typeId);
             //var eventCollection = eventCollectionApi.GetEventCollectionById(eventCollectionId);

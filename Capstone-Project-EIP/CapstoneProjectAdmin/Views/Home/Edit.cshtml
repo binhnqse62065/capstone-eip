@@ -67,7 +67,7 @@
             <div class="form-group">
                 <label class="col-sm-3 form-control-label">Miêu tả:</label>
                 <div class="col-sm-9 input-group">
-                    <textarea id="txtDescription" name="editor1" rows="10" cols="80">
+                    <textarea id="txtDescription" class="txtDescription" name="editor1" rows="10" cols="80">
                         @Html.Raw(Model.EventDescription)
                     </textarea>
                 </div>
@@ -144,20 +144,29 @@
                 var startTime = startTimeTmp.split("/").reverse().join("-");
                 var endTime = endTimeTmp.split("/").reverse().join("-");
 
+                var name = $('#txtName').val();
+                var address = $('#txtAddress').val();
+                //var description = $('textarea.txtDescription').val();
+                var description = CKEDITOR.instances.txtDescription.document.getBody().getText();
+                var imageUrl = $('#txtBannerImage').attr('src');
+                var codeLogin = $('#txtLoginCode').val();
+                var longitude = $('#txtLng').val();
+                var lattitude = $('#txtLat').val();
+
                 $.ajax({
                     url: '@Url.Action("Update","Home")',
                     method: "POST",
                     data: {
                         EventID: $('#event-id').val(),
-                        Name: $('#txtName').val(),
-                        Address: $('#txtAddress').val(),
-                        EventDescription: $('#txtDescription').val().trim(),
-                        CodeLogin: $('#txtLoginCode').val(),
+                        Name: name,
+                        Address: address,
+                        EventDescription: description,
+                        CodeLogin: codeLogin,
                         StartTime: startTime,
                         EndTime: endTime,
-                        ImageURL: $('#txtBannerImage').val(),
-                        Longitude: $('#txtLng').val(),
-                        Latitude: $('#txtLat').val()
+                        ImageURL: imageUrl,
+                        Longitude: longitude,
+                        Latitude: lattitude
 
                     },
                     success: function (data) {
@@ -234,7 +243,7 @@
 
         //Filestack dùng để up hình
         // Set up the picker
-        const client = filestack.init('AIA0Qk3iTSGzr9dIsuPdgz');
+        const client = filestack.init('AR6JpPavASZ2lDWwopoMNz');
         const options = {
             onUploadDone: updateForm,
             maxSize: 10 * 1024 * 1024,

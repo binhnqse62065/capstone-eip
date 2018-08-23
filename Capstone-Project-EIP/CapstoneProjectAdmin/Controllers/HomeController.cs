@@ -7,10 +7,11 @@ using HmsService.Sdk;
 using HmsService.Models.Entities.Services;
 using HmsService.Models.Entities;
 using CapstoneProjectAdmin.ViewModel;
+using CapstoneProjectAdmin.Models;
 
 namespace CapstoneProjectAdmin.Controllers
 {
-    
+    [Authorize(Roles = Roles.Admin)]
     public class HomeController : Controller
     {
         private HmsEntities db = new HmsEntities();
@@ -111,6 +112,7 @@ namespace CapstoneProjectAdmin.Controllers
             eventApi.SetEventToLandingPage(id);
             var eventTmp = eventApi.BaseService.GetEventById(id);
             ViewBag.EventId = id;
+            ViewBag.BriefName = eventTmp.BriefName;
             return View("Index", eventTmp);
 
 
