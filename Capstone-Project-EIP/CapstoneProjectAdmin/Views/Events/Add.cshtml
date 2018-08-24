@@ -54,14 +54,17 @@
                     <label class="col-md-2 control-label">Mã đăng nhập</label>
                     <div class="col-md-10">
                         <input id="event-code" type="text" class="form-control" placeholder="Vui lòng nhập mã đăng nhập của sự kiện" />
+                        <p class="note-brief-name">Ghi chú: Mã đăng nhập là số</p>
                         <p class="error-title" id="errrorCodeAdd">Vui lòng nhập mã đăng nhập sự kiện</p>
+                        <p class="error-title" id="errrorCodeAddFormat">Mã đăng nhập sự kiện là số</p>
+                        <p class="error-title" id="errrorCodeAddExist">Mã đăng nhập đã tồn tại, vui lòng nhập mã khác</p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Tên đường dẫn</label>
                     <div class="col-md-10">
                         <input id="brief-name" type="text" class="form-control" placeholder="Vui lòng nhập tên đường dẫn của sự kiện" />
-                        <p class="note-brief-name">Tên đường dẫn là gồm chữ không dâu cách nhau bằng dấu gạch ngang</p>
+                        <p class="note-brief-name">Ghi chú: Tên đường dẫn là gồm chữ không dâu cách nhau bằng dấu gạch ngang</p>
                         <p class="error-title" id="errorBriefNameAdd">Vui lòng nhập tên đường dẫn sự kiện</p>
                         <p class="error-title" id="errrorExistBriefNameAdd">Tên đường dẫn sự kiện đã tồn tại, vui lòng nhập tên khác</p>
                     </div>
@@ -141,6 +144,15 @@
                     $('#errrorCodeAdd').css('display', 'block');
                     isValid = false;
                 }
+                else {
+                    if (Math.floor(eventLoginCode) == eventLoginCode && $.isNumeric(eventLoginCode)) {
+
+                    }
+                    else {
+                        isValid = false;
+                        $('#errrorCodeAddFormat').css('display', 'block');
+                    }
+                }
                 if (imageUrl.length === 0) {
                     $('#errrorImageAdd').css('display', 'block');
                     isValid = false;
@@ -161,48 +173,57 @@
                     $('#errorBriefNameAdd').css('display', 'block');
                     isValid = false;
                 }
+
+                briefName = change_alias(briefName);
+
                 if (isValid) {
                     var eventTimeSplit = $('#event-time-range').val().split('-');
-                var startTime = eventTimeSplit[0].trim().split('/').reverse().join('-');
-                var endTime = eventTimeSplit[1].trim().split('/').reverse().join('-');
+                    var startTime = eventTimeSplit[0].trim().split('/').reverse().join('-');
+                    var endTime = eventTimeSplit[1].trim().split('/').reverse().join('-');
 
-                $.ajax({
-                    url: '@Url.Action("AddNewEvent", "Events")',
-                    method: "POST",
-                    data: {
-                        Name: eventName,
-                        EventDescription: eventDescription,
-                        Address: eventAddress,
-                        CodeLogin: eventLoginCode,
-                        StartTime: startTime,
-                        EndTime: endTime,
-                        ImageURL: imageUrl,
-                        Latitude: lat,
-                        Longitude: lng,
-                        BriefName: briefName
-                    },
-                    success: function (data) {
-                        if (data.success) {
-                            swal({
-                                    title: "Thành công!",
-                                    text: "Thêm mới sự kiện thành công",
-                                    type: "success"
-                                 },
-                                function () {
-                                window.location.replace('@Url.Action("Index", "Events")');
-                            });
+                    $.ajax({
+                        url: '@Url.Action("AddNewEvent", "Events")',
+                        method: "POST",
+                        data: {
+                            Name: eventName,
+                            EventDescription: eventDescription,
+                            Address: eventAddress,
+                            CodeLogin: eventLoginCode,
+                            StartTime: startTime,
+                            EndTime: endTime,
+                            ImageURL: imageUrl,
+                            Latitude: lat,
+                            Longitude: lng,
+                            BriefName: briefName
+                        },
+                        success: function (data) {
+                            clearError();
+                            if (data.success) {
+                                swal({
+                                        title: "Thành công!",
+                                        text: "Thêm mới sự kiện thành công",
+                                        type: "success"
+                                     },
+                                    function () {
+                                    window.location.replace('@Url.Action("Index", "Events")');
+                                });
+                            }
+                            else if (data.success == false) {
+                                if (data.isExistBriefName != null) {
+                                    $('#errrorExistBriefNameAdd').css('display', 'block');
+                                }
+                                if (data.isCodeLoginExist != null) {
+                                    $('#errrorCodeAddExist').css('display', 'block');
+                                }
+                            }
+
+
+
+                        },
+                        error: function (data) {
+                            console.log(data);
                         }
-                        else {
-                            $('#errrorExistBriefNameAdd').css('display', 'block');
-                        }
-
-
-
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+                    });
                 }
 
 
@@ -312,6 +333,10 @@
                 $('#errrorImageAdd').css('display', 'none');
                 $('#errorLatLngAdd').css('display', 'none');
                 $('#errorTimeAdd').css('display', 'none');
+                $('#errrorCodeAddFormat').css('display', 'none');
+                $('#errrorExistBriefNameAdd').css('display', 'none');
+                $('#errorBriefNameAdd').css('display', 'none');
+                $('#errrorCodeAddExist').css('display', 'none');
         }
 
     </script>

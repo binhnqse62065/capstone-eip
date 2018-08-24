@@ -139,6 +139,10 @@ namespace CapstoneProjectAdmin.API
         {
             try
             {
+                if(session.LivestreamUrl.Length == 0)
+                {
+                    session.LivestreamUrl = "";
+                }
                 session.IsActive = true;
                 db.Sessions.Add(session);
                 db.SaveChanges();

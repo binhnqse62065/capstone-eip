@@ -10,11 +10,12 @@ namespace CapstoneProjectClient.Controllers
 {
     public class CollectionController : Controller
     {
-        [Route("Collection/Index/{eventId}/{typeId}")]
+        [Route("Collection/Index/{eventId}/{typeId}/{sessionId}")]
         // GET: Collection
-        public ActionResult Index(int eventId, int typeId)
+        public ActionResult Index(int eventId, int typeId, int sessionId)
         {
             ViewBag.EventId = eventId;
+            ViewBag.SessionId = sessionId;
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listCollection = eventCollectionApi.GetCollectionByEventId(eventId).Select(c => new EventCollectionViewModel
             {
@@ -31,8 +32,25 @@ namespace CapstoneProjectClient.Controllers
             var eventCurr = eventApi.BaseService.GetEventById(eventId);
             ViewBag.EventName = eventCurr.Name;
 
-            
-
+            SessionApi sessionApi = new SessionApi();
+            var listSession = sessionApi.GetSessionsByEventId(eventId);
+            int countSession = listSession.Count();
+            if (countSession == 1)
+            {
+                ViewBag.SessionNumber = 1;
+                ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
+            }
+            else if (countSession == 0)
+            {
+                ViewBag.SessionNumber = 0;
+                ViewBag.SessionId = 0;
+            }
+            else
+            {
+                /*Trường hợp có nhiều session*/
+                ViewBag.SessionId = 0;
+                ViewBag.SessionNumber = countSession;
+            }
             return View(currentCollection);
         }
     }
