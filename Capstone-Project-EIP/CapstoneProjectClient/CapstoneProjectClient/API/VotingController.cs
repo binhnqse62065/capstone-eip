@@ -39,7 +39,30 @@ namespace CapstoneProjectClient.API
                     success = true,
                     message = "Add successful!",
                     data = listPercentOption
-                    
+                })
+            };
+        }
+
+        [Route("ShowResultOfVoting")]
+        [HttpPost]
+        public HttpResponseMessage ShowResultOfVoting(VotingOption option)
+        {
+
+
+
+            VotingOptionApi votingOptionApi = new VotingOptionApi();
+
+
+            List<double> listPercentOption = votingOptionApi.GetNewResultVoting(option.VotingId);
+
+            return new HttpResponseMessage()
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new JsonContent(new
+                {
+                    success = true,
+                    message = "Add successful!",
+                    data = listPercentOption
                 })
             };
         }

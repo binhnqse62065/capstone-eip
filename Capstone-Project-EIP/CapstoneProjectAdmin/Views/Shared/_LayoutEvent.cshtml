@@ -2,7 +2,6 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -13,7 +12,7 @@
     <!-- jQuery UI 1.11.4 -->
     <script src="~/Content/AdminLTE-master/bower_components/jquery-ui/jquery-ui.min.js"></script>
     <!-- Favicon-->
-    <link rel="shortcut icon"  type="image/x-icon" href="~/Content/img/LogoMakr_6CVPn5.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/img/LogoMakr_6CVPn5.png">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/Content/AdminLTE-master/bower_components/jquery-ui/themes/base/jquery-ui.min.css">
@@ -44,8 +43,8 @@
     <!--Filestack-->
     <script src="~/Content/Filestack/filestack.min.js"></script>
     @*<script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Meb98e_PppAWoqobk4Ml1rFygPl9eUI&callback=initMap">
-    </script>*@
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Meb98e_PppAWoqobk4Ml1rFygPl9eUI&callback=initMap">
+        </script>*@
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -76,14 +75,13 @@
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
-                                
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat" data-toggle="modal" data-target="#modal-default">Hồ sơ</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="@Url.Action("LogOff","Account")" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="@Url.Action("LogOff","Account")" class="btn btn-default btn-flat">Đăng xuất</a>
                                     </div>
                                 </li>
                             </ul>
@@ -95,7 +93,73 @@
 
         @RenderBody()
     </div>
+
+    <!--Modal Change Password-->
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Default Modal</h4>
+                </div>
+
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">Mật khẩu cũ</label>
+                        <div class="col-sm-9 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-info" aria-hidden="true"></i>
+                            </div>
+                            <input id="txtOldPassword" type="password" class="form-control" placeholder="Vui lòng nhập mật khẩu cũ">
+                        </div>
+                        <p class="error-title col-lg-offset-3" id="errorOldPassword">Vui lòng nhập mật khẩu cũ</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">Mật khẩu mới</label>
+                        <div class="col-sm-9 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-info" aria-hidden="true"></i>
+                            </div>
+                            <input id="txtNewPassword" type="password" class="form-control" placeholder="Vui lòng nhập mật khẩu mới">
+                        </div>
+                        <p class="error-title col-lg-offset-3" id="errorNewPassword">Vui lòng nhập mật khẩu mới</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 form-control-label">Xác nhận lại mật khẩu</label>
+                        <div class="col-sm-9 input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-info" aria-hidden="true"></i>
+                            </div>
+                            <input id="txtConfirmNewPassword" type="password" class="form-control" placeholder="Vui lòng xác nhận lại mật khẩu">
+                        </div>
+                        <p class="error-title col-lg-offset-3" id="errorConfirmPasswordLength">Vui lòng nhập lại xác nhận mật khẩu </p>
+                        <p class="error-title col-lg-offset-3" id="errorConfirmPassword">Mật khẩu không trùng khớp</p>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnChangePassword">Lưu</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     @RenderSection("scripts", required: false)
 </body>
 </html>
+@section scripts {
+    
+}
+
 

@@ -28,6 +28,7 @@
                         <th>Tên</th>
                         <th>Thời gian bắt đầu - kết thúc</th>
                         <th>Miêu tả</th>
+                        <th>Địa điểm</th>
                         <th>Liên kết trực tuyến</th>
                         <th>Chức năng</th>
                     </tr>
@@ -83,6 +84,17 @@
                         <input id="txtDescriptionAdd" type="text" class="form-control" placeholder="Vui lòng nhập miêu tả ">
                     </div>
                     <p class="error-title col-lg-offset-3" id="errorDesAdd">Vui lòng nhập miêu tả phiên làm việc</p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Địa điểm</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input id="txtSessionAddress" type="text" class="form-control" placeholder="Nhập địa điểm">
+                    </div>
+                    <p class="error-title col-lg-offset-3" id="errorAddressAdd">Vui lòng nhập địa điểm phiên làm việc</p>
+
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Liên kết trực tuyến:</label>
@@ -154,6 +166,17 @@
 
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Địa điểm</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                        </div>
+                        <input id="sessionAddress" type="text" class="form-control" placeholder="Nhập địa điểm">
+                    </div>
+                    <p class="error-title col-lg-offset-3" id="errorAddressEdit">Vui lòng nhập địa điểm phiên làm việc</p>
+
+                </div>
+                <div class="form-group">
                     <label class="col-sm-3 form-control-label">Liên kết trực tuyến</label>
                     <div class="col-sm-9 input-group">
                         <div class="input-group-addon">
@@ -220,6 +243,12 @@
                         }
                     },
                     {
+                        name: "Address",
+                        render: function (data, type, row) {
+                            return row.address;
+                        }
+                    },
+                    {
                         name: "Livestream",
                         render: function (data, type, row) {
                             return row.livestreamUrl;
@@ -228,7 +257,7 @@
                     {
                         name: "Function",
                         render: function (data, type, row) {
-                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateSession" onclick="openModelUpdate(' + row.sessionID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\', \'' + row.livestreamUrl + '\')"><i class="fa fa-pencil"></i></button>     ' +
+                            return '<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateSession" onclick="openModelUpdate(' + row.sessionID + ',\'' + row.name + '\', \'' + row.startTime + '\', \'' + row.endTime + '\', \'' + row.description + '\', \'' + row.livestreamUrl + '\', \'' + row.address + '\')"><i class="fa fa-pencil"></i></button>     ' +
                                 '<button class="btn btn-danger btn-sm btn-delete" onclick="deleteSession(' + row.sessionID + ')"><i class="fa fa-trash"></i></button>';
                         }
                     }
@@ -259,6 +288,7 @@
                 var sessionName = $('#sessionName').val()
                 var sessionDescription = $('#sessionDescription').val();
                 var livestreamUrl = $('#sessionLivestreamUrl').val();
+                var sessionAddress = $('#sessionAddress').val();;
 
                 var isValid = true;
                 if (sessionName.length === 0) {
@@ -269,10 +299,14 @@
                     isValid = false;
                     $('#errorDesEdit').css('display', 'block');
                 }
-                if (livestreamUrl.length === 0) {
+                if (sessionAddress.length === 0) {
                     isValid = false;
-                    $('#errorLivestreamEdit').css('display', 'block');
+                    $('#errorAddressEdit').css('display', 'block');
                 }
+                //if (livestreamUrl.length === 0) {
+                //    isValid = false;
+                //    $('#errorLivestreamEdit').css('display', 'block');
+                //}
 
                 if (isValid) {
                     var time = $('#startEndTimeUpdate').val();
@@ -290,6 +324,7 @@
                             SessionID: $('#txtSessionId').val(),
                             Name: $('#sessionName').val(),
                             Description: $('#sessionDescription').val(),
+                            Address: sessionAddress,
                             StartTime: startTime,
                             EndTime: endTime,
                             LivestreamUrl: $('#sessionLivestreamUrl').val()
@@ -320,6 +355,7 @@
 
                 var sessionName = $('#txtNameAdd').val();
                 var sessionDescription = $('#txtDescriptionAdd').val();
+                var sessionAddress = $('#txtSessionAddress').val();
                 var livestreamUrl = $('#txtLivestreamAdd').val();
 
                 var isValid = true;
@@ -331,10 +367,14 @@
                     isValid = false;
                     $('#errorDesAdd').css('display', 'block');
                 }
-                if (livestreamUrl.length === 0) {
+                if (sessionAddress.length === 0) {
                     isValid = false;
-                    $('#errorLivestreamAdd').css('display', 'block');
+                    $('#errorAddressAdd').css('display', 'block');
                 }
+                //if (livestreamUrl.length === 0) {
+                //    isValid = false;
+                //    $('#errorLivestreamAdd').css('display', 'block');
+                //}
 
                 if (isValid) {
                     $('#btn-add-session').attr('data-dismiss', 'modal');
@@ -351,6 +391,7 @@
                             EventId: eventId,
                             Name: sessionName,
                             Description: sessionDescription,
+                            Address: sessionAddress,
                             StartTime: startTime,
                             EndTime: endTime,
                             LivestreamUrl: livestreamUrl
@@ -374,9 +415,10 @@
         });
 
 
-        function openModelUpdate(id, name, startTime, endTime, description, livestreamUrl) {
+        function openModelUpdate(id, name, startTime, endTime, description, livestreamUrl, address) {
             clearErrorEditSession();
             $('#sessionName').val(name);
+            $('#sessionAddress').val(address);
             $('#sessionDescription').val(description);
             $('#startEndTimeUpdate').val(startTime + " - " + endTime);
             $('#txtSessionId').val(id);
@@ -384,7 +426,9 @@
             $('#startEndTimeUpdate').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY'
-                }
+                },
+                minDate: '@(startDate)',
+                maxDate: '@(endDate)'
             });
         }
 
@@ -429,12 +473,14 @@
         function clearErrorAddSession() {
             $('#errorNameAdd').css('display', 'none');
             $('#errorDesAdd').css('display', 'none');
+            $('#errorAddressAdd').css('display', 'none');
             $('#errorLivestreamAdd').css('display', 'none');
         }
 
         function clearErrorEditSession() {
             $('#errorNameEdit').css('display', 'none');
             $('#errorDesEdit').css('display', 'none');
+            $('#errorAddressEdit').css('display', 'none');
             $('#errorLivestreamEdit').css('display', 'none');
         }
 
@@ -442,6 +488,7 @@
             $('#txtNameAdd').val("");
             $('#txtDescriptionAdd').val("");
             $('#txtLivestreamAdd').val("");
+            $('#txtSessionAddress').val("");
         }
 
     </script>

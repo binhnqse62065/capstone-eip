@@ -37,7 +37,7 @@
                                 {
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="group-poll" value="@Model.VotingOptions.ElementAt(i).VotingOptionId">
+                                            <input type="radio" class="group-poll" name="group-poll" value="@Model.VotingOptions.ElementAt(i).VotingOptionId">
                                             &nbsp; &nbsp;  @Model.VotingOptions.ElementAt(i).VotingOptionContent
                                         </label>
                                     </div>
@@ -71,5 +71,143 @@
 </div>
 @section scripts {
     <script src="~/Content/bootstrap/Poll/js/processBar.js"></script>
+
+    <script>
+        var urlApi = $(location).attr('origin');
+        var votingId = parseInt($('#txt-voting-id').val());
+
+        $(document).ready(function () {
+            $('.custom-menu').removeClass('menu-active');
+            $('.menu-voting').addClass('menu-active');
+
+            $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
+
+            
+            //var select = parseInt($('input[name=group-poll]:checked').val());
+
+            var listVoting = JSON.parse(localStorage.getItem("listVotingInteract"));
+            if (listVoting !== null) {
+                var votingInteractTmp = listVoting.find(v => v.VotingId === votingId);
+                if (votingInteractTmp !== null) {
+                    var votingOptionId = parseInt(votingInteractTmp.VotingOptionId);
+                    $('input.group-poll[value="' + votingOptionId + '"]').prop('checked', true);
+                    $('input.group-poll').prop('disabled', 'disabled');
+                    //$('input[name=group-poll][value="' + votingOptionId + ' "]').prop('checked', true);
+                    showVotingResult(votingOptionId, votingId, false);
+                }
+            }
+            
+
+
+            
+            
+            
+        });
+
+        $('#btn-vote').on('click', function () {
+            var selectOption = parseInt($('input[name=group-poll]:checked').val());
+            showVotingResult(selectOption, votingId, true);
+
+
+            //$.ajax({
+            //    url: urlApi + '/api/voting/ChangeNumberOfVoting',
+            //    method: "POST",
+            //    data: {
+            //        VotingOptionId: select,
+            //        VotingId: $('#txt-voting-id').val()
+            //    },
+            //    success: function (data) {
+            //        $('#result').load(' #result', function () {
+            //            $('#btn-vote').css('display', 'none');
+            //            $('#thanks').css('display', 'show');
+            //            $('#thanks').text("Cảm ơn vì đã bình chọn!");
+            //            $('.result').css('display', 'block');
+
+            //            var resultTemplate = $('#progress-bar-result-template').clone();
+            //            for (var i = 0; i < data.data.length; i++) {
+            //                resultTemplate.find('.progress-bar').attr('data-transitiongoal', data.data[i]);
+            //                $('#result-voting-section').append(resultTemplate.html());
+            //            }
+
+            //            $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
+
+            //            var votingInteract = {
+            //                "VotingId": $('#txt-voting-id').val()
+            //            };
+            //            var listVotingInteract = JSON.parse(localStorage.getItem("listVotingInteract"));
+            //            if (listVotingInteract != null) {
+            //                listVotingInteract.push(votingInteract);
+            //                localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteract));
+            //            }
+            //            else {
+            //                var listVotingInteractNew = [];
+            //                listVotingInteractNew.push(votingInteract);
+            //                localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteractNew));
+            //            }
+            //        });
+            //    },
+            //    error: function (data) {
+            //        console.log(data);
+            //    }
+            //});
+
+        });
+
+        function showVotingResult(votingOptionId, votingId, isSubmit) {
+            var urlApiCall;
+            if (isSubmit) {
+                urlApiCall = urlApi + '/api/voting/ChangeNumberOfVoting';
+            }
+            else {
+                urlApiCall = urlApi + '/api/voting/ShowResultOfVoting';
+            }
+
+            $.ajax({
+                url: urlApiCall,
+                method: "POST",
+                data: {
+                    VotingOptionId: votingOptionId,
+                    VotingId: votingId
+                },
+                success: function (data) {
+                    $('#result').load(' #result', function () {
+                        $('#btn-vote').css('display', 'none');
+                        $('#thanks').css('display', 'show');
+                        $('#thanks').text("Cảm ơn vì đã bình chọn!");
+                        $('.result').css('display', 'block');
+
+                        var resultTemplate = $('#progress-bar-result-template').clone();
+                        for (var i = 0; i < data.data.length; i++) {
+                            resultTemplate.find('.progress-bar').attr('data-transitiongoal', data.data[i]);
+                            $('#result-voting-section').append(resultTemplate.html());
+                        }
+
+                        $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
+
+                        var votingInteract = {
+                            "VotingId": parseInt($('#txt-voting-id').val()),
+                            "VotingOptionId": votingOptionId
+                        };
+                        var listVotingInteract = JSON.parse(localStorage.getItem("listVotingInteract"));
+                        if (listVotingInteract != null) {
+                            listVotingInteract.push(votingInteract);
+                            localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteract));
+                        }
+                        else {
+                            var listVotingInteractNew = [];
+                            listVotingInteractNew.push(votingInteract);
+                            localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteractNew));
+                        }
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+
+
+    </script>
 }
 

@@ -30,7 +30,7 @@
         <div class="box-body event-box-body">
             @foreach (var isRunning in listIsRunning)
             {
-                <a class="event-link" href="@Url.Action("Index","ManageSession", new { id = isRunning.EventID })">
+                <a class="event-link" href="@Url.Action("Index","ManageSession", new { briefName = isRunning.BriefName })">
                     <div class="col-lg-4 col-md-4">
                         <!-- small box -->
                         <div class="small-box bg-green event-box">
@@ -66,7 +66,7 @@
         <div class="box-body event-box-body box-body-up-comming collapse">
             @foreach (var upComming in listUpComming)
             {
-                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { id = upComming.EventID })">
+                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { briefName = upComming.BriefName })">
                     <div class="col-lg-4 col-xs-4">
                         <!-- small box -->
                         <div class="small-box bg-yellow event-box">
@@ -103,7 +103,7 @@
         <div class="box-body event-box-body box-body-happened collapse">
             @foreach (var happened in listHappened)
             {
-                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { id = happened.EventID })">
+                <a class="event-link" href="@Url.Action("Index", "ManageSession", new { briefName = happened.BriefName })">
                     <div class="col-lg-4 col-xs-4">
                         <!-- small box -->
                         <div class="small-box bg-gray event-box">
@@ -132,5 +132,73 @@
         $(document).ready(function () {
             $('#btn-up-comming').click();
         });
+
+    </script>
+    <script>
+        $('#btnChangePassword').on('click', function () {
+            clearErrorChangePass();
+            var oldPassword = $('#txtOldPassword').val();
+            var newPassword = $('#txtNewPassword').val();
+            var confirmPassword = $('#txtConfirmNewPassword').val();
+            var isValid = true;
+            if (oldPassword.length === 0) {
+                $('#errorOldPassword').css('display', 'block');
+                isValid = false;
+            }
+            if (newPassword.length === 0) {
+                $('#errorNewPassword').css('display', 'block');
+                isValid = false;
+            }
+            if (confirmPassword.length === 0) {
+                $('#errorConfirmPasswordLength').css('display', 'block');
+                isValid = false;
+            }
+            else {
+                if (newPassword !== confirmPassword) {
+                    $('#errorConfirmPassword').css('display', 'block');
+                    isValid = false;
+                }
+            }
+
+            if (isValid) {
+                $.ajax({
+                url: '@Url.Action("ChangePassword", "Account")',
+                method: "POST",
+                data: {
+                    UserName: '@(User.Identity.Name)',
+                    OldPassword: oldPassword,
+                    NewPassword: newPassword,
+                    ConfirmNewPassword: confirmPassword
+                },
+                success: function (data) {
+                    if (data.success) {
+                        swal({
+                                    title: "Thành công!",
+                                    text: "Đã đổi mật khẩu thành công",
+                                    type: "success"
+                                 },
+                            function () {
+                                $('#modal-default').modal('hide');
+                            });
+                    }
+                    else {
+                        swal("Thất bại!", "Đổi mật khẩu thất bại, vui lòng thử lại", "warning");
+                    }
+
+                },
+                error: function (data) {
+                    console.log(data);
+                    swal("Thất bại!", "Đổi mật khẩu thất bại, vui lòng thử lại", "warning");
+                }
+            });
+            }
+        });
+
+        function clearErrorChangePass() {
+            $('#errorOldPassword').css('display', 'none');
+            $('#errorNewPassword').css('display', 'none');
+            $('#errorConfirmPasswordLength').css('display', 'none');
+            $('#errorConfirmPassword').css('display', 'none');
+        }
     </script>
 }

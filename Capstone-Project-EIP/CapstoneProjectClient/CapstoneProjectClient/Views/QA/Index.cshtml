@@ -322,6 +322,10 @@
         var urlDislikeComment = 'api/comment/DislikeComment';
         var urlUnDislikeComment = 'api/comment/UnDislikeComment';
         $(function () {
+
+            $('.custom-menu').removeClass('menu-active');
+            $('.menu-qa').addClass('menu-active');
+
             //chỉnh css cho biết thiết bị này đã like hay dislike câu hỏi , bình luận nào
             addCssForQuestion();
             addCssForComment();
@@ -655,7 +659,7 @@
                 listQa.find('.btn-like-question').html('0 <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
                 listQa.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + newQuestionId);
                 listQa.find('.btn-dislike').attr('value', newQuestionId);
-                listQa.find('.btn-dislike').html('<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span> 0');
+                listQa.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> 0');
 
                 var nameSplit = name.split(' ');
                 var firstNameChar = nameSplit[nameSplit.length - 1][0];

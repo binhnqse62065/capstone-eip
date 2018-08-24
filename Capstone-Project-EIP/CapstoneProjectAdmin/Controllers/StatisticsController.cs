@@ -1,4 +1,5 @@
-﻿using CapstoneProjectAdmin.ViewModel;
+﻿using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
 using HmsService.Sdk;
 using Newtonsoft.Json.Linq;
@@ -10,12 +11,18 @@ using System.Web.Mvc;
 
 namespace CapstoneProjectAdmin.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class StatisticsController : Controller
     {
         // GET: Statistics
-        public ActionResult Index(int id)
+        [Route("ManageStatistics/{briefName}")]
+        public ActionResult Index(string briefName)
         {
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventByBriefName(briefName);
+            int id = eventTmp.EventID;
             ViewBag.EventId = id;
+            ViewBag.BriefName = eventTmp.BriefName;
             try
             {
                 /*Lấy tổng số người tham gia của event này*/

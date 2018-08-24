@@ -3,6 +3,7 @@
 
     ViewBag.Title = "Thông tin sự kiện";
     int eventId = Model.EventID;
+    string briefName = ViewBag.BriefName != null ? ViewBag.BriefName : "";
     //var listBannerImage = Model.EventCollections.FirstOrDefault(e => e.EventCollectionID == 1).CollectionItems;
 }
 @using HmsService.ViewModels;
@@ -15,7 +16,7 @@
                 <div class="col-sm-8 name-title" style="text-align:center"><h1 class="home-page-title">@Html.Raw(Model.Name)</h1></div>
                 <div class="col-sm-4">
                     <div class="row down pull-left">
-                        <a class="btn btn-primary" href="@Url.Action("Edit", "Home", new { id = Model.EventID })" @*data-toggle="modal" data-target="#modalUpdateEvent" onclick="showEditModal(@Html.Raw(Model.EventID), '@Html.Raw(Model.Name)', @Html.Raw(Model.CodeLogin), '@Html.Raw(Model.StartTime)', '@Html.Raw(Model.EndTime)', '@Html.Raw(Model.Address)', '@Html.Raw(Model.EventDescription)', @Html.Raw(Model.TemplateId), '@Html.Raw(Model.ImageURL)')"*@ style="margin-top:20px">
+                        <a class="btn btn-primary" href="@Url.Action("Edit", "Home", new { briefName = briefName })" @*data-toggle="modal" data-target="#modalUpdateEvent" onclick="showEditModal(@Html.Raw(Model.EventID), '@Html.Raw(Model.Name)', @Html.Raw(Model.CodeLogin), '@Html.Raw(Model.StartTime)', '@Html.Raw(Model.EndTime)', '@Html.Raw(Model.Address)', '@Html.Raw(Model.EventDescription)', @Html.Raw(Model.TemplateId), '@Html.Raw(Model.ImageURL)')"*@ style="margin-top:20px">
                             <i class="fa fa-pencil" aria-hidden="true"></i> Sửa
                         </a>
                         <button class="btn btn-danger" onclick="deleteEvent(@(Model.EventID))" style="margin-top:20px">

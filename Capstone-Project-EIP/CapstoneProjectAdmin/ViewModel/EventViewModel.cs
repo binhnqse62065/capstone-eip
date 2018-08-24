@@ -18,5 +18,8 @@ namespace CapstoneProjectAdmin.ViewModel
         public Nullable<int> CodeLogin { get; set; }
         public string ImageURL { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public string BriefName { get; set; }
+        public Nullable<double> Longitude { get; set; }
+        public Nullable<double> Latitude { get; set; }
     }
 }

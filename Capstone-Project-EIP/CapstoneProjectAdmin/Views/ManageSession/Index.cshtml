@@ -10,8 +10,8 @@
     }
     IEnumerable<QAViewModel> listQa = ViewBag.ListQA;
     IEnumerable<VotingViewModel> listVoting = ViewBag.ListVoting;
-    string startDate = ViewBag.StartDate;
-    string endDate = ViewBag.EndDate;
+    /*string startDate = ViewBag.StartDate != null ? ViewBag.StartDate : DateTime.Today.ToString("dd/MM/yyyy HH:mm");
+    string endDate = ViewBag.EndDate != null ? ViewBag.EndDate : DateTime.Today.ToString("dd/MM/yyyy HH:mm");*/
 }
 @using HmsService.ViewModels;
 @model IEnumerable<SessionViewModel>
@@ -22,13 +22,14 @@
                 <h2 class="col-sm-12 col-lg-12">Trung tâm điểu khiển phiên làm việc</h2>
                 <div class="col-lg-4">
                     <select class="form-control" id="cb-session-id">
-                        <option value="0">Vui lòng chọn phiên làm việc muốn điều khiển</option>
+                        @*<option value="0">Vui lòng chọn phiên làm việc muốn điều khiển</option>*@
                         @foreach (var session in Model)
                         {
                             <option value="@(session.SessionID)">@(session.Name)</option>
                         }
                     </select>
                 </div>
+
 
 
             </div>
@@ -141,7 +142,7 @@
 <input type="hidden" value="@(sessionId)" id="session-id" />
 
 <!----------------- Add Interaction Modal ----------------->
-<div class="modal fade" id="addInteractionModal" role="dialog">
+<div class="modal fade" id="addInteractionModal" @*role="dialog"*@>
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -167,7 +168,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Lựa chọn Tương tác
+                        Loại Tương Tác
                         <span class="required">*</span>
                     </label>
                     <div class="input-group col-sm-9">
@@ -187,7 +188,7 @@
 
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">
-                        Loại Tương tác
+                        Tương tác
                         <span class="required">*</span>
                     </label>
                     <div class="input-group col-sm-9">
@@ -209,6 +210,7 @@
 
     </div>
 </div>
+
 
 <!----------------- Edit Interaction Modal ----------------->
 <div class="modal fade" id="editInteractionModal" role="dialog">
@@ -528,6 +530,8 @@
     </select>
 </div>
 
+<input type="hidden" id="activityStartTime" value=""/>
+<input type="hidden" id="activityEndTime" value="" />
 
 @section scripts {
     <script>
@@ -541,20 +545,23 @@
                 InitInteractionDatatable(initSessionId);
             }
 
-            $('#AddStartEndTime').daterangepicker({
+            setDateRangeActivity(initSessionId);
+            /*$('#AddStartEndTime').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY HH:mm'
                 },
-                @*startDate: '@(startDate)',
-                endDate: '@(endDate)',*@
-                minDate: '@(startDate)',
-                maxDate: '@(endDate)',
+                minDate: '(startDate)',
+                maxDate: '(endDate)',
                 timePicker: true,
                 timePicker24Hour: true
-            });
+            });*/
 
             /*Xóa báo lỗi error ở modal add interaction*/
             clearErrorAddInteraction();
+
+
+            $('.menu').removeClass('menu-active');
+            $('.menu-session').addClass('menu-active');
         });
 
         function openModelUpdate(id, name, startTime, endTime, description) {
@@ -566,11 +573,9 @@
             $('#startEndTime').daterangepicker({
                 locale: {
                     format: 'DD/MM/YYYY HH:mm'
-                }, 
-                @*startDate: '@(startDate)',
-                endDate: '@(endDate)',*@
-                minDate: '@(startDate)',
-                maxDate: '@(endDate)',
+                },
+                minDate: $('#activityStartTime').val(),
+                maxDate: $('#activityEndTime').val() + '23:59',
                 timePicker: true,
                 timePicker24Hour: true
             });

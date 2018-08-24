@@ -3,6 +3,7 @@
     ViewBag.Title = "Cấu hình chung";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int eventId = ViewBag.EventId;
+    string briefName = ViewBag.BriefName != null ? ViewBag.BriefName : "";
     string curPath = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
 
 }
@@ -29,7 +30,7 @@
                 <div class="icon">
                     <i class="fa fa-home"></i>
                 </div>
-                <a href="@Url.Action("Index","Home", new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="@Url.Action("Index","Home", new { briefName = briefName })" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
             </div>
 
 
@@ -44,7 +45,7 @@
                 <div class="icon">
                     <i class="fa fa-calendar"></i>
                 </div>
-                <a href="@Url.Action("Index","Session" , new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="@Url.Action("Index","Session" , new { briefName = briefName })" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">
@@ -57,7 +58,7 @@
                 <div class="icon">
                     <i class="fa fa-question-circle"></i>
                 </div>
-                <a href="@Url.Action("Index","QA", new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="@Url.Action("Index","QA", new { briefName = briefName })" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-xs-6">
@@ -70,7 +71,7 @@
                 <div class="icon">
                     <i class="fa fa-check-circle-o"></i>
                 </div>
-                <a href="@Url.Action("Index","Voting", new { id = eventId})" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="@Url.Action("Index","Voting", new { briefName = briefName })" class="small-box-footer">Nhấn để vào cấu hình <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -93,12 +94,21 @@
             <div class="col-lg-3 col-xs-6" id="collectionTypeContainer-@(collection.EventCollectionID)">
                 <!-- small box -->
                 <div class="small-box bg-teal">
-                    
-                    <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID),@(collection.EventId),@(collection.TypeId), '@(collection.Name)', '@(collection.Description)', '@(collection.IsActive)')">
-                        <h4 id="collectionName-@(collection.EventCollectionID)">@(collection.Name)</h4>
-                    </div>
+                    @if (collection.IsActive)
+                    {
+                        <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID),@(collection.EventId),@(collection.TypeId), '@(collection.Name)', '@(collection.Description)', '@(collection.CollectionType.Name)', true)">
+                            <h4 id="collectionName-@(collection.EventCollectionID)">@(collection.Name)</h4>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="collectionContainer-@(collection.EventCollectionID)" class="inner inner-custom" data-toggle="modal" data-target="#collectionEditModal" onclick="openModalEdit(@(collection.EventCollectionID),@(collection.EventId),@(collection.TypeId), '@(collection.Name)', '@(collection.Description)', '@(collection.CollectionType.Name)', false)">
+                            <h4 id="collectionName-@(collection.EventCollectionID)">@(collection.Name)</h4>
+                        </div>
+                    }
+
                     <div class="icon">
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-book"></i>
                     </div>
 
 
@@ -157,7 +167,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Loại hiển thị</label>
                     <div class="col-sm-9 input-group">
-                        <select class="form-control">
+                        <select class="form-control" id="cbType">
                             <option value="0">Hình ảnh</option>
                             <option value="1">Tập tin</option>
                         </select>
@@ -165,10 +175,11 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Được hiển thị</label>
-                    <div class="col-sm-9 input-group">
+                    <input type="checkbox" data-toggle="toggle" checked id="ckIsActiveAdd" data-on="Hiện" data-off="Ẩn" data-size="small"/>
+                    @*<div class="col-sm-9 input-group">
                         <input type="checkbox" id="ckIsActiveAdd" />
 
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="modal-footer">
@@ -213,10 +224,18 @@
                     <p id="errorDesEdit" class="empty col-lg-offset-3">Vui lòng nhập miêu tả bộ sựu tập</p>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-3 form-control-label">Loại:</label>
+                    <div class="col-sm-9 input-group">
+                        <div class="col-sm-9 input-group">
+                            <input id="collectionTypeName" type="text" class="form-control speaker-title" readonly >
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-3 form-control-label">Được hiển thị</label>
                     <div class="col-sm-9 input-group">
-                        <input type="checkbox" id="ckIsActiveEdit" />
-
+                        @*<input type="checkbox" id="ckIsActiveEdit" />*@
+                        <input type="checkbox" data-toggle="toggle" class="ckIsActiveEdit" id="ckIsActiveEdit" data-on="Hiện" data-off="Ẩn" data-size="small" />
                     </div>
                 </div>
             </div>
@@ -257,6 +276,11 @@
         var eventId = @(eventId);
 
         $(document).ready(function () {
+            //loadCollectionTypeToCb();
+
+            $('.menu').removeClass('menu-active');
+            $('.menu-event').addClass('menu-active');
+
             loadCollectionTypeToCb();
         });
 
@@ -267,6 +291,10 @@
             var name = $('#txtCollectionName').val();
             var description = $('#txtDescription').val();
             var typeId = parseInt($('#cbCollectionType').val());
+            var isImage = true;
+            if ($('#cbType').val() === 1) {
+                isImage = false;
+            }
             var isActive = false;
             if ($('#ckIsActiveAdd').is(":checked")) {
                 isActive = true;
@@ -295,7 +323,8 @@
                     EventId: eventId,
                     TypeId: typeId,
                     Description: description,
-                    IsActive: isActive
+                    IsActive: isActive,
+                    IsImage: isImage
                 };
                
                 var obj = JSON.stringify(eventCollectionObj);
@@ -337,7 +366,10 @@
             var eventCollectionId = $(this).attr('value');
             var eventId = $('#txtEventId').val();
             var typeId = $('#txtTypeId').val();
-            var isActive = $('#ckIsActiveEdit').is(":checked");
+            var isActive = false;
+            if ($("#ckIsActiveEdit").prop('checked') == true) {
+                isActive = true;
+            }
 
             var name = $('#txtCollectionNameEdit').val();
             var description = $('#txtDescriptionEdit').val();
@@ -366,10 +398,17 @@
                     },
                     success: function (data) {
                         if (data.success) {
-                            swal("Thành công!", "Bạn đã cập nhật bộ sưu tập thành công", "success");
-                            $('#collectionName-' + eventCollectionId).text(name);
-                            $('#collectionContainer-' + eventCollectionId).attr('onclick', 'openModalEdit(' + eventCollectionId + ',' + eventId + ',' + typeId + ' \'' + name + '\', \'' + description + '\',' + isActive + ')');
-
+                            swal({
+                                title: "Thành công!",
+                                text: "Bạn đã cập nhật bộ sưu tập thành công",
+                                type: "success",
+                            }, function () {
+                                window.location.href = "@Url.Action("Index","ManageEvent", new { id = eventId })";
+                            });
+                            //swal("Thành công!", "Bạn đã cập nhật bộ sưu tập thành công", "success");
+                            //$('#collectionName-' + eventCollectionId).text(name);
+                            //$('#collectionContainer-' + eventCollectionId).prop('onclick', openModalEdit(eventCollectionId + ',' + eventId + ',' + typeId + ' \'' + name + '\', \'' + description + '\',' + isActive));
+                            
                         }
                         else {
                             swal("Thất bại!", "Cập nhật bộ sưu tập không thành công", "warning");
@@ -430,9 +469,11 @@
 
         $('#cbCollectionType').on('change', function () {
             var collectionType = parseInt(this.value);
-            console.log(collectionType);
             if (collectionType === -1) {
                 $('#txtCollectionTypeDiv').css('display', 'flex');
+            }
+            else {
+                $('#txtCollectionTypeDiv').css('display', 'none');
             }
         });
 
@@ -441,14 +482,18 @@
             $('#txtDescription').val("");
         }
 
-        function openModalEdit(eventCollectionId, eventId, typeId, name, description, isActive) {
+        function openModalEdit(eventCollectionId, eventId, typeId, name, description,collectionTypeName, isActive) {
             clearErrorEditCollection();
             $('#txtCollectionNameEdit').val(name);
             $('#txtDescriptionEdit').val(description);
+            $('#collectionTypeName').val(collectionTypeName);
             $('#txtEventId').val(eventId);
             $('#txtTypeId').val(typeId);
             if (isActive) {
-                $('#ckIsActiveEdit').prop('checked', true);
+                $('#ckIsActiveEdit').bootstrapToggle('on');
+            }
+            else {
+                $('#ckIsActiveEdit').bootstrapToggle('off');
             }
 
 
@@ -466,7 +511,6 @@
                             $('#cbCollectionType').append('<option value="' + data.data[i].CollectionTypeID + '">' + data.data[i].Name +'</option>');
                         }
                         $('#cbCollectionType').append('<option value="-1">Khác</option>');
-                        disableOptionCollectionType();
                     }
                 },
                 error: function (data) {

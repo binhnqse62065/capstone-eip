@@ -187,31 +187,43 @@ namespace CapstoneProjectAdmin.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Username, Email = model.Email, PhoneNumber = model.TelephoneNumber };
-                var result = await UserManager.CreateAsync(user, "Admin@123");
-                if (result.Succeeded)
+                var isExist = UserManager.FindByName(model.Username);
+                if(isExist == null)
                 {
+                    var result = await UserManager.CreateAsync(user, "Admin@123");
+                    if (result.Succeeded)
+                    {
 
-                    /*Create and add role tmp code*/
-                    //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
-                    //await roleManager.CreateAsync(new IdentityRole("System Admin"));
-                    await UserManager.AddToRoleAsync(user.Id, "Admin");
+                        /*Create and add role tmp code*/
+                        //var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                        //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                        //await roleManager.CreateAsync(new IdentityRole("System Admin"));
+                        await UserManager.AddToRoleAsync(user.Id, "Admin");
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    return RedirectToAction("Index", "Account");
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Account");
+                    }
+                    AddErrors(result);
+                    ViewBag.ExistUser = "Tên đăng nhập đã tồn tại, vui lòng nhập tên khác";
+                    return RedirectToAction("Register", "Account");
                 }
-                AddErrors(result);
+                else
+                {
+                    ViewBag.ExistUser = "Tên đăng nhập đã tồn tại, vui lòng nhập tên khác";
+                    return View();
+                }
+                
             }
 
             // If we got this far, something failed, redisplay form
-            return View("SystemAdmin",model);
+            return View("Index", "SystemAdmin");
         }
 
         //
@@ -276,8 +288,9 @@ namespace CapstoneProjectAdmin.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            //return code == null ? View("Error") : View();
-            return View();
+            code = "as";
+            return code == null ? View("Error") : View();
+            //return View();
         }
 
         //
@@ -297,6 +310,7 @@ namespace CapstoneProjectAdmin.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+            
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
@@ -305,6 +319,53 @@ namespace CapstoneProjectAdmin.Controllers
             AddErrors(result);
             return View();
         }
+
+        [HttpPost]
+        public  ActionResult ChangePassword(ChangePasswordViewModelCustom model)
+        {
+            var user = UserManager.Find(model.UserName, model.OldPassword);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("Login", "Account");
+            }
+            var result = UserManager.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                return Json(new {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new
+            {
+                success = false
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ResetPasswordCustom(ResetPasswordViewModelCustom model)
+        {
+            var user = UserManager.FindById(model.UserId);
+            if (user != null)
+            {
+                UserManager.RemovePassword(user.Id);
+                UserManager.AddPassword(user.Id,"Admin@123");
+                //var result =  UserManager.ChangePassword(user.Id, user.PasswordHash, "Admin@123");
+                //var result = UserManager.ResetPassword(model.UserId, "ass", "Admin@123");
+                return Json(new {
+                    success = true
+                }, JsonRequestBehavior.AllowGet); 
+            }
+            else
+            {
+                return Json(new {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
 
         //
         // GET: /Account/ResetPasswordConfirmation

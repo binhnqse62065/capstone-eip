@@ -243,10 +243,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JsonContent.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="packages\WebPageRouteHandler.0.2\content\App_Code\WebPageRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\ActivityViewModel.cs" />
+    <Compile Include="ViewModel\CollectionTypeViewModel.cs" />
     <Compile Include="ViewModel\CommentsViewModel.cs" />
     <Compile Include="ViewModel\CountCommentViewModel.cs" />
     <Compile Include="ViewModel\EventCollectionViewModel.cs" />
@@ -7154,6 +7156,8 @@
     <Content Include="Content\sweetalert-master\src\sweetalert.css" />
     <Content Include="Content\sweetalert-master\src\sweetalert.js" />
     <Content Include="Content\sweetalert-master\webpack.config.js" />
+    <Content Include="Content\ToggleBootstrap\toggle.css" />
+    <Content Include="Content\ToggleBootstrap\toggle.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

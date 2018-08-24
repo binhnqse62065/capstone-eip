@@ -1,4 +1,5 @@
-﻿using CapstoneProjectAdmin.ViewModel;
+﻿using CapstoneProjectAdmin.Models;
+using CapstoneProjectAdmin.ViewModel;
 using HmsService.Models.Entities;
 using HmsService.Sdk;
 using System;
@@ -9,12 +10,19 @@ using System.Web.Mvc;
 
 namespace CapstoneProjectAdmin.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class ManageEventController : Controller
     {
         // GET: ManageEvent
-        public ActionResult Index(int id)
+        [Route("ManageEventInfor/{briefName}")]
+        public ActionResult Index(string briefName)
         {
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventByBriefName(briefName);
+            int id = eventTmp.EventID;
             ViewBag.EventId = id;
+            ViewBag.BriefName = eventTmp.BriefName;
+
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listCollection = eventCollectionApi.GetCollectionByEventId(id).Select(c => new EventCollectionViewModel
             {
@@ -23,7 +31,12 @@ namespace CapstoneProjectAdmin.Controllers
                 EventId = c.EventId,
                 TypeId = c.TypeId,
                 Description = c.Description,
-                IsActive = (bool)c.IsActive
+                IsActive = (bool)c.IsActive,
+                CollectionType = new CollectionTypeViewModel
+                {
+                    CollectionTypeID = c.CollectionType.CollectionTypeID,
+                    Name = c.CollectionType.Name
+                }
             });
             return View(listCollection);
         }
@@ -101,6 +114,9 @@ namespace CapstoneProjectAdmin.Controllers
         public ActionResult ManageCollectionItem(int eventId, int typeId)
         {
             ViewBag.EventId = eventId;
+            EventApi eventApi = new EventApi();
+            var eventTmp = eventApi.GetEventById(eventId);
+            ViewBag.BriefName = eventTmp.BriefName;
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var eventCollection = eventCollectionApi.GetEventCollectionByType(eventId, typeId);
             //var eventCollection = eventCollectionApi.GetEventCollectionById(eventCollectionId);
@@ -153,14 +169,14 @@ namespace CapstoneProjectAdmin.Controllers
                 var listCollectionType = collectionTypeApi.GetCollectionType();
                 return Json(new {
                     success = true,
-                    data = listCollectionType
+                    data = listCollectionType.Skip(2)
                 }, JsonRequestBehavior.AllowGet);
             }
             catch
             {
                 return Json(new {
                     success = false
-                });
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 

@@ -96,7 +96,7 @@
 @section scripts {
     <!--Google Map-->
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7Meb98e_PppAWoqobk4Ml1rFygPl9eUI&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI3acHx7HKksgtOFzCXC7BULOxXcmS-AE&callback=initMap">
     </script>
     <script>
         $(document).ready(function () {
@@ -215,7 +215,7 @@
 
             //Filestack dùng để up hình
             // Set up the picker
-            const client = filestack.init('AdNHIzJfhTmey1CSdotUZz');
+            const client = filestack.init('AR6JpPavASZ2lDWwopoMNz');
             const options = {
                 onUploadDone: updateForm,
                 maxSize: 10 * 1024 * 1024,
@@ -291,7 +291,14 @@
                 //var split = latLgn.split(',');
                 $('#txtLat').val(lat);
                 $('#txtLng').val(lgn);
-
+                marker.setMap(null);
+                var newPosition = { lat: lat, lng: lgn };
+                marker = new google.maps.Marker({
+                    draggable: true,
+                    position: newPosition,
+                    map: map,
+                    title: "Your location"
+                });
             });
 
 

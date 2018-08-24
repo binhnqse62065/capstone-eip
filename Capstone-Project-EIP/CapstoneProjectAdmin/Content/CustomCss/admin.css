@@ -127,6 +127,7 @@
 
 .navbar-custom {
     background-color: #005f75 !important;
+    min-height:65px !important;
 }
 
 .side-bar-custom {
@@ -182,4 +183,12 @@
 }
 .note-brief-name {
     margin-top:10px;
+}
+
+.menu-active {
+    background: #65b7ab;
+}
+.toggle-on.btn-sm {
+    position:absolute;
+    left:-5px;
 }
