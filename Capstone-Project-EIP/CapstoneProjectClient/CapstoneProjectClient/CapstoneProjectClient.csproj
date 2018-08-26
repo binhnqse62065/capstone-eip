@@ -458,6 +458,7 @@
     <Content Include="Content\CustomCss\sponsor.css" />
     <Content Include="Content\CustomCss\timeline.css" />
     <Content Include="Content\CustomCss\voting.css" />
+    <Content Include="Content\CustomJs\main.js" />
     <Content Include="Content\img\archive.png" />
     <Content Include="Content\img\data.jpg" />
     <Content Include="Content\img\excel.png" />
