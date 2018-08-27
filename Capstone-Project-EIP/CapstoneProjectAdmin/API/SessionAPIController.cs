@@ -69,7 +69,7 @@ namespace CapstoneProjectAdmin.API
                 curSession.Description = session.Description;
                 curSession.StartTime = session.StartTime;
                 curSession.EndTime = session.EndTime;
-                curSession.LivestreamUrl = session.LivestreamUrl;
+                curSession.LivestreamUrl = session.LivestreamUrl != null ? session.LivestreamUrl : "";
                 db.SaveChanges();
                 return new HttpResponseMessage()
                 {
@@ -139,6 +139,10 @@ namespace CapstoneProjectAdmin.API
         {
             try
             {
+                if(session.LivestreamUrl == null)
+                {
+                    session.LivestreamUrl = "";
+                }
                 session.IsActive = true;
                 db.Sessions.Add(session);
                 db.SaveChanges();

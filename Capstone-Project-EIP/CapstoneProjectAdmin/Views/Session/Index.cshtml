@@ -303,10 +303,9 @@
                     isValid = false;
                     $('#errorAddressEdit').css('display', 'block');
                 }
-                //if (livestreamUrl.length === 0) {
-                //    isValid = false;
-                //    $('#errorLivestreamEdit').css('display', 'block');
-                //}
+                if (livestreamUrl.length === 0) {
+                    livestreamUrl = '';
+                }
 
                 if (isValid) {
                     var time = $('#startEndTimeUpdate').val();
@@ -371,10 +370,9 @@
                     isValid = false;
                     $('#errorAddressAdd').css('display', 'block');
                 }
-                //if (livestreamUrl.length === 0) {
-                //    isValid = false;
-                //    $('#errorLivestreamAdd').css('display', 'block');
-                //}
+                if (livestreamUrl.length === 0) {
+                    livestreamUrl = '';
+                }
 
                 if (isValid) {
                     $('#btn-add-session').attr('data-dismiss', 'modal');

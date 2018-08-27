@@ -24,9 +24,24 @@ namespace HmsService.Sdk
             return this.BaseService.CheckLoginCode(code);
         }
 
-        public bool CheckBriedName(string briefName)
+        public bool CheckBriefNameExistUpdate(int eventId, string briefName)
+        {
+            return this.BaseService.FirstOrDefault(e => e.BriefName == briefName && e.EventID != eventId) != null ? true : false;
+        }
+
+        public bool CheckBriefNameExistAdd(string briefName)
         {
             return this.BaseService.FirstOrDefault(e => e.BriefName == briefName) != null ? true : false;
+        }
+
+        public bool CheckCodeLoginExistAdd(int codeLogin)
+        {
+            return this.BaseService.FirstOrDefault(e => e.CodeLogin == codeLogin) != null ? true : false;
+        }
+
+        public bool CheckCodeLoginExistUpdate(int eventId, int codeLogin)
+        {
+            return this.BaseService.FirstOrDefault(e => e.CodeLogin == codeLogin && e.EventID != eventId) != null ? true : false;
         }
 
         public Event GetEventByBriefName(string briefName)
@@ -48,6 +63,7 @@ namespace HmsService.Sdk
                 eventTmp.ImageURL = eventUpdate.ImageURL != null ? eventUpdate.ImageURL : eventTmp.ImageURL;
                 eventTmp.Longitude = eventUpdate.Longitude != null ? eventUpdate.Longitude : eventTmp.Longitude;
                 eventTmp.Latitude = eventUpdate.Latitude != null ? eventUpdate.Latitude : eventTmp.Latitude;
+                eventTmp.BriefName = eventUpdate.BriefName != null ? eventUpdate.BriefName : eventTmp.BriefName;
                 this.BaseService.Save();
                 return eventTmp.BriefName;
             }

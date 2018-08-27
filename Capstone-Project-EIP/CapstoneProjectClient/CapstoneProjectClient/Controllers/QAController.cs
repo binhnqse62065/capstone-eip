@@ -29,8 +29,7 @@ namespace CapstoneProjectClient.Controllers
                 IsActive = (bool)c.IsActive
             }).ToList();
             ViewBag.Collections = listCollection;
-            ViewBag.EventId = eventId;
-            ViewBag.SessionId = sessionId;
+            
             SessionApi sessionApi = new SessionApi();
             ViewBag.SessionName = sessionApi.GetSessionNameById(sessionId);
 
@@ -42,23 +41,27 @@ namespace CapstoneProjectClient.Controllers
             QA qa = qAApi.GetQaById(qaId);
            
             var listSession = sessionApi.GetSessionsByEventId(eventId);
-            if (listSession.Count() == 1)
+            int countSession = listSession.Count();
+            if (countSession == 1)
             {
                 ViewBag.SessionNumber = 1;
+                ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
             }
-            /*
-             * jObject là message lấy từ người dùng( gọi API)
-             * notify là hàm để thông báo message đến toàn bộ người dùng khác
-             */
-            //IEnumerable<Customer> customers = null;
-            //IHubContext context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
-            //if (context != null)
-            //{
-            //    context.Clients.All.addNewMessageToPage("Binh", "Hello");
-            //}
+            else if (countSession == 0)
+            {
+                ViewBag.SessionNumber = 0;
+                ViewBag.SessionId = 0;
+            }
+            else
+            {
+                /*Trường hợp có nhiều session*/
+                ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
+                ViewBag.SessionNumber = countSession;
+                ViewBag.IsSubMenu = true;
+            }
 
-
-
+            ViewBag.EventId = eventId;
+            ViewBag.SessionId = sessionId;
             return View(qa);
         }
 

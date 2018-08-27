@@ -22,19 +22,35 @@ namespace CapstoneProjectClient.Controllers
                 EventId = c.EventId,
                 IsActive = (bool)c.IsActive
             }).ToList();
-
+            ViewBag.Collections = listCollection;
             TimelineApi timelineApi = new TimelineApi();
-            ViewBag.EventId = eventId;
-            ViewBag.SessionId = sessionId;
+            
             var timeline = timelineApi.GetAllTimesBySessionId(sessionId);
             SessionApi sessionApi = new SessionApi();
             ViewBag.SessionName = sessionApi.GetSessionNameById(sessionId);
 
             var listSession = sessionApi.GetSessionsByEventId(eventId);
-            if (listSession.Count() == 1)
+            int countSession = listSession.Count();
+            if (countSession == 1)
             {
                 ViewBag.SessionNumber = 1;
+                ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
             }
+            else if (countSession == 0)
+            {
+                ViewBag.SessionNumber = 0;
+                ViewBag.SessionId = 0;
+            }
+            else
+            {
+                /*Trường hợp có nhiều session*/
+                ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
+                ViewBag.SessionNumber = countSession;
+                ViewBag.IsSubMenu = true;
+            }
+
+            ViewBag.EventId = eventId;
+            ViewBag.SessionId = sessionId;
             return View(timeline);
         }
     }

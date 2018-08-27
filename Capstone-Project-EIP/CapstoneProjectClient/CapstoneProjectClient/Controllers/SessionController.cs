@@ -15,6 +15,7 @@ namespace CapstoneProjectClient.Controllers
         public ActionResult Index(int eventId)
         {
             ViewBag.EventId = eventId;
+            /*Tạo list collection để hiện ở menu*/
             EventCollectionApi eventCollectionApi = new EventCollectionApi();
             var listCollection = eventCollectionApi.GetCollectionByEventId(eventId).Select(c => new EventCollectionViewModel
             {
@@ -25,15 +26,28 @@ namespace CapstoneProjectClient.Controllers
             }).ToList();
             ViewBag.Collections = listCollection;
             SessionApi sessionApi = new SessionApi();
-            var listSession = sessionApi.GetSessionsByEventId(eventId);
-            ViewBag.EventName = listSession.FirstOrDefault().EventName;
-            if(listSession.Count() == 1)
+            var listSession = sessionApi.GetSessionsByEventId(eventId).ToList();
+
+            ViewBag.EventName = listSession.FirstOrDefault() != null ? listSession.FirstOrDefault().EventName : "";
+
+            int countSession = listSession.Count();
+            if(countSession == 1)
             {
                 ViewBag.SessionNumber = 1;
                 ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
                 return RedirectToAction("Index", "QA", new { eventId = ViewBag.EventId, sessionId = ViewBag.SessionId });
             }
-
+            else if(countSession == 0)
+            {
+                ViewBag.SessionNumber = 0;
+                ViewBag.SessionId = 0;
+            }
+            else
+            {
+                /*Trường hợp có nhiều session*/
+                ViewBag.SessionId = 0;
+                ViewBag.SessionNumber = countSession;
+            }
             return View(listSession);
         }
     }
