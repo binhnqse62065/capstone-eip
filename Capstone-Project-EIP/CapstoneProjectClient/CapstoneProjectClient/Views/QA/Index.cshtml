@@ -891,7 +891,7 @@
                             templateComment.find('.btn-dislike-reply').attr('id', 'btnDislikeReply-' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-dislike-reply').attr('value', '' + data.data[i].Comments[j].CommentId + '');
                             templateComment.find('.btn-dislike-reply').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> ' + data.data[i].Comments[j].NumberOfDisLike);
-                            templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ': ');
+                            templateComment.find('#username-reply').text('' + data.data[i].Comments[j].Username + ' ');
                             templateComment.find('#reply-content').text('' + data.data[i].Comments[j].CommentContent + '');
                             templateComment.find('#reply-time').text('' + data.data[i].Comments[j].CreateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + '');
                             templateComment.find('.btn-like-reply').html(data.data[i].Comments[j].NumberOfLike + '<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');

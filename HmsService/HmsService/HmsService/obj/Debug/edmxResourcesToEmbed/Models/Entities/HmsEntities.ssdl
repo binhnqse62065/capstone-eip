@@ -118,7 +118,7 @@
     <Property Name="EventDescription" Type="nvarchar(max)" />
     <Property Name="StartTime" Type="datetime" />
     <Property Name="EndTime" Type="datetime" />
-    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="250" />
     <Property Name="CodeLogin" Type="int" />
     <Property Name="ImageURL" Type="varchar(max)" />
     <Property Name="IsActive" Type="bit" />

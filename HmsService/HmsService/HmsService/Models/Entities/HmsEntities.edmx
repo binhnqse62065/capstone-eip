@@ -123,7 +123,7 @@
           <Property Name="EventDescription" Type="nvarchar(max)" />
           <Property Name="StartTime" Type="datetime" />
           <Property Name="EndTime" Type="datetime" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
           <Property Name="CodeLogin" Type="int" />
           <Property Name="ImageURL" Type="varchar(max)" />
           <Property Name="IsActive" Type="bit" />
@@ -880,7 +880,7 @@
           <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StartTime" Type="DateTime" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CodeLogin" Type="Int32" />
           <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" />
