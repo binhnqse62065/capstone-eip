@@ -240,7 +240,7 @@
 
             //Filestack dùng để up hình
             // Set up the picker
-            const client = filestack.init('AdNHIzJfhTmey1CSdotUZz');
+            const client = filestack.init('AR6JpPavASZ2lDWwopoMNz');
             const options = {
                 onUploadDone: updateForm,
                 maxSize: 10 * 1024 * 1024,
@@ -508,33 +508,42 @@
         function renderIconFile(mimetype, fileName, idDivRender) {
             if (['pdf'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-pdf-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             if (['docx', 'doc'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-word-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             if (['xlsx', 'xls'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-excel-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             if (['avi', 'flv', 'wmv', 'mov', 'mp4'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-video-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             } 
             if (['mp3', 'flac', 'wma', 'wav', 'midi', 'ogg', 'ac3', 'amr', 'aac', 'm4a'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-audio-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
             }
             if (['zip', 'rar', '7z'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-archive-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             if (['txt', 'rtf'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-text-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             if (['txt', 'rtf'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-text-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             if (['ppt', 'pps', 'pptx', 'ppsx'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-powerpoint-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             if (['jpeg', 'png'].indexOf(mimetype) !== -1) {
                 $(idDivRender).html("<i class='fa fa-file-image-o fa-2x' style='padding-right: 10px;'></i>" + fileName);
+                return;
             }
             else {
                 $(idDivRender).html("<i class='fa fa-file-o fa-2x' style='padding-right: 10px;'></i>" + fileName);

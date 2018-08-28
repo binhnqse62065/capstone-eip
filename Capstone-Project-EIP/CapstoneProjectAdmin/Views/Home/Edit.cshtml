@@ -18,7 +18,6 @@
         </div>
 
         <div class="box-body">
-            @*<form class="form-horizontal">*@
 
             <div class="form-group">
                 <label class="col-sm-3 form-control-label">Tên sự kiện:</label>
@@ -28,6 +27,7 @@
                     </div>
                     <input type="text" id="txtName" class="form-control" placeholder="Enter event's name" value="@(Model.Name)">
                 </div>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorName">Vui lòng nhập tên sự kiện</p>
             </div>
 
             <div class="form-group">
@@ -38,6 +38,9 @@
                     </div>
                     <input type="text" id="txtLoginCode" class="form-control" placeholder="" value="@Html.Raw(Model.CodeLogin)">
                 </div>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorCodeLogin">Vui lòng nhập mã đăng nhập</p>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorCodeLoginFormat">Mã đăng nhập là số</p>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorCodeLoginExist">Mã đăng nhập đã tồn tại, vui lòng nhập mã khác</p>
             </div>
 
             <div class="form-group">
@@ -62,6 +65,7 @@
                     <input type="text" id="txtLat" class="form-control" placeholder="Vui lòng nhập vĩ độ hoặc nhấn vào bản đồ để lấy" value="@(Model.Latitude)">
                 </div>
                 <div id="map-canvas" style="width:100%; height:500px;"></div>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorAddress">Vui lòng nhập địa điểm và chọn vị trí trên bản đồ</p>
             </div>
 
             <div class="form-group">
@@ -71,9 +75,10 @@
                         @Html.Raw(Model.EventDescription)
                     </textarea>
                 </div>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorDescription">Vui lòng nhập miêu tả</p>
             </div>
 
-            
+
             <div class="form-group">
                 <label class="col-sm-3 form-control-label">Được hiện lên trang giới thiệu:</label>
 
@@ -88,6 +93,16 @@
                     }
 
                 </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 form-control-label">Đường dẫn:</label>
+
+                <div class="col-sm-9 input-group">
+                    <input type="text" class="form-control pull-right" id="txtBriefName" placeholder="Nhập tên đường dẫn" value="@(Model.BriefName)">
+                    * Tên đường dẫn gồm chữ viết thường cách nhau bằng dấu "-"
+                </div>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorBriefName">Vui lòng nhập đường dẫn sự kiện</p>
+                <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorBriefNameExist">Đường dẫn này đã tồn tại, vui lòng nhập đường dẫn khác</p>
             </div>
 
             <div class="form-group">
@@ -104,6 +119,7 @@
                             <img id="txtBannerImage" src="@(Model.ImageURL)" class="img-responsive home-page-image" />
                         </div>
                     </div>
+                    <p class="col-lg-offset-3 col-lg-9 error-title-edit-event" id="errorImage">Vui lòng chọn ảnh địa diện sự kiện</p>
                 </div>
 
             </div>
@@ -152,8 +168,45 @@
                 var codeLogin = $('#txtLoginCode').val();
                 var longitude = $('#txtLng').val();
                 var lattitude = $('#txtLat').val();
+                var briefName = $('#txtBriefName').val();
 
-                $.ajax({
+                var isValid = true;
+                if (name.length === 0) {
+                    isValid = false;
+                    $('#errorName').css('display', 'block');
+                }
+                if (description.length === 0) {
+                    isValid = false;
+                    $('#errorDescription').css('display', 'block');
+                }
+                if (codeLogin.length === 0) {
+                    isValid = false;
+                    $('#errorCodeLogin').css('display', 'block');
+                }
+                else {
+                    if (Math.floor(codeLogin) == codeLogin && $.isNumeric(codeLogin)) {
+
+                    }
+                    else {
+                        isValid = false;
+                        $('#errorCodeLoginFormat').css('display', 'block');
+                    }
+                }
+                if (address.length === 0 || longitude.length === 0 || lattitude.length === 0) {
+                    isValid = false;
+                    $('#errorAddress').css('display', 'block');
+                }
+                if (briefName.length === 0) {
+                    isValid = false;
+                    $('#errorBriefName').css('display', 'block');
+                }
+                if (imageUrl.length === 0) {
+                    isValid = false;
+                    $('#errorImage').css('display', 'block');
+                }
+                briefName = change_alias(briefName);
+                if (isValid) {
+                    $.ajax({
                     url: '@Url.Action("Update","Home")',
                     method: "POST",
                     data: {
@@ -166,10 +219,13 @@
                         EndTime: endTime,
                         ImageURL: imageUrl,
                         Longitude: longitude,
-                        Latitude: lattitude
+                        Latitude: lattitude,
+                        BriefName: briefName
 
                     },
                     success: function (data) {
+                        clearError();
+                        console.log(data);
                         if (data.success) {
                             swal({
                                 title: "Thành công!",
@@ -179,11 +235,22 @@
                                 window.location.href = "/ManageHome/" + data.briefName;
                                 });
                         }
+                        else if (data.success === false) {
+                            if (data.isBriefNameExist != null) {
+                                $('#errorBriefNameExist').css('display', 'block');
+                            }
+                            if (data.isCodeLoginExist != null) {
+                                $('#errorCodeLoginExist').css('display', 'block');
+                            }
+                        }
                     },
                     error: function (data) {
                         console.log(data);
                     }
                 });
+                }
+
+                
             });
             //Replace the <textarea id="editor1"> with a CKEditor
             //instance, using default configuration.
@@ -293,6 +360,18 @@
                 //}
             }
         };
+
+        function clearError() {
+            $('#errorName').css('display', 'none');
+            $('#errorDescription').css('display', 'none');
+            $('#errorCodeLogin').css('display', 'none');
+            $('#errorAddress').css('display', 'none');
+            $('#errorBriefName').css('display', 'none');
+            $('#errorImage').css('display', 'none');
+            $('#errorBriefNameExist').css('display', 'none');
+            $('#errorCodeLoginExist').css('display', 'none');
+            $('#errorCodeLoginFormat').css('display', 'none');
+        }
 
     </script>
 }

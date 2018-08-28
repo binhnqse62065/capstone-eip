@@ -76,7 +76,7 @@
                     </div>
 
 
-                   
+
                     <div class="row">
                         <div class="col-sm-4 name-title">
                             <label>Trang giới thiệu</label>
@@ -84,7 +84,7 @@
                         <div class="col-sm-8 evtinfo home-page-template">
                             @if ((bool)Model.IsLandingPage)
                             {
-                                <span style="font-size:14px;">Đang được hiện trên trang giới thiệu</span> 
+                                <span style="font-size:14px;">Đang được hiện trên trang giới thiệu</span>
                             }
                             else
                             {
@@ -93,6 +93,12 @@
                             }
 
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 name-title">
+                            <label>Đường dẫn</label>
+                        </div>
+                        <div class="col-sm-8 evtinfo home-page-description">@Html.Raw(Model.BriefName)</div>
                     </div>
                 </div>
 

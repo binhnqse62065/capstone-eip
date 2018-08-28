@@ -304,7 +304,6 @@
 
 
 
-
 <input type="hidden" value="@(Model != null ? Model.QAId : 0)" id="txt-qa-id" />
 @section scripts {
     <script>
@@ -357,6 +356,7 @@
                 // Call the Send method on the hub.
                 var username = $('#txtUsername').val();
                 var questionContent = $('#txtContent').val();
+                var qaId = parseInt($('#txt-qa-id').val());
                 if (username.length === 0) {
                     username = 'Ẩn danh';
                 }
@@ -368,10 +368,10 @@
                             Username: username,
                             QuestionContent: $('#txtContent').val(),
                             NumberOfLike: 0,
-                            QAId: $('#txt-qa-id').val()
+                            QAId: qaId
                         },
                         success: function (data) {
-                            chat.server.send(username, $('#txtContent').val(), data.questionId);
+                            chat.server.send(username, $('#txtContent').val(), data.questionId, qaId);
                             $('#txtUsername').val("");
                             $('#txtContent').val("");
                         },
@@ -639,34 +639,40 @@
         });
 
         // Create a function that the hub can call back to display messages.
-        chat.client.addNewMessageToPage = function (name, message, newQuestionId) {
+        chat.client.addNewMessageToPage = function (name, message, newQuestionId, qaId) {
             // Add the message to the page.
             if (message.length != 0) {
-                var listQa = $('#list-qa').clone();
-                listQa.find('.username-content').html(name);
-                listQa.find('.question-content-template').html(message);
-                var date = new Date();
-                var currentHour = date.getHours();
-                var currentMin = date.getMinutes();
-                var timeStr = currentHour + ':' + currentMin;
-                //listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric'/*, hour12: true*/ }));
-                listQa.find('.create-time').html(timeStr);
-                //listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                listQa.find('.btn-reply').attr('value', newQuestionId);
-                listQa.find('.btn-like-question').attr('value', newQuestionId);
-                listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
-                listQa.find('.btn-like-question').attr('id', 'btn-like-question-' + newQuestionId);
-                listQa.find('.btn-like-question').html('0 <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
-                listQa.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + newQuestionId);
-                listQa.find('.btn-dislike').attr('value', newQuestionId);
-                listQa.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> 0');
 
-                var nameSplit = name.split(' ');
-                var firstNameChar = nameSplit[nameSplit.length - 1][0];
-                listQa.find('.logo-name span').text(firstNameChar.toUpperCase());
-                listQa.find('.logo-name').css('background-color', getRandomColor());
+                var currentQaId = parseInt($('#txt-qa-id').val());
+                /*Kiểm tra nếu đúng là đang ở tab QA id nào mới hiện câu chat lên, không hiện tất cả các QA*/
+                if (currentQaId === qaId) {
+                    var listQa = $('#list-qa').clone();
+                    listQa.find('.username-content').html(name);
+                    listQa.find('.question-content-template').html(message);
+                    var date = new Date();
+                    var currentHour = date.getHours();
+                    var currentMin = date.getMinutes();
+                    var timeStr = currentHour + ':' + currentMin;
+                    //listQa.find('.create-time').html(new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric'/*, hour12: true*/ }));
+                    listQa.find('.create-time').html(timeStr);
+                    //listQa.find('.number-of-like').html('0<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                    listQa.find('.btn-reply').attr('value', newQuestionId);
+                    listQa.find('.btn-like-question').attr('value', newQuestionId);
+                    listQa.find('.list-qa').attr('id', 'list-qa-' + newQuestionId);
+                    listQa.find('.btn-like-question').attr('id', 'btn-like-question-' + newQuestionId);
+                    listQa.find('.btn-like-question').html('0 <span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>');
+                    listQa.find('.btn-dislike').attr('id', 'btnDislikeQuestion-' + newQuestionId);
+                    listQa.find('.btn-dislike').attr('value', newQuestionId);
+                    listQa.find('.btn-dislike').html('<span><i class="fa fa-thumbs-down" aria-hidden="true"></i></span> 0');
 
-                $('#qa-container').prepend(listQa.html());
+                    var nameSplit = name.split(' ');
+                    var firstNameChar = nameSplit[nameSplit.length - 1][0];
+                    listQa.find('.logo-name span').text(firstNameChar.toUpperCase());
+                    listQa.find('.logo-name').css('background-color', getRandomColor());
+
+                    $('#qa-container').prepend(listQa.html());
+                }
+                
             }
 
 
@@ -719,12 +725,7 @@
             else {
                 $('#btn-like-question-' + questionId + ' i').css('color', 'none');
             }
-            //if (isLike) {
-            //    $('#btn-like-question-' + questionId + ' i').css('color', '#365899');
-            //}
-            //else {
-            //    $('#btn-like-question-' + questionId + ' i').css('color', 'none');
-            //}
+
         };
 
         //Create a function that hub call back to update new dis like of question
@@ -745,12 +746,7 @@
             else {
                 $('#btn-like-question-' + questionId + ' i').css('color', 'none');
             }
-            //if (isDisLike) {
-            //    $('#btnDislikeQuestion-' + questionId + ' i').css('color', '#cc0000');
-            //}
-            //else {
-            //    $('#btnDislikeQuestion-' + questionId + ' i').css('color', 'none');
-            //}
+
         };
 
         //Create a function that hub call back to update new like of comment

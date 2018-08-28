@@ -33,8 +33,35 @@ namespace CapstoneProjectAdmin.Controllers
             eventAdd.IsActive = true;
             eventAdd.IsLandingPage = false;
             eventAdd.BriefName = eventAdd.BriefName;
-            bool isExistBriefName = eventApi.CheckBriedName(eventAdd.BriefName);
-            if(!isExistBriefName)
+            bool isExistBriefName = eventApi.CheckBriefNameExistAdd(eventAdd.BriefName);
+            bool isCodeLoginExist = eventApi.CheckCodeLoginExistAdd((int)eventAdd.CodeLogin);
+
+            if(isExistBriefName && isCodeLoginExist)
+            {
+                return Json(new
+                {
+                    success = false,
+                    isCodeLoginExist = true,
+                    isExistBriefName = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else if(isExistBriefName)
+            {
+                return Json(new
+                {
+                    success = false,
+                    isExistBriefName = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else if(isCodeLoginExist)
+            {
+                return Json(new
+                {
+                    success = false,
+                    isCodeLoginExist = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
             {
                 int eventId = eventApi.AddNewEvent(eventAdd);
                 EventCollection speakerCollection = new EventCollection
@@ -62,13 +89,7 @@ namespace CapstoneProjectAdmin.Controllers
                     success = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                return Json(new
-                {
-                    success = false
-                }, JsonRequestBehavior.AllowGet);
-            }
+
             
         }
     }

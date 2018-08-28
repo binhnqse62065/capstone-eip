@@ -6998,6 +6998,7 @@
     <Content Include="Content\CustomCss\sponsor.css" />
     <Content Include="Content\CustomCss\style.default.css" />
     <Content Include="Content\CustomCss\voting.css" />
+    <Content Include="Content\CustomJs\main.js" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap.min.css" />
     <Content Include="Content\DataTables\DataTables-1.10.18\css\dataTables.bootstrap4.css" />

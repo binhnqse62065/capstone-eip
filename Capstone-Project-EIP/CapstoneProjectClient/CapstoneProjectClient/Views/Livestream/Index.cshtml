@@ -4,17 +4,18 @@
 }
 @using HmsService.ViewModels
 @model SessionViewModel
-<div class="row" style="padding-top:74px;">
+<div class="row" style="padding-top:74px;" id="sectionTitle">
     <div class="col-md-12 text-center voting-title">
         <h3>Livestream</h3>
     </div>
 </div>
+
 @if (Model != null)
 {
     if (Model.LivestreamUrl != null)
     {
         <div class="videoWrapper" style="padding-top: 64px;">
-            <iframe @*style="width:100%; height:100%;"*@ width="100%" height="100%" src="@(Model.LivestreamUrl)" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="frameLivestream" @*style="width:100%; height:100%;"*@ width="100%" height="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     }
     else
@@ -32,14 +33,34 @@ else
 
 }
 
+
+
+<div id="templateError" style="display:none">
+    <div class="error-livestream-title">
+        <h3 class="">Hiện tại chúng tôi chưa tiến hành livestream</h3>
+    </div>
+</div>
 @section scripts {
-   
+
 
     <script>
         $(document).ready(function () {
             $('.custom-menu').removeClass('menu-active');
             $('.menu-livestream').addClass('menu-active');
+
+            var url = '@(Model.LivestreamUrl)';
+            var isUrl = checkUrl(url);
+            if (isUrl) {
+                $('#frameLivestream').attr('src', url);
+            }
+            else {
+                $("#sectionTitle").append($('#templateError').clone().html());
+            }
+
         });
+
+
+
     </script>
 }
 

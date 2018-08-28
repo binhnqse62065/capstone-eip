@@ -192,3 +192,8 @@
     position:absolute;
     left:-5px;
 }
+
+.error-title-edit-event {
+    color:red;
+    display:none;
+}

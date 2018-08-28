@@ -10,10 +10,10 @@ namespace CapstoneProjectClient
 {
     public class ChatHub : Hub
     {
-        public void Send(string name, string message, int newQuestionId)
+        public void Send(string name, string message, int newQuestionId, int qaId)
         {
             // Call the addNewMessageToPage method to update clients.
-            Clients.All.addNewMessageToPage(name, message, newQuestionId);
+            Clients.All.addNewMessageToPage(name, message, newQuestionId, qaId);
         }
 
         public void SendReply(string name, string message, int questionId, int commentId)

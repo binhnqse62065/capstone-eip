@@ -74,8 +74,41 @@ namespace CapstoneProjectAdmin.Controllers
             try
             {
                 EventApi eventApi = new EventApi();
-                string eventBriefName = eventApi.UpdateEvent(eventUpdate);
-                return Json(new { success = true, briefName = eventBriefName });
+                bool isBriefNameExist = eventApi.CheckBriefNameExistUpdate(eventUpdate.EventID, eventUpdate.BriefName);
+                bool isCodeLoginExist = eventApi.CheckCodeLoginExistUpdate(eventUpdate.EventID, (int)eventUpdate.CodeLogin);
+                if(isBriefNameExist && isBriefNameExist)
+                {
+
+                    return Json(new
+                    {
+                        success = false,
+                        isBriefNameExist = true,
+                        isCodeLoginExist = true
+                    });
+                }
+                else if(isBriefNameExist)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        isBriefNameExist = true
+                    });
+                }
+                else if (isCodeLoginExist)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        isCodeLoginExist = true
+                    });
+                }
+                else
+                {
+                    string eventBriefName = eventApi.UpdateEvent(eventUpdate);
+                    return Json(new { success = true, briefName = eventBriefName });
+                }
+                
+                
             }
             catch(Exception e)
             {

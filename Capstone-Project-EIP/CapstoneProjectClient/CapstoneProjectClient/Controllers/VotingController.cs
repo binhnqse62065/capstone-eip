@@ -23,9 +23,8 @@ namespace CapstoneProjectClient.Controllers
                 EventId = c.EventId,
                 IsActive = (bool)c.IsActive
             }).ToList();
-
-            ViewBag.EventId = eventId;
-            ViewBag.SessionId = sessionId;
+            ViewBag.Collections = listCollection;
+            
             VotingApi votingApi = new VotingApi();
             InteractionApi interactionApi = new InteractionApi();
             int votingId = (int)interactionApi.GetVotingIdBySessionId(sessionId);
@@ -35,10 +34,28 @@ namespace CapstoneProjectClient.Controllers
             ViewBag.SessionName = sessionApi.GetSessionNameById(sessionId);
 
             var listSession = sessionApi.GetSessionsByEventId(eventId);
-            if (listSession.Count() == 1)
+            int countSession = listSession.Count();
+            if (countSession == 1)
             {
                 ViewBag.SessionNumber = 1;
+                ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
+                //return RedirectToAction("Index", "QA", new { eventId = ViewBag.EventId, sessionId = ViewBag.SessionId });
             }
+            else if (countSession == 0)
+            {
+                ViewBag.SessionNumber = 0;
+                ViewBag.SessionId = 0;
+            }
+            else
+            {
+                /*Trường hợp có nhiều session*/
+                ViewBag.SessionId = listSession.FirstOrDefault().SessionID;
+                ViewBag.SessionNumber = countSession;
+                ViewBag.IsSubMenu = true;
+            }
+
+            ViewBag.EventId = eventId;
+            ViewBag.SessionId = sessionId;
             return View(voting);
         }
 

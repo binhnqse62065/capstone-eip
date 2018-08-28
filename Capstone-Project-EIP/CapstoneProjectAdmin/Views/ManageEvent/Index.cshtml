@@ -292,7 +292,8 @@
             var description = $('#txtDescription').val();
             var typeId = parseInt($('#cbCollectionType').val());
             var isImage = true;
-            if ($('#cbType').val() === 1) {
+            var type = parseInt($('#cbType').val());
+            if (type === 1) {
                 isImage = false;
             }
             var isActive = false;
