@@ -39,13 +39,13 @@
                         @{
                             foreach (var session in Model)
                             {
-                                if (DateTime.Now <= session.EndTime && DateTime.Now >= session.StartTime)
+                                if (session.EndTime >= DateTime.Now.Date && session.StartTime <= DateTime.Now.Date)
                                 {
                                     <div class="container-login100-form-btn p-t-10">
-                                        <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">
+                                        <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session" style="height:100%; padding-top:20px; padding-bottom:20px;">
                                             @session.Name
                                             <br />
-                                            @(session.Address) - @(session.StartTime.Value.ToString("hh:mm"))
+                                            @(session.Address) @*- @(session.StartTime.Value.ToString("hh:mm"))*@
                                         </a>
 
                                     </div>
@@ -62,10 +62,10 @@
                             foreach (var session in Model)
                             {
                                 <div class="container-login100-form-btn p-t-10">
-                                    <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session">
+                                    <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session" style="height:100%; padding-top:20px; padding-bottom:20px;">
                                         @session.Name
                                         <br />
-                                        @(session.Address) - @(session.StartTime.Value.ToString("hh:mm"))
+                                        @(session.Address) @*- @(session.StartTime.Value.ToString("hh:mm"))*@
                                     </a>
                                 </div>
                             }
