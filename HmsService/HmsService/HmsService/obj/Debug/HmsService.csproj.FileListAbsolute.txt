@@ -179,3 +179,4 @@ E:\Study\CapstoneProject\EIP\HmsService\HmsService\HmsService\obj\Debug\HmsServi
 E:\Study\CapstoneProject\EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.dll
 E:\Study\CapstoneProject\EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.pdb
 E:\Study\CapstoneProject\EIP\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojAssemblyReference.cache
+E:\Study\GitClone\HmsService\HmsService\HmsService\obj\Debug\HmsService.csprojAssemblyReference.cache
