@@ -21,7 +21,7 @@
 }
 else
 {
-    <div class="row custom-row">
+    <div class="custom-row row">
         @{
             if (!(bool)Model.IsImage)
             //if (Model.TypeId == (int)MyEnum.CollectionType.File)
@@ -102,11 +102,10 @@ else
             {
                 foreach (var collectionItem in Model.CollectionItems)
                 {
-                    <div class="col-md-4 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', '@(collectionItem.Description)', '@(collectionItem.ImageUrl)', false)">
+                    <div class="col-md-3 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', '@(collectionItem.Description)', '@(collectionItem.ImageUrl)', false)">
                         <div class="box-speaker-shadow">
-                            <a href="" data-toggle="modal" data-target="#itemModal">
-                                <img class="img-fluid image-speaker-custom" src="@(collectionItem.ImageUrl)" alt="brand">
-                            </a>
+                            <div  data-toggle="modal" data-target="#itemModal" class="div-author" style="background-image:url(@(collectionItem.ImageUrl))">
+                            </div>
                             <div class="item-title">
                                 <h3 class="title title-medium" style="text-align:center">
                                     <a class="speaker-name">@(collectionItem.Name)</a>

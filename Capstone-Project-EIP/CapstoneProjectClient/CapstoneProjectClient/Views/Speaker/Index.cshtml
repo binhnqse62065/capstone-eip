@@ -24,9 +24,9 @@ else
             {
                 <div class="col-md-4 col-sm-6 col-12" onclick="showModalSpeaker('@(speaker.Name)', '@(speaker.Description)', '@(speaker.ImageUrl)')">
                     <div class="box-speaker-shadow">
-                        <a href="" data-toggle="modal" data-target="#speakerModal">
-                            <img class="img-fluid image-speaker-custom" src="@(speaker.ImageUrl)" alt="brand">
-                        </a>
+                        <div  data-toggle="modal" data-target="#speakerModal" class="div-author" style="background-image(@(speaker.ImageUrl))">
+                            
+                        </div>
                         <div class="item-title">
                             <h3 class="title title-medium" style="text-align:center">
                                 <a class="speaker-name">@(speaker.Name)</a>
