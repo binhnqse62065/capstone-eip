@@ -78,7 +78,7 @@
                         if (isSubmenu)
                         {
                             <li> <a class="custom-menu menu-qa" href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
-                            <li> <a class="custom-menu menu-voting" href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-check-circle-o"> </i><span>Bình chọn</span></a></li>
+
                             <li> <a class="custom-menu menu-timeline" href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
                             <li> <a class="custom-menu menu-livestream" href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
                             <li> <a class="custom-menu" href="/Session/Index/@(eventId)"> <i class="fa fa-sign-out"></i><span>Quay lại</span></a></li>
@@ -156,15 +156,32 @@
                             else
                             {
                                 //Trường hợp event có nhiều session thì show menu lựa session và menu event
-                                <li> <a class="custom-menu menu-session" href="@Url.Action("Index", "Session", new { eventId = eventId })"> <i class="fa fa-bars"></i><span>Các hoạt động</span></a></li>
                                 <li> <a class="custom-menu menu-event" href="@Url.Action("Index", "Home", new { eventId = eventId })"> <i class="icon-home"></i><span>Thông tin sự kiện</span></a></li>
+                                <li> <a class="custom-menu menu-session" href="@Url.Action("Index", "Session", new { eventId = eventId })"> <i class="fa fa-bars"></i><span>Các phiên tham luận</span></a></li>
                                 if (listCollection != null)
                                 {
+                                    var ltskCollections = listCollection.Where(c => c.TypeId == (int)MyEnum.CollectionType.LTSK);
+                                    if (ltskCollections != null)
+                                    {
+                                        foreach (var collection in ltskCollections)
+                                        {
+                                            if (collection.IsActive)
+                                            {
+                                                <li><a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-file-o"></i><span>@(collection.Name)</span></a></li>
+                                            }
+                                        }
+                                    }
+
                                     foreach (var collection in listCollection)
                                     {
                                         if (collection.IsActive)
                                         {
-                                            if (collection.TypeId == (int)MyEnum.CollectionType.Speaker)
+
+                                            if (collection.TypeId == (int)MyEnum.CollectionType.File)
+                                            {
+                                                <li> <a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-file-o"></i><span>@(collection.Name)</span></a></li>
+                                            }
+                                            else if (collection.TypeId == (int)MyEnum.CollectionType.Speaker)
                                             {
                                                 <li> <a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>@(collection.Name)</span></a></li>
                                             }
@@ -172,16 +189,9 @@
                                             {
                                                 <li> <a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>@(collection.Name)</span></a></li>
                                             }
-                                            else if (collection.TypeId == (int)MyEnum.CollectionType.File)
-                                            {
-                                                <li> <a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-file-o"></i><span>@(collection.Name)</span></a></li>
-                                            }
-                                            else
-                                            {
-                                                <li> <a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-cogs"></i><span>@(collection.Name)</span></a></li>
-                                            }
                                         }
                                     }
+                                    <li> <a class="custom-menu menu-voting" href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = -1 })"> <i class="fa fa-check-circle-o"> </i><span>@*Bình chọn*@ Khảo sát</span></a></li>
                                     <li> <a class="custom-menu" href="/"><i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
 
                                 }

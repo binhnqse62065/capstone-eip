@@ -15,7 +15,9 @@ namespace CapstoneProjectClient.ViewModel
             [Display(Name = "Speaker")]
             Speaker = 2,
             [Display(Name = "File")]
-            File = 4
+            File = 4,
+            [Display(Name = "Lịch trình sự kiện")]
+            LTSK = 5,
         }
     }
 }
