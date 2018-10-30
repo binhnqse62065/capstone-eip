@@ -25,8 +25,8 @@ namespace CapstoneProjectAdmin.API
             var session = db.Sessions.Where(s => s.EventId == id && s.IsActive == true).ToList().Select(s => new SessionViewModel {
                 SessionID = s.SessionID,
                 Name = s.Name,
-                StartTime = s.StartTime.Value.ToString("dd/MM/yyyy"),
-                EndTime = s.EndTime.Value.ToString("dd/MM/yyyy"),
+                StartTime = s.StartTime.Value.ToString("dd/MM/yyyy HH:mm"),
+                EndTime = s.EndTime.Value.ToString("dd/MM/yyyy HH:mm"),
                 Description = s.Description,
                 LivestreamUrl = s.LivestreamUrl,
                 Address = s.Address
@@ -60,12 +60,22 @@ namespace CapstoneProjectAdmin.API
 
         [Route("UpdateSession")]
         [HttpPost]
-        public HttpResponseMessage UpdateSession(Session session)
+        public HttpResponseMessage UpdateSession(EditorSessionModel request)
         {
             try
             {
+
+                var session = request.Session;
+                var startTimeStr = request.StartTimeStr.Trim();
+                var endTimeStr = request.EndTimeStr.Trim();
+                DateTime startTime = DateTime.ParseExact(startTimeStr, "dd/MM/yyyy HH:mm", null);
+                DateTime endTime = DateTime.ParseExact(endTimeStr, "dd/MM/yyyy HH:mm", null);
+                session.StartTime = startTime;
+                session.EndTime = endTime;
+
                 var curSession = db.Sessions.Find(session.SessionID);
                 curSession.Name = session.Name;
+                curSession.Address = session.Address;
                 curSession.Description = session.Description;
                 curSession.StartTime = session.StartTime;
                 curSession.EndTime = session.EndTime;
@@ -132,14 +142,30 @@ namespace CapstoneProjectAdmin.API
 
         }
 
+        public class EditorSessionModel
+        {
+            public Session Session { get; set; }
+            public string StartTimeStr { get; set; }
+            public string EndTimeStr { get; set; }
+        }
 
         [Route("AddSession")]
         [HttpPost]
-        public HttpResponseMessage AddSession(Session session)
+        public HttpResponseMessage AddSession(EditorSessionModel request)
         {
             try
             {
-                if(session.LivestreamUrl == null)
+                var session = request.Session;
+                var startTimeStr = request.StartTimeStr.Trim();
+                var endTimeStr = request.EndTimeStr.Trim();
+
+                DateTime startTime = DateTime.ParseExact(startTimeStr, "dd/MM/yyyy HH:mm", null);
+                DateTime endTime = DateTime.ParseExact(endTimeStr, "dd/MM/yyyy HH:mm", null);
+                session.StartTime = startTime;
+                session.EndTime = endTime;
+
+
+                if (session.LivestreamUrl == null)
                 {
                     session.LivestreamUrl = "";
                 }

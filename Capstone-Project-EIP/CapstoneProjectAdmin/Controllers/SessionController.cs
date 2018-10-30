@@ -21,8 +21,8 @@ namespace CapstoneProjectAdmin.Controllers
             var eventTmp = eventApi.GetEventByBriefName(briefName);
             ViewBag.EventId = eventTmp.EventID;
             ViewBag.BriefName = eventTmp.BriefName;
-            string startDate = eventTmp.StartTime.Value.ToString("dd/MM/yyyy");
-            string endDate = eventTmp.EndTime.Value.ToString("dd/MM/yyyy");
+            string startDate = eventTmp.StartTime.Value.ToString("dd/MM/yyyy HH:mm");
+            string endDate = eventTmp.EndTime.Value.ToString("dd/MM/yyyy HH:mm");
             ViewBag.StartDate = startDate;
             ViewBag.EndDate = endDate;
             return View();

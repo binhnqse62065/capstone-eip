@@ -66,7 +66,6 @@
 
                 <div class="form-group">
                     <label class="col-sm-3 form-control-label">Thời gian diễn ra:</label>
-
                     <div class="input-group col-sm-9">
                         <div class="input-group-addon">
                             <i class="fa fa-clock-o"></i>
@@ -268,16 +267,18 @@
             //Date range picker
             $('#startEndTimeAdd').daterangepicker({
                 locale: {
-                    format: 'DD/MM/YYYY'
+                    format: 'DD/MM/YYYY HH:mm'
                 },
                 startDate: '@(startDate)',
                 endDate: '@(endDate)',
                 minDate: '@(startDate)',
                 maxDate: '@(endDate)',
+                timePicker: true,
+                timePicker24Hour: true,
+                timePickerIncrement: 10,
                 onSelect: function (dateText) {
                     updateSelects(dateText);
                 }
-
             });
 
 
@@ -313,20 +314,22 @@
                     var startTimeTmp = timeSplit[0].trim();
                     var endTimeTmp = timeSplit[1].trim();
 
-                    var startTime = startTimeTmp.split("/").reverse().join("-");
-                    var endTime = endTimeTmp.split("/").reverse().join("-");
+                    var startTimeStr = startTimeTmp;
+                    var endTimeStr = endTimeTmp;
 
                     $.ajax({
                         url: urlApi + 'api/session/UpdateSession',
                         method: "POST",
                         data: {
-                            SessionID: $('#txtSessionId').val(),
-                            Name: $('#sessionName').val(),
-                            Description: $('#sessionDescription').val(),
-                            Address: sessionAddress,
-                            StartTime: startTime,
-                            EndTime: endTime,
-                            LivestreamUrl: $('#sessionLivestreamUrl').val()
+                            Session: {
+                                SessionID: $('#txtSessionId').val(),
+                                Name: $('#sessionName').val(),
+                                Description: $('#sessionDescription').val(),
+                                Address: sessionAddress,
+                                LivestreamUrl: $('#sessionLivestreamUrl').val()
+                            },
+                            StartTimeStr: startTimeStr,
+                            EndTimeStr: endTimeStr,
                         },
                         success: function (data) {
                             reloadTable();
@@ -379,20 +382,24 @@
 
                     var startEndTime = $('#startEndTimeAdd').val();
                     var timeSplit = startEndTime.split('-');
-                    var startTime = timeSplit[0].trim().split("/").reverse().join("-");
-                    var endTime = timeSplit[1].trim().split("/").reverse().join("-");
+                    //var startTime = timeSplit[0].trim().split("/").reverse().join("-");
+                    //var endTime = timeSplit[1].trim().split("/").reverse().join("-");
+                    var startTimeStr = timeSplit[0];
+                    var endTimeStr = timeSplit[1];
 
                     $.ajax({
                         url: urlApi + 'api/session/AddSession',
                         method: "POST",
                         data: {
-                            EventId: eventId,
-                            Name: sessionName,
-                            Description: sessionDescription,
-                            Address: sessionAddress,
-                            StartTime: startTime,
-                            EndTime: endTime,
-                            LivestreamUrl: livestreamUrl
+                            Session: {
+                                EventId: eventId,
+                                Name: sessionName,
+                                Description: sessionDescription,
+                                Address: sessionAddress,
+                                LivestreamUrl: livestreamUrl
+                            },
+                            StartTimeStr: startTimeStr,
+                            EndTimeStr: endTimeStr,
                         },
                         success: function (data) {
                             reloadTable();
@@ -423,10 +430,17 @@
             $('#sessionLivestreamUrl').val(livestreamUrl);
             $('#startEndTimeUpdate').daterangepicker({
                 locale: {
-                    format: 'DD/MM/YYYY'
+                    format: 'DD/MM/YYYY HH:mm'
                 },
+                startDate: startTime,
+                endDate: endTime,
                 minDate: '@(startDate)',
-                maxDate: '@(endDate)'
+                timePicker: true,
+                timePicker24Hour: true,
+                timePickerIncrement: 10,
+                onSelect: function (dateText) {
+                    updateSelects(dateText);
+                }
             });
         }
 

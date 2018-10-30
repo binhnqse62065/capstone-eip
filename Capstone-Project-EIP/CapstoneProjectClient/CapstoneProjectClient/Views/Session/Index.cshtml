@@ -39,7 +39,7 @@
                         @{
                             foreach (var session in Model)
                             {
-                                if (session.EndTime >= DateTime.Now.Date && session.StartTime <= DateTime.Now.Date)
+                                if (session.EndTime >= DateTime.Now && session.StartTime <= DateTime.Now)
                                 {
                                     <div class="container-login100-form-btn p-t-10">
                                         <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session" style="height:100%; padding-top:20px; padding-bottom:20px;">

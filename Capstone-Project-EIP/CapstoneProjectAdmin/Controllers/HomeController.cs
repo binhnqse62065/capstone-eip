@@ -68,7 +68,7 @@ namespace CapstoneProjectAdmin.Controllers
             return View(eventTmp);
         }
 
-        [HttpPost]
+        [HttpPost] 
         [ValidateInput(false)]
         public ActionResult Update(Event eventUpdate)
         {

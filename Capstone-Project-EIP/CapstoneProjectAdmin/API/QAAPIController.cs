@@ -9,6 +9,7 @@ using HmsService.Models.Entities;
 using CapstoneProjectAdmin.ViewModel;
 using CapstoneProjectAdmin.Models;
 using HmsService.ViewModels;
+using System.Data.Entity;
 
 namespace CapstoneProjectAdmin.API
 {
@@ -27,7 +28,7 @@ namespace CapstoneProjectAdmin.API
                 Name = q.QAName,
                 QAId = q.QAId
             });
-           
+
             return listQa;
         }
 
@@ -151,22 +152,52 @@ namespace CapstoneProjectAdmin.API
         [HttpPost]
         public HttpResponseMessage DeleteQA(QA qa)
         {
-            var interactionDelete = db.Interactions.Where(e => e.QAId == qa.QAId);
-            foreach (var item in interactionDelete)
+            using (DbContextTransaction trans = db.Database.BeginTransaction())
             {
-                db.Interactions.Remove(item);
-            }
-            var qaDelete = db.QAs.Find(qa.QAId);
-            db.QAs.Remove(qaDelete);
-            db.SaveChanges();
+                try
+                {
+                    var interactionDelete = db.Interactions.Where(e => e.QAId == qa.QAId);
+                    foreach (var item in interactionDelete)
+                    {
+                        db.Interactions.Remove(item);
+                    }
+                    var questions = db.Questions.Where(e => e.QAId == qa.QAId);
+                    foreach(var item in questions)
+                    {
+                        var comments = db.Comments.Where(e => e.QuestionId == item.QuestionId);
+                        foreach (var quest in comments)
+                        {
+                            db.Comments.Remove(quest);
+                        }
+                        db.Questions.Remove(item);
+                    }
 
+                    
+                    var qaDelete = db.QAs.Find(qa.QAId);
+                    db.QAs.Remove(qaDelete);
+                    db.SaveChanges();
+                } catch (Exception ex)
+                {
+                    trans.Rollback();
+                    return new HttpResponseMessage()
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Content = new JsonContent(new
+                        {
+                            success = false,
+                            message = "Xóa dữ liệu thất bại",
+                        })
+                    };
+                }
+                trans.Commit();
+            }
             return new HttpResponseMessage()
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new JsonContent(new
                 {
                     success = true,
-                    message = "Remove successful!",
+                    message = "Xóa dữ liệu thành công.",
                 })
             };
         }
