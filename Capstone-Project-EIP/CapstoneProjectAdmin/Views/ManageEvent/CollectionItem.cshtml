@@ -15,7 +15,7 @@
             <div class="row">
                 <h2 class="col-sm-10">Quản lý @(Model.Name.ToLower())</h2>
                 <div class="col-sm-2">
-                    <button class="btn btn-custom" type="submit" data-toggle="modal" data-target="#collectionItemEditModal" style="margin-top:20px" onclick="clearModal()">
+                    <button class="btn btn-custom" type="submit" data-toggle="modal" data-target="#collectionItemAddModal" style="margin-top:20px" onclick="clearModal()">
                         <i class="fa fa-plus" style="margin-right:7px" aria-hidden="true"></i>Thêm
                     </button>
                 </div>
@@ -307,7 +307,7 @@
                     }
                 }
                 // If file is resizable image, resize and embed it as a thumbnail preview
-                if (['jpeg', 'png'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
+                if (['jpeg', 'png', 'jpg'].indexOf(fileData.mimetype.split('/')[1]) !== -1) {
                     $('#thumbnailContainer img').attr('src', fileInput.value);
                 }
             }
@@ -415,10 +415,11 @@
                     url: '@Url.Action("UpdateCollectionItem", "ManageEvent")',
                     method: "POST",
                     data: {
-                        CollectionItemID: collectionItemId,
+                        CollectionItemID: collectionItemId ? collectionItemId : -1,
                         Name: name,
                         Description: description,
-                        ImageUrl: imageUrl
+                        ImageUrl: imageUrl,
+                        EventCollectionId: eventCollectionId
                     },
                     success: function (data) {
                         reloadTable();

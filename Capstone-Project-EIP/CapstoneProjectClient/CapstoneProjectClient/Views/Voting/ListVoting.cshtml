@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewBag.Title = "Bình chọn";
+}
+@using HmsService.Models.Entities;
+
+@model IEnumerable<Voting>
+@{
+    /*var voting = Model.Sessions.FirstOrDefault(e => e.SessionID == 1).Interactions.FirstOrDefault(e => e.IsRunning == true && e.VotingId != null).Voting;
+    var listOptions = Model.Votings.FirstOrDefault(e => e.VotingId == voting.VotingId).VotingOptions;*/
+}
+
+@*<link href="~/Content/bootstrap/Poll/css/bootstrap.css" rel="stylesheet" />*@
+<div class="container">
+    <div class="row" style="padding-top: 74px;">
+        <div class="col-md-12 text-center voting-title">
+            <h3>Khảo sát</h3>
+        </div>
+    </div>
+    @if (Model == null)
+    {
+        <h3 class="text-center">Hiện tại chúng tôi chưa tiến hành khảo sát</h3>
+    }
+    else
+    {
+        foreach (var voting in Model)
+        {
+            <div class="row ">
+                <div class="col-md-4 col-md-offset-4 panel-voting">
+                    <div class="user-poll-section">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong>Câu hỏi : </strong>@voting.VotingName
+                            </div>
+                            <div class="panel-body">
+                                @{
+                                    for (int i = 0; i < voting.VotingOptions.Count(); i++)
+                                    {
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" class="group-poll" name="group-poll" value="voting.VotingOptions.ElementAt(i).VotingOptionId">
+                                                &nbsp; &nbsp;  @voting.VotingOptions.ElementAt(i).VotingOptionContent
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <h5 id="thanks" style="color:green; text-align:center; display:none;"></h5>
+                            <div class="text-center">
+                                <a id="btn-vote" class="btn btn-custom-defaul"><span class="glyphicon glyphicon-bell"></span>Bình chọn</a>
+                            </div>
+                            <div id="result" class="panel-body result">
+                                <h5 class="text-danger">Kết quả người dùng bình chọn :</h5>
+                                <div id="result-voting-section">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" @*id="txt-voting-id"*@ name="voting-" value="@(voting != null ? voting.VotingId : 0)" />
+            <div id="progress-bar-result-template" style="display:none;">
+                <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+@section scripts {
+    <script src="~/Content/bootstrap/Poll/js/processBar.js"></script>
+
+    <script>
+        var urlApi = $(location).attr('origin');
+        var votingId = parseInt($('#txt-voting-id').val());
+
+        $(document).ready(function () {
+            $('.custom-menu').removeClass('menu-active');
+            $('.menu-voting').addClass('menu-active');
+
+            $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
+
+
+            //var select = parseInt($('input[name=group-poll]:checked').val());
+
+            var listVoting = JSON.parse(localStorage.getItem("listVotingInteract"));
+            if (listVoting !== null) {
+                var votingInteractTmp = listVoting.find(v => v.VotingId === votingId);
+                if (votingInteractTmp != null) {
+                    var votingOptionId = parseInt(votingInteractTmp.VotingOptionId);
+                    $('input.group-poll[value="' + votingOptionId + '"]').prop('checked', true);
+                    $('input.group-poll').prop('disabled', 'disabled');
+                    //$('input[name=group-poll][value="' + votingOptionId + ' "]').prop('checked', true);
+                    showVotingResult(votingOptionId, votingId, false);
+                }
+            }
+
+
+
+
+
+
+        });
+
+        $('.btn-vote').on('click', function (e) {
+            var selectOption = parseInt($('input[name=group-poll]:checked').val());
+            showVotingResult(selectOption, votingId, true);
+
+
+
+
+        });
+
+        function showVotingResult(votingOptionId, votingId, isSubmit) {
+            var urlApiCall;
+            if (isSubmit) {
+                urlApiCall = urlApi + '/api/voting/ChangeNumberOfVoting';
+            }
+            else {
+                urlApiCall = urlApi + '/api/voting/ShowResultOfVoting';
+            }
+
+            $.ajax({
+                url: urlApiCall,
+                method: "POST",
+                data: {
+                    VotingOptionId: votingOptionId,
+                    VotingId: votingId
+                },
+                success: function (data) {
+                    $('#result').load(' #result', function () {
+                        $('#btn-vote').css('display', 'none');
+                        $('#thanks').css('display', 'show');
+                        $('#thanks').text("Cảm ơn vì đã bình chọn!");
+                        $('.result').css('display', 'block');
+
+                        var resultTemplate = $('#progress-bar-result-template').clone();
+                        for (var i = 0; i < data.data.length; i++) {
+                            resultTemplate.find('.progress-bar').attr('data-transitiongoal', data.data[i]);
+                            $('#result-voting-section').append(resultTemplate.html());
+                        }
+
+                        $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
+
+                        var votingInteract = {
+                            "VotingId": parseInt($('#txt-voting-id').val()),
+                            "VotingOptionId": votingOptionId
+                        };
+                        var listVotingInteract = JSON.parse(localStorage.getItem("listVotingInteract"));
+                        if (listVotingInteract != null) {
+                            var votingTmp = listVotingInteract.find(v => v.VotingId === parseInt($('#txt-voting-id').val()));
+                            if (votingTmp == null) {
+                                listVotingInteract.push(votingInteract);
+                                localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteract));
+                            }
+
+                        }
+                        else {
+                            var listVotingInteractNew = [];
+                            listVotingInteractNew.push(votingInteract);
+                            localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteractNew));
+                        }
+                    });
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+
+
+    </script>
+}
+

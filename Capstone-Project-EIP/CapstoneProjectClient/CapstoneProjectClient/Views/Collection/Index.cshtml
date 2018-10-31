@@ -2,13 +2,12 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 }
 
 @using CapstoneProjectClient.ViewModel;
 @using HmsService.Models.Entities;
 @model EventCollection
-
 <div class="row" style="padding-top: 74px;">
     <div class="col-md-12 text-center voting-title">
         <h3>@(Model.Name)</h3>
@@ -100,20 +99,61 @@ else
             }
             else
             {
-                foreach (var collectionItem in Model.CollectionItems)
+                if (Model.TypeId == 2)
                 {
-                    <div class="col-md-4 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', '@(collectionItem.Description)', '@(collectionItem.ImageUrl)', false)">
-                        <div class="box-speaker-shadow">
-                            <a href="" data-toggle="modal" data-target="#itemModal">
-                                <img class="img-fluid image-speaker-custom" src="@(collectionItem.ImageUrl)" alt="brand">
-                            </a>
-                            <div class="item-title">
-                                <h3 class="title title-medium" style="text-align:center">
-                                    <a class="speaker-name">@(collectionItem.Name)</a>
-                                </h3>
+                    foreach (var collectionItem in Model.CollectionItems)
+                    {
+                        <div class="col-md-3 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', `@Html.Raw(collectionItem.Description)`, '@(collectionItem.ImageUrl)', false)">
+                            <div class="box-speaker-shadow">
+                                <div data-toggle="modal"
+                                     data-target="#itemModal"
+                                     class="img-fluid image-speaker-custom"
+                                     style="background-image: url(@collectionItem.ImageUrl);">
+
+                                </div>
+                                <div class="item-title">
+                                    <h3 class="title title-medium" style="text-align:center">
+                                        <a class="speaker-name">@(collectionItem.Name)</a>
+                                    </h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                }
+                else if (Model.TypeId == 3)
+                {
+                    foreach (var collectionItem in Model.CollectionItems)
+                    {
+                        <div class="col-md-3 col-sm-6 col-12" onclick="showModalItem('@(collectionItem.Name)', `@Html.Raw(collectionItem.Description)`, '@(collectionItem.ImageUrl)', false)">
+                            <div class="box-sponsor-shadow">
+                                <div data-toggle="modal"
+                                     data-target="#itemModal"
+                                     class="img-fluid image-sponsor-custom"
+                                     style="background-image: url(@collectionItem.ImageUrl);">
+
+                                </div>
+                                <div class="item-title">
+                                    <h3 class="title title-medium" style="text-align:center">
+                                        <a class="sponsor-name">@(collectionItem.Name)</a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else if (Model.TypeId == 5)
+                {
+                    <link href="~/Content/CustomCss/LTSK.css" rel="stylesheet" />
+
+                    foreach (var collectionItem in Model.CollectionItems)
+                    {
+                        <div class="col-12">
+                            <div class="box-ltsk-shadow">
+                                <img src="@collectionItem.ImageUrl" alt="Alternate Text" class="image-ltsk-custom" />
+
+                            </div>
+                        </div>
+                    }
                 }
             }
         }
@@ -130,7 +170,13 @@ else
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <img class="speaker-img image-speaker-custom" src="~/Content/img/data.jpg" />
+                <div data-toggle="modal"
+                     data-target="#itemModal"
+                     class="img-fluid image-speaker-custom speaker-img"
+                     style="background-image: url(./Content/img/data.jpg);">
+
+                </div>
+                @*<img class="speaker-img image-speaker-custom" src="~/Content/img/data.jpg" />*@
                 <p class="speaker-description"></p>
             </div>
             <div class="modal-footer">
@@ -148,14 +194,18 @@ else
     <script>
         function showModalItem(name, description, imgUrl, isFile) {
             $('.speaker-title').html(name);
-            $('.speaker-description').html(description);
-            $('.speaker-img').attr('src', imgUrl);
+            var showDescription = description.replace(new RegExp(/\n/, 'g'), '<br/>');
+            showDescription.replace('--', '<a>');
+            showDescription.replace('---', '</a>');
+            $('.speaker-description').html(showDescription);
+
+            $('.speaker-img').css('background-image', 'url(' + imgUrl + ')');
             if (isFile) {
                 $('.file-url').attr('onclick', 'window.open(' + "'" + imgUrl + "'" + ')');
                 //$('.speaker-img').attr('src', '/Content/img/data.jpg');
                 $('.speaker-img').css('display', 'none');
             }
-            
+
         }
         var typeId = @(Model.TypeId);
 

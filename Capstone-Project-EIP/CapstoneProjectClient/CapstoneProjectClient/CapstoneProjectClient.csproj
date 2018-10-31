@@ -451,6 +451,7 @@
     <Content Include="Content\CustomCss\customNav.css" />
     <Content Include="Content\CustomCss\file.css" />
     <Content Include="Content\CustomCss\home.css" />
+    <Content Include="Content\CustomCss\LTSK.css" />
     <Content Include="Content\CustomCss\main.css" />
     <Content Include="Content\CustomCss\QA.css" />
     <Content Include="Content\CustomCss\schedule.css" />
@@ -1020,6 +1021,7 @@
     <Content Include="Views\Session\Index.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
     <Content Include="Views\Collection\Index.cshtml" />
+    <Content Include="Views\Voting\ListVoting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

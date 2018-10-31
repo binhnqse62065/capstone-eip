@@ -76,14 +76,15 @@ namespace HmsService.Sdk
                 var interactionPlayItem = this.BaseService.FirstOrDefault(e => e.InteractionId == interaction.InteractionId);
                 foreach (var item in interactionIsRunning)
                 {
-                    if (interactionPlayItem.VotingId != null)
-                    {
-                        if (item.VotingId != null)
-                        {
-                            item.IsRunning = false;
-                        }
-                    }
-                    else if (interactionPlayItem.QAId != null)
+                    //if (interactionPlayItem.VotingId != null)
+                    //{
+                    //    if (item.VotingId != null)
+                    //    {
+                    //        item.IsRunning = false;
+                    //    }
+                    //}
+                    //else
+                    if (interactionPlayItem.QAId != null)
                     {
                         if (item.QAId != null)
                         {

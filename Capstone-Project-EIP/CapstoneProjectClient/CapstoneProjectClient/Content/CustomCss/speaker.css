@@ -1,32 +1,48 @@
 ﻿.image-speaker-custom {
-    width: 385px;
-    height: 216px;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    margin: auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .box-speaker-shadow {
     box-shadow: 5px 10px 20px 7px #888888;
-    margin-left: 5px;
-    margin-top: 5px;
-    margin-right: 5px;
+    padding: 10px;
+    
+    filter: grayscale(100%);
+}
+
+    .box-speaker-shadow:hover {
+        cursor: pointer;
+        color: red;
+    }
+
+
+.item-title {
+    padding-top:20px;
 }
 
 @media screen and (max-width: 600px) {
     .image-speaker-custom {
         width: 100%;
-        height: 180px;
+        height: 280px;
     }
 
     .box-speaker-shadow {
         box-shadow: 5px 10px 20px 7px #888888;
     }
+
     .modal-speaker {
-        margin-top:70px;
+        margin-top: 70px;
     }
 }
 
 .collection-empty-title {
-    margin-top:20px;
-    text-align:center;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .speaker-description {

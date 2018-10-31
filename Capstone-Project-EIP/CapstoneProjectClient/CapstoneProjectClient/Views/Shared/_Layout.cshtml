@@ -6,7 +6,7 @@
     string sessionName = ViewBag.SessionName != null ? ViewBag.SessionName : "";
     IEnumerable<EventCollectionViewModel> listCollection = ViewBag.Collections;
     //Trường hợp có nhiều session, click vô 1 session nhỏ sẽ chỉ hiện submenu của session đó
-    bool isSubmenu = ViewBag.IsSubMenu != null ? true : false;
+    bool isSubmenu = ViewBag.IsSubMenu != null ? ViewBag.IsSubMenu : false;
 }
 @using CapstoneProjectClient.ViewModel;
 <!DOCTYPE html>
@@ -77,9 +77,8 @@
 
                         if (isSubmenu)
                         {
-                            <li> <a class="custom-menu menu-qa" href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
-
                             <li> <a class="custom-menu menu-timeline" href="@Url.Action("Index", "Timeline", new { eventId = eventId, sessionId = sessionId })"><i class="icon-form"></i><span>Dòng thời gian</span></a></li>
+                            <li> <a class="custom-menu menu-qa" href="@Url.Action("Index", "QA", new { eventId = eventId, sessionId = sessionId })"><i class="fa fa-question-circle"></i><span>Hỏi đáp</span></a></li>
                             <li> <a class="custom-menu menu-livestream" href="@Url.Action("Index", "Livestream", new { eventId = eventId, sessionId = sessionId })"> <i class="fa fa-video-camera"></i><span>Trực tiếp</span></a></li>
                             <li> <a class="custom-menu" href="/Session/Index/@(eventId)"> <i class="fa fa-sign-out"></i><span>Quay lại</span></a></li>
                         }
@@ -191,7 +190,7 @@
                                             }
                                         }
                                     }
-                                    <li> <a class="custom-menu menu-voting" href="@Url.Action("Index", "Voting", new { eventId = eventId, sessionId = -1 })"> <i class="fa fa-check-circle-o"> </i><span>@*Bình chọn*@ Khảo sát</span></a></li>
+                                    <li> <a class="custom-menu menu-voting" href="@Url.Action("ListVoting", "Voting", new { eventId = eventId, sessionId = -1 })"> <i class="fa fa-check-circle-o"> </i><span>@*Bình chọn*@ Khảo sát</span></a></li>
                                     <li> <a class="custom-menu" href="/"><i class="fa fa-sign-out"></i><span>Thoát</span></a></li>
 
                                 }

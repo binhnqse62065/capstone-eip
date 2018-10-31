@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap/Login_v12/css/main.css">
     <link rel="stylesheet" href="~/Content/CustomCss/customNav.css">
+    <link rel="stylesheet" href="~/Content/CustomCss/LTSK.css">
 
     <!--===============================================================================================-->
     <!--Custom CSS-->
@@ -37,9 +38,9 @@
                 <div class="wrap-login100 p-t-190 p-b-30">
                     <div class="login100-form validate-form" id="div-section">
                         @{
-                            foreach (var session in Model)
+                            foreach (var session in Model.OrderBy(s => s.StartTime))
                             {
-                                if (session.EndTime >= DateTime.Now && session.StartTime <= DateTime.Now)
+                                if (session.EndTime >= DateTime.Now && session.StartTime.Value.AddDays(-2) <= DateTime.Now)
                                 {
                                     <div class="container-login100-form-btn p-t-10">
                                         <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session" style="height:100%; padding-top:20px; padding-bottom:20px;">
@@ -59,7 +60,7 @@
                 <div class="wrap-login100 p-t-190 p-b-30">
                     <div class="login100-form validate-form" id="div-section">
                         @{
-                            foreach (var session in Model)
+                            foreach (var session in Model.OrderBy(s => s.StartTime))
                             {
                                 <div class="container-login100-form-btn p-t-10">
                                     <a href="/QA/Index/@session.EventId/@session.SessionID" class="login100-form-btn custom-button" id="btn-session" style="height:100%; padding-top:20px; padding-bottom:20px;">

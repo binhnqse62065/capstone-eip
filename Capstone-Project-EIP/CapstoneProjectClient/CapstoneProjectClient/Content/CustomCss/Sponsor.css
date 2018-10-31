@@ -1,25 +1,32 @@
 ﻿.box-sponsor-shadow {
     box-shadow: 5px 10px 20px 7px #888888;
     margin-left: 5px;
-    margin-top: 5px;
     margin-right: 5px;
-    margin-bottom: 5px;
 }
 
+    .box-sponsor-shadow:hover {
+        cursor: pointer;
+        color: red;
+    }
+
 .image-sponsor-custom {
-    width: 385px;
-    height: 216px;
+    width: 300px;
+    height: 200px;
+    display: flex;
+    margin: auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 @media screen and (max-width: 600px) {
     .image-sponsor-custom {
         width: 100%;
-        min-width: 307.75px;
         height: 180px;
     }
 
     .modal-sponsor {
-        margin-top:70px;
+        margin-top: 70px;
     }
 }
 
