@@ -195,7 +195,7 @@ else
         function showModalItem(name, description, imgUrl, isFile) {
             $('.speaker-title').html(name);
             var showDescription = description.replace(new RegExp(/\n/, 'g'), '<br/>');
-            showDescription= showDescription.replace('--', '<a class="description-url">');
+            showDescription= showDescription.replace('--', '<a class="description-url" target="_blank">');
             showDescription= showDescription.replace('---', '</a>');
             $('.speaker-description').html(showDescription);
             $('.description-url').attr('href', $('.description-url').text());
