@@ -18,6 +18,8 @@ namespace CapstoneProjectClient.ViewModel
             File = 4,
             [Display(Name = "Lịch trình sự kiện")]
             LTSK = 5,
+            [Display(Name = "Sponsor Image")]
+            SponsorImage = 6,
         }
     }
 }

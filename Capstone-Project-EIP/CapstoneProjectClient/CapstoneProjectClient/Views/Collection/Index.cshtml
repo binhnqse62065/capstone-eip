@@ -155,6 +155,20 @@ else
                         </div>
                     }
                 }
+                else if (Model.TypeId == 6)
+                {
+                    <link href="~/Content/CustomCss/LTSK.css" rel="stylesheet" />
+
+                    foreach (var collectionItem in Model.CollectionItems)
+                    {
+                        <div class="col-12">
+                            <div class="box-ltsk-shadow">
+                                <img src="@collectionItem.ImageUrl" alt="Alternate Text" class="image-ltsk-custom" />
+
+                            </div>
+                        </div>
+                    }
+                }
             }
         }
 

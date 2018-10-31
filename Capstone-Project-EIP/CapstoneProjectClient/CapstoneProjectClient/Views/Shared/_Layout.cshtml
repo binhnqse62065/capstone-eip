@@ -188,6 +188,10 @@
                                             {
                                                 <li> <a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>@(collection.Name)</span></a></li>
                                             }
+                                            else if (collection.TypeId == (int)MyEnum.CollectionType.SponsorImage)
+                                            {
+                                                <li> <a class="custom-menu menu-collection-@(collection.TypeId)" href="@Url.Action("Index", "Collection", new { eventId = eventId, typeId = collection.TypeId, sessionId = sessionId })"> <i class="fa fa-users"></i><span>@(collection.Name)</span></a></li>
+                                            }
                                         }
                                     }
                                     <li> <a class="custom-menu menu-voting" href="@Url.Action("ListVoting", "Voting", new { eventId = eventId, sessionId = -1 })"> <i class="fa fa-check-circle-o"> </i><span>@*Bình chọn*@ Khảo sát</span></a></li>
