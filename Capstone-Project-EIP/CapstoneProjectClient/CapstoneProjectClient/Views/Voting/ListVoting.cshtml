@@ -29,6 +29,7 @@
                 <div class="col-md-4 col-md-offset-4 panel-voting">
                     <div class="user-poll-section">
                         <div class="panel panel-default">
+                            <input type="hidden" name="voting-id" value="@(voting != null ? voting.VotingId : 0)" />
                             <div class="panel-heading">
                                 <strong>Câu hỏi : </strong>@voting.VotingName
                             </div>
@@ -38,32 +39,32 @@
                                     {
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" class="group-poll" name="group-poll" value="voting.VotingOptions.ElementAt(i).VotingOptionId">
+                                                <input type="radio" class="group-poll" name="group-poll" value="@voting.VotingOptions.ElementAt(i).VotingOptionId">
                                                 &nbsp; &nbsp;  @voting.VotingOptions.ElementAt(i).VotingOptionContent
                                             </label>
                                         </div>
                                     }
                                 }
                             </div>
-                            <h5 id="thanks" style="color:green; text-align:center; display:none;"></h5>
+                            <h5 id="thanks-@(voting.VotingId)" style="color:green; text-align:center; display:none;"></h5>
                             <div class="text-center">
-                                <a id="btn-vote" class="btn btn-custom-defaul"><span class="glyphicon glyphicon-bell"></span>Bình chọn</a>
+                                <a id="btn-vote-@(voting.VotingId)" class="btn-vote btn btn-custom-defaul"><span class="glyphicon glyphicon-bell"></span>Bình chọn</a>
                             </div>
-                            <div id="result" class="panel-body result">
+                            <div id="result-@(voting.VotingId)" class="panel-body result voting-result">
                                 <h5 class="text-danger">Kết quả người dùng bình chọn :</h5>
-                                <div id="result-voting-section">
+                                <div id="result-voting-section-@(voting.VotingId)">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <input type="hidden" @*id="txt-voting-id"*@ name="voting-" value="@(voting != null ? voting.VotingId : 0)" />
-            <div id="progress-bar-result-template" style="display:none;">
-                <div class="progress progress-striped">
-                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
+                <div id="progress-bar-result-template-@(voting.VotingId)" style="display:none;">
+                    <div class="progress progress-striped">
+                        <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
+                    </div>
                 </div>
             </div>
+
         }
     }
 </div>
@@ -79,23 +80,20 @@
         $(document).ready(function () {
             $('.custom-menu').removeClass('menu-active');
             $('.menu-voting').addClass('menu-active');
-
             $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
-
-
             //var select = parseInt($('input[name=group-poll]:checked').val());
 
-            var listVoting = JSON.parse(localStorage.getItem("listVotingInteract"));
-            if (listVoting !== null) {
-                var votingInteractTmp = listVoting.find(v => v.VotingId === votingId);
-                if (votingInteractTmp != null) {
-                    var votingOptionId = parseInt(votingInteractTmp.VotingOptionId);
-                    $('input.group-poll[value="' + votingOptionId + '"]').prop('checked', true);
-                    $('input.group-poll').prop('disabled', 'disabled');
-                    //$('input[name=group-poll][value="' + votingOptionId + ' "]').prop('checked', true);
-                    showVotingResult(votingOptionId, votingId, false);
-                }
-            }
+            //var listVoting = JSON.parse(localStorage.getItem("listVotingInteract"));
+            //if (listVoting !== null) {
+            //    var votingInteractTmp = listVoting.find(v => v.VotingId === votingId);
+            //    if (votingInteractTmp != null) {
+            //        var votingOptionId = parseInt(votingInteractTmp.VotingOptionId);
+            //        $('input.group-poll[value="' + votingOptionId + '"]').prop('checked', true);
+            //        $('input.group-poll').prop('disabled', 'disabled');
+            //        //$('input[name=group-poll][value="' + votingOptionId + ' "]').prop('checked', true);
+            //        showVotingResult(votingOptionId, votingId, false);
+            //    }
+            //}
 
 
 
@@ -105,15 +103,16 @@
         });
 
         $('.btn-vote').on('click', function (e) {
-            var selectOption = parseInt($('input[name=group-poll]:checked').val());
-            showVotingResult(selectOption, votingId, true);
 
-
-
+            var votingContainer = e.currentTarget.parentElement.parentElement;
+            var votingVal = $(votingContainer).find('input[name="group-poll"]:checked').val();
+            var votingId = parseInt($(votingContainer).find('input[name="voting-id"]').val());
+            var selectOption = parseInt(votingVal);
+            showVotingResult(selectOption, votingId, true, votingContainer);
 
         });
 
-        function showVotingResult(votingOptionId, votingId, isSubmit) {
+        function showVotingResult(votingOptionId, votingId, isSubmit, votingContainer) {
             var urlApiCall;
             if (isSubmit) {
                 urlApiCall = urlApi + '/api/voting/ChangeNumberOfVoting';
@@ -130,27 +129,29 @@
                     VotingId: votingId
                 },
                 success: function (data) {
-                    $('#result').load(' #result', function () {
-                        $('#btn-vote').css('display', 'none');
-                        $('#thanks').css('display', 'show');
-                        $('#thanks').text("Cảm ơn vì đã bình chọn!");
-                        $('.result').css('display', 'block');
+                    //$('#result-' + votingId).on('#result-' + votingId, function () {
+                        $('#btn-vote-' + votingId).css('display', 'none');
+                        $('#thanks-' + votingId).css('display', 'show');
+                        $('#thanks-' + votingId).text("Cảm ơn vì đã bình chọn!");
+                        $('#result-' + votingId).css('display', 'block');
 
-                        var resultTemplate = $('#progress-bar-result-template').clone();
+                        var resultTemplate = $('#progress-bar-result-template-' + votingId);
+                        var resultProgressBars = '';
                         for (var i = 0; i < data.data.length; i++) {
                             resultTemplate.find('.progress-bar').attr('data-transitiongoal', data.data[i]);
-                            $('#result-voting-section').append(resultTemplate.html());
+                            resultProgressBars += resultTemplate.html();
                         }
+                        $('#result-voting-section-' + votingId).html(resultProgressBars);
 
                         $('.progress .progress-bar').progressbar({ display_text: 'center', percent_format: function (p) { return p + '%'; } });
 
                         var votingInteract = {
-                            "VotingId": parseInt($('#txt-voting-id').val()),
+                            "VotingId": parseInt(votingId),
                             "VotingOptionId": votingOptionId
                         };
                         var listVotingInteract = JSON.parse(localStorage.getItem("listVotingInteract"));
                         if (listVotingInteract != null) {
-                            var votingTmp = listVotingInteract.find(v => v.VotingId === parseInt($('#txt-voting-id').val()));
+                            var votingTmp = listVotingInteract.find(v => v.VotingId === parseInt(votingId));
                             if (votingTmp == null) {
                                 listVotingInteract.push(votingInteract);
                                 localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteract));
@@ -162,7 +163,7 @@
                             listVotingInteractNew.push(votingInteract);
                             localStorage.setItem("listVotingInteract", JSON.stringify(listVotingInteractNew));
                         }
-                    });
+                    //});
                 },
                 error: function (data) {
                     console.log(data);
