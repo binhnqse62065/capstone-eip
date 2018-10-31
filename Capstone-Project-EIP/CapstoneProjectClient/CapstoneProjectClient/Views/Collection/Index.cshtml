@@ -195,12 +195,11 @@ else
         function showModalItem(name, description, imgUrl, isFile) {
             $('.speaker-title').html(name);
             var showDescription = description.replace(new RegExp(/\n/, 'g'), '<br/>');
-            showDescription.replace('--', '<a class="description-url">');
-            showDescription.replace('---', '</a>');
+            showDescription= showDescription.replace('--', '<a class="description-url">');
+            showDescription= showDescription.replace('---', '</a>');
             $('.speaker-description').html(showDescription);
-            $('.description-url').attr('attr', $('.description-url').text());
-
-
+            $('.description-url').attr('href', $('.description-url').text());
+            
             $('.speaker-img').css('background-image', 'url(' + imgUrl + ')');
             if (isFile) {
                 $('.file-url').attr('onclick', 'window.open(' + "'" + imgUrl + "'" + ')');

@@ -23,49 +23,51 @@
     }
     else
     {
-        foreach (var voting in Model)
-        {
-            <div class="row ">
-                <div class="col-md-4 col-md-offset-4 panel-voting">
-                    <div class="user-poll-section">
-                        <div class="panel panel-default">
-                            <input type="hidden" name="voting-id" value="@(voting != null ? voting.VotingId : 0)" />
-                            <div class="panel-heading">
-                                <strong>Câu hỏi : </strong>@voting.VotingName
-                            </div>
-                            <div class="panel-body">
-                                @{
-                                    for (int i = 0; i < voting.VotingOptions.Count(); i++)
-                                    {
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" class="group-poll" name="group-poll" value="@voting.VotingOptions.ElementAt(i).VotingOptionId">
-                                                &nbsp; &nbsp;  @voting.VotingOptions.ElementAt(i).VotingOptionContent
-                                            </label>
-                                        </div>
-                                    }
+        <div class="row ">
+
+            @foreach (var voting in Model)
+            {
+            <div class="col-md-12">
+                <div class="user-poll-section">
+                    <div class="panel panel-default">
+                        <input type="hidden" name="voting-id" value="@(voting != null ? voting.VotingId : 0)" />
+                        <div class="panel-heading">
+                            <strong>Câu hỏi : </strong>@voting.VotingName
+                        </div>
+                        <div class="panel-body">
+                            @{
+                                for (int i = 0; i < voting.VotingOptions.Count(); i++)
+                                {
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" class="group-poll" name="group-poll" value="@voting.VotingOptions.ElementAt(i).VotingOptionId">
+                                            &nbsp; &nbsp;  @voting.VotingOptions.ElementAt(i).VotingOptionContent
+                                        </label>
+                                    </div>
                                 }
-                            </div>
-                            <h5 id="thanks-@(voting.VotingId)" style="color:green; text-align:center; display:none;"></h5>
-                            <div class="text-center">
-                                <a id="btn-vote-@(voting.VotingId)" class="btn-vote btn btn-custom-defaul"><span class="glyphicon glyphicon-bell"></span>Bình chọn</a>
-                            </div>
-                            <div id="result-@(voting.VotingId)" class="panel-body result voting-result">
-                                <h5 class="text-danger">Kết quả người dùng bình chọn :</h5>
-                                <div id="result-voting-section-@(voting.VotingId)">
-                                </div>
+                            }
+                        </div>
+                        <h5 id="thanks-@(voting.VotingId)" style="color:green; text-align:center; display:none;"></h5>
+                        <div class="text-center">
+                            <a id="btn-vote-@(voting.VotingId)" class="btn-vote btn btn-custom-defaul"><span class="glyphicon glyphicon-bell"></span>Bình chọn</a>
+                        </div>
+                        <div id="result-@(voting.VotingId)" class="panel-body result voting-result">
+                            <h5 class="text-danger">Kết quả người dùng bình chọn :</h5>
+                            <div id="result-voting-section-@(voting.VotingId)">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="progress-bar-result-template-@(voting.VotingId)" style="display:none;">
-                    <div class="progress progress-striped">
-                        <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
-                    </div>
+            </div>
+            <div id="progress-bar-result-template-@(voting.VotingId)" style="display:none;">
+                <div class="progress progress-striped">
+                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal=""></div>
                 </div>
             </div>
 
-        }
+            }
+        </div>
+
     }
 </div>
 
