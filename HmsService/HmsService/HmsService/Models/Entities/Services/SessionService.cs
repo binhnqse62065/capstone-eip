@@ -20,7 +20,7 @@ namespace HmsService.Models.Entities.Services
             try
             {
                 
-                return this.Get(s => s.EventId == eventId).Select(s => new SessionViewModel
+                return this.Get(s => s.EventId == eventId && s.IsActive == true).Select(s => new SessionViewModel
                 {
                     SessionID = s.SessionID,
                     Name = s.Name,

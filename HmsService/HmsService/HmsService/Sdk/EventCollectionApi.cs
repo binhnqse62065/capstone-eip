@@ -41,7 +41,7 @@ namespace HmsService.Sdk
 
         public IEnumerable<EventCollection> GetCollectionByEventId(int eventId)
         {
-            return this.BaseService.Get(c => c.EventId == eventId).ToList();
+            return this.BaseService.Get(c => c.EventId == eventId && c.IsActive == true).ToList();
         }
 
         public int AddNewEventCollection(EventCollection eventCollection)
